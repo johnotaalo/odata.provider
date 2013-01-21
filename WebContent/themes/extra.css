@@ -1,0 +1,80 @@
+@charset "UTF-8";
+.error { margin: 20px; color: red; }
+.success { margin: 10px; padding: 5px; display: block; color: green; background-color: aliceblue}
+.code { font-family: monospace; font-weight: bold; }
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+#main table {
+    margin: 15px;
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #f0f0f0 !important;
+    padding: 1px;
+}
+
+#main table td, #main table th {
+    padding: 2px;
+    border: 1px solid #f0f0f0;
+}
+
+#main td.tright { text-align: right;}
+
+ul.full {
+    margin-left: 30px;
+    list-style-type: square !important;
+}
+
+div.field label {
+    width: 200px;
+    float: left;
+}
+
+.icon-blue-checkbox {
+    width: 12px;
+    height: 12px;
+    background-image : url(images/469bdd_256x240_icons_icons.png);
+    background-position: -66px -146px;
+    background-repeat: no-repeat;
+}
+
+.icon-blue-checkbox img {
+    width: 12px;
+    height: 12px;
+}
+
+
+.icon-red-x {
+    width: 12px;
+    height: 12px;
+    background-image : url(images/cd0a0a_256x240_icons_icons.png);
+    background-position: -82px -131px;
+    background-repeat: no-repeat;
+}
+
+.icon-blue-x img {
+    width: 12px;
+    height: 12px;
+}
+
+.sql-table tr td {
+    padding: 1px 2px 1px 2px !important;
+
+}
+
+.sql-table tr.zebra {
+    background: #E0E0E0;
+}
+
+.sql-table tr td {
+    white-space: nowrap;
+    text-align: left;
+    border-left: 1px solid #e7e7e7;
+}
+
+.sql-table tr th {
+    white-space: nowrap;
+    text-align: left;
+}
+
+table.entities tr.zebra { background: #E0E0E0; }

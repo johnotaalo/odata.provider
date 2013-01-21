@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiResourceLocking="false" path="/informea" privileged="true">
+  <Logger className="org.apache.catalina.logger.FileLogger" prefix="localhost_informea.log" suffix=".txt" timestamp="true"/>
+</Context>

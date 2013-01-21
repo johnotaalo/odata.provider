@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." name="informea-odata" default="bundle">
+    <property name="imea.odata.version" value="1.5.6" />
+    <property environment="env" />
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="source" value="1.5" />
+    <property name="target" value="1.5" />
+
+    <path id="compile.classpath">
+        <pathelement location="WebContent/WEB-INF/lib/junit-4.9b2.jar" />
+        <pathelement location="WebContent/WEB-INF/lib/odata4j-nojpabundle-SNAPSHOT-20110317110824.jar" />
+        <pathelement location="WebContent/WEB-INF/lib/hibernate3.jar" />
+        <pathelement location="WebContent/WEB-INF/lib/hibernate-validator.jar" />
+        <pathelement location="etc/servlet-api.jar" />
+    </path>
+
+    <target name="init">
+        <mkdir dir="bin" />
+        <mkdir dir="build" />
+        <mkdir dir="build/classes" />
+        <mkdir dir="temp" />
+        <mkdir dir="temp/doc" />
+        <mkdir dir="temp/doc/api" />
+        <mkdir dir="dist" />
+    </target>
+
+    <target name="compile" depends="init">
+        <javac debug="true"  debuglevel="${debuglevel}" destdir="build/classes" source="${source}" target="${target}">
+            <!-- compilerarg value="-Xlint:unchecked"/ -->
+            <src path="src" />
+            <classpath refid="compile.classpath" />
+        </javac>
+        <jar destfile="dist/informea-api-${imea.odata.version}.jar">
+            <fileset dir="build/classes" excludes="**/example/**" />
+        </jar>
+        <jar destfile="dist/informea-api-${imea.odata.version}-src.jar" basedir="src" excludes="**/example/**" />
+    </target>
+
+    <target name="javadoc">
+        <javadoc sourcepath="src"
+                packagenames="org.informea.*"
+                defaultexcludes="yes"
+                destdir="temp/doc/api"
+                author="true"
+                version="true"
+                use="true"
+                windowtitle="Informea OData API Documentation"
+                classpathref="compile.classpath">
+            <doctitle><![CDATA[<h1>Informea OData API</h1>]]>
+            </doctitle>
+            <bottom><![CDATA[<i>Copyright &#169; 2011 <a href="http://informea.org/">UNEP</a> . All Rights Reserved.</i>]]></bottom>
+            <link href="http://download.oracle.com/javase/6/docs/api/"/>
+        </javadoc>
+        <jar destfile="dist/informea-api-${imea.odata.version}-javadoc.jar" basedir="temp/doc/api" />
+    </target>
+
+    <target name="bundle" depends="compile, javadoc">
+        <mkdir dir="dist/informea" />
+        <delete file="dist/toolkit-webapp-${imea.odata.version}.zip" />
+        <copy todir="dist/informea">
+            <fileset dir="WebContent" />
+        </copy>
+        <copy todir="dist/informea/WEB-INF/lib" file="dist/informea-api-${imea.odata.version}.jar" />
+        <copy todir="dist/informea/WEB-INF/lib" file="dist/informea-api-${imea.odata.version}-src.jar" />
+        <copy todir="dist/informea/WEB-INF/lib" file="dist/informea-api-${imea.odata.version}-javadoc.jar" />
+
+        <!-- Zip the webapp directory -->
+        <zip destfile="dist/toolkit-webapp-${imea.odata.version}.zip" duplicate="fail">
+            <zipfileset dir="dist" excludes="*.jar" />
+        </zip>
+
+        <!-- Clean the temporary files -->
+
+        <delete dir="bin" />
+        <delete dir="temp" />
+        <delete dir="build" />
+        <delete dir="dist/informea" />
+    </target>
+
+    <target name="bundle-jrun" depends="compile, javadoc">
+        <mkdir dir="dist/informea" />
+        <delete file="dist/toolkit-webapp-${imea.odata.version}.zip" />
+        <copy todir="dist/informea" overwrite="true">
+            <!-- Ignore JSTL libraries - required by Tomcat, but rejected by JRun -->
+            <fileset dir="WebContent" excludes="**/jstl-1.2.jar, **/jstl-api-1.2.jar, **/jstl-impl-1.2.jar, **/web.xml" />
+        </copy>
+        <copy todir="dist/informea/WEB-INF/lib" file="dist/informea-api-${imea.odata.version}.jar" />
+        <copy todir="dist/informea/WEB-INF/lib" file="dist/informea-api-${imea.odata.version}-src.jar" />
+        <copy todir="dist/informea/WEB-INF/lib" file="dist/informea-api-${imea.odata.version}-javadoc.jar" />
+
+        <!-- Copy JRun specific WEB-INF/ folder -->
+        <copy todir="dist/informea">
+            <fileset dir="jrun" />
+        </copy>
+
+
+        <!-- Zip the webapp directory -->
+        <zip destfile="dist/toolkit-webapp-${imea.odata.version}.zip" duplicate="fail">
+            <zipfileset dir="dist/informea" excludes="*.jar" />
+        </zip>
+
+        <!-- Clean the temporary files -->
+
+        <delete dir="bin" />
+        <delete dir="temp" />
+        <delete dir="build" />
+        <delete dir="dist/informea" />
+    </target>
+
+    <target name="clean">
+        <delete dir="bin" />
+        <delete dir="temp" />
+        <delete dir="build" />
+        <delete dir="dist" />
+    </target>
+</project>
