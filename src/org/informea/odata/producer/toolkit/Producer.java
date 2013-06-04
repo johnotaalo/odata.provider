@@ -52,7 +52,7 @@ public class Producer extends AbstractInformeaProducer {
 
     public static final int MAJOR = 1;
     public static final int MINOR = 5;
-    public static final int REVISION = 7;
+    public static final int REVISION = 8;
     public static final boolean BETA = true;
     public static final String UPDATE_URL = "http://www.informea.org/api.properties";
 
