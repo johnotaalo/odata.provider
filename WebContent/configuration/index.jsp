@@ -14,6 +14,7 @@
     <jsp:param name="html_title" value="InforMEA provider configuration" />
     <jsp:param name="current_menu_item" value="configuration" />
 </jsp:include>
+<div class="content">
     <h1>Welcome to InforMEA service configuration</h1>
     <% if(cfg.isInstalled()) { %>
             Provider seem to be configured. Whould you like to <em>reconfigure</em>?
@@ -37,7 +38,7 @@
         <% } else { %>
             Your provider is not yet configured. From this page you can configure the provider to suit your installation.
             <div style="margin: 20px;">
-                <form action="" method="POST">
+                <form action="" method="post">
                     <input id="continue" type="checkbox" name="continue" value="ON" />
                     <label for="continue">I read and understand the instructions</label>
                     <br />
@@ -1025,4 +1026,5 @@
     <br />
     <br />
     <br />
+</div>
 <jsp:include page="../WEB-INF/includes/footer.jsp" />

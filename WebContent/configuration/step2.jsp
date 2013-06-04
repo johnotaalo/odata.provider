@@ -69,6 +69,7 @@
     <jsp:param name="html_title" value="Select available entities" />
     <jsp:param name="current_menu_item" value="configuration" />
 </jsp:include>
+<div class="content">
     <div id="breadcrumb">
         You are here: <a href="<%= ToolkitUtil.url(request, null) %>">home</a>
         &raquo;
@@ -79,14 +80,10 @@
         select available entities
     </div>
     <h1>Select available entities</h1>
-    <%
-    if(next && invalidSelection) {
-    %>
+    <% if(next && invalidSelection) { %>
     <p class="error">Invalid selection. Please select at least one entity to have exposed</p>
-    <%
-    }
-    %>
-    <form action="" method="POST">
+    <% } %>
+    <form action="" method="post">
         <table style="width: 40%;" class="entities">
             <tr>
                 <th width="1%">Check</th>
@@ -212,7 +209,6 @@
                 </td>
             </tr>
         </table>
-
         <div id="pebldsTable">
             <label for="<%= Configuration.URL_PEBLDS_FILES %>">Peblds HTTP URL prefix to download files (ex: http://peblds.org/downloads/)</label>
             <br />
@@ -231,30 +227,29 @@
                 <a class="button search-explorer-submit mousedown" title="Back button" href="index.jsp">
                     <span>Abort</span>
                 </a>
-
             </p>
         <% } else { %>
         <input type="submit" name="next" value="Next &raquo;" tabindex="8" />
         <% } %>
     </form>
+    <script type="text/javascript">
+        if (!document.getElementById('<%= Configuration.USE_TECHNICAL_REPORTS %>').checked &&
+                !document.getElementById('<%= Configuration.USE_BEST_PRACTICES %>').checked &&
+                !document.getElementById('<%= Configuration.USE_PROJECTS %>').checked) {
+            document.getElementById('pebldsTable').style.display = "none";
+        }
 
-	<script type="text/javascript">
-		if (!document.getElementById('<%= Configuration.USE_TECHNICAL_REPORTS %>').checked &&
-				!document.getElementById('<%= Configuration.USE_BEST_PRACTICES %>').checked &&
-				!document.getElementById('<%= Configuration.USE_PROJECTS %>').checked){
-			document.getElementById('pebldsTable').style.display = "none";
-		}
-
-		function showPebldsTable(){
-			if (document.getElementById('<%= Configuration.USE_TECHNICAL_REPORTS %>').checked ||
-					document.getElementById('<%= Configuration.USE_BEST_PRACTICES %>').checked ||
-					document.getElementById('<%= Configuration.USE_PROJECTS %>').checked){
-				document.getElementById('pebldsTable').style.display = "";
-			} else {
-				document.getElementById('pebldsTable').style.display = "none";
-			}
-		}
-	</script>
+        function showPebldsTable(){
+            if (document.getElementById('<%= Configuration.USE_TECHNICAL_REPORTS %>').checked ||
+                document.getElementById('<%= Configuration.USE_BEST_PRACTICES %>').checked ||
+                document.getElementById('<%= Configuration.USE_PROJECTS %>').checked){
+                document.getElementById('pebldsTable').style.display = "";
+            } else {
+                document.getElementById('pebldsTable').style.display = "none";
+            }
+        }
+    </script>
     <br />
     <br />
+</div>
 <jsp:include page="../WEB-INF/includes/footer.jsp" />

@@ -4,6 +4,7 @@
     <jsp:param name="html_title" value="InforMEA OData provider" />
     <jsp:param name="current_menu_item" value="faq" />
 </jsp:include>
+<div class="content">
     <h1>Frequently Asked Questions</h1>
 
     <strong>Q1</strong> : Where are the toolkit preferences stored?
@@ -102,4 +103,5 @@
     <br />
     <br />
     <br />
+</div>
 <jsp:include page="../WEB-INF/includes/footer.jsp" />

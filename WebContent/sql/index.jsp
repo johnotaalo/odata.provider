@@ -60,6 +60,7 @@
     <jsp:param name="html_title" value="InforMEA OData provider" />
     <jsp:param name="current_menu_item" value="sql" />
 </jsp:include>
+<div class="content">
     <h1>SQL Web console</h1>
     <% if(!configured) { %>
         <h2>Connect to database</h2>
@@ -111,7 +112,6 @@
             </table>
         </div>
             <%
-
             } else {
                 if(error != null) {
                     out.print(String.format("<p class=\"error\">%s</p>", error));
@@ -120,9 +120,9 @@
                 }
             }
         }
-    }
-%>
+    } %>
     <br />
     <br />
     <br />
+</div>
 <jsp:include page="../WEB-INF/includes/footer.jsp" />

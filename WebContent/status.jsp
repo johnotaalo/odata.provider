@@ -15,16 +15,16 @@
     try {
         dp = new DatabaseDataProvider();
         dp.openResources();
-   } catch(Exception ex) {
-       ex.printStackTrace();
-   }
-
+    } catch(Exception ex) {
+        ex.printStackTrace();
+    }
     pageContext.setAttribute("cfg", cfg);
 %>
 <jsp:include page="WEB-INF/includes/header.jsp">
     <jsp:param name="html_title" value="InforMEA service status" />
     <jsp:param name="current_menu_item" value="status" />
 </jsp:include>
+<div class="content">
     <h1>Service status</h1>
     <% if(!cfg.isInstalled()) { %>
         <p class="error">
@@ -37,7 +37,6 @@
         } else {
             Producer p = new Producer();
     %>
-
         <p>
             OData service enpoint - <a href="services/odata.svc">Browse</a>
         </p>
@@ -176,7 +175,6 @@
                 </tr>
             </tbody>
         </table>
-
         <c:if test="${!empty pageContext.request.userPrincipal}">
         <h2>Configuration</h2>
             Change service parameters - Go to service <a href="configuration/">configuration</a>.
@@ -187,6 +185,7 @@
             <li><a href="http://informea.org/wp-content/uploads/api/javadoc/latest/">JavaDoc API</a> - documentation for the API classes and interfaces</li>
         </ol>
     <% } %>
+</div>
 <jsp:include page="WEB-INF/includes/footer.jsp" />
 <%
     dp.closeResources();

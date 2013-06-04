@@ -27,16 +27,15 @@
     <jsp:param name="html_title" value="Step 3. Finish" />
     <jsp:param name="current_menu_item" value="configuration" />
 </jsp:include>
-
-<h1>Step 3. Finish</h1>
-<p>
-	Your server was successfully configured!
-	
-	<form method="POST" action="../">
-		<input type="submit" name="finish" value="Finish" />
-	</form>
-</p>
-
-<br />
-<br />
+<div class="content">
+    <h1>Step 3. Finish</h1>
+    <p>
+        Your server was successfully configured!
+    </p>
+    <form method="post" action="../">
+        <input type="submit" name="finish" value="Finish" />
+    </form>
+    <br />
+    <br />
+</div>
 <jsp:include page="../WEB-INF/includes/footer.jsp" />

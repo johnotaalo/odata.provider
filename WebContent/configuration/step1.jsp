@@ -67,6 +67,7 @@
         return true;
     }
 </script>
+<div class="content">
     <div id="breadcrumb">
         You are here: <a href="<%= ToolkitUtil.url(request, null) %>">home</a>
         &raquo;
@@ -83,7 +84,7 @@
         <% } %>
     </div>
     <% } %>
-    <form action="" method="POST" onsubmit="return validateOnSubmit();">
+    <form action="" method="post" onsubmit="return validateOnSubmit();">
         <div class="field">
             <label for="<%= Configuration.DB_TYPE %>">
                 Database type
@@ -139,11 +140,11 @@
     <br />
     <br />
     <br />
-    <em>Notice: As a securiy measure, you are advised to create a dedicated user
-        for the toolkit that has only SELECT permission on the database.
-        On MySQL database, this is accomplished by issuing the following statement:
-        <pre>
-            GRANT SELECT ON database_name.* TO 'informea_user'@'localhost' IDENTIFIED BY 'secure-password'
-        </pre>
-    </em>
+    Notice: As a securiy measure, you are advised to create a dedicated user
+    for the toolkit that has only SELECT permission on the database.
+    On MySQL database, this is accomplished by issuing the following statement:
+    <pre>
+        GRANT SELECT ON database_name.* TO 'informea_user'@'localhost' IDENTIFIED BY 'secure-password'
+    </pre>
+</div>
 <jsp:include page="../WEB-INF/includes/footer.jsp" />
