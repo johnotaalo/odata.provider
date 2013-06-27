@@ -5,6 +5,9 @@
 a { text-decoration: none; }
 a:hover { text-decoration: underline; }
 
+/* Hide secondary menu */
+ul#menu-secondary-menu { display: none; }
+
 #main table {
     margin: 15px;
     width: 100%;

@@ -14,5 +14,5 @@
         <%= ToolkitUtil.httpPostCached(Configuration.getInstance().getTemplateHeadUrl(), new HashMap<String, String>()) %>
         <link rel="stylesheet" media="screen" type="text/css" href="<%= ToolkitUtil.url(request, "/themes/extra.css")%>" />
     </head>
-    <body class="home page page-template col-1 informea customize-support">
+    <body class="toolkit informea customize-support">
     <%= ToolkitUtil.templateHeader(request) %>

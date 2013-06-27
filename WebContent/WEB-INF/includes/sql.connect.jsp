@@ -13,7 +13,7 @@
         str_db_port = String.format("%s", db_port);
     }
 %>
-<form action="" method="POST">
+<form action="" method="post">
     <div class="field">
         <label for="sql.db_type">
             Database type
