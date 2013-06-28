@@ -27,7 +27,8 @@ public enum MeetingStatus {
     CONFIRMED("confirmed"),
     POSTPONED("postponed"),
     CANCELLED("cancelled"),
-    NODATE("nodate");
+    NODATE("nodate"),
+    OVER("over");
 
     private String name;
 
@@ -61,6 +62,9 @@ public enum MeetingStatus {
             }
             if(value.equalsIgnoreCase("nodate")) {
                 return MeetingStatus.NODATE;
+            }
+            if(value.equalsIgnoreCase("over")) {
+                return MeetingStatus.OVER;
             }
         }
         return null;
