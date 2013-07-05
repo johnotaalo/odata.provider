@@ -18,9 +18,6 @@
     boolean validCountryProfiles = false;
     boolean validNationalPlans = false;
     boolean validSites = false;
-    boolean validProjects = false;
-    boolean validBestPractices = false;
-    boolean validTechnicalReports = false;
 
 %>
 <jsp:include page="../WEB-INF/includes/header.jsp">

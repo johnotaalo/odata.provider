@@ -127,16 +127,6 @@ public class HibernateConfigurator {
             hc.addAnnotatedClass(org.informea.odata.producer.toolkit.impl.Site.class);
             hc.addAnnotatedClass(org.informea.odata.producer.toolkit.impl.SiteName.class);
         }
-
-        if (cfg.isUseProjects() || cfg.isUseBestPractices() || cfg.isUseTechnicalReports()) {
-            hc.addAnnotatedClass(PebldsProject.class);
-            hc.addAnnotatedClass(PebldsTreaty.class);
-            hc.addAnnotatedClass(PebldsCountry.class);
-            hc.addAnnotatedClass(PebldsWpfbFiles.class);
-            hc.addAnnotatedClass(PebldsTechnicalReport.class);
-            hc.addAnnotatedClass(PebldsBestPractice.class);
-            hc.addAnnotatedClass(PebldsTopic.class);
-        }
         sessionFactory = hc.buildSessionFactory();
     }
 

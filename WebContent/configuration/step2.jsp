@@ -29,13 +29,10 @@
         boolean useCountryProfiles = ToolkitUtil.getRequestCheckbox(Configuration.USE_COUNTRY_PROFILES, request);
         boolean useNationalPlans = ToolkitUtil.getRequestCheckbox(Configuration.USE_NATIONAL_PLANS, request);
         boolean useSites = ToolkitUtil.getRequestCheckbox(Configuration.USE_SITES, request);
-        boolean useProjects = ToolkitUtil.getRequestCheckbox(Configuration.USE_PROJECTS, request);
-        boolean useBestPractices = ToolkitUtil.getRequestCheckbox(Configuration.USE_BEST_PRACTICES, request);
-        boolean useTechnicalReports = ToolkitUtil.getRequestCheckbox(Configuration.USE_TECHNICAL_REPORTS, request);
 
         invalidSelection = !useDecisions && !useMeetings && !useContacts
                 && !useCountryReports && !useCountryProfiles && !useNationalPlans
-                && !useSites && !useProjects && !useBestPractices && !useTechnicalReports;
+                && !useSites;
         if(!invalidSelection) {
             session.setAttribute(Configuration.USE_DECISIONS, new Boolean(useDecisions));
             session.setAttribute(Configuration.USE_MEETINGS, new Boolean(useMeetings));
@@ -44,14 +41,6 @@
             session.setAttribute(Configuration.USE_COUNTRY_PROFILES, new Boolean(useCountryProfiles));
             session.setAttribute(Configuration.USE_NATIONAL_PLANS, new Boolean(useNationalPlans));
             session.setAttribute(Configuration.USE_SITES, new Boolean(useSites));
-            session.setAttribute(Configuration.USE_PROJECTS, new Boolean(useProjects));
-            session.setAttribute(Configuration.USE_BEST_PRACTICES, new Boolean(useBestPractices));
-            session.setAttribute(Configuration.USE_TECHNICAL_REPORTS, new Boolean(useTechnicalReports));
-
-            if (useBestPractices || useProjects || useTechnicalReports){
-                session.setAttribute(Configuration.URL_PEBLDS_FILES, ToolkitUtil.getRequestValue(Configuration.URL_PEBLDS_FILES, request));
-                session.setAttribute(Configuration.PATH_PEBLDS_FILES, ToolkitUtil.getRequestValue(Configuration.PATH_PEBLDS_FILES, request));
-            }
 
             if(useDecisions) {
                 response.sendRedirect("step3.jsp");
@@ -172,52 +161,7 @@
                 <% if(jdbc.detectSites()) { %>Yes<% } else { %>-<% } %>
                 </td>
             </tr>
-            <tr class="zebra">
-                <td>
-                    <input type="checkbox" id="<%= Configuration.USE_PROJECTS %>" name="<%= Configuration.USE_PROJECTS %>"
-                           <% if(!jdbc.detectPebldsProjects()) { %> disabled="disabled" <% } %>
-                           <% if(jdbc.detectPebldsProjects()) { %> checked="checked" <% } %>
-                           value="ON" tabindex="7" onclick="showPebldsTable();"/>
-                </td>
-                <td><label for="<%= Configuration.USE_PROJECTS %>">PEBLDS Projects</label></td>
-                <td>
-                <% if(jdbc.detectPebldsProjects()) { %>Yes<% } else { %>-<% } %>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox" id="<%= Configuration.USE_BEST_PRACTICES %>" name="<%= Configuration.USE_BEST_PRACTICES %>"
-                           <% if(!jdbc.detectPebldsBestPractices()) { %> disabled="disabled" <% } %>
-                           <% if(jdbc.detectPebldsBestPractices()) { %> checked="checked" <% } %>
-                           value="ON" tabindex="7"  onclick="showPebldsTable();"/>
-                </td>
-                <td><label for="<%= Configuration.USE_BEST_PRACTICES %>">PEBLDS Best practices</label></td>
-                <td>
-                <% if(jdbc.detectPebldsBestPractices()) { %>Yes<% } else { %>-<% } %>
-                </td>
-            </tr>
-            <tr class="zebra">
-                <td>
-                    <input type="checkbox" id="<%= Configuration.USE_TECHNICAL_REPORTS %>" name="<%= Configuration.USE_TECHNICAL_REPORTS %>"
-                           <% if(!jdbc.detectPebldsTechnicalReports()) { %> disabled="disabled" <% } %>
-                           <% if(jdbc.detectPebldsTechnicalReports()) { %> checked="checked" <% } %>
-                           value="ON" tabindex="7" onclick="showPebldsTable();" />
-                </td>
-                <td><label for="<%= Configuration.USE_TECHNICAL_REPORTS %>">PEBLDS Technical reports</label></td>
-                <td>
-                <% if(jdbc.detectPebldsTechnicalReports()) { %>Yes<% } else { %>-<% } %>
-                </td>
-            </tr>
         </table>
-        <div id="pebldsTable">
-            <label for="<%= Configuration.URL_PEBLDS_FILES %>">Peblds HTTP URL prefix to download files (ex: http://peblds.org/downloads/)</label>
-            <br />
-            <input id="<%= Configuration.URL_PEBLDS_FILES %>" name="<%= Configuration.URL_PEBLDS_FILES %>" size="60" />
-            <br />
-            <label for="<%= Configuration.PATH_PEBLDS_FILES %>">Peblds disk path to files (path on disk, ex: /var/local/peblds/wp-content/uploads/files/)</label>
-            <br />
-            <input id="<%= Configuration.PATH_PEBLDS_FILES %>" name="<%= Configuration.PATH_PEBLDS_FILES %>" size="60" />
-        </div>
         <% if(jdbc.isMissingAllEntities()) { %>
             <p class="error">
                 The database is missing all the entities. Please create the appropriate views in database for the entities you want exposed.
@@ -232,23 +176,6 @@
         <input type="submit" name="next" value="Next &raquo;" tabindex="8" />
         <% } %>
     </form>
-    <script type="text/javascript">
-        if (!document.getElementById('<%= Configuration.USE_TECHNICAL_REPORTS %>').checked &&
-                !document.getElementById('<%= Configuration.USE_BEST_PRACTICES %>').checked &&
-                !document.getElementById('<%= Configuration.USE_PROJECTS %>').checked) {
-            document.getElementById('pebldsTable').style.display = "none";
-        }
-
-        function showPebldsTable(){
-            if (document.getElementById('<%= Configuration.USE_TECHNICAL_REPORTS %>').checked ||
-                document.getElementById('<%= Configuration.USE_BEST_PRACTICES %>').checked ||
-                document.getElementById('<%= Configuration.USE_PROJECTS %>').checked){
-                document.getElementById('pebldsTable').style.display = "";
-            } else {
-                document.getElementById('pebldsTable').style.display = "none";
-            }
-        }
-    </script>
     <br />
     <br />
 </div>

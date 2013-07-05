@@ -117,23 +117,6 @@ public class Configuration {
      */
     public static final String USE_SITES = "informea.use_sites";
 
-    /**
-     * Constant, value: informea.use_project
-     */
-    public static final String USE_PROJECTS = "informea.use_project";
-
-    /**
-     * Constant, value: informea.use_best_practice
-     */
-    public static final String USE_BEST_PRACTICES = "informea.use_best_practice";
-
-    /**
-     * Constant, value: informea.use_technical_report
-     */
-    public static final String USE_TECHNICAL_REPORTS = "informea.use_technical_report";
-
-    public static final String URL_PEBLDS_FILES = "informea.url_pebld_files";
-    public static final String PATH_PEBLDS_FILES = "informea.path_pebld_files";
 
     private Preferences prefs;
     private String prefix = "";
@@ -426,45 +409,6 @@ public class Configuration {
     }
 
     /**
-     * @return Is toolkit exposes projects?
-     */
-    public boolean isUseProjects() {
-        return prefs.getBoolean(prefix + USE_PROJECTS, false);
-    }
-
-
-    public void setUseProjects(boolean value) {
-        prefs.putBoolean(prefix + USE_PROJECTS, value);
-        sync();
-    }
-
-    /**
-     * @return Is toolkit exposes projects?
-     */
-    public boolean isUseBestPractices() {
-        return prefs.getBoolean(prefix + USE_BEST_PRACTICES, false);
-    }
-
-
-    public void setUseBestPractices(boolean value) {
-        prefs.putBoolean(prefix + USE_BEST_PRACTICES, value);
-        sync();
-    }
-
-    /**
-     * @return Is toolkit exposes projects?
-     */
-    public boolean isUseTechnicalReports() {
-        return prefs.getBoolean(prefix + USE_TECHNICAL_REPORTS, false);
-    }
-
-
-    public void setUseTechnicalReports(boolean value) {
-        prefs.putBoolean(prefix + USE_TECHNICAL_REPORTS, value);
-        sync();
-    }
-
-    /**
      * @return JDBC driver name depending on db_type. Currently MySQL is supported
      */
     public String getJDBCDriver() {
@@ -591,26 +535,6 @@ public class Configuration {
             prefs.putBoolean(prefix + USE_SITES, (Boolean)session.getAttribute(USE_SITES));
         }
 
-        if(session.getAttribute(USE_PROJECTS) != null) {
-            prefs.putBoolean(prefix + USE_PROJECTS, (Boolean)session.getAttribute(USE_PROJECTS));
-        }
-
-        if(session.getAttribute(USE_BEST_PRACTICES) != null) {
-            prefs.putBoolean(prefix + USE_BEST_PRACTICES, (Boolean)session.getAttribute(USE_BEST_PRACTICES));
-        }
-
-        if(session.getAttribute(USE_TECHNICAL_REPORTS) != null) {
-            prefs.putBoolean(prefix + USE_TECHNICAL_REPORTS, (Boolean)session.getAttribute(USE_TECHNICAL_REPORTS));
-        }
-
-        if(session.getAttribute(URL_PEBLDS_FILES) != null){
-            prefs.put(prefix + URL_PEBLDS_FILES, session.getAttribute(URL_PEBLDS_FILES).toString());
-        }
-
-        if(session.getAttribute(PATH_PEBLDS_FILES) != null){
-            prefs.put(prefix + PATH_PEBLDS_FILES, session.getAttribute(PATH_PEBLDS_FILES).toString());
-        }
-
         sync();
     }
 
@@ -633,19 +557,6 @@ public class Configuration {
         prefs.remove(prefix + USE_COUNTRY_PROFILES);
         prefs.remove(prefix + USE_NATIONAL_PLANS);
         prefs.remove(prefix + USE_SITES);
-        prefs.remove(prefix + USE_PROJECTS);
-        prefs.remove(prefix + USE_TECHNICAL_REPORTS);
-        prefs.remove(prefix + USE_BEST_PRACTICES);
-        prefs.remove(prefix + PATH_PEBLDS_FILES);
-        prefs.remove(prefix + URL_PEBLDS_FILES);
         sync();
-    }
-
-    public String getURLPebldsFiles(){
-        return prefs.get(prefix + URL_PEBLDS_FILES, null);
-    }
-
-    public String getPathPebldsFiles(){
-        return prefs.get(prefix + PATH_PEBLDS_FILES, null);
     }
 }

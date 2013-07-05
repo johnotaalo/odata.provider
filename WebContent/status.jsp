@@ -1,8 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="org.informea.odata.producer.toolkit.impl.PebldsProject"%>
-<%@page import="org.informea.odata.producer.toolkit.impl.PebldsTechnicalReport"%>
-<%@page import="org.informea.odata.producer.toolkit.impl.PebldsBestPractice"%>
 <%@page import="org.informea.odata.producer.toolkit.IDataProvider"%>
 <%@page import="org.informea.odata.producer.toolkit.impl.DatabaseDataProvider"%>
 <%@page import="org.informea.odata.producer.toolkit.Configuration"%>
@@ -136,42 +133,6 @@
                     </td>
                     <td class="tright"><%= (cfg.isUseSites()) ? p.getSitesCount(dp, null) : "-" %></td>
                     <td><% if(cfg.isUseSites()) { %><a href="<%= endpoint %>/Sites">Browse</a><% } else { %> - <% } %></td>
-                </tr>
-                <tr>
-                    <td>Projects</td>
-                    <td>
-                        <% if(cfg.isUseProjects()) { %>
-                            <div class="icon-blue-checkbox"><img src="<%= ToolkitUtil.url(request, "/themes/images/pixel.gif") %>" title="True" /></div>
-                        <% } else { %>
-                            <div class="icon-red-x"><img src="<%= ToolkitUtil.url(request, "/themes/images/pixel.gif") %>" title="True" /></div>
-                        <% } %>
-                    </td>
-                    <td class="tright"><%= (cfg.isUseProjects()) ? p.getEntityCount(dp, null, PebldsProject.class) : "-" %></td>
-                    <td><% if(cfg.isUseProjects()) { %><a href="<%= endpoint %>/PebldsProject">Browse</a><% } else { %> - <% } %></td>
-                </tr>
-                <tr>
-                    <td>Best practices</td>
-                    <td>
-                        <% if(cfg.isUseBestPractices()) { %>
-                            <div class="icon-blue-checkbox"><img src="<%= ToolkitUtil.url(request, "/themes/images/pixel.gif") %>" title="True" /></div>
-                        <% } else { %>
-                            <div class="icon-red-x"><img src="<%= ToolkitUtil.url(request, "/themes/images/pixel.gif") %>" title="True" /></div>
-                        <% } %>
-                    </td>
-                    <td class="tright"><%= (cfg.isUseBestPractices()) ? p.getEntityCount(dp, null, PebldsBestPractice.class) : "-" %></td>
-                    <td><% if(cfg.isUseBestPractices()) { %><a href="<%= endpoint %>/PebldsBestPractices">Browse</a><% } else { %> - <% } %></td>
-                </tr>
-                <tr>
-                    <td>Technical reports</td>
-                    <td>
-                        <% if(cfg.isUseTechnicalReports()) { %>
-                            <div class="icon-blue-checkbox"><img src="<%= ToolkitUtil.url(request, "/themes/images/pixel.gif") %>" title="True" /></div>
-                        <% } else { %>
-                            <div class="icon-red-x"><img src="<%= ToolkitUtil.url(request, "/themes/images/pixel.gif") %>" title="True" /></div>
-                        <% } %>
-                    </td>
-                    <td class="tright"><%= (cfg.isUseTechnicalReports()) ? p.getEntityCount(dp, null, PebldsTechnicalReport.class) : "-" %></td>
-                    <td><% if(cfg.isUseTechnicalReports()) { %><a href="<%= endpoint %>/PebldsTechnicalReport">Browse</a><% } else { %> - <% } %></td>
                 </tr>
             </tbody>
         </table>

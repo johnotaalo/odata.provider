@@ -147,10 +147,10 @@ public class JDBCHelper {
      */
     public boolean detectDecisions() {
         List<String> tables = getTables();
-        return (tables.contains("informea_decisions") && tables.contains("informea_decisions_content")
+        return tables.contains("informea_decisions") && tables.contains("informea_decisions_content")
                 && tables.contains("informea_decisions_documents") && tables.contains("informea_decisions_keywords")
                 && tables.contains("informea_decisions_longtitle") && tables.contains("informea_decisions_summary")
-                && tables.contains("informea_decisions_title")) || tables.contains("peblds_project");
+                && tables.contains("informea_decisions_title");
     }
 
 
@@ -214,33 +214,6 @@ public class JDBCHelper {
         return tables.contains("informea_sites");
     }
 
-    /**
-     * Check if the required tables for sites primary entity are present
-     * @return true if all tables are present
-     */
-    public boolean detectPebldsProjects() {
-        List<String> tables = getTables();
-        return tables.contains("peblds_project");
-    }
-
-    /**
-     * Check if the required tables for sites primary entity are present
-     * @return true if all tables are present
-     */
-    public boolean detectPebldsTechnicalReports() {
-        List<String> tables = getTables();
-        return tables.contains("peblds_technical_report");
-    }
-
-    /**
-     * Check if the required tables for sites primary entity are present
-     * @return true if all tables are present
-     */
-    public boolean detectPebldsBestPractices() {
-        List<String> tables = getTables();
-        return tables.contains("peblds_best_practice");
-    }
-
 
     /**
      * Check if all the database required for toolkit are missing
@@ -248,8 +221,7 @@ public class JDBCHelper {
      */
     public boolean isMissingAllEntities() {
         return !detectDecisions() && !detectMeetings() && !detectContacts() && !detectCountryReports()
-                && !detectCountryProfiles() && !detectNationalPlans() && !detectSites()
-                && !detectPebldsProjects() && !detectPebldsTechnicalReports() && !detectPebldsBestPractices();
+                && !detectCountryProfiles() && !detectNationalPlans() && !detectSites();
     }
 
 

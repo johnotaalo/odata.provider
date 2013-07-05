@@ -17,6 +17,7 @@ package org.informea.odata.producer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+
 import org.core4j.Enumerable;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.pojo.AbstractContact;
@@ -25,11 +26,6 @@ import org.informea.odata.pojo.AbstractCountryReport;
 import org.informea.odata.pojo.AbstractDecision;
 import org.informea.odata.pojo.AbstractMeeting;
 import org.informea.odata.pojo.AbstractNationalPlan;
-import org.informea.odata.pojo.AbstractPebldsBestPractice;
-import org.informea.odata.pojo.AbstractPebldsProject;
-import org.informea.odata.pojo.AbstractPebldsTechnicalReport;
-import org.informea.odata.pojo.AbstractPebldsTopic;
-import org.informea.odata.pojo.AbstractPebldsWpfbFile;
 import org.informea.odata.pojo.AbstractSite;
 import org.informea.odata.pojo.DecisionDocument;
 import org.informea.odata.pojo.IAbstractEntity;
@@ -38,13 +34,6 @@ import org.informea.odata.pojo.VocabularyTerm;
 import org.informea.odata.producer.toolkit.Configuration;
 import org.informea.odata.producer.toolkit.IDataProvider;
 import org.informea.odata.producer.toolkit.impl.DatabaseDataProvider;
-import org.informea.odata.producer.toolkit.impl.PebldsBestPractice;
-import org.informea.odata.producer.toolkit.impl.PebldsCountry;
-import org.informea.odata.producer.toolkit.impl.PebldsProject;
-import org.informea.odata.producer.toolkit.impl.PebldsTechnicalReport;
-import org.informea.odata.producer.toolkit.impl.PebldsTopic;
-import org.informea.odata.producer.toolkit.impl.PebldsTreaty;
-import org.informea.odata.producer.toolkit.impl.PebldsWpfbFiles;
 import org.informea.odata.util.ODataTransformationUtil;
 import org.odata4j.core.ODataConstants;
 import org.odata4j.core.OEntity;
@@ -522,24 +511,6 @@ public abstract class AbstractInformeaProducer implements ODataProducer {
             count = getSitesCount(dataProvider, q);
         }
 
-        // Peblds entities
-
-        if (AbstractPebldsProject.COLLECTION_NAME.equals(entitySetName)){
-            entities = AbstractPebldsProject.asEntities(ees, getEntityList(dataProvider, q, startResult, pageSize, PebldsProject.class));
-        }
-        if (AbstractPebldsBestPractice.COLLECTION_NAME.equals(entitySetName)){
-            entities = AbstractPebldsBestPractice.asEntities(ees, getEntityList(dataProvider, q, startResult, pageSize, PebldsBestPractice.class));
-        }
-        if (AbstractPebldsTechnicalReport.COLLECTION_NAME.equals(entitySetName)){
-            entities = AbstractPebldsTechnicalReport.asEntities(ees, getEntityList(dataProvider, q, startResult, pageSize, PebldsTechnicalReport.class));
-        }
-        if (AbstractPebldsTopic.COLLECTION_NAME.equals(entitySetName)){
-            entities = AbstractPebldsTopic.asEntities(ees, getEntityList(dataProvider, q, startResult, pageSize, PebldsTopic.class));
-        }
-        if (AbstractPebldsWpfbFile.COLLECTION_NAME.equals(entitySetName)){
-            entities = AbstractPebldsWpfbFile.asEntities(ees, getEntityList(dataProvider, q, startResult, pageSize, PebldsWpfbFiles.class));
-        }
-
         dataProvider.closeResources();
 
         if (entities != null) {
@@ -579,21 +550,6 @@ public abstract class AbstractInformeaProducer implements ODataProducer {
         }
         if (AbstractSite.COLLECTION_NAME.equals(entitySetName)) {
             object = getSite(dataProvider, entityKey);
-        }
-        if (AbstractPebldsProject.COLLECTION_NAME.equals(entitySetName)){
-            object = (IAbstractEntity)getEntity(dataProvider, entityKey, PebldsProject.class);
-        }
-        if (AbstractPebldsBestPractice.COLLECTION_NAME.equals(entitySetName)){
-            object = (IAbstractEntity)getEntity(dataProvider, entityKey, PebldsBestPractice.class);
-        }
-        if (AbstractPebldsTechnicalReport.COLLECTION_NAME.equals(entitySetName)){
-            object = (IAbstractEntity)getEntity(dataProvider, entityKey, PebldsTechnicalReport.class);
-        }
-        if (AbstractPebldsTopic.COLLECTION_NAME.equals(entitySetName)){
-            object = (IAbstractEntity)getEntity(dataProvider, entityKey, PebldsTopic.class);
-        }
-        if (AbstractPebldsWpfbFile.COLLECTION_NAME.equals(entitySetName)){
-            object = (IAbstractEntity)getEntity(dataProvider, entityKey, PebldsWpfbFiles.class);
         }
         if (object != null) {
             OEntity entity = object.asEntity(ees);
@@ -666,40 +622,6 @@ public abstract class AbstractInformeaProducer implements ODataProducer {
         if (AbstractSite.COLLECTION_NAME.equals(entitySetName)) {
             if (AbstractSite.NAV_PROP_NAME.equals(navProp)) {
                 entities = LocalizableString.asEntities(namespace, getSiteName(dataProvider, entityKey, q));
-            }
-        }
-
-        if (AbstractPebldsProject.COLLECTION_NAME.equals(entitySetName)) {
-            PebldsProject pb = (PebldsProject)getEntity(dataProvider, entityKey, PebldsProject.class);
-            if (AbstractPebldsProject.NAV_PROP_TREATY.equals(navProp)){
-                entities = PebldsTreaty.asEntities(ees, new ArrayList<PebldsTreaty>(pb.getPebldsTreaties()));
-            }
-            if (AbstractPebldsProject.NAV_PROP_COUNTRY.equals(navProp)){
-                entities = PebldsCountry.asEntities(ees, new ArrayList<PebldsCountry>(pb.getPebldsCountries()));
-            }
-
-            if (AbstractPebldsProject.NAV_PROP_FILES.equals(navProp)){
-                entities = PebldsWpfbFiles.asEntities(ees, new ArrayList<PebldsWpfbFiles>(pb.getPebldsWpfbFiles()));
-            }
-        }
-
-        if (AbstractPebldsBestPractice.COLLECTION_NAME.equals(entitySetName)) {
-            PebldsBestPractice pb = (PebldsBestPractice)getEntity(dataProvider, entityKey, PebldsBestPractice.class);
-
-            if (AbstractPebldsBestPractice.NAV_PROP_FILES.equals(navProp)){
-                entities = PebldsWpfbFiles.asEntities(ees, new ArrayList<PebldsWpfbFiles>(pb.getPebldsWpfbFiles()));
-            }
-        }
-
-        if (AbstractPebldsTechnicalReport.COLLECTION_NAME.equals(entitySetName)) {
-            PebldsTechnicalReport pb = (PebldsTechnicalReport)getEntity(dataProvider, entityKey, PebldsTechnicalReport.class);
-
-            if (AbstractPebldsTechnicalReport.NAV_PROP_TOPICS.equals(navProp)){
-                entities = PebldsTopic.asEntities(ees, new ArrayList<PebldsTopic>(pb.getPebldsTopics()));
-            }
-
-            if (AbstractPebldsTechnicalReport.NAV_PROP_FILES.equals(navProp)){
-                entities = PebldsWpfbFiles.asEntities(ees, new ArrayList<PebldsWpfbFiles>(pb.getPebldsWpfbFiles()));
             }
         }
 
@@ -892,49 +814,6 @@ public abstract class AbstractInformeaProducer implements ODataProducer {
             entityTypes.addAll(cpSchema.entityTypes);
             associations.addAll(cpSchema.associations);
             entitySets.addAll(cpContainer.entitySets);
-        }
-
-
-        // Peblds entities
-        if (cfg.isUseProjects()) {
-
-            EdmSchema objectSchema = AbstractPebldsProject.getSchema(getNamespace());
-            EdmEntityContainer objectContainer = objectSchema.entityContainers.get(0);
-            entityTypes.addAll(objectSchema.entityTypes);
-            associations.addAll(objectSchema.associations);
-            entitySets.addAll(objectContainer.entitySets);
-        }
-
-        if (cfg.isUseBestPractices()) {
-
-            EdmSchema objectSchema = AbstractPebldsBestPractice.getSchema(getNamespace());
-            EdmEntityContainer objectContainer = objectSchema.entityContainers.get(0);
-
-            entityTypes.addAll(objectSchema.entityTypes);
-            associations.addAll(objectSchema.associations);
-
-            entitySets.addAll(objectContainer.entitySets);
-        }
-
-        if (cfg.isUseTechnicalReports()) {
-
-            EdmSchema objectSchema = AbstractPebldsTechnicalReport.getSchema(getNamespace());
-            EdmEntityContainer objectContainer = objectSchema.entityContainers.get(0);
-            entityTypes.addAll(objectSchema.entityTypes);
-            associations.addAll(objectSchema.associations);
-            entitySets.addAll(objectContainer.entitySets);
-        }
-
-        if (cfg.isUseProjects() || cfg.isUseBestPractices() || cfg.isUseTechnicalReports()) {
-            EdmSchema objectSchema = AbstractPebldsTopic.getSchema(getNamespace());
-            EdmEntityContainer objectContainer = objectSchema.entityContainers.get(0);
-            entityTypes.addAll(objectSchema.entityTypes);
-            entitySets.addAll(objectContainer.entitySets);
-
-            objectSchema = AbstractPebldsWpfbFile.getSchema(getNamespace());
-            objectContainer = objectSchema.entityContainers.get(0);
-            entityTypes.addAll(objectSchema.entityTypes);
-            entitySets.addAll(objectContainer.entitySets);
         }
 
 
