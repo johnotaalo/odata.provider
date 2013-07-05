@@ -23,6 +23,8 @@ import javax.persistence.Table;
 @Cacheable
 public class SiteName implements Serializable {
 
+    private static final long serialVersionUID = -2476909362289089881L;
+
     @Id
     private String id;
 

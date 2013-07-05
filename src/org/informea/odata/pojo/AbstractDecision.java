@@ -51,6 +51,8 @@ import org.odata4j.edm.EdmType;
  */
 public abstract class AbstractDecision implements IDecision, Serializable, IAbstractEntity {
 
+    private static final long serialVersionUID = 3107046642272228923L;
+
     private static final Logger log = Logger.getLogger(AbstractDecision.class.getName());
     /**
      * Name of the collection as it appears in the OData metadata and response

@@ -44,6 +44,8 @@ import org.odata4j.edm.EdmType;
  */
 public abstract class AbstractCountryProfile implements ICountryProfile, IAbstractEntity {
 
+    private static final long serialVersionUID = -6318759600833034058L;
+
     private static final Logger log = Logger.getLogger(AbstractCountryProfile.class.getName());
     /**
      * Name of the collection as it appears in the OData metadata and response

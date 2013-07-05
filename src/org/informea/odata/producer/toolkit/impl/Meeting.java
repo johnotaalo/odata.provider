@@ -36,6 +36,8 @@ import org.informea.odata.producer.InvalidValueException;
 @Cacheable
 public class Meeting extends AbstractMeeting {
 
+    private static final long serialVersionUID = 7232022560226661367L;
+
     @Id
     private String id;
     private String treaty;

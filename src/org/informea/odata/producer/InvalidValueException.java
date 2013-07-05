@@ -23,6 +23,8 @@ package org.informea.odata.producer;
  */
 public class InvalidValueException extends RuntimeException {
 
+    private static final long serialVersionUID = 125176221830112741L;
+
     public InvalidValueException(Throwable cause) {
         super(cause);
     }

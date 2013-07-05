@@ -50,6 +50,8 @@ import org.odata4j.edm.EdmType;
  */
 public abstract class AbstractSite implements ISite, Serializable, IAbstractEntity {
 
+    private static final long serialVersionUID = -9195501611661862681L;
+
     private static final Logger log = Logger.getLogger(AbstractSite.class.getName());
     /**
      * Name of the collection as it appears in the OData metadata and response

@@ -74,6 +74,7 @@ public class Producer extends AbstractInformeaProducer {
 
 
     @Override
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public List<AbstractMeeting> getMeetings(IDataProvider dataProvider, QueryInfo q, int startResult, Integer pageSize) {
         List meetings = dataProvider.getPrimaryEntities(Meeting.class, q, startResult, pageSize, Order.desc("start"));
         return meetings;
@@ -116,6 +117,7 @@ public class Producer extends AbstractInformeaProducer {
 
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<AbstractDecision> getDecisions(IDataProvider dataProvider, QueryInfo q, int startResult, Integer pageSize) {
         return dataProvider.getPrimaryEntities(Decision.class, q, startResult, pageSize, Order.asc("treaty"));
     }
@@ -200,6 +202,7 @@ public class Producer extends AbstractInformeaProducer {
 
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<AbstractContact> getContacts(IDataProvider dataProvider, QueryInfo q, int startResult, Integer pageSize) {
         return dataProvider.getPrimaryEntities(Contact.class, q, startResult, pageSize, null);
     }
@@ -228,6 +231,7 @@ public class Producer extends AbstractInformeaProducer {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<AbstractCountryProfile> getCountryProfiles(IDataProvider dataProvider, QueryInfo q, int startResult, Integer pageSize) {
         return dataProvider.getPrimaryEntities(CountryProfile.class, q, startResult, pageSize, null);
     }
@@ -243,6 +247,7 @@ public class Producer extends AbstractInformeaProducer {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<AbstractCountryReport> getCountryReports(IDataProvider dataProvider, QueryInfo q, int startResult, Integer pageSize) {
         return dataProvider.getPrimaryEntities(CountryReport.class, q, startResult, pageSize, null);
     }
@@ -268,6 +273,7 @@ public class Producer extends AbstractInformeaProducer {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<AbstractNationalPlan> getNationalPlans(IDataProvider dataProvider, QueryInfo q, int startResult, Integer pageSize) {
         return dataProvider.getPrimaryEntities(NationalPlan.class, q, startResult, pageSize, null);
     }
@@ -293,6 +299,7 @@ public class Producer extends AbstractInformeaProducer {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<AbstractSite> getSites(IDataProvider dataProvider, QueryInfo q, int startResult, Integer pageSize) {
         return dataProvider.getPrimaryEntities(Site.class, q, startResult, pageSize, null);
     }
@@ -314,16 +321,19 @@ public class Producer extends AbstractInformeaProducer {
     }
 
     @Override
+    @SuppressWarnings("rawtypes")
     public Integer getEntityCount(IDataProvider dataProvider, QueryInfo q, Class entity) {
         return dataProvider.countPrimaryEntities(entity, q);
     }
 
     @Override
+    @SuppressWarnings("rawtypes")
     public Object getEntity(IDataProvider dataProvider, Object id, Class entity) {
         return dataProvider.getEntity(entity, id);
     }
 
     @Override
+    @SuppressWarnings("rawtypes")
     public List getEntityList(IDataProvider dataProvider, QueryInfo q, int startResult, Integer pageSize, Class entity) {
         return dataProvider.getPrimaryEntities(entity, q, startResult, pageSize, null);
     }

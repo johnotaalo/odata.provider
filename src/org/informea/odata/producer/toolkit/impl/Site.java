@@ -46,6 +46,8 @@ import org.informea.odata.producer.InvalidValueException;
 @Cacheable
 public class Site extends AbstractSite {
 
+    private static final long serialVersionUID = 1817551213460990482L;
+
     @Id
     private String id;
     private String type;

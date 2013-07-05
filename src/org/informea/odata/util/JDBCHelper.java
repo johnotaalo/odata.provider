@@ -47,7 +47,8 @@ public class JDBCHelper {
     private String db_pass;
     private String db_database;
 
-    private List cache_db_tables = null;
+    @SuppressWarnings("rawtypes")
+	private List cache_db_tables = null;
 
 
     /**
@@ -229,7 +230,8 @@ public class JDBCHelper {
      * Retrieve the list of tables from database
      * @return List of tables. Uses internal cache to avoid DB overhead
      */
-    public List<String> getTables() {
+    @SuppressWarnings("unchecked")
+	public List<String> getTables() {
         if(cache_db_tables != null && cache_db_tables.size() > 0) {
             return cache_db_tables;
         }

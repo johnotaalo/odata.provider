@@ -47,6 +47,8 @@ import org.informea.odata.producer.InvalidValueException;
 @Cacheable
 public class NationalPlan extends AbstractNationalPlan {
 
+    private static final long serialVersionUID = -3594401418854291067L;
+
     @Id
     private String id;
     private String treaty;

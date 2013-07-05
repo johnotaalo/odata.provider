@@ -65,12 +65,14 @@ public class DatabaseDataProvider implements IDataProvider {
      * @param id Object ID
      * @return Entity object
      */
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
     public Object getPrimaryEntity(Class entityClass, String id) {
         return session.createCriteria(entityClass).add(Restrictions.idEq(id)).setCacheable(true).uniqueResult();
     }
     
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
     public Object getEntity(Class entityClass, Object id) {
         return session.createCriteria(entityClass).add(Restrictions.idEq(id)).setCacheable(true).uniqueResult();
     }
@@ -84,7 +86,8 @@ public class DatabaseDataProvider implements IDataProvider {
      * @param pageSize Used for pagination to define the size of the page. If null, all results are retrieved until the end
      * @return List of entities
      */
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
     public List getPrimaryEntities(Class entityClass, QueryInfo query, int startResult, Integer pageSize, Order orderBy) {
         Criteria q = session.createCriteria(entityClass).setCacheable(true);
         q.setFirstResult(startResult);
@@ -104,7 +107,8 @@ public class DatabaseDataProvider implements IDataProvider {
      * @param q Filtering query, optional
      * @return Count of rows
      */
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
     public Integer countPrimaryEntities(Class entityClass, QueryInfo q) {
         Criteria query = session.createCriteria(entityClass);
         query = query.setProjection(Projections.rowCount());

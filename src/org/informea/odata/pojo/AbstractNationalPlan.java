@@ -50,6 +50,8 @@ import org.odata4j.edm.EdmType;
  */
 public abstract class AbstractNationalPlan implements INationalPlan, IAbstractEntity {
 
+    private static final long serialVersionUID = 5398918100159569068L;
+
     private static final Logger log = Logger.getLogger(AbstractNationalPlan.class.getName());
     /**
      * Name of the collection as it appears in the OData metadata and response

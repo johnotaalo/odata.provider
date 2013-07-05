@@ -50,6 +50,8 @@ import org.odata4j.edm.EdmType;
  */
 public abstract class AbstractMeeting implements IMeeting, IAbstractEntity {
 
+    private static final long serialVersionUID = 7647363555559315734L;
+
     private static final Logger log = Logger.getLogger(AbstractMeeting.class.getName());
     /**
      * Name of the collection as it appears in the OData metadata and response

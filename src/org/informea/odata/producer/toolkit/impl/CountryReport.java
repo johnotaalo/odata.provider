@@ -46,6 +46,8 @@ import org.informea.odata.producer.InvalidValueException;
 @Cacheable
 public class CountryReport extends AbstractCountryReport {
 
+    private static final long serialVersionUID = -4398846493070903214L;
+
     @Id
     private String id;
     private String treaty;

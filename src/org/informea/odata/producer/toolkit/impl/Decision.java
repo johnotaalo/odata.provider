@@ -55,6 +55,8 @@ import org.informea.odata.util.ToolkitUtil;
 @Cacheable
 public class Decision extends AbstractDecision {
 
+    private static final long serialVersionUID = -6671176154328872876L;
+
     private static final Logger log = Logger.getLogger(Decision.class.getName());
     @Id
     private String id;

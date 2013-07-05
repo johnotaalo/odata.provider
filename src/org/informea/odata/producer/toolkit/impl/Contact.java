@@ -44,6 +44,8 @@ import org.informea.odata.producer.InvalidValueException;
 @Cacheable(true)
 public class Contact extends AbstractContact {
 
+    private static final long serialVersionUID = -7114130043649439586L;
+
     @Id
     private String id;
     private String country;

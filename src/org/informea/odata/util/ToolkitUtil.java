@@ -609,7 +609,8 @@ public class ToolkitUtil {
      * @param request HTTP request
      * @return HTML code
      */
-    public static String templatePartBreadcrumbtrail(HttpServletRequest request) {
+    @SuppressWarnings("unchecked")
+	public static String templatePartBreadcrumbtrail(HttpServletRequest request) {
         String ret = "";
         Map<String, String> breadcrumbtrail =  (Map<String, String>)request.getAttribute("breadcrumbtrail");
         if(null == breadcrumbtrail) {
@@ -644,7 +645,8 @@ public class ToolkitUtil {
      * @param request HTTP request
      * @return HTML code
      */
-    public static String templatePartPrimaryMenu(final HttpServletRequest request) {
+    @SuppressWarnings("serial")
+	public static String templatePartPrimaryMenu(final HttpServletRequest request) {
         final String current_item = request.getParameter("current_menu_item");
 
         Map<String, Map<String, String>> menu_items = new LinkedHashMap<String, Map<String, String>>();

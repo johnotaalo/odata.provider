@@ -37,6 +37,7 @@ public interface IDataProvider {
      * @param q Filtering query, optional
      * @return Count of rows
      */
+    @SuppressWarnings("rawtypes")
     Integer countPrimaryEntities(Class entityClass, QueryInfo q);
 
     /**
@@ -47,6 +48,7 @@ public interface IDataProvider {
      * @param pageSize Used for pagination to define the size of the page. If null, all results are retrieved until the end
      * @return List of entities
      */
+    @SuppressWarnings("rawtypes")
     List getPrimaryEntities(Class entityClass, QueryInfo query, int startResult, Integer pageSize, Order orderBy);
 
     /**
@@ -55,6 +57,9 @@ public interface IDataProvider {
      * @param id Object ID
      * @return Entity object
      */
+    @SuppressWarnings("rawtypes")
     Object getPrimaryEntity(Class entityClass, String id);
+
+    @SuppressWarnings("rawtypes")
     Object getEntity(Class entityClass, Object id);
 }

@@ -405,7 +405,8 @@ public abstract class AbstractInformeaProducer implements ODataProducer {
      * @param id Site id
      * @return Site object
      */
-    public abstract Object getEntity(IDataProvider dataProvider, Object id, Class entity);
+    @SuppressWarnings("rawtypes")
+	public abstract Object getEntity(IDataProvider dataProvider, Object id, Class entity);
 
     /**
      * Retrieve the list of entities from local storage.
@@ -416,7 +417,8 @@ public abstract class AbstractInformeaProducer implements ODataProducer {
      * @return List of sites. If pagination is implemented (not all entities at once, use <code>skipToken</code> to provide
      * information for next page. skipToken is sent back to the client to you in <code>q.skipToken</code>.
      */
-    public abstract List getEntityList(IDataProvider dataProvider, QueryInfo q, int startResult, Integer pageSize, Class entity);
+    @SuppressWarnings("rawtypes")
+	public abstract List getEntityList(IDataProvider dataProvider, QueryInfo q, int startResult, Integer pageSize, Class entity);
 
     /**
      * The total count of sites taking into account the filtering, if provided.
@@ -425,7 +427,8 @@ public abstract class AbstractInformeaProducer implements ODataProducer {
      * @param entity Entity to load data;
      * @return Total count of items, used by the client to compute pagination.
      */
-    public abstract Integer getEntityCount(IDataProvider dataProvider, QueryInfo qm, Class entity);
+    @SuppressWarnings("rawtypes")
+	public abstract Integer getEntityCount(IDataProvider dataProvider, QueryInfo qm, Class entity);
 
     /**
      * Retrieve the title of a national plan. Used for OData navigable property 'title'. Multilingual.

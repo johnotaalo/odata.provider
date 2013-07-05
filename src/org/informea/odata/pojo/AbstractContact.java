@@ -51,6 +51,8 @@ import org.odata4j.edm.EdmType;
  */
 public abstract class AbstractContact implements IContact, IAbstractEntity {
 
+    private static final long serialVersionUID = -1220136273038819781L;
+
     private static final Logger log = Logger.getLogger(AbstractContact.class.getName());
     /**
      * Name of the collection as it appears in the OData metadata and response

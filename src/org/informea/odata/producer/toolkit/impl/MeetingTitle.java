@@ -33,6 +33,8 @@ import javax.persistence.Table;
 @Cacheable
 public class MeetingTitle implements java.io.Serializable {
 
+    private static final long serialVersionUID = -5620841827224197133L;
+
     @Id
     private String id;
 
