@@ -31,9 +31,9 @@
             <classpath refid="compile.classpath" />
         </javac>
         <jar destfile="dist/informea-api-${imea.odata.version}.jar">
-            <fileset dir="build/classes" excludes="**/example/**" />
+            <fileset dir="build/classes" />
         </jar>
-        <jar destfile="dist/informea-api-${imea.odata.version}-src.jar" basedir="src" excludes="**/example/**" />
+        <jar destfile="dist/informea-api-${imea.odata.version}-src.jar" basedir="src" />
     </target>
 
     <target name="javadoc">
