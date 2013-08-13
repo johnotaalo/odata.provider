@@ -38,7 +38,11 @@ public enum DecisionStatus {
     /**
      * Decision with status "retired"
      */
-    RETIRED("retired");
+    RETIRED("retired"),
+    /**
+     * Decision with status "adopted"
+     */
+    ADOPTED("adopted");
 
     private String name;
 
@@ -69,6 +73,9 @@ public enum DecisionStatus {
             }
             if(value.equalsIgnoreCase("retired")) {
                 return DecisionStatus.RETIRED;
+            }
+            if(value.equalsIgnoreCase("adopted")) {
+                return DecisionStatus.ADOPTED;
             }
         }
         return null;
