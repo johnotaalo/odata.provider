@@ -30,7 +30,11 @@ public enum MeetingType {
     SYMPOSIA("symposia"),
     CONFERENCE("conference"),
     WORKSHOP("workshop"),
-    INFORMAL("informal");
+    INFORMAL("informal"),
+    SCC("scc"),
+    STC("stc"),
+    TECHNICAL_MEETING("technical meeting"),
+    NEGOTIATION_MEETING("negotiation meeting");
 
 	private String name;
 
@@ -73,6 +77,18 @@ public enum MeetingType {
             }
             if(value.equalsIgnoreCase("informal")) {
                 return MeetingType.INFORMAL;
+            }
+            if(value.equalsIgnoreCase("scc")) {
+                return MeetingType.SCC;
+            }
+            if(value.equalsIgnoreCase("stc")) {
+                return MeetingType.STC;
+            }
+            if(value.equalsIgnoreCase("technical meeting")) {
+                return MeetingType.TECHNICAL_MEETING;
+            }
+            if(value.equalsIgnoreCase("negotiation meeting")) {
+                return MeetingType.NEGOTIATION_MEETING;
             }
         }
         return null;
