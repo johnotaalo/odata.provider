@@ -37,7 +37,7 @@ public class MeetingDescription {
     private String id;
 
     @Column(name = "meeting_id")
-    private Integer meetingId;
+    private String meetingId;
     private String language;
     private String description;
 

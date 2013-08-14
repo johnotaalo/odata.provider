@@ -37,7 +37,7 @@ public class NationalPlanTitle {
     private String id;
 
     @Column(name = "national_plan_id")
-    private Integer nationalPlanId;
+    private String nationalPlanId;
     private String language;
     private String title;
 

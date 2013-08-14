@@ -29,7 +29,7 @@ public class SiteName implements Serializable {
     private String id;
 
     @Column(name = "site_id")
-    private Integer siteId;
+    private String siteId;
     private String language;
     private String name;
 
