@@ -16,7 +16,6 @@ package org.informea.odata;
 
 import java.util.Date;
 import java.util.List;
-import org.informea.odata.constants.NationalPlanType;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.pojo.LocalizableString;
 
@@ -81,7 +80,7 @@ public interface INationalPlan extends java.io.Serializable {
      * <strong>REQUIRED.</strong>
      * @return Type of national plan, use one of the enumerated values according to the treaty
      */
-    NationalPlanType getType();
+    String getType();
 
 
     /**

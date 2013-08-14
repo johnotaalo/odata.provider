@@ -27,7 +27,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.informea.odata.constants.SiteType;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.pojo.AbstractSite;
 import org.informea.odata.pojo.LocalizableString;
@@ -72,15 +71,8 @@ public class Site extends AbstractSite {
     }
 
     @Override
-    public SiteType getType() {
-        if(type != null && !type.isEmpty()) {
-            try {
-                return SiteType.valueOf(type.toUpperCase());
-            } catch (Exception ex) {
-                throw new InvalidValueException(String.format("Invalid 'type' value. Each site must have valid values for 'type' (Affected site with ID:%s)", id), ex);
-            }
-        }
-        throw new InvalidValueException(String.format("'type' is null. Each site must have non-null, valid values for 'type' (Affected site with ID:%s)", id));
+    public String getType() {
+        return type;
     }
 
     @Override

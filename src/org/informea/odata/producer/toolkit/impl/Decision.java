@@ -31,8 +31,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
-import org.informea.odata.constants.DecisionStatus;
-import org.informea.odata.constants.DecisionType;
 import org.informea.odata.constants.MimeType;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.pojo.AbstractDecision;
@@ -110,27 +108,13 @@ public class Decision extends AbstractDecision {
     }
 
     @Override
-    public DecisionType getType() {
-        if (type != null && !type.isEmpty()) {
-            try {
-                return DecisionType.valueOf(type.toUpperCase());
-            } catch (Exception ex) {
-                throw new InvalidValueException(String.format("Invalid 'type' value. Each decision must have valid values for 'type' (Affected decision with ID:%s)", id), ex);
-            }
-        }
-        throw new InvalidValueException(String.format("'type' property cannot be null (Affected decision with ID:%s)", id));
+    public String getType() {
+        return type;
     }
 
     @Override
-    public DecisionStatus getStatus() {
-        if (status != null && !status.isEmpty()) {
-            try {
-                return DecisionStatus.valueOf(status.toUpperCase());
-            } catch (Exception ex) {
-                throw new InvalidValueException(String.format("Invalid 'status' value. Each decision must have valid values for 'status' (Affected decision with ID:%s)", id), ex);
-            }
-        }
-        throw new InvalidValueException(String.format("'status' property cannot be null (Affected decision with ID:%s)", id));
+    public String getStatus() {
+        return status;
     }
 
     @Override

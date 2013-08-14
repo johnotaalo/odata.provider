@@ -17,8 +17,6 @@ package org.informea.odata;
 import java.util.Date;
 import java.util.List;
 
-import org.informea.odata.constants.DecisionStatus;
-import org.informea.odata.constants.DecisionType;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.pojo.DecisionDocument;
 import org.informea.odata.pojo.LocalizableString;
@@ -101,7 +99,7 @@ public interface IDecision extends java.io.Serializable {
      * In InforMEA portal this is mapped to <strong>ai_decision.type</strong> column.
      * @return Type of decision
      */
-    DecisionType getType();
+    String getType();
 
     /**
      * <strong>OData property: <em>status</em></strong><br />
@@ -110,7 +108,7 @@ public interface IDecision extends java.io.Serializable {
      * In InforMEA portal this is mapped to <strong>ai_decision.status</strong> column.
      * @return Status of decision
      */
-    DecisionStatus getStatus();
+    String getStatus();
 
     /**
      * <strong>OData property: <em>number</em></strong><br />

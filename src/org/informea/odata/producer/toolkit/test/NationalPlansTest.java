@@ -17,7 +17,6 @@ package org.informea.odata.producer.toolkit.test;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
-import org.informea.odata.constants.NationalPlanType;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.pojo.AbstractNationalPlan;
 import org.informea.odata.pojo.LocalizableString;
@@ -83,13 +82,7 @@ public class NationalPlansTest {
 
 
     @Test public void testType() {
-        assertEquals("type is invalid", NationalPlanType.NAMA, p1.getType());
-    }
-
-
-    @Test(expected=InvalidValueException.class)
-    public void testTypeInvalid() {
-        p2.getType();
+        assertEquals("type is invalid", "nama", p1.getType());
     }
 
 

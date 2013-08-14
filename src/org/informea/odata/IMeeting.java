@@ -16,11 +16,6 @@ package org.informea.odata;
 
 import java.util.Date;
 import java.util.List;
-import org.informea.odata.constants.MeetingAccess;
-import org.informea.odata.constants.MeetingKind;
-import org.informea.odata.constants.MeetingRepetition;
-import org.informea.odata.constants.MeetingStatus;
-import org.informea.odata.constants.MeetingType;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.pojo.LocalizableString;
 
@@ -111,31 +106,31 @@ public interface IMeeting extends java.io.Serializable {
      * Frequency of this meeting.
      * @return Event repetition pattern
      */
-    MeetingRepetition getRepetition();
+    String getRepetition();
 
     /**
      * <strong>OData property: <em>kind</em></strong><br />
      * @return Get the kind of meeting (official, partner, interest etc.)
      */
-    MeetingKind getKind();
+    String getKind();
 
     /**
      * <strong>OData property: <em>type</em></strong><br />
      * @return Type of event
      */
-    MeetingType getType();
+    String getType();
 
     /**
      * <strong>OData property: <em>access</em></strong><br />
      * @return Public access to the event or by invitation.
      */
-    MeetingAccess getAccess();
+    String getAccess();
 
     /**
      * <strong>OData property: <em>status</em></strong><br />
      * @return Status of the event
      */
-    MeetingStatus getStatus();
+    String getStatus();
 
     /**
      * <strong>OData property: <em>imageUrl</em></strong><br />

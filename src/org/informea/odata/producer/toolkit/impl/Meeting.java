@@ -159,68 +159,34 @@ public class Meeting extends AbstractMeeting {
 
 
     @Override
-    public MeetingRepetition getRepetition() {
-        if(repetition != null && !repetition.isEmpty()) {
-            try {
-                return MeetingRepetition.valueOf(repetition.toUpperCase());
-            } catch (Exception ex) {
-                throw new InvalidValueException(String.format("Invalid 'repetition' value. Meeting has valid values for 'repetition' (Affected meeting with ID:%s)", id), ex);
-            }
-        }
-        return null;
+    public String getRepetition() {
+        return repetition;
     }
 
 
     @Override
-    public MeetingKind getKind() {
-        if(kind != null && !kind.isEmpty()) {
-            try {
-                return MeetingKind.valueOf(kind.toUpperCase());
-            } catch (Exception ex) {
-                throw new InvalidValueException(String.format("Invalid 'kind' value. Meeting has valid values for 'kind' (Affected meeting with ID:%s)", id), ex);
-            }
-        }
-        return null;
+    public String getKind() {
+        return kind;
     }
 
 
     @Override
-    public MeetingType getType() {
-        if(type != null && !type.isEmpty()) {
-            try {
-                return MeetingType.valueOf(type.toUpperCase());
-            } catch (Exception ex) {
-                throw new InvalidValueException(String.format("Invalid 'type' value. Meeting has valid values for 'type' (Affected meeting with ID:%s)", id), ex);
-            }
-        }
-        return null;
+    public String getType() {
+        return type;
     }
 
 
     @Override
-    public MeetingAccess getAccess() {
-        if(access != null && !access.isEmpty()) {
-            try {
-                return MeetingAccess.valueOf(access.toUpperCase());
-            } catch (Exception ex) {
-                throw new InvalidValueException(String.format("Invalid 'access' value. Meeting has valid values for 'access' (Affected meeting with ID:%s)", id), ex);
-            }
-        }
-        return null;
+    public String getAccess() {
+        return access;
     }
 
 
     @Override
-    public MeetingStatus getStatus() {
-        if(status != null && !status.isEmpty()) {
-            try {
-                return MeetingStatus.valueOf(status.toUpperCase());
-            } catch (Exception ex) {
-                throw new InvalidValueException(String.format("Invalid 'status' value. Meeting has valid values for 'status' (Affected meeting with ID:%s)", id), ex);
-            }
-        }
-        return null;
+    public String getStatus() {
+        return status;
     }
+
 
     @Override
     public String getImageUrl() {

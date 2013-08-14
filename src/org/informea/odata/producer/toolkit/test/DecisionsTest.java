@@ -19,8 +19,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.prefs.BackingStoreException;
-import org.informea.odata.constants.DecisionStatus;
-import org.informea.odata.constants.DecisionType;
 import org.informea.odata.constants.MimeType;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.pojo.AbstractDecision;
@@ -78,24 +76,12 @@ public class DecisionsTest {
 
 
     @Test public void testType() {
-        assertEquals("type is invalid", DecisionType.DECISION, d1.getType());
-    }
-
-
-    @Test(expected=InvalidValueException.class)
-    public void testTypeInvalid() {
-        d2.getType();
+        assertEquals("type is invalid", "decision", d1.getType());
     }
 
 
     @Test public void testStatus() {
-        assertEquals("status is invalid", DecisionStatus.ACTIVE, d1.getStatus());
-    }
-
-
-    @Test(expected=InvalidValueException.class)
-    public void testStatusInvalid() {
-        d2.getStatus();
+        assertEquals("status is invalid", "active", d1.getStatus());
     }
 
 

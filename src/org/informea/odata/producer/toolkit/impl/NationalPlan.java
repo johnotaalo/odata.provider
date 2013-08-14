@@ -28,7 +28,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.informea.odata.constants.NationalPlanType;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.pojo.AbstractNationalPlan;
 import org.informea.odata.pojo.LocalizableString;
@@ -98,11 +97,8 @@ public class NationalPlan extends AbstractNationalPlan {
 
 
     @Override
-    public NationalPlanType getType() {
-        if(type != null && !type.isEmpty()) {
-            return NationalPlanType.valueOf(type.toUpperCase());
-        }
-        throw new InvalidValueException(String.format("'type' property cannot be null (Affected national plan with ID:%s)", id));
+    public String getType() {
+        return type;
     }
 
 

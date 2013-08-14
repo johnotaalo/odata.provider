@@ -17,11 +17,6 @@ package org.informea.odata.producer.toolkit.test;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
-import org.informea.odata.constants.MeetingAccess;
-import org.informea.odata.constants.MeetingKind;
-import org.informea.odata.constants.MeetingRepetition;
-import org.informea.odata.constants.MeetingStatus;
-import org.informea.odata.constants.MeetingType;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.pojo.AbstractMeeting;
 import org.informea.odata.pojo.LocalizableString;
@@ -114,27 +109,27 @@ public class MeetingsTest {
 
 
     @Test public void testRepetition() {
-        assertEquals("repetition is invalid", MeetingRepetition.YEARLY, m1.getRepetition());
+        assertEquals("repetition is invalid", "yearly", m1.getRepetition());
     }
 
 
     @Test public void testKind() {
-        assertEquals("kind is invalid", MeetingKind.OFFICIAL, m1.getKind());
+        assertEquals("kind is invalid", "official", m1.getKind());
     }
 
 
     @Test public void testType() {
-        assertTrue("type is invalid", m1.getType() == MeetingType.COP);
+        assertTrue("type is invalid", m1.getType() == "cop");
     }
 
 
     @Test public void testAccess() {
-        assertEquals("access is invalid", MeetingAccess.PUBLIC, m1.getAccess());
+        assertEquals("access is invalid", "public", m1.getAccess());
     }
 
 
     @Test public void testStatus() {
-        assertEquals("status is invalid", MeetingStatus.CONFIRMED, m1.getStatus());
+        assertEquals("status is invalid", "confirmed", m1.getStatus());
     }
 
 
@@ -225,3 +220,4 @@ public class MeetingsTest {
         m2.getDescription();
     }
 }
+

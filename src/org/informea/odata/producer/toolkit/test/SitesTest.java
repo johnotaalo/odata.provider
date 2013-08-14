@@ -17,7 +17,6 @@ package org.informea.odata.producer.toolkit.test;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
-import org.informea.odata.constants.SiteType;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.pojo.AbstractSite;
 import org.informea.odata.pojo.LocalizableString;
@@ -58,13 +57,7 @@ public class SitesTest {
 
 
     @Test public void testType() {
-        assertEquals("type is invalid", SiteType.WHC, s1.getType());
-    }
-
-
-    @Test(expected=InvalidValueException.class)
-    public void testTypeInvalid() {
-        s2.getType();
+        assertEquals("type is invalid", "whc", s1.getType());
     }
 
 

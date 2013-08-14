@@ -16,7 +16,6 @@ package org.informea.odata;
 
 import java.util.Date;
 import java.util.List;
-import org.informea.odata.constants.SiteType;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.pojo.LocalizableString;
 
@@ -49,7 +48,7 @@ public interface ISite extends java.io.Serializable {
      * <strong>REQUIRED.</strong>
      * @return Type of site
      */
-    SiteType getType();
+    String getType();
 
     /**
      * <strong>OData property: <em>country</em></strong><br />
