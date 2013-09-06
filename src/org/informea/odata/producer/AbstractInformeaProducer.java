@@ -441,86 +441,90 @@ public abstract class AbstractInformeaProducer implements ODataProducer {
 
     @Override
     public final EntitiesResponse getEntities(String entitySetName, QueryInfo q) {
+        EntitiesResponse ret = null;
+
         log.info(String.format("getEntities(entity=%s)", entitySetName, q));
         log.info(String.format("OData parameters: $skipToken=%s, $skip=%s, $top=%s", q.skipToken, q.skip, q.top));
 
         IDataProvider dataProvider = new DatabaseDataProvider();
         dataProvider.openResources();
-
-        EdmEntitySet ees = null;
         try {
-            ees = getMetadata().getEdmEntitySet(entitySetName);
-        } catch(Exception ex) {
-            throw new InvalidValueException(String.format("Cannot find entity or function named '%s'", entitySetName), ex);
-        }
-        if ("done".equals(q.skipToken)) {
-            return ODataTransformationUtil.emptyEntitiesResponse(ees);
-        }
 
-        int startResult = 0;
-        Integer pageSize = 10;
-        // client-side pagination
-        if (q.skip != null && q.skip > 0) {
-            startResult = q.skip;
-        } else if (q.skipToken != null) {
-            // Server-side pagination
+            EdmEntitySet ees = null;
             try {
-                startResult = Integer.parseInt(q.skipToken);
-            } catch (Exception ex) { /* swallow */ }
-        }
+                ees = getMetadata().getEdmEntitySet(entitySetName);
+            } catch(Exception ex) {
+                throw new InvalidValueException(String.format("Cannot find entity or function named '%s'", entitySetName), ex);
+            }
+            if ("done".equals(q.skipToken)) {
+                ret = ODataTransformationUtil.emptyEntitiesResponse(ees);
+            }
 
-        // client-side pagination
-        if (q.top != null) {
-            pageSize = q.top;
-        }
-        if (pageSize > 100) {
-            log.warning("Client requested too many entries within a single page of results. Adjusting to 100 to prevent server overload");
-            pageSize = 100;
-        }
+            int startResult = 0;
+            Integer pageSize = 10;
+            // client-side pagination
+            if (q.skip != null && q.skip > 0) {
+                startResult = q.skip;
+            } else if (q.skipToken != null) {
+                // Server-side pagination
+                try {
+                    startResult = Integer.parseInt(q.skipToken);
+                } catch (Exception ex) { /* swallow */ }
+            }
 
-        if (pageSize != null) {
-            setSkipToken("" + (startResult + pageSize.intValue()));
-        }
+            // client-side pagination
+            if (q.top != null) {
+                pageSize = q.top;
+            }
+            if (pageSize > 100) {
+                log.warning("Client requested too many entries within a single page of results. Adjusting to 100 to prevent server overload");
+                pageSize = 100;
+            }
 
-        List<OEntity> entities = null;
-        int count = 0;
-        // Get the decisions
-        if (AbstractDecision.COLLECTION_NAME.equals(entitySetName)) {
-            entities = AbstractDecision.asEntities(ees, getDecisions(dataProvider, q, startResult, pageSize));
-            count = getDecisionsCount(dataProvider, q);
-        }
-        if (AbstractContact.COLLECTION_NAME.equals(entitySetName)) {
-            entities = AbstractContact.asEntities(ees, getContacts(dataProvider, q, startResult, pageSize));
-            count = getContactsCount(dataProvider, q);
-        }
-        if (AbstractCountryProfile.COLLECTION_NAME.equals(entitySetName)) {
-            entities = AbstractCountryProfile.asEntities(ees, getCountryProfiles(dataProvider, q, startResult, pageSize));
-            count = getCountryProfilesCount(dataProvider, q);
-        }
-        if (AbstractCountryReport.COLLECTION_NAME.equals(entitySetName)) {
-            entities = AbstractCountryReport.asEntities(ees, getCountryReports(dataProvider, q, startResult, pageSize));
-            count = getCountryReportsCount(dataProvider, q);
-        }
-        if (AbstractMeeting.COLLECTION_NAME.equals(entitySetName)) {
-            entities = AbstractMeeting.asEntities(ees, getMeetings(dataProvider, q, startResult, pageSize));
-            count = getMeetingsCount(dataProvider, q);
-        }
-        if (AbstractNationalPlan.COLLECTION_NAME.equals(entitySetName)) {
-            entities = AbstractNationalPlan.asEntities(ees, getNationalPlans(dataProvider, q, startResult, pageSize));
-            count = getNationalPlansCount(dataProvider, q);
-        }
-        if (AbstractSite.COLLECTION_NAME.equals(entitySetName)) {
-            entities = AbstractSite.asEntities(ees, getSites(dataProvider, q, startResult, pageSize));
-            count = getSitesCount(dataProvider, q);
-        }
+            if (pageSize != null) {
+                setSkipToken("" + (startResult + pageSize.intValue()));
+            }
 
-        dataProvider.closeResources();
-
-        if (entities != null) {
-            return ODataTransformationUtil.createEntitiesResponse(entities, count, ees, getSkipToken());
+            List<OEntity> entities = null;
+            int count = 0;
+            // Get the decisions
+            if (AbstractDecision.COLLECTION_NAME.equals(entitySetName)) {
+                entities = AbstractDecision.asEntities(ees, getDecisions(dataProvider, q, startResult, pageSize));
+                count = getDecisionsCount(dataProvider, q);
+            }
+            if (AbstractContact.COLLECTION_NAME.equals(entitySetName)) {
+                entities = AbstractContact.asEntities(ees, getContacts(dataProvider, q, startResult, pageSize));
+                count = getContactsCount(dataProvider, q);
+            }
+            if (AbstractCountryProfile.COLLECTION_NAME.equals(entitySetName)) {
+                entities = AbstractCountryProfile.asEntities(ees, getCountryProfiles(dataProvider, q, startResult, pageSize));
+                count = getCountryProfilesCount(dataProvider, q);
+            }
+            if (AbstractCountryReport.COLLECTION_NAME.equals(entitySetName)) {
+                entities = AbstractCountryReport.asEntities(ees, getCountryReports(dataProvider, q, startResult, pageSize));
+                count = getCountryReportsCount(dataProvider, q);
+            }
+            if (AbstractMeeting.COLLECTION_NAME.equals(entitySetName)) {
+                entities = AbstractMeeting.asEntities(ees, getMeetings(dataProvider, q, startResult, pageSize));
+                count = getMeetingsCount(dataProvider, q);
+            }
+            if (AbstractNationalPlan.COLLECTION_NAME.equals(entitySetName)) {
+                entities = AbstractNationalPlan.asEntities(ees, getNationalPlans(dataProvider, q, startResult, pageSize));
+                count = getNationalPlansCount(dataProvider, q);
+            }
+            if (AbstractSite.COLLECTION_NAME.equals(entitySetName)) {
+                entities = AbstractSite.asEntities(ees, getSites(dataProvider, q, startResult, pageSize));
+                count = getSitesCount(dataProvider, q);
+            }
+            if (entities != null) {
+                ret = ODataTransformationUtil.createEntitiesResponse(entities, count, ees, getSkipToken());
+            }
+        } finally {
+            dataProvider.closeResources();
         }
-        return ODataTransformationUtil.emptyEntitiesResponse(ees);
+        return ret;
     }
+
 
     @Override
     public final EntityResponse getEntity(String entitySetName, Object entityKey) {
@@ -529,36 +533,37 @@ public abstract class AbstractInformeaProducer implements ODataProducer {
 
         IDataProvider dataProvider = new DatabaseDataProvider();
         dataProvider.openResources();
-
-        EdmEntitySet ees = getMetadata().getEdmEntitySet(entitySetName);
-        IAbstractEntity object = null;
-
-        if (AbstractDecision.COLLECTION_NAME.equals(entitySetName)) {
-            object = getDecision(dataProvider, entityKey);
+        try {
+            EdmEntitySet ees = getMetadata().getEdmEntitySet(entitySetName);
+            IAbstractEntity object = null;
+            if (AbstractDecision.COLLECTION_NAME.equals(entitySetName)) {
+                object = getDecision(dataProvider, entityKey);
+            }
+            if (AbstractContact.COLLECTION_NAME.equals(entitySetName)) {
+                object = getContact(dataProvider, entityKey);
+            }
+            if (AbstractCountryProfile.COLLECTION_NAME.equals(entitySetName)) {
+                object = getCountryProfile(dataProvider, entityKey);
+            }
+            if (AbstractCountryReport.COLLECTION_NAME.equals(entitySetName)) {
+                object = getCountryReport(dataProvider, entityKey);
+            }
+            if (AbstractMeeting.COLLECTION_NAME.equals(entitySetName)) {
+                object = getMeeting(dataProvider, entityKey);
+            }
+            if (AbstractNationalPlan.COLLECTION_NAME.equals(entitySetName)) {
+                object = getNationalPlan(dataProvider, entityKey);
+            }
+            if (AbstractSite.COLLECTION_NAME.equals(entitySetName)) {
+                object = getSite(dataProvider, entityKey);
+            }
+            if (object != null) {
+                OEntity entity = object.asEntity(ees);
+                ret = ODataTransformationUtil.createEntityResponse(entity, ees);
+            }
+        } finally {
+            dataProvider.closeResources();
         }
-        if (AbstractContact.COLLECTION_NAME.equals(entitySetName)) {
-            object = getContact(dataProvider, entityKey);
-        }
-        if (AbstractCountryProfile.COLLECTION_NAME.equals(entitySetName)) {
-            object = getCountryProfile(dataProvider, entityKey);
-        }
-        if (AbstractCountryReport.COLLECTION_NAME.equals(entitySetName)) {
-            object = getCountryReport(dataProvider, entityKey);
-        }
-        if (AbstractMeeting.COLLECTION_NAME.equals(entitySetName)) {
-            object = getMeeting(dataProvider, entityKey);
-        }
-        if (AbstractNationalPlan.COLLECTION_NAME.equals(entitySetName)) {
-            object = getNationalPlan(dataProvider, entityKey);
-        }
-        if (AbstractSite.COLLECTION_NAME.equals(entitySetName)) {
-            object = getSite(dataProvider, entityKey);
-        }
-        if (object != null) {
-            OEntity entity = object.asEntity(ees);
-            ret = ODataTransformationUtil.createEntityResponse(entity, ees);
-        }
-        dataProvider.closeResources();
         if(ret == null) {
             throw new RuntimeException(String.format("No %s entity was found matching ID %s", entitySetName, entityKey));
         }
@@ -567,74 +572,73 @@ public abstract class AbstractInformeaProducer implements ODataProducer {
 
     @Override
     public final BaseResponse getNavProperty(String entitySetName, Object entityKey, String navProp, QueryInfo q) {
+        BaseResponse ret = null;
         log.info(String.format("getNavProperty(entity=%s, key=%s, property=%s)", entitySetName, entityKey, navProp));
 
         IDataProvider dataProvider = new DatabaseDataProvider();
         dataProvider.openResources();
-
-        EdmEntitySet ees = getMetadata().getEdmEntitySet(navProp);
-
-        // Avoid infinite loop
-        if ("done".equals(q.skipToken)) {
-            return ODataTransformationUtil.emptyEntitiesResponse(ees);
+        try {
+            EdmEntitySet ees = getMetadata().getEdmEntitySet(navProp);
+            // Avoid infinite loop
+            if ("done".equals(q.skipToken)) {
+                ret = ODataTransformationUtil.emptyEntitiesResponse(ees);
+            }
+            List<OEntity> entities = null;
+            if (AbstractDecision.COLLECTION_NAME.equals(entitySetName)) {
+                if (AbstractDecision.NAV_PROP_DOCUMENTS.equals(navProp)) {
+                    entities = DecisionDocument.asEntities(namespace, getDecisionDocuments(dataProvider, entityKey, q));
+                }
+                if (AbstractDecision.NAV_PROP_TITLE.equals(navProp)) {
+                    entities = LocalizableString.asEntities(namespace, getDecisionTitle(dataProvider, entityKey, q));
+                }
+                if (AbstractDecision.NAV_PROP_LONG_TITLE.equals(navProp)) {
+                    entities = LocalizableString.asEntities(namespace, getDecisionLongTitle(dataProvider, entityKey, q));
+                }
+                if (AbstractDecision.NAV_PROP_SUMMARY.equals(navProp)) {
+                    entities = LocalizableString.asEntities(namespace, getDecisionSummary(dataProvider, entityKey, q));
+                }
+                if (AbstractDecision.NAV_PROP_CONTENT.equals(navProp)) {
+                    entities = LocalizableString.asEntities(namespace, getDecisionContent(dataProvider, entityKey, q));
+                }
+                if (AbstractDecision.NAV_PROP_KEYWORDS.equals(navProp)) {
+                    entities = VocabularyTerm.asEntities(namespace, getDecisionKeywords(dataProvider, entityKey, q));
+                }
+            }
+            if (AbstractContact.COLLECTION_NAME.equals(entitySetName)) {
+                if (AbstractContact.NAV_PROP_TREATIES.equals(navProp)) {
+                    entities = Treaty.asEntities(namespace, getContactTreaties(dataProvider, entityKey, q));
+                }
+            }
+            if (AbstractCountryReport.COLLECTION_NAME.equals(entitySetName)) {
+                if (AbstractCountryReport.NAV_PROP_TITLE.equals(navProp)) {
+                    entities = LocalizableString.asEntities(namespace, getCountryReportTitle(dataProvider, entityKey, q));
+                }
+            }
+            if (AbstractMeeting.COLLECTION_NAME.equals(entitySetName)) {
+                if (AbstractMeeting.NAV_PROP_TITLE.equals(navProp)) {
+                    entities = LocalizableString.asEntities(namespace, getMeetingTitle(dataProvider, entityKey, q));
+                }
+                if (AbstractMeeting.NAV_PROP_DESCRIPTION.equals(navProp)) {
+                    entities = LocalizableString.asEntities(namespace, getMeetingDescription(dataProvider, entityKey, q));
+                }
+            }
+            if (AbstractNationalPlan.COLLECTION_NAME.equals(entitySetName)) {
+                if (AbstractNationalPlan.NAV_PROP_TITLE.equals(navProp)) {
+                    entities = LocalizableString.asEntities(namespace, getNationalPlanTitle(dataProvider, entityKey, q));
+                }
+            }
+            if (AbstractSite.COLLECTION_NAME.equals(entitySetName)) {
+                if (AbstractSite.NAV_PROP_NAME.equals(navProp)) {
+                    entities = LocalizableString.asEntities(namespace, getSiteName(dataProvider, entityKey, q));
+                }
+            }
+            if (entities != null) {
+                ret = ODataTransformationUtil.createEntitiesResponse(entities, entities.size(), ees, getSkipToken());
+            }
+        } finally {
+            dataProvider.closeResources();
         }
-        List<OEntity> entities = null;
-        if (AbstractDecision.COLLECTION_NAME.equals(entitySetName)) {
-            if (AbstractDecision.NAV_PROP_DOCUMENTS.equals(navProp)) {
-                entities = DecisionDocument.asEntities(namespace, getDecisionDocuments(dataProvider, entityKey, q));
-            }
-            if (AbstractDecision.NAV_PROP_TITLE.equals(navProp)) {
-                entities = LocalizableString.asEntities(namespace, getDecisionTitle(dataProvider, entityKey, q));
-            }
-            if (AbstractDecision.NAV_PROP_LONG_TITLE.equals(navProp)) {
-                entities = LocalizableString.asEntities(namespace, getDecisionLongTitle(dataProvider, entityKey, q));
-            }
-            if (AbstractDecision.NAV_PROP_SUMMARY.equals(navProp)) {
-                entities = LocalizableString.asEntities(namespace, getDecisionSummary(dataProvider, entityKey, q));
-            }
-            if (AbstractDecision.NAV_PROP_CONTENT.equals(navProp)) {
-                entities = LocalizableString.asEntities(namespace, getDecisionContent(dataProvider, entityKey, q));
-            }
-            if (AbstractDecision.NAV_PROP_KEYWORDS.equals(navProp)) {
-                entities = VocabularyTerm.asEntities(namespace, getDecisionKeywords(dataProvider, entityKey, q));
-            }
-        }
-        if (AbstractContact.COLLECTION_NAME.equals(entitySetName)) {
-            if (AbstractContact.NAV_PROP_TREATIES.equals(navProp)) {
-                entities = Treaty.asEntities(namespace, getContactTreaties(dataProvider, entityKey, q));
-            }
-        }
-        if (AbstractCountryReport.COLLECTION_NAME.equals(entitySetName)) {
-            if (AbstractCountryReport.NAV_PROP_TITLE.equals(navProp)) {
-                entities = LocalizableString.asEntities(namespace, getCountryReportTitle(dataProvider, entityKey, q));
-            }
-        }
-        if (AbstractMeeting.COLLECTION_NAME.equals(entitySetName)) {
-            if (AbstractMeeting.NAV_PROP_TITLE.equals(navProp)) {
-                entities = LocalizableString.asEntities(namespace, getMeetingTitle(dataProvider, entityKey, q));
-            }
-            if (AbstractMeeting.NAV_PROP_DESCRIPTION.equals(navProp)) {
-                entities = LocalizableString.asEntities(namespace, getMeetingDescription(dataProvider, entityKey, q));
-            }
-        }
-        if (AbstractNationalPlan.COLLECTION_NAME.equals(entitySetName)) {
-            if (AbstractNationalPlan.NAV_PROP_TITLE.equals(navProp)) {
-                entities = LocalizableString.asEntities(namespace, getNationalPlanTitle(dataProvider, entityKey, q));
-            }
-        }
-        if (AbstractSite.COLLECTION_NAME.equals(entitySetName)) {
-            if (AbstractSite.NAV_PROP_NAME.equals(navProp)) {
-                entities = LocalizableString.asEntities(namespace, getSiteName(dataProvider, entityKey, q));
-            }
-        }
-
-        dataProvider.closeResources();
-
-        if (entities != null) {
-            return ODataTransformationUtil.createEntitiesResponse(entities, entities.size(), ees, getSkipToken());
-        }
-
-        return ODataTransformationUtil.emptyEntitiesResponse(ees);
+        return ret;
     }
 
     /**
