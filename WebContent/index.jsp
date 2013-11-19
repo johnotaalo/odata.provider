@@ -2,58 +2,37 @@
 <%@page import="org.informea.odata.producer.toolkit.Configuration"%>
 <%@page import="java.util.prefs.*"%>
 <% Configuration cfg = Configuration.getInstance(); %>
-<jsp:include page="WEB-INF/includes/header.jsp">
-    <jsp:param name="html_title" value="InforMEA OData provider" />
-</jsp:include>
-<div class="content">
-    <div class="left details-column-2">
-        <h1>InforMEA OData provider</h1>
-        <h2>Deployment</h2>
-        This section will help you configure your OData source in order to expose it online.
-    <% if(!cfg.isInstalled()) { %>
-        <p class="error">
-            It seems that your service is not yet configured. Please go to the <strong>Configuration</strong> tab above and perform the necessary steps to set it up.
-            <br />
-            <jsp:include page="WEB-INF/includes/warning.jsp" />
+
+    <jsp:include page="WEB-INF/includes/header.jsp">
+        <jsp:param name="html_title" value="InforMEA OData provider" />
+    </jsp:include>
+    <div class="jumbotron">
+        <h1>OData provider</h1>
+        <p class="lead">
+            This is the interface for the OData web service endpoint. From this interface you can check the status
+            of the service and configure a newly created service
         </p>
-    <% } else { %>
-        <p>
-            <br />
-            <span class="success">
-                Your service is configured. Please go to the <strong>Status</strong> tab to check the configuration. You can try to reconfigure from the <strong>Configuration</strong> tab.
-            </span>
-            <br />
-        </p>
-    <% } %>
-        <h2>Introduction</h2>
-        The InforMEA OData provider helps MEAs expose their data to the other third parties through the Open Data protocol (<a target="_blank" href="http://www.odata.org">http://www.odata.org</a>).
-        <br />
-        The provider is built around the concept of exposing the data stored inside a database (MySQL is currently supported, altough project can be easily extended to work with any JDBC-enabled databases would work).
-        <br />
-        <br />
-        <h2>References</h2>
-        For further references, you can check out the following resources:
-        <ul class="full">
-            <li>
-                <a target="_blank" href="http://www.informea.org/api">InforMEA specifications</a> - describes the service and the each of the exposed entities. <em>Always look for the latest version</em>.
-            </li>
-            <li>
-                <a target="_blank" href="http://www.hibernate.org/">Hibernate framework</a> - provides the database access layer
-            </li>
-            <li>
-                <a target="_blank" href="http://code.google.com/p/odata4j/">OData4J</a> - framework that exposes entities as OData service (svc, servlet, XML encoding/decoding)
-            </li>
-            <li>
-                <a target="_blank" href="http://informea.org/">InforMEA portal</a> - You can contact us for support
-            </li>
-        </ul>
-        <div class="clear"></div>
-        <br />
-        <br />
-        <% out.flush(); %>
-        <jsp:include page="WEB-INF/includes/update.jsp" />
-        <br />
-        <br />
     </div>
-</div>
-<jsp:include page="WEB-INF/includes/footer.jsp" />
+    <div class="row marketing">
+    <% if(cfg.isInstalled()) { %>
+        <div class="alert alert-warning">
+            <h4>Service not configured</h4>
+            <p>
+                It seems that your service is not yet configured.
+                Use the <strong>Manage</strong> tab above to configure the service.
+            </p>
+            <p>
+                <span class="glyphicon glyphicon-exclamation-sign"></span>
+                Configuration area is protected via HTTP Basic authentication, configured as following:
+                <pre>
+    $TOMCAT_HOME/conf/tomcat-users.xml, user with role 'informea'
+
+    Enable MemoryRealm in $TOMCAT_HOME/conf/server.xml, 
+    &lt;Realm className="org.apache.catalina.realm.MemoryRealm /&gt;
+                </pre>
+                <a target="_blank" href="http://tomcat.apache.org/tomcat-7.0-doc/realm-howto.html">Read more about Tomcat security configuration</a></li>
+            </p>
+        </div>
+    <% } %>
+    </div>
+    <jsp:include page="WEB-INF/includes/footer.jsp" />

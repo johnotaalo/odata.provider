@@ -11,10 +11,15 @@
         <title><%= request.getParameter("html_title")%></title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta charset="UTF-8" />
+        <link rel="stylesheet" type="text/css" href="<%= ToolkitUtil.url(request, "/themes/css/bootstrap.min.css") %>"></link>
+        <link rel="stylesheet" type="text/css" href="<%= ToolkitUtil.url(request, "/themes/css/informea.css") %>"></link>
     </head>
-    <body class="toolkit informea customize-support">
-    <ul class="nav nav-pills">
-        <li class="active"><a href="/">Home</a></li>
-        <li><a href="#">Administration</a></li>
-    </ul>
-    
+    <body>
+        <div class="container">
+            <div class="header">
+                <ul class="nav nav-pills pull-right">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">Manage</a></li>
+                </ul>
+                <h3 class="text-muted">InforMEA toolkit</h3>
+            </div>
