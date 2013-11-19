@@ -418,52 +418,6 @@ public class Configuration {
         return null;
     }
 
-
-    public String getTemplateHeadUrl() {
-        if(api.containsKey("informea.template.url.head")) {
-            return api.getProperty("informea.template.url.head");
-        }
-        return "http://www.informea.org/templates/get?part=head";
-    }
-
-    public String getTemplateHeaderUrl() {
-        if(api.containsKey("informea.template.url.header")) {
-            return api.getProperty("informea.template.url.header");
-        }
-        return "http://www.informea.org/templates/get?part=header";
-    }
-
-    public String getTemplateFooterUrl() {
-        if(api.containsKey("informea.template.url.footer")) {
-            return api.getProperty("informea.template.url.footer");
-        }
-        return "http://www.informea.org/templates/get?part=footer";
-    }
-
-
-    public File getTemplateCacheDirectory() {
-        if(api.containsKey("informea.template.url.footer")) {
-            String prop = api.getProperty("informea.template.cache.dir");
-            File f = new File(prop);
-            if(!f.exists()) {
-                log.warning(String.format("Cache directory %s does not exists! Caching of remote resources is disabled (see informea.api.properties file)", prop));
-                return null;
-            }
-            if(!f.isDirectory()) {
-                log.warning(String.format("Cache directory %s is not a directory! Caching of remote resources is disabled (see informea.api.properties file)", prop));
-                return null;
-            }
-            if(!f.canWrite()) {
-                log.warning(String.format("Cache directory %s is not writable! Caching of remote resources is disabled (see informea.api.properties file)", prop));
-                return null;
-            }
-            log.info(String.format("Using %s as cached directory", f.getAbsolutePath()));
-            return f;
-        }
-        return null;
-    }
-
-
     /**
      * @return JDBC url depending on db_type. Currently MySQL is supported
      */

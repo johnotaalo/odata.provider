@@ -11,8 +11,10 @@
         <title><%= request.getParameter("html_title")%></title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta charset="UTF-8" />
-        <%= ToolkitUtil.httpPostCached(Configuration.getInstance().getTemplateHeadUrl(), new HashMap<String, String>()) %>
-        <link rel="stylesheet" media="screen" type="text/css" href="<%= ToolkitUtil.url(request, "/themes/extra.css")%>" />
     </head>
     <body class="toolkit informea customize-support">
-    <%= ToolkitUtil.templateHeader(request) %>
+    <ul class="nav nav-pills">
+        <li class="active"><a href="/">Home</a></li>
+        <li><a href="#">Administration</a></li>
+    </ul>
+    
