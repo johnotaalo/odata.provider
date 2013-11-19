@@ -21,7 +21,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
+
+import javax.persistence.criteria.CriteriaBuilder.Case;
 import javax.servlet.http.HttpSession;
+
+import org.informea.odata.constants.EntityType;
 
 /**
  * Configuration service for application. Wrapper around Java Preferences API.
@@ -492,6 +496,30 @@ public class Configuration {
         sync();
     }
 
+    /**
+     * Check if an entity is configured into the toolkit
+     * @param type Type of entity
+     * @return true if enabled/configured
+     */
+    public boolean isUse(EntityType type) {
+        switch(type) {
+            case DECISIONS:
+                return this.isUseDecisions();
+            case MEETINGS:
+                return this.isUseMeetings();
+            case CONTACTS:
+                return this.isUseContacts();
+            case COUNTRY_PROFILES:
+                return this.isUseCountryProfiles();
+            case COUNTRY_REPORTS:
+                return this.isUseCountryReports();
+            case NATIONAL_PLANS:
+                return this.isUseNationalPlans();
+            case SITES:
+                return this.isUseSites();
+        }
+        return false;
+    }
 
     /**
      * Reset all preferences

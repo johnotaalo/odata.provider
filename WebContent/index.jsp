@@ -14,7 +14,7 @@
         </p>
     </div>
     <div class="row marketing">
-    <% if(cfg.isInstalled()) { %>
+    <% if(!cfg.isInstalled()) { %>
         <div class="alert alert-warning">
             <h4>Service not configured</h4>
             <p>
@@ -33,6 +33,9 @@
                 <a target="_blank" href="http://tomcat.apache.org/tomcat-7.0-doc/realm-howto.html">Read more about Tomcat security configuration</a></li>
             </p>
         </div>
+    <% } else { %>
+        <h2>Service status</h2>
+        <jsp:include page="WEB-INF/includes/status.jsp" />
     <% } %>
     </div>
     <jsp:include page="WEB-INF/includes/footer.jsp" />

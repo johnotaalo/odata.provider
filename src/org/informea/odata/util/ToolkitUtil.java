@@ -21,10 +21,14 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
+
+import org.informea.odata.constants.EntityType;
 import org.informea.odata.constants.MimeType;
 import org.informea.odata.pojo.AbstractContact;
 import org.informea.odata.pojo.AbstractCountryProfile;
@@ -34,6 +38,7 @@ import org.informea.odata.pojo.AbstractMeeting;
 import org.informea.odata.pojo.AbstractNationalPlan;
 import org.informea.odata.pojo.AbstractSite;
 import org.informea.odata.producer.InvalidValueException;
+import org.informea.odata.producer.toolkit.Configuration;
 import org.informea.odata.producer.toolkit.IDataProvider;
 import org.informea.odata.producer.toolkit.Producer;
 import org.informea.odata.producer.toolkit.impl.DatabaseDataProvider;
@@ -503,5 +508,46 @@ public class ToolkitUtil {
             e.printStackTrace();
         }
         return ret.toString();
+    }
+
+
+    /**
+     * Provide an status for each entity
+     * @param request HTTP request
+     * @param endpointURL Service endpoint (.svc)
+     * @return Status per entity type
+     */
+    public static Map<EntityType, Map<String, Object>> getEntityStatus(HttpServletRequest request, String endpointURL) {
+        Map<EntityType, Map<String, Object>> ret = new HashMap<EntityType, Map<String, Object>>();
+        Configuration cfg = Configuration.getInstance();
+        IDataProvider dp = null;
+        List<EntityType> entities = EntityType.getEntities();
+        try {
+            dp = new DatabaseDataProvider();
+            dp.openResources();
+            Producer p = new Producer();
+            for(EntityType key : entities) {
+                Map<String, Object> itemCfg = new HashMap<String, Object>();
+                boolean inUse = cfg.isUse(key);
+                Integer count = 0;
+                String url = "";
+                if(inUse) { 
+                    count = p.getCount(key, dp);
+                    url = EntityType.getEndpointURL(request, key, endpointURL);
+                }
+                itemCfg.put("inUse", inUse);
+                itemCfg.put("count", count);
+                itemCfg.put("url", url);
+                ret.put(key, itemCfg);
+            }
+        } catch(Exception ex) {
+            ex.printStackTrace();
+            log.log(Level.SEVERE, "Error getting entity status", ex);
+        } finally {
+            if(dp != null) {
+                dp.closeResources();
+            }
+        }
+        return ret;
     }
 }

@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.hibernate.criterion.Order;
+import org.informea.odata.constants.EntityType;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.pojo.AbstractContact;
 import org.informea.odata.pojo.AbstractCountryProfile;
@@ -39,6 +40,8 @@ import org.informea.odata.producer.toolkit.impl.Meeting;
 import org.informea.odata.producer.toolkit.impl.NationalPlan;
 import org.informea.odata.producer.toolkit.impl.Site;
 import org.odata4j.producer.QueryInfo;
+
+import com.sun.xml.internal.stream.Entity;
 
 
 /**
@@ -128,6 +131,31 @@ public class Producer extends AbstractInformeaProducer {
         return dataProvider.countPrimaryEntities(Decision.class, q);
     }
 
+    /**
+     * Retrieve the count of entities by entity type
+     * @param type Type of entity to count
+     * @param dataProvider Data source
+     * @return Number of entities
+     */
+    public Integer getCount(EntityType type, IDataProvider dataProvider) {
+        switch(type) {
+            case CONTACTS:
+                return this.getContactsCount(dataProvider, null);
+            case COUNTRY_PROFILES:
+                return this.getCountryProfilesCount(dataProvider, null);
+            case COUNTRY_REPORTS:
+                return this.getCountryReportsCount(dataProvider, null);
+            case DECISIONS:
+                return this.getDecisionsCount(dataProvider, null);
+            case MEETINGS:
+                return this.getMeetingsCount(dataProvider, null);
+            case NATIONAL_PLANS:
+                return this.getNationalPlansCount(dataProvider, null);
+            case SITES:
+                return this.getSitesCount(dataProvider, null);
+        }
+        return 0;
+    }
 
     @Override
     public List<DecisionDocument> getDecisionDocuments(IDataProvider dataProvider, Object id, QueryInfo q) {

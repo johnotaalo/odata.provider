@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="org.informea.odata.producer.toolkit.Configuration"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="org.informea.odata.util.ToolkitUtil"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.LinkedHashMap"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
@@ -18,8 +18,15 @@
         <div class="container">
             <div class="header">
                 <ul class="nav nav-pills pull-right">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">Manage</a></li>
+                    <li class="active">
+                        <a href="<%= ToolkitUtil.url(request, "/") %>"">Home</a>
+                    </li>
+                    <li>
+                        <a href="<%= ToolkitUtil.url(request, "/configuration") %>">Manage</a>
+                    </li>
+                    <li>
+                        <a href="<%= ToolkitUtil.url(request, "/about") %>"">About</a>
+                    </li>
                 </ul>
                 <h3 class="text-muted">InforMEA toolkit</h3>
             </div>
