@@ -7,19 +7,9 @@
         response.sendRedirect("index.jsp");
         return;
     }
-
     Configuration cfg = Configuration.getInstance();
     cfg.putFromSession(session);
     cfg.setInstalled(true);
-
-    boolean validDecisions = false;
-    boolean validMeetings = false;
-    boolean validContacts = false;
-    boolean validCountryReports = false;
-    boolean validCountryProfiles = false;
-    boolean validNationalPlans = false;
-    boolean validSites = false;
-
 %>
 <jsp:include page="../WEB-INF/includes/header.jsp">
     <jsp:param name="html_title" value="Step 3. Finish" />
