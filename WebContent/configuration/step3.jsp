@@ -2,6 +2,7 @@
 <%@page import="org.informea.odata.util.ToolkitUtil" %>
 <%@page import="org.informea.odata.producer.toolkit.Configuration" %>
 <%@page import="org.informea.odata.util.JDBCHelper"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     Configuration cfg = Configuration.getInstance();
     // If user drops to this page and setup is not configured, just redirect to start
@@ -17,7 +18,7 @@
         response.sendRedirect("step4.jsp");
     }
     pageContext.setAttribute("cfg", cfg);
-
+    pageContext.setAttribute("usePathPrefix", cfg.isUsePathPrefix());
 %>
 <jsp:include page="../WEB-INF/includes/header.jsp">
     <jsp:param name="html_title" value="Configure decisions' documents location on server disk" />
@@ -79,8 +80,10 @@ You have two options:
         <div class="col-sm-offset-2 col-sm-10">
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" id="<%= Configuration.USE_PATH_PREFIX %>" name="<%= Configuration.USE_PATH_PREFIX %>"
-                    <% if(cfg.isUsePathPrefix()) { %> checked="checked"<% } %> value="ON" tabindex="1" />
+                    <input type="checkbox" value="ON" tabindex="1" 
+                        id="<%= Configuration.USE_PATH_PREFIX %>" name="<%= Configuration.USE_PATH_PREFIX %>"
+                        <c:if test="${usePathPrefix}"> checked="checked"</c:if>
+                    />
                     <strong>Append the prefix path below</strong>
                 </label>
             </div>
@@ -89,11 +92,14 @@ You have two options:
     <div class="form-group">
         <label for="<%= Configuration.PATH_PREFIX %>" class="col-sm-2 control-label">Prefix</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control"
-                id="<%= Configuration.PATH_PREFIX %>" name="<%= Configuration.PATH_PREFIX %>"
-                   <% if(cfg.isUsePathPrefix()) { %> value="<%= cfg.getPathPrefix() %>"<% } %>
-                   size="60" tabindex="2" />
-               </div>
+            <input type="text" class="form-control" size="60" tabindex="2"
+                id="<%= Configuration.PATH_PREFIX %>" 
+                name="<%= Configuration.PATH_PREFIX %>"
+                <c:if test="${usePathPrefix}">
+                    value="<c:out value="${cfg.getPathPrefix()}" />"
+               </c:if>
+            />
+       </div>
     </div>
     <div class="form-group">
         <div class="col-sm-10">
