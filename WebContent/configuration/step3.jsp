@@ -41,39 +41,38 @@
 <p>
     Please use the form below to determine how the toolkit will locate documents on the server's disk for each decision.
 </p>
-<p>
-    You have two options:
-    <ol>
-        <li>
-            Documents contain absolute path when stored inside the view <code>informea_decision_documents</code>.
-            In this case just click <strong>Next</strong>.
-        </li>
-        <li>
-            <p>
-            Documents are stored with a relative path. Enter the base path (used as prefix) and the toolkit will 
-            take care of creating the absolute paths.
-            </p>
-            <h3>Example</h3>
-            <table class="table">
-                <tr>
-                    <th>decision_id</th>
-                    <th>diskPath</th>
-                    <th>filename</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>dec-01</td>
-                    <td><strong>uploads/COP1/res1.pdf</strong></td>
-                </tr>
-            </table>
 
-            In this case we would need to set the path prefix to something like 
-            <code>/var/www/mywebsite</code>, so the final path for the file will look like this:
-            <pre>/var/www/mywebsite/uploads/COP1/res1.pdf</pre>
-            The toolkit will append automatically <code>/</code> between the paths.
-        </li>
-    </ol>
-</p>
+You have two options:
+<ol>
+    <li>
+        Documents contain absolute path when stored inside the view <code>informea_decision_documents</code>.
+        In this case just click <strong>Next</strong>.
+    </li>
+    <li>
+        <p>
+        Documents are stored with a relative path. Enter the base path (used as prefix) and the toolkit will 
+        take care of creating the absolute paths.
+        </p>
+        <h3>Example</h3>
+        <table class="table">
+            <tr>
+                <th>decision_id</th>
+                <th>diskPath</th>
+                <th>filename</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>dec-01</td>
+                <td><strong>uploads/COP1/res1.pdf</strong></td>
+            </tr>
+        </table>
+
+        In this case we would need to set the path prefix to something like 
+        <code>/var/www/mywebsite</code>, so the final path for the file will look like this:
+        <pre>/var/www/mywebsite/uploads/COP1/res1.pdf</pre>
+        The toolkit will append automatically <code>/</code> between the paths.
+    </li>
+</ol>
 
 <form action="" method="post" class="form-horizontal">
     <div class="form-group">
