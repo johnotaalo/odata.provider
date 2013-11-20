@@ -58,9 +58,17 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <servlet>
+        <servlet-name>About</servlet-name>
+        <jsp-file>/about.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CrossDomain</servlet-name>
         <url-pattern>/services/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>About</servlet-name>
+        <url-pattern>/about</url-pattern>
     </servlet-mapping>
     <!-- Define the Login Configuration for this Application -->
     <security-constraint>

@@ -6,6 +6,13 @@
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <!DOCTYPE html>
+<%
+String currentItem = request.getParameter("current_menu_item");
+if(currentItem == null || "".equalsIgnoreCase(currentItem)) {
+    currentItem = "home";
+}
+pageContext.setAttribute("menu", currentItem);
+%>
 <html>
     <head>
         <title><%= request.getParameter("html_title")%></title>
@@ -18,13 +25,13 @@
         <div class="container">
             <div class="header">
                 <ul class="nav nav-pills pull-right">
-                    <li class="active">
+                    <li<c:if test="${menu == 'home' }"> class="active"</c:if>>
                         <a href="<%= ToolkitUtil.url(request, "/") %>"">Home</a>
                     </li>
-                    <li>
-                        <a href="<%= ToolkitUtil.url(request, "/configuration") %>">Manage</a>
+                    <li<c:if test="${menu == 'configuration' }"> class="active"</c:if>>
+                        <a href="<%= ToolkitUtil.url(request, "/configuration") %>">Configuration</a>
                     </li>
-                    <li>
+                    <li<c:if test="${menu == 'about' }"> class="active"</c:if>>
                         <a href="<%= ToolkitUtil.url(request, "/about") %>"">About</a>
                     </li>
                 </ul>
