@@ -1,3 +1,4 @@
+<%@page import="org.informea.odata.util.ToolkitUtil"%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="org.informea.odata.producer.toolkit.Configuration"%>
 <%@page import="java.util.prefs.*"%>
@@ -18,8 +19,7 @@
         <div class="alert alert-warning">
             <h4>Service not configured</h4>
             <p>
-                It seems that your service is not yet configured.
-                Use the <strong>Manage</strong> tab above to configure the service.
+                Your service is not yet configured.
             </p>
             <p>
                 <span class="glyphicon glyphicon-exclamation-sign"></span>
@@ -31,6 +31,9 @@
     &lt;Realm className="org.apache.catalina.realm.MemoryRealm /&gt;
                 </pre>
                 <a target="_blank" href="http://tomcat.apache.org/tomcat-7.0-doc/realm-howto.html">Read more about Tomcat security configuration</a></li>
+            </p>
+            <p>
+                <a href="<%= ToolkitUtil.url(request, "/configuration") %>" class="btn btn-primary">Configure</a>
             </p>
         </div>
     <% } else { %>
