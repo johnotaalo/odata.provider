@@ -6,11 +6,6 @@
     Configuration cfg = Configuration.getInstance();
     pageContext.setAttribute("cfg", cfg);
     pageContext.setAttribute("isInstalled", cfg.isInstalled());
-
-    boolean c = ToolkitUtil.getRequestCheckbox("continue", request);
-    if(c) {
-        response.sendRedirect("step1.jsp");
-    }
 %>
 <jsp:include page="../WEB-INF/includes/header.jsp">
     <jsp:param name="html_title" value="InforMEA provider configuration" />
@@ -48,10 +43,7 @@
             <br />
             <a class="btn btn-default" href="step1.jsp">Proceed</a>
         </div>
-        <jsp:include page="documentation.jsp" />
+        <jsp:include page="../WEB-INF/includes/documentation.jsp" />
     </c:if>
-    <br />
-    <br />
-    <br />
 </div>
 <jsp:include page="../WEB-INF/includes/footer.jsp" />
