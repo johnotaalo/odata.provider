@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.informea.odata.constants.EntityType;
 import org.informea.odata.constants.MimeType;
@@ -549,5 +550,61 @@ public class ToolkitUtil {
             }
         }
         return ret;
+    }
+
+    /**
+     * Check wether the user has selected at least one entity when choosing in configuration screen.
+     * @param request HTTP request
+     * @return true if selection is valid
+     */
+    public static boolean isValidEntitiesSelection(HttpServletRequest request) {
+        boolean useDecisions = ToolkitUtil.getRequestCheckbox(Configuration.USE_DECISIONS, request);
+        boolean useMeetings = ToolkitUtil.getRequestCheckbox(Configuration.USE_MEETINGS, request);
+        boolean useContacts = ToolkitUtil.getRequestCheckbox(Configuration.USE_CONTACTS, request);
+        boolean useCountryReports = ToolkitUtil.getRequestCheckbox(Configuration.USE_COUNTRY_REPORTS, request);
+        boolean useCountryProfiles = ToolkitUtil.getRequestCheckbox(Configuration.USE_COUNTRY_PROFILES, request);
+        boolean useNationalPlans = ToolkitUtil.getRequestCheckbox(Configuration.USE_NATIONAL_PLANS, request);
+        boolean useSites = ToolkitUtil.getRequestCheckbox(Configuration.USE_SITES, request);
+
+        return useDecisions || useMeetings || useContacts || useCountryReports
+                || useCountryProfiles || useNationalPlans || useSites;
+    }
+
+    /**
+     * Save user selection on HTTP session
+     * @param session HTTP Session
+     * @param request HTTP Request
+     */
+    public static void saveEntitiesSelectionOnSession(HttpSession session, HttpServletRequest request) {
+        boolean useDecisions = ToolkitUtil.getRequestCheckbox(Configuration.USE_DECISIONS, request);
+        boolean useMeetings = ToolkitUtil.getRequestCheckbox(Configuration.USE_MEETINGS, request);
+        boolean useContacts = ToolkitUtil.getRequestCheckbox(Configuration.USE_CONTACTS, request);
+        boolean useCountryReports = ToolkitUtil.getRequestCheckbox(Configuration.USE_COUNTRY_REPORTS, request);
+        boolean useCountryProfiles = ToolkitUtil.getRequestCheckbox(Configuration.USE_COUNTRY_PROFILES, request);
+        boolean useNationalPlans = ToolkitUtil.getRequestCheckbox(Configuration.USE_NATIONAL_PLANS, request);
+        boolean useSites = ToolkitUtil.getRequestCheckbox(Configuration.USE_SITES, request);
+
+        session.setAttribute(Configuration.USE_DECISIONS, new Boolean(useDecisions));
+        session.setAttribute(Configuration.USE_MEETINGS, new Boolean(useMeetings));
+        session.setAttribute(Configuration.USE_CONTACTS, new Boolean(useContacts));
+        session.setAttribute(Configuration.USE_COUNTRY_REPORTS, new Boolean(useCountryReports));
+        session.setAttribute(Configuration.USE_COUNTRY_PROFILES, new Boolean(useCountryProfiles));
+        session.setAttribute(Configuration.USE_NATIONAL_PLANS, new Boolean(useNationalPlans));
+        session.setAttribute(Configuration.USE_SITES, new Boolean(useSites));
+    }
+
+    /**
+     * Create JDBC Helper object from session configuration
+     * @param session HTTP Session
+     * @return Initialized JDBC helper object
+     */
+    public static JDBCHelper createJDBCHelperFromSession(HttpSession session) {
+        String db_type = (String)session.getAttribute(Configuration.DB_TYPE);
+        String db_host = (String)session.getAttribute(Configuration.DB_HOST);
+        int db_port = ((Integer)session.getAttribute(Configuration.DB_PORT)).intValue();
+        String db_user = (String)session.getAttribute(Configuration.DB_USER);
+        String db_pass = (String)session.getAttribute(Configuration.DB_PASS);
+        String db_database = (String)session.getAttribute(Configuration.DB_DATABASE);
+        return new JDBCHelper(db_type, db_host, db_port, db_user, db_pass, db_database);
     }
 }

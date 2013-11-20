@@ -11,40 +11,13 @@
         response.sendRedirect("index.jsp");
         return;
     }
-
-    String db_type = (String)session.getAttribute(Configuration.DB_TYPE);
-    String db_host = (String)session.getAttribute(Configuration.DB_HOST);
-    int db_port = ((Integer)session.getAttribute(Configuration.DB_PORT)).intValue();
-    String db_user = (String)session.getAttribute(Configuration.DB_USER);
-    String db_pass = (String)session.getAttribute(Configuration.DB_PASS);
-    String db_database = (String)session.getAttribute(Configuration.DB_DATABASE);
-
     boolean next = ToolkitUtil.isOnRequest("next", request);
-    boolean invalidSelection = false;
+    boolean validSelection = false;
     if(next) {
-        // We're okay, save the DB configuration from session
-        // Configuration.getInstance().putFromSession(session);
-
-        boolean useDecisions = ToolkitUtil.getRequestCheckbox(Configuration.USE_DECISIONS, request);
-        boolean useMeetings = ToolkitUtil.getRequestCheckbox(Configuration.USE_MEETINGS, request);
-        boolean useContacts = ToolkitUtil.getRequestCheckbox(Configuration.USE_CONTACTS, request);
-        boolean useCountryReports = ToolkitUtil.getRequestCheckbox(Configuration.USE_COUNTRY_REPORTS, request);
-        boolean useCountryProfiles = ToolkitUtil.getRequestCheckbox(Configuration.USE_COUNTRY_PROFILES, request);
-        boolean useNationalPlans = ToolkitUtil.getRequestCheckbox(Configuration.USE_NATIONAL_PLANS, request);
-        boolean useSites = ToolkitUtil.getRequestCheckbox(Configuration.USE_SITES, request);
-
-        invalidSelection = !useDecisions && !useMeetings && !useContacts
-                && !useCountryReports && !useCountryProfiles && !useNationalPlans
-                && !useSites;
-        if(!invalidSelection) {
-            session.setAttribute(Configuration.USE_DECISIONS, new Boolean(useDecisions));
-            session.setAttribute(Configuration.USE_MEETINGS, new Boolean(useMeetings));
-            session.setAttribute(Configuration.USE_CONTACTS, new Boolean(useContacts));
-            session.setAttribute(Configuration.USE_COUNTRY_REPORTS, new Boolean(useCountryReports));
-            session.setAttribute(Configuration.USE_COUNTRY_PROFILES, new Boolean(useCountryProfiles));
-            session.setAttribute(Configuration.USE_NATIONAL_PLANS, new Boolean(useNationalPlans));
-            session.setAttribute(Configuration.USE_SITES, new Boolean(useSites));
-
+        validSelection = ToolkitUtil.isValidEntitiesSelection(request);
+        if(validSelection) {
+            ToolkitUtil.saveEntitiesSelectionOnSession(session, request);
+            boolean useDecisions = ToolkitUtil.getRequestCheckbox(Configuration.USE_DECISIONS, request);
             if(useDecisions) {
                 response.sendRedirect("step3.jsp");
             } else {
@@ -53,11 +26,16 @@
             return;
         }
     }
-
-    JDBCHelper jdbc = new JDBCHelper(db_type, db_host, db_port, db_user, db_pass, db_database);
+    JDBCHelper jdbc = ToolkitUtil.createJDBCHelperFromSession(session);
     pageContext.setAttribute("jdbc", jdbc);
-    List<EntityType> entities = EntityType.getEntities();
-
+    pageContext.setAttribute("allMissing", jdbc.isMissingAllEntities());
+    pageContext.setAttribute("useDecisions", jdbc.detectDecisions());
+    pageContext.setAttribute("useMeetings", jdbc.detectMeetings());
+    pageContext.setAttribute("useContacts", jdbc.detectContacts());
+    pageContext.setAttribute("useCountryReports", jdbc.detectCountryReports());
+    pageContext.setAttribute("useCountryProfiles", jdbc.detectCountryProfiles());
+    pageContext.setAttribute("useNationalPlans", jdbc.detectNationalPlans());
+    pageContext.setAttribute("useSites", jdbc.detectSites());
 %>
 <jsp:include page="../WEB-INF/includes/header.jsp">
     <jsp:param name="html_title" value="Select available entities" />
@@ -77,11 +55,15 @@
 </div>
 
 <h1>Choose entities</h1>
-<% if(next && invalidSelection) { %>
-<p class="error">Invalid selection. Please select at least one entity to have exposed</p>
+<% if(next && !validSelection) { %>
+    <div class="alert alert-danger">
+        <h4>Invalid selection</h4>
+        <p>
+            Hmmm, I wonder what's the purpose of an empty service?
+        </p>
+    </div>
 <% } %>
 
-<c:set var="allMissing" value="${jdbc.isMissingAllEntities()}" />
 <c:if test="${allMissing}">
     <div class="alert alert-danger">
         <h4>Fatal error</h4>
@@ -97,6 +79,10 @@
     </div>
 </c:if>
 <c:if test="${!allMissing}">
+<p>
+    Please check all the entities that you want to expose via this service. By default this setup has checked all the
+    entities detected inside the database and disabled the checkboxes for those that do not exist.
+</p>
 <form action="" method="post" class="form-horizontal" role="form">
     <div class="form-group">
         <div class="col-sm-6">
@@ -113,77 +99,70 @@
                         <label for="<%= Configuration.USE_DECISIONS %>">Decisions</label>
                     </td>
                     <td class="text-right">
-                        <c:set var="use" value="${jdbc.detectDecisions()}" />
                         <input type="checkbox" id="<%= Configuration.USE_DECISIONS %>" name="<%= Configuration.USE_DECISIONS %>"
                             value="ON" tabindex="1"
-                            <c:if test="${!use}"> disabled="disabled"</c:if>
-                            <c:if test="${use}"> checked="checked"</c:if>
+                            <c:if test="${!useDecisions}"> disabled="disabled"</c:if>
+                            <c:if test="${useDecisions}"> checked="checked"</c:if>
                         />
                     </td>
                 </tr>
                 <tr>
                     <td><label for="<%= Configuration.USE_MEETINGS %>">Meetings</label></td>
                     <td class="text-right">
-                        <c:set var="use" value="${jdbc.detectMeetings()}" />
                         <input type="checkbox" id="<%= Configuration.USE_MEETINGS %>" name="<%= Configuration.USE_MEETINGS %>"
                             value="ON" tabindex="2"
-                            <c:if test="${!use}"> disabled="disabled"</c:if>
-                            <c:if test="${use}"> checked="checked"</c:if>
+                            <c:if test="${!useMeetings}"> disabled="disabled"</c:if>
+                            <c:if test="${useMeetings}"> checked="checked"</c:if>
                         />
                     </td>
                 </tr>
                 <tr>
                     <td><label for="<%= Configuration.USE_CONTACTS %>">Contacts</label></td>
                     <td class="text-right">
-                        <c:set var="use" value="${jdbc.detectContacts()}" />
                         <input type="checkbox" id="<%= Configuration.USE_CONTACTS %>" name="<%= Configuration.USE_CONTACTS %>"
                             value="ON" tabindex="3"
-                            <c:if test="${!use}"> disabled="disabled"</c:if>
-                            <c:if test="${use}"> checked="checked"</c:if>
+                            <c:if test="${!useContacts}"> disabled="disabled"</c:if>
+                            <c:if test="${useContacts}"> checked="checked"</c:if>
                         />
                     </td>
                 </tr>
                 <tr>
                     <td><label for="<%= Configuration.USE_COUNTRY_REPORTS %>">Country reports</label></td>
                     <td class="text-right">
-                        <c:set var="use" value="${jdbc.detectCountryReports()}" />
                         <input type="checkbox" id="<%= Configuration.USE_COUNTRY_REPORTS %>" name="<%= Configuration.USE_COUNTRY_REPORTS %>"
                             value="ON" tabindex="4"
-                            <c:if test="${!use}"> disabled="disabled"</c:if>
-                            <c:if test="${use}"> checked="checked"</c:if>
+                            <c:if test="${!useCountryReports}"> disabled="disabled"</c:if>
+                            <c:if test="${useCountryReports}"> checked="checked"</c:if>
                         />
                     </td>
                 </tr>
                 <tr>
                     <td><label for="<%= Configuration.USE_COUNTRY_PROFILES %>">Country profiles</label></td>
                     <td class="text-right">
-                        <c:set var="use" value="${jdbc.detectCountryProfiles()}" />
                         <input type="checkbox" id="<%= Configuration.USE_COUNTRY_PROFILES %>" name="<%= Configuration.USE_COUNTRY_PROFILES %>"
                             value="ON" tabindex="5"
-                            <c:if test="${!use}"> disabled="disabled"</c:if>
-                            <c:if test="${use}"> checked="checked"</c:if>
+                            <c:if test="${!useCountryProfiles}"> disabled="disabled"</c:if>
+                            <c:if test="${useCountryProfiles}"> checked="checked"</c:if>
                         />
                     </td>
                 </tr>
                 <tr>
                     <td><label for="<%= Configuration.USE_NATIONAL_PLANS %>">National plans</label></td>
                     <td class="text-right">
-                        <c:set var="use" value="${jdbc.detectNationalPlans()}" />
                         <input type="checkbox" id="<%= Configuration.USE_NATIONAL_PLANS %>" name="<%= Configuration.USE_NATIONAL_PLANS %>"
                             value="ON" tabindex="6"
-                            <c:if test="${!use}"> disabled="disabled"</c:if>
-                            <c:if test="${use}"> checked="checked"</c:if>
+                            <c:if test="${!useNationalPlans}"> disabled="disabled"</c:if>
+                            <c:if test="${useNationalPlans}"> checked="checked"</c:if>
                         />
                     </td>
                 </tr>
                 <tr>
                     <td><label for="<%= Configuration.USE_SITES %>">Sites</label></td>
                     <td class="text-right">
-                        <c:set var="use" value="${jdbc.detectSites()}" />
                         <input type="checkbox" id="<%= Configuration.USE_SITES %>" name="<%= Configuration.USE_SITES %>"
                             value="ON" tabindex="7"
-                            <c:if test="${!use}"> disabled="disabled"</c:if>
-                            <c:if test="${use}"> checked="checked"</c:if>
+                            <c:if test="${!useSites}"> disabled="disabled"</c:if>
+                            <c:if test="${useSites}"> checked="checked"</c:if>
                        />
                     </td>
                 </tr>
