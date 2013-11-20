@@ -68,83 +68,106 @@
     }
 </script>
 <div class="content">
-    <div id="breadcrumb">
-        You are here: <a href="<%= ToolkitUtil.url(request, null) %>">home</a>
-        &raquo;
-        <a href="<%= ToolkitUtil.url(request, "/configuration") %>">configuration</a>
-        &raquo;
-        database configuration
+    <ol class="breadcrumb">
+        <li><a href="<%= ToolkitUtil.url(request, null) %>">Home</a></li>
+        <li><a href="<%= ToolkitUtil.url(request, "/configuration") %>">Configuration</a></li>
+        <li class="active">Database</li>
+    </ol>
+
+    <div class="progress progress-striped">
+        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+            <span class="sr-only">20% Complete</span>
+        </div>
     </div>
+
     <h1>Database configuration</h1>
+
     <% if(verify && !validConnection) { %>
-    <div class="error">
-        Error connecting to the specified database. Please try again!
+    <div class="alert alert-danger">
+        <h4>Error validating the data</h4>
         <% if(e != null) { %>
-        <pre>Details: <%= e.getMessage() %></pre>
+            <%= e.getMessage() %>
         <% } %>
+        <p>
+            Please review the settings and try again.
+        </p>
     </div>
     <% } %>
-    <form action="" method="post" onsubmit="return validateOnSubmit();">
-        <div class="field">
-            <label for="<%= Configuration.DB_TYPE %>">
-                Database type
-            </label>
-            <select id="<%= Configuration.DB_TYPE %>" name="<%= Configuration.DB_TYPE %>" tabindex="1">
-                <option value=""<%= ("".equals(db_type)) ? " selected=\"selected\"" : "" %>>-- Please select --</option>
-                <option value="<%= JDBCHelper.DB_TYPE_MYSQL %>"<%= (JDBCHelper.DB_TYPE_MYSQL.equals(db_type)) ? " selected=\"selected\"" : "" %>>MySQL</option>
-                <option value="<%= JDBCHelper.DB_TYPE_POSTGRESQL %>"<%= (JDBCHelper.DB_TYPE_POSTGRESQL.equals(db_type)) ? " selected=\"selected\"" : "" %>>PostgreSQL</option>
-            </select>
-        </div>
-        <br class="clear" />
-        <div class="field">
-            <label for="<%= Configuration.DB_HOST %>">
-                Server address:
-            </label>
-            <input type="text" name="<%= Configuration.DB_HOST %>" id="<%= Configuration.DB_HOST %>" value="<%=db_host%>" tabindex="2" />
-        </div>
 
-        <div class="field">
-            <label for="<%= Configuration.DB_PORT %>">
-                Server port:
-            </label>
-            <input type="text" name="<%= Configuration.DB_PORT %>" id="<%= Configuration.DB_PORT %>" value="<%=str_db_port%>" tabindex="3" />
-        </div>
-
-        <div class="field">
-            <label for="<%= Configuration.DB_USER%>">
-                Username:
-            </label>
-            <input type="text" name="<%= Configuration.DB_USER %>" id="<%= Configuration.DB_USER %>" value="<%=db_user%>" tabindex="4" />
-        </div>
-
-        <div class="field">
-            <label for="<%= Configuration.DB_PASS%>">
-                Password:
-            </label>
-            <input type="password" name="<%= Configuration.DB_PASS %>" id="<%= Configuration.DB_PASS %>" value="" tabindex="5" />
-        </div>
-
-        <div class="field">
-            <label for="<%= Configuration.DB_DATABASE%>">
-                Database name
-            </label>
-            <input type="text" name="<%= Configuration.DB_DATABASE %>" id="<%= Configuration.DB_DATABASE %>" value="<%=db_database%>" tabindex="6" />
-        </div>
-        <% if(HibernateConfigurator.getInstance().isConfigured()) { %>
-        <p class="error">
-            Warning: Database is already configured, please <strong>restart the servlet container</strong> or <strong>restart when the configuration is completed</strong>!
+    <% if(HibernateConfigurator.getInstance().isConfigured()) { %>
+    <div class="alert alert-danger">
+        <h4>Warning</h4>
+        <p>
+            Database is already configured, <strong>restart the servlet container when done with the configuration</strong>!
         </p>
-        <% } %>
-        <input type="submit" name="verify" value="Verify" tabindex="7" />
+    </div>
+    <% } %>
+
+    <form action="" method="post" onsubmit="return validateOnSubmit();" role="form" class="form-horizontal">
+        <div class="form-group">
+            <label for="<%= Configuration.DB_TYPE %>" class="col-sm-3 control-label">Database type</label>
+            <div class="col-sm-4">
+                <select id="<%= Configuration.DB_TYPE %>" name="<%= Configuration.DB_TYPE %>" tabindex="1" class="form-control">
+                    <option value=""<%= ("".equals(db_type)) ? " selected=\"selected\"" : "" %>>-- Please select --</option>
+                    <option value="<%= JDBCHelper.DB_TYPE_MYSQL %>"<%= (JDBCHelper.DB_TYPE_MYSQL.equals(db_type)) ? " selected=\"selected\"" : "" %>>MySQL</option>
+                    <option value="<%= JDBCHelper.DB_TYPE_POSTGRESQL %>"<%= (JDBCHelper.DB_TYPE_POSTGRESQL.equals(db_type)) ? " selected=\"selected\"" : "" %>>PostgreSQL</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="<%= Configuration.DB_HOST %>" class="col-sm-3 control-label">Server address</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                    name="<%= Configuration.DB_HOST %>" id="<%= Configuration.DB_HOST %>" value="<%=db_host%>" tabindex="2" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="<%= Configuration.DB_PORT %>" class="col-sm-3 control-label">Server port</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                    name="<%= Configuration.DB_PORT %>" id="<%= Configuration.DB_PORT %>" value="<%=str_db_port%>" tabindex="3" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="<%= Configuration.DB_USER%>" class="col-sm-3 control-label">Username</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                    name="<%= Configuration.DB_USER %>" id="<%= Configuration.DB_USER %>" value="<%=db_user%>" tabindex="4" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="<%= Configuration.DB_PASS%>" class="col-sm-3 control-label">Password</label>
+            <div class="col-sm-4">
+                <input type="password" class="form-control"
+                    name="<%= Configuration.DB_PASS %>" id="<%= Configuration.DB_PASS %>" value="" tabindex="5" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="<%= Configuration.DB_DATABASE%>" class="col-sm-3 control-label">Database name</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"
+                    name="<%= Configuration.DB_DATABASE %>" id="<%= Configuration.DB_DATABASE %>" value="<%=db_database%>" tabindex="6" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-7">
+                <input type="submit" name="verify" value="Check configuration" tabindex="7" class="btn btn-primary pull-right" />
+            </div>
+        </div>
     </form>
-    <br />
-    <br />
-    <br />
-    Notice: As a securiy measure, you are advised to create a dedicated user
-    for the toolkit that has only SELECT permission on the database.
-    On MySQL database, this is accomplished by issuing the following statement:
-    <pre>
-        GRANT SELECT ON database_name.* TO 'informea_user'@'localhost' IDENTIFIED BY 'secure-password'
-    </pre>
+
+    <span class="label label-info">Security advice</span>
+    <p>
+        For stronger security, you are advised to create a dedicated user for the toolkit that has only 
+        <code>SELECT</code> permission on the database tables.
+    </p>
+    </div>
+    On MySQL this is accomplished by issuing the following statement:
+    <pre>GRANT SELECT ON database_name.* TO 'informea_user'@'localhost' IDENTIFIED BY 'secure-password'</pre>
 </div>
 <jsp:include page="../WEB-INF/includes/footer.jsp" />

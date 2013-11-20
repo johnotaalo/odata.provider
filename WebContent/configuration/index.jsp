@@ -41,7 +41,7 @@
                 
             </ul>
             <br />
-            <a class="btn btn-default" href="step1.jsp">Proceed</a>
+            <a class="btn btn-primary" href="step1.jsp">Proceed</a>
         </div>
         <jsp:include page="../WEB-INF/includes/documentation.jsp" />
     </c:if>
