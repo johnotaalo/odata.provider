@@ -13,7 +13,7 @@
 </jsp:include>
 <div class="content">
     <h1>Toolkit configuration</h1>
-    <c:if test="${!isInstalled}">
+    <c:if test="${isInstalled}">
         <div class="alert alert-warning">
             <h4>STOP!</h4>
             <br />
@@ -21,11 +21,8 @@
             <br /><br />
             <a class="btn btn-default" href="step1.jsp">Reconfigure</a>
          </div>
-         <span class="label label-danger">
-            Important: If you plan to use another database than current one, <strong>please restart Tomcat before going forward!</strong>
-        </span>
     </c:if>
-    <c:if test="${isInstalled}">
+    <c:if test="${!isInstalled}">
         <div class="alert alert-info">
             <h4>Information</h4>
             Your provider is not yet configured. From this page you can configure the provider to suit your installation.
