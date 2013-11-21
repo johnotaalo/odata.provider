@@ -3,10 +3,13 @@ body {
   padding: 20px 10px 20px 10px;
 }
 
-div#version {
+div#version, div#updateStatus {
  margin-top: 15px;
  margin-right: 15px;
 }
+
+li#updateButton { background: #27C927; }
+li#updateButton a { color: black; }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,

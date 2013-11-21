@@ -42,7 +42,10 @@ pageContext.setAttribute("menu", currentItem);
                         <a href="<%= ToolkitUtil.url(request, "/configuration") %>">Configuration</a>
                     </li>
                     <li<c:if test="${menu == 'about' }"> class="active"</c:if>>
-                        <a href="<%= ToolkitUtil.url(request, "/about") %>"">About</a>
+                        <a href="<%= ToolkitUtil.url(request, "/about") %>">About</a>
+                    </li>
+                    <li id="updateButton" <c:if test="${menu == 'update' }"> class="active"</c:if><c:if test="${menu != 'update' }"> class="hidden"</c:if>>
+                        <a href="<%= ToolkitUtil.url(request, "/update") %>">Update</a>
                     </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -50,6 +53,9 @@ pageContext.setAttribute("menu", currentItem);
                 <div id="version" class="label label-info pull-right">
                     <%= ToolkitUtil.getToolkitVersion() %>
                 </div>
+            </li>
+            <li>
+                <div id="updateStatus" class="label label-info pull-right">Checking for newer version ...</div>
             </li>
           </ul>
         </div><!--/.nav-collapse -->
