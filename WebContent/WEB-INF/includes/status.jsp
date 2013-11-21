@@ -7,10 +7,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String endpoint = "services/odata.svc";
+    String serviceURL = String.format("%s/%s", request.getContextPath(), endpoint);
     Map<EntityType, Map<String, Object>> entityStatus = ToolkitUtil.getEntityStatus(request, endpoint);
     List<EntityType> entities = EntityType.getEntities();
     pageContext.setAttribute("entities", entities);
 %>
+    <p>
+        Endpoint URL address is <a href="<%= serviceURL %>">here</a>. Schema is <a href="<%= serviceURL %>/$metadata">here</a>.
+    </p>
     <table class="table">
         <thead>
             <tr>
