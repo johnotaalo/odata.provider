@@ -62,6 +62,14 @@
         <servlet-name>About</servlet-name>
         <jsp-file>/about.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>CheckUpdate</servlet-name>
+        <jsp-file>/check-update.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>Update</servlet-name>
+        <jsp-file>/update.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CrossDomain</servlet-name>
         <url-pattern>/services/*</url-pattern>
@@ -69,6 +77,14 @@
     <servlet-mapping>
         <servlet-name>About</servlet-name>
         <url-pattern>/about</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckUpdate</servlet-name>
+        <url-pattern>/update-check</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Update</servlet-name>
+        <url-pattern>/update</url-pattern>
     </servlet-mapping>
     <!-- Define the Login Configuration for this Application -->
     <security-constraint>

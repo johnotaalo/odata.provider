@@ -627,6 +627,8 @@ public class ToolkitUtil {
         boolean needsUpdate = false;
         ret.put("needsUpdate", needsUpdate);
         ret.put("success", false);
+        ret.put("remoteVersion", "");
+        ret.put("changes", "");
         try {
             URL url = new URL(Producer.UPDATE_URL);
             URLConnection c = url.openConnection();
@@ -639,6 +641,7 @@ public class ToolkitUtil {
             int minor = Integer.parseInt(props.getProperty("MINOR"));
             int revision = Integer.parseInt(props.getProperty("REVISION"));
             boolean beta = Boolean.parseBoolean(props.getProperty("BETA"));
+            String changes = props.getProperty("CHANGES");
 
             if(major > Producer.MAJOR ) {
                 needsUpdate = true;
@@ -655,8 +658,10 @@ public class ToolkitUtil {
                     }
                 }
             }
+            ret.put("remoteVersion", String.format("%s.%s.%s%s", major, minor, revision, beta ? " beta" : ""));
             ret.put("needsUpdate", needsUpdate);
             ret.put("success", true);
+            ret.put("changes", changes);
         } catch(Exception ex) {
             log.log(Level.WARNING, "Cannot check for new version!", ex);
         }
