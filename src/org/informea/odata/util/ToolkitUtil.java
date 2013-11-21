@@ -613,9 +613,9 @@ public class ToolkitUtil {
      * @return
      */
     public static String getToolkitVersion() {
-        return String.format("%s.%s.%s", 
+        return String.format("%s.%s.%s%s", 
                 Producer.MAJOR, Producer.MINOR, Producer.REVISION, 
-                (Producer.BETA ? " beta" : ""));
+                Producer.BETA ? " beta" : "");
     }
 
     /**
@@ -648,10 +648,10 @@ public class ToolkitUtil {
             } else {
                 if(minor > Producer.MINOR) {
                     needsUpdate = true;
-                } else {
+                } else if(minor == Producer.MINOR) {
                     if(revision > Producer.REVISION) {
                         needsUpdate = true;
-                    } else {
+                    } else if(revision == Producer.REVISION) {
                         if(Producer.BETA && !beta) {
                             needsUpdate = true;
                         }

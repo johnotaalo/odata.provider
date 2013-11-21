@@ -96,6 +96,7 @@
             -->
             <web-resource-name>InforMEA toolkit access</web-resource-name>
             <url-pattern>/configuration/*</url-pattern>
+            <url-pattern>/update/*</url-pattern>
             <url-pattern>/sql/*</url-pattern>
             <url-pattern>/tests/*</url-pattern>
             <url-pattern>/faq/*</url-pattern>

@@ -7,8 +7,8 @@ $(document).ready(function() {
 	}).done(function(data) {
 		console.log(data);
 		if(data.needsUpdate) {
-			ctrl.html('New version available: ' + data.removeVersion);
-			ctrl.removeClass('label-info').addClass('label-warning');
+			ctrl.html('New version available: ' + data.remoteVersion);
+			ctrl.removeClass('label-info').addClass('label-danger');
 			$('#updateButton').removeClass('hidden');
 		} else {
 			ctrl.html('Toolkit is up to date');
