@@ -14,7 +14,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Resource</th>
+                <th>Exposed entity</th>
                 <th>Enabled</th>
                 <th>Count</th>
                 <th>URL</th>

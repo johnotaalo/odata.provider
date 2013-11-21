@@ -22,9 +22,19 @@ pageContext.setAttribute("menu", currentItem);
         <link rel="stylesheet" type="text/css" href="<%= ToolkitUtil.url(request, "/themes/css/informea.css") %>"></link>
     </head>
     <body>
-        <div class="container">
-            <div class="header">
-                <ul class="nav nav-pills pull-right">
+      <!-- Static navbar -->
+      <div class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="<%= ToolkitUtil.url(request, null) %>">InforMEA toolkit</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
                     <li<c:if test="${menu == 'home' }"> class="active"</c:if>>
                         <a href="<%= ToolkitUtil.url(request, "/") %>"">Home</a>
                     </li>
@@ -34,6 +44,15 @@ pageContext.setAttribute("menu", currentItem);
                     <li<c:if test="${menu == 'about' }"> class="active"</c:if>>
                         <a href="<%= ToolkitUtil.url(request, "/about") %>"">About</a>
                     </li>
-                </ul>
-                <h3 class="text-muted">InforMEA toolkit</h3>
-            </div>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+                <div id="version" class="label label-info pull-right">
+                    <%= ToolkitUtil.getToolkitVersion() %>
+                </div>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+
+      

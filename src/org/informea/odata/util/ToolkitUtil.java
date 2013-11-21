@@ -607,4 +607,14 @@ public class ToolkitUtil {
         String db_database = (String)session.getAttribute(Configuration.DB_DATABASE);
         return new JDBCHelper(db_type, db_host, db_port, db_user, db_pass, db_database);
     }
+
+    /**
+     * Retrieve the toolkit version as a string
+     * @return
+     */
+    public static String getToolkitVersion() {
+        return String.format("%s.%s.%s", 
+                Producer.MAJOR, Producer.MINOR, Producer.REVISION, 
+                (Producer.BETA ? " beta" : ""));
+    }
 }

@@ -8,10 +8,9 @@
         <jsp:param name="html_title" value="InforMEA OData provider" />
     </jsp:include>
     <div class="jumbotron">
-        <h1>OData provider</h1>
+        <h1>InforMEA toolkit</h1>
         <p class="lead">
-            This is the interface for the OData web service endpoint. From this interface you can check the status
-            of the service and configure a newly created service
+            OData web service endpoint
         </p>
     </div>
     <div class="row marketing">

@@ -1,7 +1,11 @@
 /* Space out content a bit */
 body {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 20px 10px 20px 10px;
+}
+
+div#version {
+ margin-top: 15px;
+ margin-right: 15px;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -70,7 +74,7 @@ body {
   }
   /* Space out the masthead */
   .header {
-    margin-bottom: 30px;
+    margin-bottom: 5px;
   }
   /* Remove the bottom border on the jumbotron for visual effect */
   .jumbotron {
