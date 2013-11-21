@@ -3,7 +3,6 @@
 <%@page import="org.informea.odata.producer.toolkit.Configuration"%>
 <%@page import="java.util.prefs.*"%>
 <% Configuration cfg = Configuration.getInstance(); %>
-
     <jsp:include page="WEB-INF/includes/header.jsp">
         <jsp:param name="html_title" value="InforMEA OData provider" />
     </jsp:include>
