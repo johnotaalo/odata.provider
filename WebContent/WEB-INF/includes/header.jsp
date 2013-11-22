@@ -44,6 +44,9 @@ pageContext.setAttribute("menu", currentItem);
                     <li<c:if test="${menu == 'about' }"> class="active"</c:if>>
                         <a href="<%= ToolkitUtil.url(request, "/about") %>">About</a>
                     </li>
+                    <li<c:if test="${menu == 'faq' }"> class="active"</c:if>>
+                        <a href="<%= ToolkitUtil.url(request, "/faq") %>">FAQ</a>
+                    </li>
                     <li id="updateButton" <c:if test="${menu == 'update' }"> class="active"</c:if><c:if test="${menu != 'update' }"> class="hidden"</c:if>>
                         <a href="<%= ToolkitUtil.url(request, "/update") %>">Update</a>
                     </li>
