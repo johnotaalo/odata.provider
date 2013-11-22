@@ -308,7 +308,7 @@ public class ToolkitUtil {
      * @param p Producer to retrieve data from
      * @return null if success, error message if failed
      */
-   public static String validateMeetings(Producer p) {
+    public static String validateMeetings(Producer p) {
         String ret = null;
         IDataProvider dataProvider = null;
         try {
@@ -334,7 +334,7 @@ public class ToolkitUtil {
      * @param p Producer to retrieve data from
      * @return null if success, error message if failed
      */
-   public static String validateContacts(Producer p) {
+    public static String validateContacts(Producer p) {
         String ret = null;
         IDataProvider dataProvider = null;
         try {
@@ -358,7 +358,7 @@ public class ToolkitUtil {
      * @param p Producer to retrieve data from
      * @return null if success, error message if failed
      */
-   public static String validateCountryReports(Producer p) {
+    public static String validateCountryReports(Producer p) {
         String ret = null;
         IDataProvider dataProvider = null;
         try {
@@ -532,7 +532,7 @@ public class ToolkitUtil {
                 boolean inUse = cfg.isUse(key);
                 Integer count = 0;
                 String url = "";
-                if(inUse) { 
+                if(inUse) {
                     count = p.getCount(key, dp);
                     url = EntityType.getEndpointURL(request, key, endpointURL);
                 }
@@ -613,8 +613,8 @@ public class ToolkitUtil {
      * @return
      */
     public static String getToolkitVersion() {
-        return String.format("%s.%s.%s%s", 
-                Producer.MAJOR, Producer.MINOR, Producer.REVISION, 
+        return String.format("%s.%s.%s%s",
+                Producer.MAJOR, Producer.MINOR, Producer.REVISION,
                 Producer.BETA ? " beta" : "");
     }
 
@@ -636,7 +636,7 @@ public class ToolkitUtil {
             java.io.InputStream fis = c.getInputStream();
             java.util.Properties props = new java.util.Properties();
             props.load(fis);
-    
+
             int major = Integer.parseInt(props.getProperty("MAJOR"));
             int minor = Integer.parseInt(props.getProperty("MINOR"));
             int revision = Integer.parseInt(props.getProperty("REVISION"));
@@ -663,6 +663,7 @@ public class ToolkitUtil {
             ret.put("success", true);
             ret.put("changes", changes);
         } catch(Exception ex) {
+            ret.put("success", false);
             log.log(Level.WARNING, "Cannot check for new version!", ex);
         }
         return ret;
