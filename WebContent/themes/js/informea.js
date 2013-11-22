@@ -5,7 +5,6 @@ $(document).ready(function() {
 		cache: false,
 		dataType: "json",
 	}).done(function(data) {
-		console.log(data);
 		if(data.needsUpdate) {
 			ctrl.html('New version available: ' + data.remoteVersion);
 			ctrl.removeClass('label-info').addClass('label-danger');
