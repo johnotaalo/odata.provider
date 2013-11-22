@@ -3,7 +3,7 @@
 <%@page import="java.util.Map"%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-    Map breadcrumbtrail = new LinkedHashMap<String, String>();
+    Map<String, String> breadcrumbtrail = new LinkedHashMap<String, String>();
     breadcrumbtrail.put("Home", ToolkitUtil.url(request, "/"));
     breadcrumbtrail.put("Tests", "");
     request.setAttribute("breadcrumbtrail", breadcrumbtrail);

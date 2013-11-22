@@ -36,7 +36,7 @@ pageContext.setAttribute("menu", currentItem);
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
                     <li<c:if test="${menu == 'home' }"> class="active"</c:if>>
-                        <a href="<%= ToolkitUtil.url(request, "/") %>"">Home</a>
+                        <a href="<%= ToolkitUtil.url(request, "/") %>">Home</a>
                     </li>
                     <li<c:if test="${menu == 'configuration' }"> class="active"</c:if>>
                         <a href="<%= ToolkitUtil.url(request, "/configuration") %>">Configuration</a>
