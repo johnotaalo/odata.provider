@@ -41,8 +41,6 @@ import org.informea.odata.producer.toolkit.impl.NationalPlan;
 import org.informea.odata.producer.toolkit.impl.Site;
 import org.odata4j.producer.QueryInfo;
 
-import com.sun.xml.internal.stream.Entity;
-
 
 /**
  * Toolkit producer main class

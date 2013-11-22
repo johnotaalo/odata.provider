@@ -14,7 +14,6 @@
  */
 package org.informea.odata.producer.toolkit;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -22,7 +21,6 @@ import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
-import javax.persistence.criteria.CriteriaBuilder.Case;
 import javax.servlet.http.HttpSession;
 
 import org.informea.odata.constants.EntityType;

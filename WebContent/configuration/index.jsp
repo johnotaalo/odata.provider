@@ -3,9 +3,9 @@
 <%@page import="org.informea.odata.producer.toolkit.Configuration" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-    Configuration cfg = Configuration.getInstance();
-    pageContext.setAttribute("cfg", cfg);
-    pageContext.setAttribute("isInstalled", cfg.isInstalled());
+Configuration cfg = Configuration.getInstance();
+pageContext.setAttribute("cfg", cfg);
+pageContext.setAttribute("isInstalled", cfg.isInstalled());
 %>
 <jsp:include page="../WEB-INF/includes/header.jsp">
     <jsp:param name="html_title" value="InforMEA provider configuration" />

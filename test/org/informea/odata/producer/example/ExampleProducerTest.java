@@ -17,16 +17,7 @@ package org.informea.odata.producer.example;
 import java.util.Arrays;
 import java.util.List;
 import org.core4j.Enumerable;
-import org.informea.odata.constants.DecisionStatus;
-import org.informea.odata.constants.DecisionType;
-import org.informea.odata.constants.MeetingAccess;
-import org.informea.odata.constants.MeetingKind;
-import org.informea.odata.constants.MeetingRepetition;
-import org.informea.odata.constants.MeetingStatus;
-import org.informea.odata.constants.MeetingType;
 import org.informea.odata.constants.MimeType;
-import org.informea.odata.constants.NationalPlanType;
-import org.informea.odata.constants.SiteType;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.pojo.AbstractContact;
 import org.informea.odata.pojo.AbstractCountryProfile;
@@ -71,7 +62,7 @@ public class ExampleProducerTest extends BaseTest {
                 AbstractMeeting.COLLECTION_NAME,
                 AbstractNationalPlan.COLLECTION_NAME,
                 AbstractSite.COLLECTION_NAME
-        );
+                );
         for(String collection : collections) {
             assertTrue(String.format("EntitySets do not contain '%s' collection", collection), allSets.contains(collection));
         }
@@ -131,12 +122,12 @@ public class ExampleProducerTest extends BaseTest {
         }
 
         property = "type";
-        expected = DecisionType.DECISION.toString();
+        expected ="decision";
         assertEquals(EdmType.STRING, ob.getProperty(property).getType());
         assertEquals(expected, ob.getProperty(property).getValue());
 
         property = "status";
-        expected = DecisionStatus.ACTIVE.toString();
+        expected = "active";
         assertEquals(EdmType.STRING, ob.getProperty(property).getType());
         assertEquals(expected, ob.getProperty(property).getValue());
 
@@ -150,23 +141,23 @@ public class ExampleProducerTest extends BaseTest {
         assertEquals(EdmType.STRING, ob.getProperty(property).getType());
         assertEquals(expected, ob.getProperty(property).getValue());
 
-//        property = "published";
-//        Calendar pub = Calendar.getInstance();
-//        pub.set(2009, 12, 23, 0, 0, 0);
-//        pub.set(Calendar.MILLISECOND, 0);
-//        pub.setTimeZone(TimeZone.getTimeZone("GMT"));
-//        expected = pub.getTime();
-//        assertEquals(EdmType.DATETIME, ob.getProperty(property).getType());
-//        assertEquals(expected, ob.getProperty(property).getValue());
+        //        property = "published";
+        //        Calendar pub = Calendar.getInstance();
+        //        pub.set(2009, 12, 23, 0, 0, 0);
+        //        pub.set(Calendar.MILLISECOND, 0);
+        //        pub.setTimeZone(TimeZone.getTimeZone("GMT"));
+        //        expected = pub.getTime();
+        //        assertEquals(EdmType.DATETIME, ob.getProperty(property).getType());
+        //        assertEquals(expected, ob.getProperty(property).getValue());
 
-//        property = "updated";
-//        Calendar pub = Calendar.getInstance();
-//        pub.set(2009, 12, 23, 0, 0, 0);
-//        pub.set(Calendar.MILLISECOND, 0);
-//        pub.setTimeZone(TimeZone.getTimeZone("GMT"));
-//        expected = pub.getTime();
-//        assertEquals(EdmType.DATETIME, ob.getProperty(property).getType());
-//        assertEquals(expected, ob.getProperty(property).getValue());
+        //        property = "updated";
+        //        Calendar pub = Calendar.getInstance();
+        //        pub.set(2009, 12, 23, 0, 0, 0);
+        //        pub.set(Calendar.MILLISECOND, 0);
+        //        pub.setTimeZone(TimeZone.getTimeZone("GMT"));
+        //        expected = pub.getTime();
+        //        assertEquals(EdmType.DATETIME, ob.getProperty(property).getType());
+        //        assertEquals(expected, ob.getProperty(property).getValue());
 
         property = "meetingId";
         expected = "2";
@@ -207,9 +198,9 @@ public class ExampleProducerTest extends BaseTest {
             String prop = (String)e.getProperty("url").getValue();
             assertTrue(String.format("Wrong url for decision document->url: %s", prop),
                     Arrays.asList("http://www.example.com/downloads/sample_document.doc",
-                        "http://www.example.com/downloads/sample_document.pdf",
-                        "http://www.example.com/downloads/sample_document.rtf",
-                        "http://www.example.com/downloads/sample_document.odt").contains(prop));
+                            "http://www.example.com/downloads/sample_document.pdf",
+                            "http://www.example.com/downloads/sample_document.rtf",
+                            "http://www.example.com/downloads/sample_document.odt").contains(prop));
             Long size = (Long)e.getProperty("size").getValue();
             assertNotSame("Document size is wrong", 0, size);
             assertNotNull("Document size is null", size);
@@ -433,27 +424,27 @@ public class ExampleProducerTest extends BaseTest {
         //TODO start and end
 
         property = "repetition";
-        expected = MeetingRepetition.WEEKLY.toString();
+        expected = "weekly";
         assertEquals(EdmType.STRING, ob.getProperty(property).getType());
         assertEquals(expected, ob.getProperty(property).getValue());
 
         property = "kind";
-        expected = MeetingKind.OFFICIAL.toString();
+        expected = "official";
         assertEquals(EdmType.STRING, ob.getProperty(property).getType());
         assertEquals(expected, ob.getProperty(property).getValue());
 
         property = "type";
-        expected = MeetingType.SYMPOSIA.toString();
+        expected = "symposia";
         assertEquals(EdmType.STRING, ob.getProperty(property).getType());
         assertEquals(expected, ob.getProperty(property).getValue());
 
         property = "access";
-        expected = MeetingAccess.PUBLIC.toString();
+        expected = "public";
         assertEquals(EdmType.STRING, ob.getProperty(property).getType());
         assertEquals(expected, ob.getProperty(property).getValue());
 
         property = "status";
-        expected = MeetingStatus.TENTATIVE.toString();
+        expected = "tentative";
         assertEquals(EdmType.STRING, ob.getProperty(property).getType());
         assertEquals(expected, ob.getProperty(property).getValue());
 
@@ -527,7 +518,7 @@ public class ExampleProducerTest extends BaseTest {
         assertEquals(expected, ob.getProperty(property).getValue());
 
         property = "type";
-        expected = NationalPlanType.NBSAP.toString();
+        expected = "NBSAP";
         assertEquals(EdmType.STRING, ob.getProperty(property).getType());
         assertEquals(expected, ob.getProperty(property).getValue());
 
@@ -579,7 +570,7 @@ public class ExampleProducerTest extends BaseTest {
         assertEquals(expected, ob.getProperty(property).getValue());
 
         property = "type";
-        expected = SiteType.RAMSAR.toString();
+        expected = "ramsar";
         assertEquals(EdmType.STRING, ob.getProperty(property).getType());
         assertEquals(expected, ob.getProperty(property).getValue());
 

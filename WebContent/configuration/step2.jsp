@@ -6,36 +6,36 @@
 <%@page import="org.informea.odata.util.JDBCHelper"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-    // If user drops to this page and setup is not configured, just redirect to start
-    if(session.getAttribute(Configuration.DB_TYPE) == null) {
-        response.sendRedirect("index.jsp");
+// If user drops to this page and setup is not configured, just redirect to start
+if(session.getAttribute(Configuration.DB_TYPE) == null) {
+    response.sendRedirect("index.jsp");
+    return;
+}
+boolean next = ToolkitUtil.isOnRequest("next", request);
+boolean validSelection = false;
+if(next) {
+    validSelection = ToolkitUtil.isValidEntitiesSelection(request);
+    if(validSelection) {
+        ToolkitUtil.saveEntitiesSelectionOnSession(session, request);
+        boolean useDecisions = ToolkitUtil.getRequestCheckbox(Configuration.USE_DECISIONS, request);
+        if(useDecisions) {
+            response.sendRedirect("step3.jsp");
+        } else {
+            response.sendRedirect("step4.jsp");
+        }
         return;
     }
-    boolean next = ToolkitUtil.isOnRequest("next", request);
-    boolean validSelection = false;
-    if(next) {
-        validSelection = ToolkitUtil.isValidEntitiesSelection(request);
-        if(validSelection) {
-            ToolkitUtil.saveEntitiesSelectionOnSession(session, request);
-            boolean useDecisions = ToolkitUtil.getRequestCheckbox(Configuration.USE_DECISIONS, request);
-            if(useDecisions) {
-                response.sendRedirect("step3.jsp");
-            } else {
-                response.sendRedirect("step4.jsp");
-            }
-            return;
-        }
-    }
-    JDBCHelper jdbc = ToolkitUtil.createJDBCHelperFromSession(session);
-    pageContext.setAttribute("jdbc", jdbc);
-    pageContext.setAttribute("allMissing", jdbc.isMissingAllEntities());
-    pageContext.setAttribute("useDecisions", jdbc.detectDecisions());
-    pageContext.setAttribute("useMeetings", jdbc.detectMeetings());
-    pageContext.setAttribute("useContacts", jdbc.detectContacts());
-    pageContext.setAttribute("useCountryReports", jdbc.detectCountryReports());
-    pageContext.setAttribute("useCountryProfiles", jdbc.detectCountryProfiles());
-    pageContext.setAttribute("useNationalPlans", jdbc.detectNationalPlans());
-    pageContext.setAttribute("useSites", jdbc.detectSites());
+}
+JDBCHelper jdbc = ToolkitUtil.createJDBCHelperFromSession(session);
+pageContext.setAttribute("jdbc", jdbc);
+pageContext.setAttribute("allMissing", jdbc.isMissingAllEntities());
+pageContext.setAttribute("useDecisions", jdbc.detectDecisions());
+pageContext.setAttribute("useMeetings", jdbc.detectMeetings());
+pageContext.setAttribute("useContacts", jdbc.detectContacts());
+pageContext.setAttribute("useCountryReports", jdbc.detectCountryReports());
+pageContext.setAttribute("useCountryProfiles", jdbc.detectCountryProfiles());
+pageContext.setAttribute("useNationalPlans", jdbc.detectNationalPlans());
+pageContext.setAttribute("useSites", jdbc.detectSites());
 %>
 <jsp:include page="../WEB-INF/includes/header.jsp">
     <jsp:param name="html_title" value="Select available entities" />
@@ -130,7 +130,7 @@
                     <td><label for="<%= Configuration.USE_COUNTRY_REPORTS %>">Country reports</label></td>
                     <td class="text-right">
                         <input type="checkbox" id="<%= Configuration.USE_COUNTRY_REPORTS %>" name="<%= Configuration.USE_COUNTRY_REPORTS %>"
-                            value="ON" tabindex="4"
+                        value="ON" tabindex="4"
                             <c:if test="${!useCountryReports}"> disabled="disabled"</c:if>
                             <c:if test="${useCountryReports}"> checked="checked"</c:if>
                         />

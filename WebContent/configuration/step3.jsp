@@ -4,21 +4,21 @@
 <%@page import="org.informea.odata.util.JDBCHelper"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-    Configuration cfg = Configuration.getInstance();
-    // If user drops to this page and setup is not configured, just redirect to start
-    if(session.getAttribute(Configuration.DB_TYPE) == null) {
-        response.sendRedirect("index.jsp");
-        return;
-    }
-    boolean next = ToolkitUtil.isOnRequest("next", request);
-    if(next) {
-        cfg.setUsePathPrefix(ToolkitUtil.getRequestCheckbox(Configuration.USE_PATH_PREFIX, request));
-        cfg.setPathPrefix(ToolkitUtil.getRequestValue(Configuration.PATH_PREFIX, request));
+Configuration cfg = Configuration.getInstance();
+// If user drops to this page and setup is not configured, just redirect to start
+if(session.getAttribute(Configuration.DB_TYPE) == null) {
+    response.sendRedirect("index.jsp");
+    return;
+}
+boolean next = ToolkitUtil.isOnRequest("next", request);
+if(next) {
+    cfg.setUsePathPrefix(ToolkitUtil.getRequestCheckbox(Configuration.USE_PATH_PREFIX, request));
+    cfg.setPathPrefix(ToolkitUtil.getRequestValue(Configuration.PATH_PREFIX, request));
 
-        response.sendRedirect("step4.jsp");
-    }
-    pageContext.setAttribute("cfg", cfg);
-    pageContext.setAttribute("usePathPrefix", cfg.isUsePathPrefix());
+    response.sendRedirect("step4.jsp");
+}
+pageContext.setAttribute("cfg", cfg);
+pageContext.setAttribute("usePathPrefix", cfg.isUsePathPrefix());
 %>
 <jsp:include page="../WEB-INF/includes/header.jsp">
     <jsp:param name="html_title" value="Configure decisions' documents location on server disk" />
