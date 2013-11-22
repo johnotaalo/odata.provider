@@ -119,11 +119,9 @@ public class Configuration {
      */
     public static final String USE_SITES = "informea.use_sites";
 
-
     private Preferences prefs;
     private String prefix = "";
     private Properties api = new Properties();
-
 
     private Configuration() {
         prefs = Preferences.userRoot();
@@ -149,23 +147,20 @@ public class Configuration {
         return _instance;
     }
 
-
     /**
      * Is toolkit installed?
      * @return true if installed
      */
     public boolean isInstalled() {
-        return prefs.getBoolean(prefix + INSTALLED, false);
+        return getBoolean(INSTALLED);
     }
 
-
     /**
-     * Set toolkit installed/uninstalled
-     * @param value Status
+     * Set toolkit configured/not configured
+     * @param value true if configured
      */
     public void setInstalled(boolean value) {
-        prefs.putBoolean(prefix + INSTALLED, value);
-        sync();
+        setBoolean(INSTALLED, value);
     }
 
 
@@ -174,7 +169,7 @@ public class Configuration {
      * @return true if use path prefix
      */
     public boolean isUsePathPrefix() {
-        return prefs.getBoolean(prefix + USE_PATH_PREFIX, false);
+        return getBoolean(USE_PATH_PREFIX);
     }
 
 
@@ -183,8 +178,7 @@ public class Configuration {
      * @param value Use path prefix
      */
     public void setUsePathPrefix(boolean value) {
-        prefs.putBoolean(prefix + USE_PATH_PREFIX, value);
-        sync();
+        setBoolean(USE_PATH_PREFIX, value);
     }
 
 
@@ -193,7 +187,7 @@ public class Configuration {
      * @return Path prefix, ex: "/var/www"
      */
     public String getPathPrefix() {
-        return prefs.get(prefix + PATH_PREFIX, "");
+        return getString(PATH_PREFIX);
     }
 
 
@@ -202,8 +196,7 @@ public class Configuration {
      * @param value Prefix
      */
     public void setPathPrefix(String value) {
-        prefs.put(prefix + PATH_PREFIX, value);
-        sync();
+        setString(PATH_PREFIX, value);
     }
 
 
@@ -212,7 +205,7 @@ public class Configuration {
      * @param value database type. Currently supported is "mysql"
      */
     public void setDBType(String value) {
-        prefs.put(prefix + DB_TYPE, value);
+        setString(DB_TYPE, value);
     }
 
 
@@ -221,7 +214,7 @@ public class Configuration {
      * @return Currently supported is "mysql"
      */
     public String getDBType() {
-        return prefs.get(prefix + DB_TYPE, null);
+        return getString(DB_TYPE);
     }
 
 
@@ -230,16 +223,20 @@ public class Configuration {
      * @param value Hostname or IP
      */
     public void setDBHost(String value) {
-        prefs.put(prefix + DB_HOST, value);
+        setString(DB_HOST, value);
     }
 
 
     /**
-     * Retrieve database server hostname or Ip
+     * Retrieve database server hostname or IP
      * @return String
      */
     public String getDBHost() {
-        return prefs.get(prefix + DB_HOST, "localhost");
+        String ret = getString(DB_HOST);
+        if(ret == null) {
+            ret = "localhost";
+        }
+        return ret;
     }
 
 
@@ -248,7 +245,7 @@ public class Configuration {
      * @param value Valid TCP/IP port number
      */
     public void setDBPort(int value) {
-        prefs.putInt(prefix + DB_PORT, value);
+        setInt(DB_PORT, value);
     }
 
 
@@ -256,16 +253,16 @@ public class Configuration {
      * @return Database server TCP/IP port number
      */
     public int getDBPort() {
-        return prefs.getInt(prefix + DB_PORT, 0);
+        return getInt(DB_PORT);
     }
 
 
     /**
      * Database user
-     * @param value Valid username to connect to Db server
+     * @param value Valid username to connect to DB server
      */
     public void setDBUser(String value) {
-        prefs.put(prefix + DB_USER, value);
+        setString(DB_USER, value);
     }
 
 
@@ -274,7 +271,7 @@ public class Configuration {
      * @return String
      */
     public String getDBUser() {
-        return prefs.get(prefix + DB_USER, null);
+        return getString(DB_USER);
     }
 
 
@@ -283,7 +280,7 @@ public class Configuration {
      * @param value Database password
      */
     public void setDBPassword(String value) {
-        prefs.put(prefix + DB_PASS, value);
+        setString(DB_PASS, value);
     }
 
 
@@ -292,7 +289,7 @@ public class Configuration {
      * @return String
      */
     public String getDBPassword() {
-        return prefs.get(prefix + DB_PASS, null);
+        return getString(DB_PASS);
     }
 
 
@@ -301,7 +298,7 @@ public class Configuration {
      * @param value String
      */
     public void setDBName(String value) {
-        prefs.put(prefix + DB_DATABASE, value);
+        setString(DB_DATABASE, value);
     }
 
 
@@ -309,7 +306,7 @@ public class Configuration {
      * @return Database name
      */
     public String getDBName() {
-        return prefs.get(prefix + DB_DATABASE, null);
+        return getString(DB_DATABASE);
     }
 
 
@@ -317,13 +314,12 @@ public class Configuration {
      * @return Is toolkit exposes decisions?
      */
     public boolean isUseDecisions() {
-        return prefs.getBoolean(prefix + USE_DECISIONS, false);
+        return getBoolean(USE_DECISIONS);
     }
 
 
     public void setUseDecisions(boolean value) {
-        prefs.putBoolean(prefix + USE_DECISIONS, value);
-        sync();
+        setBoolean(USE_DECISIONS, value);
     }
 
 
@@ -331,13 +327,12 @@ public class Configuration {
      * @return Is toolkit exposes meetings?
      */
     public boolean isUseMeetings() {
-        return prefs.getBoolean(prefix + USE_MEETINGS, false);
+        return getBoolean(USE_MEETINGS);
     }
 
 
     public void setUseMeetings(boolean value) {
-        prefs.putBoolean(prefix + USE_MEETINGS, value);
-        sync();
+        setBoolean(USE_MEETINGS, value);
     }
 
 
@@ -345,13 +340,12 @@ public class Configuration {
      * @return Is toolkit exposes contacts?
      */
     public boolean isUseContacts() {
-        return prefs.getBoolean(prefix + USE_CONTACTS, false);
+        return getBoolean(USE_CONTACTS);
     }
 
 
     public void setUseContacts(boolean value) {
-        prefs.putBoolean(prefix + USE_CONTACTS, value);
-        sync();
+        setBoolean(USE_CONTACTS, value);
     }
 
 
@@ -359,13 +353,12 @@ public class Configuration {
      * @return Is toolkit exposes country reports?
      */
     public boolean isUseCountryReports() {
-        return prefs.getBoolean(prefix + USE_COUNTRY_REPORTS, false);
+        return getBoolean(USE_COUNTRY_REPORTS);
     }
 
 
     public void setUseCountryReports(boolean value) {
-        prefs.putBoolean(prefix + USE_COUNTRY_REPORTS, value);
-        sync();
+        setBoolean(USE_COUNTRY_REPORTS, value);
     }
 
 
@@ -373,13 +366,12 @@ public class Configuration {
      * @return Is toolkit exposes country profiles?
      */
     public boolean isUseCountryProfiles() {
-        return prefs.getBoolean(prefix + USE_COUNTRY_PROFILES, false);
+        return getBoolean(USE_COUNTRY_PROFILES);
     }
 
 
     public void setUseCountryProfiles(boolean value) {
-        prefs.putBoolean(prefix + USE_COUNTRY_PROFILES, value);
-        sync();
+        setBoolean(USE_COUNTRY_PROFILES, value);
     }
 
 
@@ -387,13 +379,12 @@ public class Configuration {
      * @return Is toolkit exposes national plans?
      */
     public boolean isUseNationalPlans() {
-        return prefs.getBoolean(prefix + USE_NATIONAL_PLANS, false);
+        return getBoolean(USE_NATIONAL_PLANS);
     }
 
 
     public void setUseNationalPlans(boolean value) {
-        prefs.putBoolean(prefix + USE_NATIONAL_PLANS, value);
-        sync();
+        setBoolean(USE_NATIONAL_PLANS, value);
     }
 
 
@@ -401,13 +392,12 @@ public class Configuration {
      * @return Is toolkit exposes sites?
      */
     public boolean isUseSites() {
-        return prefs.getBoolean(prefix + USE_SITES, false);
+        return getBoolean(USE_SITES);
     }
 
 
     public void setUseSites(boolean value) {
-        prefs.putBoolean(prefix + USE_SITES, value);
-        sync();
+        setBoolean(USE_SITES, value);
     }
 
     /**
@@ -421,7 +411,7 @@ public class Configuration {
     }
 
     /**
-     * @return JDBC url depending on db_type. Currently MySQL is supported
+     * @return JDBC URL depending on db_type. Currently MySQL is supported
      */
     public String getJDBCUrl() {
         if("mysql".equals(this.getDBType())) {
@@ -456,39 +446,39 @@ public class Configuration {
      * @param session Valid HTTP session object
      */
     public void putFromSession(HttpSession session) {
-        prefs.put(prefix + DB_TYPE, (String)session.getAttribute(DB_TYPE));
-        prefs.put(prefix + DB_HOST, (String)session.getAttribute(DB_HOST));
-        prefs.put(prefix + DB_USER, (String)session.getAttribute(DB_USER));
-        prefs.put(prefix + DB_PASS, (String)session.getAttribute(DB_PASS));
-        prefs.put(prefix + DB_DATABASE, (String)session.getAttribute(DB_DATABASE));
-        prefs.putInt(prefix + DB_PORT, (Integer)session.getAttribute(DB_PORT));
+        setString(DB_TYPE, (String)session.getAttribute(DB_TYPE));
+        setString(DB_HOST, (String)session.getAttribute(DB_HOST));
+        setString(DB_USER, (String)session.getAttribute(DB_USER));
+        setString(DB_PASS, (String)session.getAttribute(DB_PASS));
+        setString(DB_DATABASE, (String)session.getAttribute(DB_DATABASE));
+        setInt(DB_PORT, (Integer)session.getAttribute(DB_PORT));
 
         if(session.getAttribute(USE_DECISIONS) != null) {
-            prefs.putBoolean(prefix + USE_DECISIONS, (Boolean)session.getAttribute(USE_DECISIONS));
+            setBoolean(USE_DECISIONS, (Boolean)session.getAttribute(USE_DECISIONS));
         }
 
         if(session.getAttribute(USE_MEETINGS) != null) {
-            prefs.putBoolean(prefix + USE_MEETINGS, (Boolean)session.getAttribute(USE_MEETINGS));
+            setBoolean(USE_MEETINGS, (Boolean)session.getAttribute(USE_MEETINGS));
         }
 
         if(session.getAttribute(USE_CONTACTS) != null) {
-            prefs.putBoolean(prefix + USE_CONTACTS, (Boolean)session.getAttribute(USE_CONTACTS));
+            setBoolean(USE_CONTACTS, (Boolean)session.getAttribute(USE_CONTACTS));
         }
 
         if(session.getAttribute(USE_COUNTRY_REPORTS) != null) {
-            prefs.putBoolean(prefix + USE_COUNTRY_REPORTS, (Boolean)session.getAttribute(USE_COUNTRY_REPORTS));
+            setBoolean(USE_COUNTRY_REPORTS, (Boolean)session.getAttribute(USE_COUNTRY_REPORTS));
         }
 
         if(session.getAttribute(USE_COUNTRY_PROFILES) != null) {
-            prefs.putBoolean(prefix + USE_COUNTRY_PROFILES, (Boolean)session.getAttribute(USE_COUNTRY_PROFILES));
+            setBoolean(USE_COUNTRY_PROFILES, (Boolean)session.getAttribute(USE_COUNTRY_PROFILES));
         }
 
         if(session.getAttribute(USE_NATIONAL_PLANS) != null) {
-            prefs.putBoolean(prefix + USE_NATIONAL_PLANS, (Boolean)session.getAttribute(USE_NATIONAL_PLANS));
+            setBoolean(USE_NATIONAL_PLANS, (Boolean)session.getAttribute(USE_NATIONAL_PLANS));
         }
 
         if(session.getAttribute(USE_SITES) != null) {
-            prefs.putBoolean(prefix + USE_SITES, (Boolean)session.getAttribute(USE_SITES));
+            setBoolean(USE_SITES, (Boolean)session.getAttribute(USE_SITES));
         }
 
         sync();
@@ -517,6 +507,46 @@ public class Configuration {
                 return this.isUseSites();
         }
         return false;
+    }
+
+
+    public String getString(String key) {
+        return prefs.get(prefix + key, "");
+    }
+
+    public void setString(String key, String value) {
+        if(value != null) {
+            prefs.put(prefix + key, value);
+        } else {
+            prefs.remove(prefix + key);
+        }
+        sync();
+    }
+
+    public boolean getBoolean(String key) {
+        return prefs.getBoolean(prefix + key, false);
+    }
+
+    public void setBoolean(String key, Boolean value) {
+        if(value != null) {
+            prefs.putBoolean(prefix + key, value);
+        } else {
+            prefs.remove(prefix + key);
+        }
+        sync();
+    }
+
+    public int getInt(String key) {
+        return prefs.getInt(prefix + key, 0);
+    }
+
+    public void setInt(String key, Integer value) {
+        if(value != null) {
+            prefs.putInt(prefix + key, value);
+        } else {
+            prefs.remove(prefix + key);
+        }
+        sync();
     }
 
     /**
