@@ -3,6 +3,7 @@ package org.informea.odata;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+import static org.mockito.Mockito.*;
 
 public class ConfigurationTest {
 
@@ -13,33 +14,26 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void testGetString() {
-        fail("Not yet implemented");
+    public void testGetSetString() {
+        Configuration cfg = Configuration.getInstance();
+        assertEquals("", cfg.getString("invalid.key"));
+        cfg.setString("one", "one");
+        assertEquals("one", cfg.getString("one"));
     }
 
     @Test
-    public void testSetString() {
-        fail("Not yet implemented");
+    public void testGetSetBoolean() {
+        Configuration cfg = Configuration.getInstance();
+        assertFalse(cfg.getBoolean("invalid.key"));
+        cfg.setBoolean("true", true);
+        assertTrue("true", cfg.getBoolean("true"));
     }
 
     @Test
-    public void testGetBoolean() {
-        fail("Not yet implemented");
+    public void testGetSetInt() {
+        Configuration cfg = Configuration.getInstance();
+        assertEquals(0, cfg.getInt("invalid.key"));
+        cfg.setInt("six-hundred-sixty-six", 666);
+        assertEquals(666, cfg.getInt("six-hundred-sixty-six"));
     }
-
-    @Test
-    public void testSetBoolean() {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testGetInt() {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testSetInt() {
-        fail("Not yet implemented");
-    }
-
 }
