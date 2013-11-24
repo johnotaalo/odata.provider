@@ -49,7 +49,7 @@ public class HibernateConfigurator {
 
 
     private void configure() {
-        org.informea.odata.producer.toolkit.Configuration cfg = org.informea.odata.producer.toolkit.Configuration.getInstance();
+        org.informea.odata.Configuration cfg = org.informea.odata.Configuration.getInstance();
 
         //Preferences.userRoot().getBoolean(USE_PATH_PREFIX, false);
         Configuration hc = new Configuration();

@@ -26,9 +26,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.informea.odata.Configuration;
 import org.informea.odata.constants.EntityType;
 import org.informea.odata.constants.MimeType;
 import org.informea.odata.pojo.AbstractContact;
@@ -39,7 +41,6 @@ import org.informea.odata.pojo.AbstractMeeting;
 import org.informea.odata.pojo.AbstractNationalPlan;
 import org.informea.odata.pojo.AbstractSite;
 import org.informea.odata.producer.InvalidValueException;
-import org.informea.odata.producer.toolkit.Configuration;
 import org.informea.odata.producer.toolkit.IDataProvider;
 import org.informea.odata.producer.toolkit.Producer;
 import org.informea.odata.producer.toolkit.impl.DatabaseDataProvider;

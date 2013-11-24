@@ -1,5 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="org.informea.odata.producer.toolkit.Configuration"%>
+<%@page import="org.informea.odata.Configuration"%>
 <%@page import="java.util.prefs.*"%>
 <% Configuration cfg = Configuration.getInstance(); %>
 <jsp:include page="WEB-INF/includes/header.jsp">

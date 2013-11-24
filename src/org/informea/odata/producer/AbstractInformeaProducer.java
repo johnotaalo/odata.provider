@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.core4j.Enumerable;
+import org.informea.odata.Configuration;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.pojo.AbstractContact;
 import org.informea.odata.pojo.AbstractCountryProfile;
@@ -31,7 +32,6 @@ import org.informea.odata.pojo.DecisionDocument;
 import org.informea.odata.pojo.IAbstractEntity;
 import org.informea.odata.pojo.LocalizableString;
 import org.informea.odata.pojo.VocabularyTerm;
-import org.informea.odata.producer.toolkit.Configuration;
 import org.informea.odata.producer.toolkit.IDataProvider;
 import org.informea.odata.producer.toolkit.impl.DatabaseDataProvider;
 import org.informea.odata.util.ODataTransformationUtil;

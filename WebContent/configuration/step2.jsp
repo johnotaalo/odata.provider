@@ -2,7 +2,7 @@
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="org.informea.odata.util.ToolkitUtil" %>
-<%@page import="org.informea.odata.producer.toolkit.Configuration" %>
+<%@page import="org.informea.odata.Configuration" %>
 <%@page import="org.informea.odata.util.JDBCHelper"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%

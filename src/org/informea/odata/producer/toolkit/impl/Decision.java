@@ -19,10 +19,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
+
 import javax.persistence.Cacheable;
-
 import javax.persistence.CascadeType;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -31,6 +30,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
+import org.informea.odata.Configuration;
 import org.informea.odata.constants.MimeType;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.pojo.AbstractDecision;
@@ -38,7 +38,6 @@ import org.informea.odata.pojo.DecisionDocument;
 import org.informea.odata.pojo.LocalizableString;
 import org.informea.odata.pojo.VocabularyTerm;
 import org.informea.odata.producer.InvalidValueException;
-import org.informea.odata.producer.toolkit.Configuration;
 import org.informea.odata.util.ToolkitUtil;
 
 /**
