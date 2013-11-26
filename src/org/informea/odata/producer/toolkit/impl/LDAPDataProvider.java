@@ -117,7 +117,9 @@ public class LDAPDataProvider implements IDataProvider {
                     SearchScope.SUB,
                     String.format(cfg.getString(Configuration.LDAP_USER_FILTER), id)
                     );
-            ret = fromSearchResultEntry(item);
+            if(item != null) {
+                ret = fromSearchResultEntry(item);
+            }
         } catch(LDAPSearchException ex) {
             log.log(Level.WARNING, "countPrimaryEntities(): Failed to retrieve LDAP search results", ex);
         }
@@ -184,6 +186,9 @@ public class LDAPDataProvider implements IDataProvider {
     }
 
     public IContact fromSearchResultEntry(SearchResultEntry ob) {
+        if(ob == null) {
+            return null;
+        }
         LDAPContact ret = new LDAPContact();
         if(ob.hasAttribute("uid")) {
             ret.setId(ob.getAttributeValue("uid"));

@@ -219,7 +219,11 @@ public class LDAPDataProviderTest {
         cfg.setString(Configuration.LDAP_USER_FILTER, "uid=%s");
         LDAPDataProvider dp = new LDAPDataProvider();
         IContact person = (IContact)dp.getPrimaryEntity(null, "bjensen");
+        assertNotNull(person);
         assertEquals("bjensen", person.getId());
+
+        person = (IContact)dp.getPrimaryEntity(null, "invalidid");
+        assertNull(person);
     }
 
     @Test
