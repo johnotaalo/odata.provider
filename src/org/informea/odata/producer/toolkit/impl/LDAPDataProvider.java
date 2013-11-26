@@ -156,7 +156,12 @@ public class LDAPDataProvider implements IDataProvider {
         return ret;
     }
 
-    public int getPageSize(int requestedPageSize) {
+    /**
+     * Sanitize the request pageSize based on defaults to prevent server overload by retrieving a large result set.
+     * @param requestedPageSize The requested pageSize
+     * @return Sanitized pageSize
+     */
+    protected int getPageSize(int requestedPageSize) {
         int ret = 100;
         int maxPageSize = Configuration.getInstance().getInt(Configuration.LDAP_MAX_PAGE_SIZE);
         if(maxPageSize > 0) {
@@ -168,6 +173,11 @@ public class LDAPDataProvider implements IDataProvider {
         return ret;
     }
 
+    /**
+     * Transform an array from LDAP SearchResultEntry to IContact items
+     * @param entries List of entries
+     * @return Corresponding IContact entities
+     */
     public List<IContact> fromSearchResult(SearchResult entries) {
         List<IContact> ret = new ArrayList<IContact>();
         for(SearchResultEntry row: entries.getSearchEntries()) {
@@ -176,6 +186,12 @@ public class LDAPDataProvider implements IDataProvider {
         return ret;
     }
 
+    /**
+     * Transform a single entity from LDAP SearchResultEntry into IContact entity.
+     * It is based on <code>Configuration</code> defined mappings (<code>Configuration.LDAP_MAPPING_*</code>)
+     * @param ob The LDAP entry
+     * @return Corresponding IContact object
+     */
     public IContact fromSearchResultEntry(SearchResultEntry ob) {
         if(ob == null) {
             return null;
