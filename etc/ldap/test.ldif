@@ -1,0 +1,243 @@
+
+# Conventions for the CMS project
+# id = dn
+# carLicense = treaties (cms, aewa, ascobans ...)
+# 
+
+dn: dc=example,dc=com
+objectClass: top
+objectClass: domain
+dc: example
+
+dn: ou=People,dc=example,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: People
+
+dn: ou=Groups,dc=example,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: People
+
+dn:cn=Barbara Jensen,ou=People,dc=example,dc=com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+uid: bjensen
+personalTitle: H.E.
+givenName: Barbara
+sn: Jensen
+cn: Barbara Jensen
+displayName: Jensen, Barbara
+initials: BJ
+c: RO
+title: Web Developer
+o: Eau de Web
+ou: Software Development
+registeredAddress: 5th Avenue, NY
+postalCode: 12345
+mail: bjensen@siroe.com
+telephoneNumber: +1 408 555 1862
+facsimileTelephoneNumber: +1 408 555 1992
+modifyTimestamp: 20060101000003Z
+mobile: +1 408 555 1941
+carLicense: cms,aewa
+
+dn: uid=abarnes,ou=People,dc=example,dc=com
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: top
+uid: abarnes
+personalTitle: Mr.
+facsimiletelephonenumber: +1 408 555 4661
+givenname: Anne-Louise
+cn: Anne-Louise Barnes
+telephonenumber: +1 408 555 9445
+sn: Barnes
+roomnumber: 2290
+mail: abarnes@example.com
+l: Santa Clara
+ou: Payroll
+ou: People
+
+dn: uid=abergin,ou=People,dc=example,dc=com
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: top
+uid: abergin
+personalTitle: Ms.
+facsimiletelephonenumber: +1 408 555 7472
+givenname: Andy
+cn: Andy Bergin
+telephonenumber: +1 408 555 8585
+sn: Bergin
+roomnumber: 3472
+mail: abergin@example.com
+l: Cupertino
+ou: Product Testing
+ou: People
+
+dn: uid=achassin,ou=People,dc=example,dc=com
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: top
+uid: achassin
+personalTitle: Mrs.
+facsimiletelephonenumber: +1 408 555 3372
+givenname: Ashley
+cn: Ashley Chassin
+telephonenumber: +1 408 555 9972
+sn: Chassin
+roomnumber: 0466
+mail: achassin@example.com
+l: Santa Clara
+ou: Payroll
+ou: People
+
+dn: uid=ahall,ou=People,dc=example,dc=com
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: top
+uid: ahall
+personalTitle: Ms.
+facsimiletelephonenumber: +1 408 555 4774
+givenname: Andy
+cn: Andy Hall
+telephonenumber: +1 408 555 6169
+sn: Hall
+roomnumber: 3050
+mail: ahall@example.com
+l: Santa Clara
+ou: Accounting
+ou: People
+
+dn: uid=ahel,ou=People,dc=example,dc=com
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: top
+uid: ahel
+personalTitle: Mr.
+facsimiletelephonenumber: +1 408 555 8721
+givenname: Andrew
+cn: Andrew Hel
+telephonenumber: +1 408 555 2666
+sn: Hel
+roomnumber: 0572
+mail: ahel@example.com
+l: Santa Clara
+ou: Accounting
+ou: People
+
+dn: uid=ahunter,ou=People,dc=example,dc=com
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: top
+uid: ahunter
+personalTitle: HE.
+facsimiletelephonenumber: +1 408 555 8473
+givenname: Allison
+cn: Allison Hunter
+telephonenumber: +1 408 555 7713
+sn: Hunter
+roomnumber: 1213
+mail: ahunter@example.com
+l: Sunnyvale
+ou: Payroll
+ou: People
+
+dn: uid=ajensen,ou=People,dc=example,dc=com
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: top
+uid: ajensen
+personalTitle: Mrs.
+facsimiletelephonenumber: +1 408 555 0111
+givenname: Allison
+cn: Allison Jensen
+telephonenumber: +1 408 555 7892
+sn: Jensen
+roomnumber: 0784
+mail: ajensen@example.com
+l: Santa Clara
+ou: Product Development
+ou: People
+
+dn: uid=aknutson,ou=People,dc=example,dc=com
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: top
+uid: aknutson
+personalTitle: Mrs.
+facsimiletelephonenumber: +1 408 555 4774
+givenname: Ashley
+cn: Ashley Knutson
+telephonenumber: +1 408 555 2169
+sn: Knutson
+roomnumber: 4736
+mail: aknutson@example.com
+l: Cupertino
+ou: Product Development
+ou: People
+
+dn: uid=alangdon,ou=People,dc=example,dc=com
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: top
+uid: alangdon
+personalTitle: Ms.
+facsimiletelephonenumber: +1 408 555 9332
+givenname: Andrew
+cn: Andrew Langdon
+telephonenumber: +1 408 555 8289
+sn: Langdon
+roomnumber: 2254
+mail: alangdon@example.com
+l: Santa Clara
+ou: Product Development
+ou: People
+
+dn: uid=alutz,ou=People,dc=example,dc=com
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: top
+uid: alutz
+personalTitle: Mr.
+facsimiletelephonenumber: +1 408 555 4774
+givenname: Alexander
+cn: Alexander Lutz
+telephonenumber: +1 408 555 6505
+sn: Lutz
+roomnumber: 1327
+mail: alutz@example.com
+l: Santa Clara
+ou: Product Development
+ou: People
+
+dn: uid=ashelton,ou=People,dc=example,dc=com
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: top
+uid: ashelton
+personalTitle: Mrs.
+facsimiletelephonenumber: +1 408 555 7472
+givenname: Alexander
+cn: Alexander Shelton
+telephonenumber: +1 408 555 1081
+sn: Shelton
+roomnumber: 1987
+mail: ashelton@example.com
+l: Santa Clara
+ou: Human Resources
+ou: People

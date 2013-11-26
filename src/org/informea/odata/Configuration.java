@@ -119,6 +119,47 @@ public class Configuration {
      */
     public static final String USE_SITES = "informea.use_sites";
 
+    /**
+     * Constant, value: informea.ldap.host
+     */
+    public static final String LDAP_HOST = "informea.ldap.host";
+
+    /**
+     * Constant, value: informea.ldap.host
+     */
+    public static final String LDAP_PORT = "informea.ldap.port";
+
+    /**
+     * Constant, value: informea.ldap.bind_dn
+     */
+    public static final String LDAP_BIND_DN = "informea.ldap.bind_dn";
+
+    /**
+     * Constant, value: informea.ldap.password
+     */
+    public static final String LDAP_PASSWORD = "informea.ldap.password";
+
+    /**
+     * Constant, value: informea.ldap.users.query
+     */
+    public static final String LDAP_USERS_BASE_DN = "informea.ldap.users.baseDN";
+
+    /**
+     * Constant, value: informea.ldap.users.query
+     */
+    public static final String LDAP_USERS_FILTER = "informea.ldap.users.filter";
+
+    /**
+     * Constant, value: informea.ldap.user.query
+     */
+    public static final String LDAP_USER_BASE_DN = "informea.ldap.user.baseDN";
+
+    /**
+     * Constant, value: informea.ldap.user.query
+     */
+    public static final String LDAP_MAX_PAGE_SIZE = "informea.ldap.maxPageSize";
+
+
     private Preferences prefs;
     private String prefix = "";
     private Properties api = new Properties();
