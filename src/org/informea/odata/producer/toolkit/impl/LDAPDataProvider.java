@@ -128,17 +128,8 @@ public class LDAPDataProvider implements IDataProvider {
 
     @Override
     public Object getEntity(Class entityClass, Object id) {
-        List<Treaty> ret = new ArrayList<Treaty>();
-        try {
-            SearchResultEntry item = conn.searchForEntry(String.format("dn=%s", id), SearchScope.SUB, id.toString());
-            if(item != null) {
-                IContact person = fromSearchResultEntry(item);
-                ret = person.getTreaties();
-            }
-        } catch(LDAPSearchException ex) {
-            log.log(Level.WARNING, "countPrimaryEntities(): Failed to retrieve LDAP search results", ex);
-        }
-        return ret;
+        log.info("getEntity(): Calling this method on LDAP data provider has no effect");
+        return null;
     }
 
     /**

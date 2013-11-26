@@ -212,30 +212,4 @@ public class LDAPDataProviderTest {
         List<Treaty> l = dp.parseTreaties(treaties);
         assertEquals(4, l.size());
     }
-
-    @Test
-    public void testGetPrimaryEntity() {
-        Configuration cfg = Configuration.getInstance();
-        cfg.setString(Configuration.LDAP_USER_FILTER, "uid=%s");
-        LDAPDataProvider dp = new LDAPDataProvider();
-        IContact person = (IContact)dp.getPrimaryEntity(null, "bjensen");
-        assertNotNull(person);
-        assertEquals("bjensen", person.getId());
-
-        person = (IContact)dp.getPrimaryEntity(null, "invalidid");
-        assertNull(person);
-    }
-
-    @Test
-    public void testGetEntity() {
-        Configuration cfg = Configuration.getInstance();
-        cfg.setString(Configuration.LDAP_USER_FILTER, "uid=%s");
-        LDAPDataProvider dp = new LDAPDataProvider();
-        IContact person = (IContact)dp.getPrimaryEntity(null, "bjensen");
-        List<Treaty> c = new ArrayList<Treaty>() {{
-            add(Treaty.CMS);
-            add(Treaty.AEWA);
-        }};
-        assertEquals(c, person.getTreaties());
-    }
 }
