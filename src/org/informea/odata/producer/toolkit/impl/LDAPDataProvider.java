@@ -139,6 +139,22 @@ public class LDAPDataProvider implements IDataProvider {
         return conn;
     }
 
+    protected List<Treaty> parseTreaties(String treatyString) {
+        List<Treaty> ret = new ArrayList<Treaty>();
+        if(treatyString != null && !"".equalsIgnoreCase(treatyString)) {
+            String items[] = treatyString.split(",");
+            for(String item: items) {
+                try {
+                    Treaty t = Treaty.getTreaty(item.trim().replace("'", "").replace("\"", ""));
+                    ret.add(t);
+                } catch(Exception ex) {
+                    log.log(Level.WARNING, String.format("Cannot decode treaty value %s", item), ex);
+                }
+            }
+        }
+        return ret;
+    }
+
     public int getPageSize(int requestedPageSize) {
         int ret = 100;
         int maxPageSize = Configuration.getInstance().getInt(Configuration.LDAP_MAX_PAGE_SIZE);

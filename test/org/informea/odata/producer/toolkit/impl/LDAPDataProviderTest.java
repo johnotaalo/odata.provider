@@ -10,6 +10,7 @@ import java.util.List;
 import org.apache.commons.io.IOUtils;
 import org.informea.odata.Configuration;
 import org.informea.odata.IContact;
+import org.informea.odata.constants.Treaty;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -201,6 +202,14 @@ public class LDAPDataProviderTest {
         assertEquals(200, dp.getPageSize(-1));
         assertEquals(200, dp.getPageSize(200));
         assertEquals(200, dp.getPageSize(10000));
+    }
+
+    @Test
+    public void testParseTreaties() {
+        LDAPDataProvider dp = new LDAPDataProvider();
+        String treaties = "a,aewa, ascobans, 'cms' ,,\"eurobats\" ,,";
+        List<Treaty> l = dp.parseTreaties(treaties);
+        assertEquals(4, l.size());
     }
 
     @Test
