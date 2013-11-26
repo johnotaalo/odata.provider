@@ -48,6 +48,7 @@ public enum Treaty {
     AEWA("aewa"),
     ANTIGUA("antigua"),
     APIA("apia"),
+    ASCOBANS("ascobans"),
     BAMAKO("bamako"),
     BARCELONA("barcelona"),
     BARCELONA_SPA("barc-spa"),
@@ -58,6 +59,7 @@ public enum Treaty {
     CITES("cites"),
     CMS("cms"),
     DUMPING_PROTOCOL("dumping"),
+    EUROBATS("eurobats"),
     ESPOO("espoo"),
     HAZARDOUS("hazardous"),
     JEDDAH("jeddah"),
@@ -94,8 +96,8 @@ public enum Treaty {
     public String toString() {
         return name;
     }
-    
-    
+
+
     public static Treaty getTreaty(String value) {
         try {
             return valueOf(value.toUpperCase());
@@ -111,8 +113,8 @@ public enum Treaty {
             }
             throw new InvalidValueException(
                     String.format(
-                        "Unknown treaty value. Invalid value '%s' for  <treaty> property. Treaties are enumerated values and %s cannot is not among them", value, value), 
-                    ex);
+                            "Unknown treaty value. Invalid value '%s' for  <treaty> property. Treaties are enumerated values and %s cannot is not among them", value, value),
+                            ex);
         }
     }
 
@@ -154,30 +156,30 @@ public enum Treaty {
     }
 
     /**
-	 * Transforms each object's field into OProperty and object into OEntity.
+     * Transforms each object's field into OProperty and object into OEntity.
      * Used by OData4J framework to serialize output.
-	 * @param namespace Namespace where this entity will be placed
-	 * @return This object encoded as OEntity
-	 */
+     * @param namespace Namespace where this entity will be placed
+     * @return This object encoded as OEntity
+     */
     public OEntity asEntity(String namespace) {
-		final List<OProperty<?>> properties = new ArrayList<OProperty<?>>();
-		properties.add(OProperties.string("value", name));
+        final List<OProperty<?>> properties = new ArrayList<OProperty<?>>();
+        properties.add(OProperties.string("value", name));
         return OEntities.create(getEntitySet(namespace), OEntityKey.create(name), properties, new ArrayList<OLink>(), name, null);
     }
 
-	/**
-	 * This method works the same as {@link org.informea.odata.constants.Treaty#asEntity(java.lang.String)}, but for a list
+    /**
+     * This method works the same as {@link org.informea.odata.constants.Treaty#asEntity(java.lang.String)}, but for a list
      * of entities.
-	 * @param namespace Namespace where this entity will be placed
-	 * @param strings List of objects to encode
-	 * @return List of encoded objects
-	 */
-	public static List<OEntity> asEntities(final String namespace, List<Treaty> strings) {
-		return Enumerable.create(strings).select(new Func1<Treaty, OEntity>() {
-			@Override
-			public OEntity apply(Treaty s) {
-				return s.asEntity(namespace);
-			}
-		}).toList();
-	}
+     * @param namespace Namespace where this entity will be placed
+     * @param strings List of objects to encode
+     * @return List of encoded objects
+     */
+    public static List<OEntity> asEntities(final String namespace, List<Treaty> strings) {
+        return Enumerable.create(strings).select(new Func1<Treaty, OEntity>() {
+            @Override
+            public OEntity apply(Treaty s) {
+                return s.asEntity(namespace);
+            }
+        }).toList();
+    }
 }
