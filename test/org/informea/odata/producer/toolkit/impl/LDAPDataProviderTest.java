@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
@@ -214,12 +215,23 @@ public class LDAPDataProviderTest {
 
     @Test
     public void testGetPrimaryEntity() {
-        fail("Not yet implemented");
+        Configuration cfg = Configuration.getInstance();
+        cfg.setString(Configuration.LDAP_USER_FILTER, "uid=%s");
+        LDAPDataProvider dp = new LDAPDataProvider();
+        IContact person = (IContact)dp.getPrimaryEntity(null, "bjensen");
+        assertEquals("bjensen", person.getId());
     }
 
     @Test
     public void testGetEntity() {
-        fail("Not yet implemented");
+        Configuration cfg = Configuration.getInstance();
+        cfg.setString(Configuration.LDAP_USER_FILTER, "uid=%s");
+        LDAPDataProvider dp = new LDAPDataProvider();
+        IContact person = (IContact)dp.getPrimaryEntity(null, "bjensen");
+        List<Treaty> c = new ArrayList<Treaty>() {{
+            add(Treaty.CMS);
+            add(Treaty.AEWA);
+        }};
+        assertEquals(c, person.getTreaties());
     }
-
 }

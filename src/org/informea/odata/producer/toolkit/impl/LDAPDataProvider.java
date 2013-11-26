@@ -106,13 +106,18 @@ public class LDAPDataProvider implements IDataProvider {
 
     @Override
     public Object getPrimaryEntity(Class entityClass, String id) {
-        Object ret = null;
+        IContact ret = null;
         Configuration cfg = Configuration.getInstance();
         try {
+            if(conn == null || !conn.isConnected()) {
+                openResources();
+            }
             SearchResultEntry item = conn.searchForEntry(
                     cfg.getString(Configuration.LDAP_USER_BASE_DN),
-                    SearchScope.SUB, "uid=barbadieri");
-            ret = item;
+                    SearchScope.SUB,
+                    String.format(cfg.getString(Configuration.LDAP_USER_FILTER), id)
+                    );
+            ret = fromSearchResultEntry(item);
         } catch(LDAPSearchException ex) {
             log.log(Level.WARNING, "countPrimaryEntities(): Failed to retrieve LDAP search results", ex);
         }

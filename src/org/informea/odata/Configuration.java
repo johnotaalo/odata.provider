@@ -155,10 +155,14 @@ public class Configuration {
     public static final String LDAP_USER_BASE_DN = "informea.ldap.user.baseDN";
 
     /**
-     * Constant, value: informea.ldap.user.query
+     * Constant, value: informea.ldap.maxPageSize
      */
     public static final String LDAP_MAX_PAGE_SIZE = "informea.ldap.maxPageSize";
 
+    /**
+     * Constant, value: informea.ldap.user.filter
+     */
+    public static final String LDAP_USER_FILTER = "informea.ldap.user.filter";
 
     private Preferences prefs;
     private String prefix = "";
