@@ -40,9 +40,11 @@ postalCode: 12345
 mail: bjensen@siroe.com
 telephoneNumber: +1 408 555 1862
 facsimileTelephoneNumber: +1 408 555 1992
-modifyTimestamp: 20060101000003Z
 mobile: +1 408 555 1941
-carLicense: cms,aewa
+roomNumber: 20061225164522+0200
+carLicense: cms
+carLicense: aewa
+
 
 dn: uid=abarnes,ou=People,dc=example,dc=com
 objectClass: person

@@ -98,6 +98,7 @@ public enum Treaty {
     }
 
 
+    //TODO Remove this and override valueof
     public static Treaty getTreaty(String value) {
         try {
             return valueOf(value.toUpperCase());

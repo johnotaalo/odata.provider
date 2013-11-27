@@ -1,6 +1,8 @@
 package org.informea.odata.producer.toolkit.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,6 +13,8 @@ import org.informea.odata.IContact;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.producer.toolkit.IDataProvider;
 import org.odata4j.producer.QueryInfo;
+
+import sun.util.calendar.BaseCalendar.Date;
 
 import com.sun.corba.se.impl.protocol.giopmsgheaders.RequestMessage;
 import com.unboundid.ldap.sdk.LDAPConnection;
@@ -140,22 +144,6 @@ public class LDAPDataProvider implements IDataProvider {
         return conn;
     }
 
-    protected List<Treaty> parseTreaties(String treatyString) {
-        List<Treaty> ret = new ArrayList<Treaty>();
-        if(treatyString != null && !"".equalsIgnoreCase(treatyString)) {
-            String items[] = treatyString.split(",");
-            for(String item: items) {
-                try {
-                    Treaty t = Treaty.getTreaty(item.trim().replace("'", "").replace("\"", ""));
-                    ret.add(t);
-                } catch(Exception ex) {
-                    log.log(Level.WARNING, String.format("Cannot decode treaty value %s", item), ex);
-                }
-            }
-        }
-        return ret;
-    }
-
     /**
      * Sanitize the request pageSize based on defaults to prevent server overload by retrieving a large result set.
      * @param requestedPageSize The requested pageSize
@@ -196,50 +184,91 @@ public class LDAPDataProvider implements IDataProvider {
         if(ob == null) {
             return null;
         }
+        Configuration cfg = Configuration.getInstance();
         LDAPContact ret = new LDAPContact();
-        if(ob.hasAttribute("uid")) {
-            ret.setId(ob.getAttributeValue("uid"));
+        ret.setId(ob.getDN());
+
+        String key = cfg.getString(Configuration.LDAP_MAPPING_PREFIX);
+        if(key != null && ob.hasAttribute(key)) {
+            ret.setPrefix(ob.getAttributeValue(key));
         }
-        if(ob.hasAttribute("personalTitle")) {
-            ret.setPrefix(ob.getAttributeValue("personalTitle"));
+
+        key = cfg.getString(Configuration.LDAP_MAPPING_FIRST_NAME);
+        if(key != null && ob.hasAttribute(key)) {
+            ret.setFirstName(ob.getAttributeValue(key));
         }
-        if(ob.hasAttribute("givenName")) {
-            ret.setFirstName(ob.getAttributeValue("givenName"));
+
+        key = cfg.getString(Configuration.LDAP_MAPPING_LAST_NAME);
+        if(key != null && ob.hasAttribute(key)) {
+            ret.setLastName(ob.getAttributeValue(key));
         }
-        if(ob.hasAttribute("sn")) {
-            ret.setLastName("sn");
+
+        key = cfg.getString(Configuration.LDAP_MAPPING_ADDRESS);
+        if(key != null && ob.hasAttribute(key)) {
+            ret.setAddress(ob.getAttributeValue(key));
         }
-        if(ob.hasAttribute("registeredAddress")) {
-            ret.setAddress("registeredAddress");
+
+        key = cfg.getString(Configuration.LDAP_MAPPING_COUNTRY);
+        if(key != null && ob.hasAttribute(key)) {
+            ret.setCountry(ob.getAttributeValue(key));
         }
-        if(ob.hasAttribute("c")) {
-            ret.setCountry(ob.getAttributeValue("c"));
+
+        key = cfg.getString(Configuration.LDAP_MAPPING_DEPARTMENT);
+        if(ob.hasAttribute(key)) {
+            ret.setDepartment(ob.getAttributeValue(key));
         }
-        if(ob.hasAttribute("ou")) {
-            ret.setDepartment(ob.getAttributeValue("ou"));
+
+        key = cfg.getString(Configuration.LDAP_MAPPING_EMAIL);
+        if(key != null && ob.hasAttribute(key)) {
+            ret.setEmail(ob.getAttributeValue(key));
         }
-        if(ob.hasAttribute("mail")) {
-            ret.setEmail("mail");
+
+        key = cfg.getString(Configuration.LDAP_MAPPING_FAX);
+        if(key != null && ob.hasAttribute(key)) {
+            ret.setFax(ob.getAttributeValue(key));
         }
-        if(ob.hasAttribute("facsimileTelephoneNumber")) {
-            ret.setFax(ob.getAttributeValue("facsimileTelephoneNumber"));
+
+        key = cfg.getString(Configuration.LDAP_MAPPING_INSTITUTION);
+        if(key != null && ob.hasAttribute(key)) {
+            ret.setInstitution(ob.getAttributeValue(key));
         }
-        if(ob.hasAttribute("o")) {
-            ret.setInstitution(ob.getAttributeValue("o"));
+
+        key = cfg.getString(Configuration.LDAP_MAPPING_PHONE);
+        if(key != null && ob.hasAttribute(key)) {
+            ret.setPhoneNumber(ob.getAttributeValue(key));
         }
-        if(ob.hasAttribute("telephoneNumber")) {
-            ret.setPhoneNumber(ob.getAttributeValue("telephoneNumber"));
+
+        key = cfg.getString(Configuration.LDAP_MAPPING_POSITION);
+        if(key != null && ob.hasAttribute(key)) {
+            ret.setPosition(ob.getAttributeValue(key));
         }
-        if(ob.hasAttribute("title")) {
-            ret.setPosition(ob.getAttributeValue("title"));
-        }
+
+        //TODO:
         ret.setPrimary(false);
-        if(ob.hasAttribute("lastModifiedTime")) {
-            ret.setUpdated(ob.getAttributeValueAsDate("lastModifiedTime"));
+        key = cfg.getString(Configuration.LDAP_MAPPING_UPDATED);
+        if(key != null && ob.hasAttribute(key)) {
+            java.util.Date d = ob.getAttributeValueAsDate(key);
+            ret.setUpdated(d);
         }
-        if(ob.hasAttribute("carLicense")) {
-            String prop = ob.getAttributeValue("carLicense");
-            List<Treaty> treaties = parseTreaties(prop);
+
+        key = cfg.getString(Configuration.LDAP_MAPPING_TREATIES);
+        List<Treaty> treaties = new ArrayList<Treaty>();
+        if(key != null && ob.hasAttribute(key)) {
+            String[] items = ob.getAttributeValues(key);
+            for(String row: items) {
+                try {
+                    Treaty t = Treaty.getTreaty(row);
+                    treaties.add(t);
+                } catch(Exception ex) {
+                    log.log(Level.WARNING,
+                            String.format("Unable to parse %s property with value %s", key, row),
+                            ex);
+                }
+            }
+            if(treaties.size() == 0) {
+                log.warning(
+                        String.format("Entry with DN:%s does not have any treaty set!", ret.getId()));
+            }
             ret.setTreaties(treaties);
         }
         return ret;

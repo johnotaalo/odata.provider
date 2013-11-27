@@ -164,6 +164,20 @@ public class Configuration {
      */
     public static final String LDAP_USER_FILTER = "informea.ldap.user.filter";
 
+    public static final String LDAP_MAPPING_PREFIX = "informea.ldap.mapping.personalTitle";
+    public static final String LDAP_MAPPING_FIRST_NAME = "informea.ldap.mapping.firstName";
+    public static final String LDAP_MAPPING_LAST_NAME = "informea.ldap.mapping.lastName";
+    public static final String LDAP_MAPPING_ADDRESS = "informea.ldap.mapping.address";
+    public static final String LDAP_MAPPING_COUNTRY = "informea.ldap.mapping.country";
+    public static final String LDAP_MAPPING_DEPARTMENT = "informea.ldap.mapping.department";
+    public static final String LDAP_MAPPING_EMAIL = "informea.ldap.mapping.email";
+    public static final String LDAP_MAPPING_FAX = "informea.ldap.mapping.fax";
+    public static final String LDAP_MAPPING_INSTITUTION = "informea.ldap.mapping.institution";
+    public static final String LDAP_MAPPING_PHONE = "informea.ldap.mapping.phone";
+    public static final String LDAP_MAPPING_POSITION = "informea.ldap.mapping.position";
+    public static final String LDAP_MAPPING_UPDATED = "informea.ldap.mapping.updated";
+    public static final String LDAP_MAPPING_TREATIES = "informea.ldap.mapping.treaties";
+
     private Preferences prefs;
     private String prefix = "";
     private Properties api = new Properties();

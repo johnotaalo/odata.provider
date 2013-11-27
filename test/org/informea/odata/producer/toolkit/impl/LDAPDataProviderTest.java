@@ -6,7 +6,10 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.apache.commons.io.IOUtils;
 import org.informea.odata.Configuration;
@@ -20,8 +23,11 @@ import org.junit.Test;
 import com.unboundid.ldap.listener.InMemoryDirectoryServer;
 import com.unboundid.ldap.listener.InMemoryDirectoryServerConfig;
 import com.unboundid.ldap.listener.InMemoryListenerConfig;
+import com.unboundid.ldap.sdk.Control;
 import com.unboundid.ldap.sdk.Entry;
 import com.unboundid.ldap.sdk.LDAPConnection;
+import com.unboundid.ldap.sdk.SearchResultEntry;
+import com.unboundid.ldap.sdk.SearchScope;
 import com.unboundid.ldap.sdk.schema.Schema;
 import com.unboundid.util.LDAPTestUtils;
 
@@ -206,10 +212,58 @@ public class LDAPDataProviderTest {
     }
 
     @Test
-    public void testParseTreaties() {
+    public void testFromSearchResultEntry() throws Exception {
         LDAPDataProvider dp = new LDAPDataProvider();
-        String treaties = "a,aewa, ascobans, 'cms' ,,\"eurobats\" ,,";
-        List<Treaty> l = dp.parseTreaties(treaties);
-        assertEquals(4, l.size());
+        Configuration cfg = Configuration.getInstance();
+
+        Entry e = new Entry("testDN");
+        LDAPConnection conn = ldapServer.getConnection();
+        SearchResultEntry item = conn.searchForEntry(
+                cfg.getString(Configuration.LDAP_USER_BASE_DN),
+                SearchScope.SUB,
+                "uid=bjensen");
+
+        List<Treaty> t = new ArrayList<Treaty>() {{
+            add(Treaty.CMS);
+            add(Treaty.AEWA);
+        }};
+
+        cfg.setString(Configuration.LDAP_MAPPING_PREFIX, "personalTitle");
+        cfg.setString(Configuration.LDAP_MAPPING_COUNTRY, "c");
+        cfg.setString(Configuration.LDAP_MAPPING_FIRST_NAME, "givenName");
+        cfg.setString(Configuration.LDAP_MAPPING_LAST_NAME, "sn");
+        cfg.setString(Configuration.LDAP_MAPPING_ADDRESS, "registeredAddress");
+        cfg.setString(Configuration.LDAP_MAPPING_DEPARTMENT, "ou");
+        cfg.setString(Configuration.LDAP_MAPPING_EMAIL, "mail");
+        cfg.setString(Configuration.LDAP_MAPPING_FAX, "facsimileTelephoneNumber");
+        cfg.setString(Configuration.LDAP_MAPPING_INSTITUTION, "o");
+        cfg.setString(Configuration.LDAP_MAPPING_PHONE, "telephoneNumber");
+        cfg.setString(Configuration.LDAP_MAPPING_POSITION, "title");
+        cfg.setString(Configuration.LDAP_MAPPING_UPDATED, "roomNumber");
+        cfg.setString(Configuration.LDAP_MAPPING_TREATIES, "carLicense");
+
+        IContact c = dp.fromSearchResultEntry(item);
+
+        //TODO: assertEquals("5th Avenue, NY 12345", c.getAddress());
+        assertEquals("cn=Barbara Jensen,ou=People,dc=example,dc=com", c.getId());
+        assertEquals("RO", c.getCountry());
+        assertEquals("Software Development", c.getDepartment());
+        assertEquals("bjensen@siroe.com", c.getEmail());
+        assertEquals("+1 408 555 1992", c.getFax());
+        assertEquals("Barbara", c.getFirstName());
+        assertEquals("Eau de Web", c.getInstitution());
+        assertEquals("Jensen", c.getLastName());
+        assertEquals("+1 408 555 1862", c.getPhoneNumber());
+        assertEquals("Web Developer", c.getPosition());
+        assertEquals("H.E.", c.getPrefix());
+        assertEquals(new Short((short) 1), c.getProtocolVersion());
+        assertEquals(t, c.getTreaties());
+
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+2"));
+        cal.set(2006, 11, 25, 16, 45, 22);
+        cal.set(Calendar.MILLISECOND, 0);
+        Date d = cal.getTime();
+        Date updated = c.getUpdated();
+        assertEquals(updated, d);
     }
 }
