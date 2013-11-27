@@ -138,8 +138,8 @@ public class LDAPDataProviderTest {
         assertEquals(10, users.size());
         first = users.get(0);
         last = users.get(users.size() - 1);
-        assertEquals("bjensen", first.getId());
-        assertEquals("alangdon", last.getId());
+        assertEquals("cn=Barbara Jensen,ou=People,dc=example,dc=com", first.getId());
+        assertEquals("uid=alangdon,ou=People,dc=example,dc=com", last.getId());
     }
 
     @Test
@@ -149,8 +149,8 @@ public class LDAPDataProviderTest {
         assertEquals(12, users.size());
         first = users.get(0);
         last = users.get(users.size() - 1);
-        assertEquals("bjensen", first.getId());
-        assertEquals("ashelton", last.getId());
+        assertEquals("cn=Barbara Jensen,ou=People,dc=example,dc=com", first.getId());
+        assertEquals("uid=ashelton,ou=People,dc=example,dc=com", last.getId());
     }
 
     @Test
@@ -160,8 +160,8 @@ public class LDAPDataProviderTest {
         assertEquals(5, users.size());
         first = users.get(0);
         last = users.get(users.size() - 1);
-        assertEquals("bjensen", first.getId());
-        assertEquals("ahall", last.getId());
+        assertEquals("cn=Barbara Jensen,ou=People,dc=example,dc=com", first.getId());
+        assertEquals("uid=ahall,ou=People,dc=example,dc=com", last.getId());
     }
 
     @Test
@@ -173,8 +173,8 @@ public class LDAPDataProviderTest {
         assertEquals(2, users.size());
         first = users.get(0);
         last = users.get(users.size() - 1);
-        assertEquals("alutz", first.getId());
-        assertEquals("ashelton", last.getId());
+        assertEquals("uid=alutz,ou=People,dc=example,dc=com", first.getId());
+        assertEquals("uid=ashelton,ou=People,dc=example,dc=com", last.getId());
         // Reset to default
         cfg.setInt(Configuration.LDAP_MAX_PAGE_SIZE, 0);
     }
@@ -188,8 +188,8 @@ public class LDAPDataProviderTest {
         assertEquals(8, users.size());
         first = users.get(0);
         last = users.get(users.size() - 1);
-        assertEquals("bjensen", first.getId());
-        assertEquals("ajensen", last.getId());
+        assertEquals("cn=Barbara Jensen,ou=People,dc=example,dc=com", first.getId());
+        assertEquals("uid=ajensen,ou=People,dc=example,dc=com", last.getId());
         // Reset to default
         cfg.setInt(Configuration.LDAP_MAX_PAGE_SIZE, 0);
     }
@@ -232,7 +232,7 @@ public class LDAPDataProviderTest {
         cfg.setString(Configuration.LDAP_MAPPING_COUNTRY, "c");
         cfg.setString(Configuration.LDAP_MAPPING_FIRST_NAME, "givenName");
         cfg.setString(Configuration.LDAP_MAPPING_LAST_NAME, "sn");
-        cfg.setString(Configuration.LDAP_MAPPING_ADDRESS, "registeredAddress");
+        cfg.setString(Configuration.LDAP_MAPPING_ADDRESS, "Address: ${registeredAddress} ${postalCode}");
         cfg.setString(Configuration.LDAP_MAPPING_DEPARTMENT, "ou");
         cfg.setString(Configuration.LDAP_MAPPING_EMAIL, "mail");
         cfg.setString(Configuration.LDAP_MAPPING_FAX, "facsimileTelephoneNumber");
@@ -244,7 +244,7 @@ public class LDAPDataProviderTest {
 
         IContact c = dp.fromSearchResultEntry(item);
 
-        //TODO: assertEquals("5th Avenue, NY 12345", c.getAddress());
+        assertEquals("Address: 5th Avenue, NY 12345", c.getAddress());
         assertEquals("cn=Barbara Jensen,ou=People,dc=example,dc=com", c.getId());
         assertEquals("RO", c.getCountry());
         assertEquals("Software Development", c.getDepartment());
@@ -265,5 +265,29 @@ public class LDAPDataProviderTest {
         Date d = cal.getTime();
         Date updated = c.getUpdated();
         assertEquals(updated, d);
+    }
+
+    @Test
+    public void testGetFieldValue() throws Exception {
+        LDAPConnection conn = ldapServer.getConnection();
+        SearchResultEntry item = conn.searchForEntry(
+                "ou=People,dc=example,dc=com",
+                SearchScope.SUB,
+                "uid=bjensen");
+        assertNotNull(item);
+
+        LDAPDataProvider dp = new LDAPDataProvider();
+        assertEquals("12345", dp.getFieldValue(item, "postalCode"));
+
+        assertEquals("valid12345", dp.getFieldValue(item, "valid${postalCode}"));
+
+        assertEquals("invalidAttribute", dp.getFieldValue(item, "invalidAttribute"));
+
+        assertEquals("BJ", dp.getFieldValue(item, "${initials}"));
+        assertEquals(" BJ ", dp.getFieldValue(item, " ${initials} "));
+        assertEquals(" BJ arbitrary string", dp.getFieldValue(item, " ${initials} arbitrary string"));
+
+        assertEquals(" BJ Web Developer arbitrary string", dp.getFieldValue(item, " ${initials} ${title} arbitrary string"));
+        assertEquals(" BJWeb Developerarbitrary string", dp.getFieldValue(item, " ${initials}${title}arbitrary string"));
     }
 }

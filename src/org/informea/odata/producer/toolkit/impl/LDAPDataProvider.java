@@ -2,7 +2,9 @@ package org.informea.odata.producer.toolkit.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,9 +16,8 @@ import org.informea.odata.constants.Treaty;
 import org.informea.odata.producer.toolkit.IDataProvider;
 import org.odata4j.producer.QueryInfo;
 
-import sun.util.calendar.BaseCalendar.Date;
-
 import com.sun.corba.se.impl.protocol.giopmsgheaders.RequestMessage;
+import com.unboundid.ldap.sdk.Attribute;
 import com.unboundid.ldap.sdk.LDAPConnection;
 import com.unboundid.ldap.sdk.LDAPException;
 import com.unboundid.ldap.sdk.LDAPSearchException;
@@ -188,64 +189,47 @@ public class LDAPDataProvider implements IDataProvider {
         LDAPContact ret = new LDAPContact();
         ret.setId(ob.getDN());
 
-        String key = cfg.getString(Configuration.LDAP_MAPPING_PREFIX);
-        if(key != null && ob.hasAttribute(key)) {
-            ret.setPrefix(ob.getAttributeValue(key));
+        String fieldValue = getFieldValue(ob, cfg.getString(Configuration.LDAP_MAPPING_PREFIX));
+        ret.setPrefix(fieldValue);
+
+        fieldValue = getFieldValue(ob, cfg.getString(Configuration.LDAP_MAPPING_FIRST_NAME));
+        ret.setFirstName(fieldValue);
+
+        fieldValue = getFieldValue(ob, cfg.getString(Configuration.LDAP_MAPPING_LAST_NAME));
+        ret.setLastName(fieldValue);
+
+        fieldValue = getFieldValue(ob, cfg.getString(Configuration.LDAP_MAPPING_ADDRESS));
+        ret.setAddress(fieldValue);
+
+        fieldValue = getFieldValue(ob, cfg.getString(Configuration.LDAP_MAPPING_COUNTRY));
+        ret.setCountry(fieldValue);
+
+        fieldValue = getFieldValue(ob, cfg.getString(Configuration.LDAP_MAPPING_DEPARTMENT));
+        ret.setDepartment(fieldValue);
+
+        fieldValue = getFieldValue(ob, cfg.getString(Configuration.LDAP_MAPPING_EMAIL));
+        ret.setEmail(fieldValue);
+
+        fieldValue = getFieldValue(ob, cfg.getString(Configuration.LDAP_MAPPING_FAX));
+        ret.setFax(fieldValue);
+
+        fieldValue = getFieldValue(ob, cfg.getString(Configuration.LDAP_MAPPING_INSTITUTION));
+        ret.setInstitution(fieldValue);
+
+        fieldValue = getFieldValue(ob, cfg.getString(Configuration.LDAP_MAPPING_PHONE));
+        ret.setPhoneNumber(fieldValue);
+
+        fieldValue = getFieldValue(ob, cfg.getString(Configuration.LDAP_MAPPING_POSITION));
+        ret.setPosition(fieldValue);
+
+        fieldValue = getFieldValue(ob, cfg.getString(Configuration.LDAP_MAPPING_PRIMARY_NFP));
+        try {
+            ret.setPrimary(Boolean.parseBoolean(fieldValue));
+        } catch(Exception ex) {
+            log.log(Level.WARNING, "Failed to parse boolean for 'primary' NFP", ex);
         }
 
-        key = cfg.getString(Configuration.LDAP_MAPPING_FIRST_NAME);
-        if(key != null && ob.hasAttribute(key)) {
-            ret.setFirstName(ob.getAttributeValue(key));
-        }
-
-        key = cfg.getString(Configuration.LDAP_MAPPING_LAST_NAME);
-        if(key != null && ob.hasAttribute(key)) {
-            ret.setLastName(ob.getAttributeValue(key));
-        }
-
-        key = cfg.getString(Configuration.LDAP_MAPPING_ADDRESS);
-        if(key != null && ob.hasAttribute(key)) {
-            ret.setAddress(ob.getAttributeValue(key));
-        }
-
-        key = cfg.getString(Configuration.LDAP_MAPPING_COUNTRY);
-        if(key != null && ob.hasAttribute(key)) {
-            ret.setCountry(ob.getAttributeValue(key));
-        }
-
-        key = cfg.getString(Configuration.LDAP_MAPPING_DEPARTMENT);
-        if(ob.hasAttribute(key)) {
-            ret.setDepartment(ob.getAttributeValue(key));
-        }
-
-        key = cfg.getString(Configuration.LDAP_MAPPING_EMAIL);
-        if(key != null && ob.hasAttribute(key)) {
-            ret.setEmail(ob.getAttributeValue(key));
-        }
-
-        key = cfg.getString(Configuration.LDAP_MAPPING_FAX);
-        if(key != null && ob.hasAttribute(key)) {
-            ret.setFax(ob.getAttributeValue(key));
-        }
-
-        key = cfg.getString(Configuration.LDAP_MAPPING_INSTITUTION);
-        if(key != null && ob.hasAttribute(key)) {
-            ret.setInstitution(ob.getAttributeValue(key));
-        }
-
-        key = cfg.getString(Configuration.LDAP_MAPPING_PHONE);
-        if(key != null && ob.hasAttribute(key)) {
-            ret.setPhoneNumber(ob.getAttributeValue(key));
-        }
-
-        key = cfg.getString(Configuration.LDAP_MAPPING_POSITION);
-        if(key != null && ob.hasAttribute(key)) {
-            ret.setPosition(ob.getAttributeValue(key));
-        }
-
-        //TODO:
-        ret.setPrimary(false);
-        key = cfg.getString(Configuration.LDAP_MAPPING_UPDATED);
+        String key = cfg.getString(Configuration.LDAP_MAPPING_UPDATED);
         if(key != null && ob.hasAttribute(key)) {
             java.util.Date d = ob.getAttributeValueAsDate(key);
             ret.setUpdated(d);
@@ -270,6 +254,37 @@ public class LDAPDataProvider implements IDataProvider {
                         String.format("Entry with DN:%s does not have any treaty set!", ret.getId()));
             }
             ret.setTreaties(treaties);
+        }
+        return ret;
+    }
+
+    /**
+     * Retrieve a single-valued attribute from an entry. Supports variable substitution, like
+     * "Address ${address}" equals to "Address 5th Avenue st.", where address is attribute of the search
+     * result entry. For single attributes, <code>${...}</code> may be omitted. "address" will return "5th Avenue st.".
+     * @param entry Entry to extract data from
+     * @param value A string containing the patterns to extract from attributes.
+     * @return Value with all variables substituted, as described in above.
+     */
+    protected String getFieldValue(SearchResultEntry entry, String value) {
+        String ret = value;
+        if(value == null || entry == null) {
+            return null;
+        }
+
+        // For a single word attribute, assume it's an single property
+        if(ret.matches("^\\w+$")) {
+            if(entry.hasAttribute(ret)) {
+                return entry.getAttributeValue(ret);
+            }
+        }
+
+        Collection<Attribute> attributes = entry.getAttributes();
+        Iterator<Attribute> it = attributes.iterator();
+        while(it.hasNext()) {
+            Attribute attr = it.next();
+            String name = String.format("${%s}", attr.getName());
+            ret = ret.replace(name, attr.getValue());
         }
         return ret;
     }
