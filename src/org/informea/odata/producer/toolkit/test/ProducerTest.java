@@ -18,7 +18,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
+
+import org.informea.odata.IContact;
+import org.informea.odata.ICountryProfile;
+import org.informea.odata.ICountryReport;
+import org.informea.odata.IDecision;
+import org.informea.odata.IMeeting;
+import org.informea.odata.INationalPlan;
+import org.informea.odata.ISite;
 import org.informea.odata.constants.Treaty;
+import org.informea.odata.data.DataProviderFactory;
 import org.informea.odata.pojo.AbstractContact;
 import org.informea.odata.pojo.AbstractCountryProfile;
 import org.informea.odata.pojo.AbstractCountryReport;
@@ -31,10 +40,9 @@ import org.informea.odata.pojo.LocalizableString;
 import org.informea.odata.pojo.VocabularyTerm;
 import org.informea.odata.producer.toolkit.IDataProvider;
 import org.informea.odata.producer.toolkit.Producer;
-import org.informea.odata.producer.toolkit.impl.DatabaseDataProvider;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**
@@ -44,49 +52,50 @@ import static org.junit.Assert.*;
 public class ProducerTest {
 
     private static Producer p;
-    private static IDataProvider dp;
-
 
     @BeforeClass
     public static void setUp() {
-        dp = new DatabaseDataProvider();
-        dp.openResources();
         p = new Producer();
     }
 
-    @AfterClass
-    public static void tearDown() {
+    @Test public void testGetMeeting() {
+        IDataProvider dp = DataProviderFactory.getDataProvider(IMeeting.class);
+
+        AbstractMeeting m1 = p.getMeeting(dp, "1");
+        assertNotNull(m1);
+        AbstractMeeting m2 = p.getMeeting(dp, "xx");
+        assertNull(m2);
+
         dp.closeResources();
     }
 
 
-    @Test public void testGetMeeting() {
-
-
-        AbstractMeeting m1 = p.getMeeting(dp, "1");
-        assertNotNull(m1);
-
-        AbstractMeeting m2 = p.getMeeting(dp, "xx");
-        assertNull(m2);
-    }
-
-
     @Test public void testGetMeetings() {
+        IDataProvider dp = DataProviderFactory.getDataProvider(IMeeting.class);
+
         List<AbstractMeeting> v = p.getMeetings(dp, null, 0, null);
         assertEquals(5, v.size());
         List<String> keys = Arrays.asList("1", "2", "3", "4", "5");
         for(AbstractMeeting ob : v) {
             assertTrue(keys.contains(ob.getId()));
         }
+
+        dp.closeResources();
     }
 
 
     @Test public void testGetMeetingsCount() {
-        assertEquals((int)5, (int)p.getMeetingsCount(dp, null));
+        IDataProvider dp = DataProviderFactory.getDataProvider(IMeeting.class);
+
+        assertEquals(5, (int)p.getMeetingsCount(dp, null));
+
+        dp.closeResources();
     }
 
 
     @Test public void testGetMeetingTitle() {
+        IDataProvider dp = DataProviderFactory.getDataProvider(IMeeting.class);
+
         AbstractMeeting m1 = p.getMeeting(dp, "1");
         List<LocalizableString> t = m1.getTitle();
         assertEquals(2, t.size());
@@ -100,10 +109,13 @@ public class ProducerTest {
             assertTrue(keys.contains(ob.getValue()));
         }
 
+        dp.closeResources();
     }
 
 
     @Test public void testGetMeetingDescription() {
+        IDataProvider dp = DataProviderFactory.getDataProvider(IMeeting.class);
+
         AbstractMeeting m1 = p.getMeeting(dp, "1");
         List<LocalizableString> t = m1.getDescription();
         assertEquals(2, t.size());
@@ -117,34 +129,49 @@ public class ProducerTest {
             assertTrue(keys.contains(ob.getValue()));
         }
 
+        dp.closeResources();
     }
 
 
     @Test public void testGetDecision() {
+        IDataProvider dp = DataProviderFactory.getDataProvider(IDecision.class);
+
         AbstractDecision m1 = p.getDecision(dp, "1");
         assertNotNull(m1);
 
         AbstractDecision m2 = p.getDecision(dp, "xx");
         assertNull(m2);
+
+        dp.closeResources();
     }
 
 
     @Test public void testGetDecisions() {
+        IDataProvider dp = DataProviderFactory.getDataProvider(IDecision.class);
+
         List<AbstractDecision> v = p.getDecisions(dp, null, 0, null);
         assertEquals(3, v.size());
         List<String> keys = Arrays.asList("1", "2", "3");
         for(AbstractDecision ob : v) {
             assertTrue(keys.contains(ob.getId()));
         }
+
+        dp.closeResources();
     }
 
 
     @Test public void testGetDecisionsCount() {
-        assertEquals((int)3, (int)p.getDecisionsCount(dp, null));
+        IDataProvider dp = DataProviderFactory.getDataProvider(IDecision.class);
+
+        assertEquals(3, (int)p.getDecisionsCount(dp, null));
+
+        dp.closeResources();
     }
 
 
     @Test public void testGetDecisionDocuments() throws BackingStoreException {
+        IDataProvider dp = DataProviderFactory.getDataProvider(IDecision.class);
+
         Preferences.userRoot().putBoolean("informea.documents.usePathPrefix", false);
         Preferences.userRoot().sync();
 
@@ -152,10 +179,13 @@ public class ProducerTest {
         List<DecisionDocument> v = m1.getDocuments();
         assertEquals(2, v.size());
 
+        dp.closeResources();
     }
 
 
     @Test public void testGetDecisionTitle() {
+        IDataProvider dp = DataProviderFactory.getDataProvider(IDecision.class);
+
         AbstractDecision m1 = p.getDecision(dp, "1");
         List<LocalizableString> t = m1.getTitle();
         assertEquals(2, t.size());
@@ -168,9 +198,13 @@ public class ProducerTest {
         for(LocalizableString ob : t) {
             assertTrue(keys.contains(ob.getValue()));
         }
+
+        dp.closeResources();
     }
 
     @Test public void testGetDecisionLongTitle() {
+        IDataProvider dp = DataProviderFactory.getDataProvider(IDecision.class);
+
         AbstractDecision m1 = p.getDecision(dp, "1");
         List<LocalizableString> t = m1.getLongTitle();
         assertEquals(1, t.size());
@@ -183,10 +217,14 @@ public class ProducerTest {
         for(LocalizableString ob : t) {
             assertTrue(keys.contains(ob.getValue()));
         }
+
+        dp.closeResources();
     }
 
 
     @Test public void testGetDecisionSummary() {
+        IDataProvider dp = DataProviderFactory.getDataProvider(IDecision.class);
+
         AbstractDecision m1 = p.getDecision(dp, "1");
         List<LocalizableString> t = m1.getSummary();
         assertEquals(1, t.size());
@@ -199,10 +237,14 @@ public class ProducerTest {
         for(LocalizableString ob : t) {
             assertTrue(keys.contains(ob.getValue()));
         }
+
+        dp.closeResources();
     }
 
 
     @Test public void testGetDecisionContent() {
+        IDataProvider dp = DataProviderFactory.getDataProvider(IDecision.class);
+
         AbstractDecision m1 = p.getDecision(dp, "1");
         List<LocalizableString> t = m1.getContent();
         assertEquals(1, t.size());
@@ -215,10 +257,14 @@ public class ProducerTest {
         for(LocalizableString ob : t) {
             assertTrue(keys.contains(ob.getValue()));
         }
+
+        dp.closeResources();
     }
 
 
     @Test public void testGetDecisionKeywords() {
+        IDataProvider dp = DataProviderFactory.getDataProvider(IDecision.class);
+
         AbstractDecision m1 = p.getDecision(dp, "1");
         List<VocabularyTerm> t = m1.getKeywords();
         assertEquals(2, t.size());
@@ -231,34 +277,50 @@ public class ProducerTest {
         for(VocabularyTerm ob : t) {
             assertTrue(keys.contains(ob.getNamespace()));
         }
+
+        dp.closeResources();
     }
 
 
     @Test public void testGetContact() {
+        IDataProvider dp = DataProviderFactory.getDataProvider(IContact.class);
+
         AbstractContact m1 = p.getContact(dp, "1");
         assertNotNull(m1);
 
         AbstractContact m2 = p.getContact(dp, "xx");
         assertNull(m2);
+
+        dp.closeResources();
     }
 
 
     @Test public void testGetContacts() {
+        IDataProvider dp = DataProviderFactory.getDataProvider(IContact.class);
+
         List<AbstractContact> v = p.getContacts(dp, null, 0, null);
         assertEquals(2, v.size());
         List<String> keys = Arrays.asList("1", "2");
         for(AbstractContact ob : v) {
             assertTrue(keys.contains(ob.getId()));
         }
+
+        dp.closeResources();
     }
 
 
     @Test public void testGetContactsCount() {
-        assertEquals((int)2, (int)p.getContactsCount(dp, null));
+        IDataProvider dp = DataProviderFactory.getDataProvider(IContact.class);
+
+        assertEquals(2, (int)p.getContactsCount(dp, null));
+
+        dp.closeResources();
     }
 
 
     @Test public void testGetContactTreaties() {
+        IDataProvider dp = DataProviderFactory.getDataProvider(IContact.class);
+
         AbstractContact m1 = p.getContact(dp, "1");
         List<Treaty> t = m1.getTreaties();
         assertEquals(2, t.size());
@@ -266,50 +328,78 @@ public class ProducerTest {
         for(Treaty ob : t) {
             assertTrue(keys.contains(ob));
         }
+
+        dp.closeResources();
     }
 
 
     @Test public void testGetCountryProfile() {
+        IDataProvider dp = DataProviderFactory.getDataProvider(ICountryProfile.class);
+
         AbstractCountryProfile m1 = p.getCountryProfile(dp, "1");
         assertNotNull(m1);
 
         AbstractCountryProfile m2 = p.getCountryProfile(dp, "xx");
         assertNull(m2);
+
+        dp.closeResources();
     }
 
 
     @Test public void testGetCountryProfiles() {
+        IDataProvider dp = DataProviderFactory.getDataProvider(ICountryProfile.class);
+
         List<AbstractCountryProfile> v = p.getCountryProfiles(dp, null, 0, null);
         assertEquals(2, v.size());
+
+        dp.closeResources();
     }
 
 
     @Test public void testGetCountryProfilesCount() {
-        assertEquals((int)2, (int)p.getCountryProfilesCount(dp, null));
+        IDataProvider dp = DataProviderFactory.getDataProvider(ICountryProfile.class);
+
+        assertEquals(2, (int)p.getCountryProfilesCount(dp, null));
+
+        dp.closeResources();
     }
 
 
     @Test public void testGetCountryReport() {
+        IDataProvider dp = DataProviderFactory.getDataProvider(ICountryReport.class);
+
         AbstractCountryReport m1 = p.getCountryReport(dp, "1");
         assertNotNull(m1);
 
         AbstractCountryReport m2 = p.getCountryReport(dp, "xx");
         assertNull(m2);
+
+        dp.closeResources();
     }
 
 
     @Test public void testGetCountryReports() {
+        IDataProvider dp = DataProviderFactory.getDataProvider(ICountryReport.class);
+
         List<AbstractCountryReport> v = p.getCountryReports(dp, null, 0, null);
         assertEquals(5, v.size());
+
+        dp.closeResources();
     }
 
 
     @Test public void testGetCountryReportsCount() {
-        assertEquals((int)5, (int)p.getCountryReportsCount(dp, null));
+        IDataProvider dp = DataProviderFactory.getDataProvider(ICountryReport.class);
+
+        assertEquals(5, (int)p.getCountryReportsCount(dp, null));
+
+        dp.closeResources();
     }
 
 
     @Test public void testGetCountryReportsTitle() {
+        IDataProvider dp = DataProviderFactory.getDataProvider(ICountryReport.class);
+
         AbstractCountryReport m1 = p.getCountryReport(dp, "1");
         List<LocalizableString> t = m1.getTitle();
         assertEquals(2, t.size());
@@ -322,30 +412,46 @@ public class ProducerTest {
         for(LocalizableString ob : t) {
             assertTrue(keys.contains(ob.getValue()));
         }
+
+        dp.closeResources();
     }
 
 
     @Test public void testGetNationalPlan() {
+        IDataProvider dp = DataProviderFactory.getDataProvider(INationalPlan.class);
+
         AbstractNationalPlan m1 = p.getNationalPlan(dp, "1");
         assertNotNull(m1);
 
         AbstractNationalPlan m2 = p.getNationalPlan(dp, "xx");
         assertNull(m2);
+
+        dp.closeResources();
     }
 
 
     @Test public void testGetNationalPlans() {
+        IDataProvider dp = DataProviderFactory.getDataProvider(INationalPlan.class);
+
         List<AbstractNationalPlan> v = p.getNationalPlans(dp, null, 0, null);
         assertEquals(4, v.size());
+
+        dp.closeResources();
     }
 
 
     @Test public void testGetNationalPlanCount() {
-        assertEquals((int)4, (int)p.getNationalPlansCount(dp, null));
+        IDataProvider dp = DataProviderFactory.getDataProvider(INationalPlan.class);
+
+        assertEquals(4, (int)p.getNationalPlansCount(dp, null));
+
+        dp.closeResources();
     }
 
 
     @Test public void testGetNationalPlanTitle() {
+        IDataProvider dp = DataProviderFactory.getDataProvider(INationalPlan.class);
+
         AbstractNationalPlan m1 = p.getNationalPlan(dp, "1");
         List<LocalizableString> t = m1.getTitle();
         assertEquals(2, t.size());
@@ -358,26 +464,40 @@ public class ProducerTest {
         for(LocalizableString ob : t) {
             assertTrue(keys.contains(ob.getValue()));
         }
+
+        dp.closeResources();
     }
 
 
     @Test public void testGetSite() {
+        IDataProvider dp = DataProviderFactory.getDataProvider(ISite.class);
+
         AbstractSite m1 = p.getSite(dp, "1");
         assertNotNull(m1);
 
         AbstractSite m2 = p.getSite(dp, "xx");
         assertNull(m2);
+
+        dp.closeResources();
     }
 
 
     @Test public void testGetSites() {
+        IDataProvider dp = DataProviderFactory.getDataProvider(ISite.class);
+
         List<AbstractSite> v = p.getSites(dp, null, 0, null);
         assertEquals(2, v.size());
+
+        dp.closeResources();
     }
 
 
     @Test public void testGetSitesCount() {
-        assertEquals((int)2, (int)p.getSitesCount(dp, null));
+        IDataProvider dp = DataProviderFactory.getDataProvider(ISite.class);
+
+        assertEquals(2, (int)p.getSitesCount(dp, null));
+
+        dp.closeResources();
     }
 
 

@@ -31,8 +31,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.informea.odata.Configuration;
+import org.informea.odata.IContact;
+import org.informea.odata.ICountryProfile;
+import org.informea.odata.ICountryReport;
+import org.informea.odata.IDecision;
+import org.informea.odata.IMeeting;
+import org.informea.odata.INationalPlan;
+import org.informea.odata.ISite;
 import org.informea.odata.constants.EntityType;
 import org.informea.odata.constants.MimeType;
+import org.informea.odata.data.DataProviderFactory;
 import org.informea.odata.pojo.AbstractContact;
 import org.informea.odata.pojo.AbstractCountryProfile;
 import org.informea.odata.pojo.AbstractCountryReport;
@@ -43,7 +51,6 @@ import org.informea.odata.pojo.AbstractSite;
 import org.informea.odata.producer.InvalidValueException;
 import org.informea.odata.producer.toolkit.IDataProvider;
 import org.informea.odata.producer.toolkit.Producer;
-import org.informea.odata.producer.toolkit.impl.DatabaseDataProvider;
 
 
 /**
@@ -287,7 +294,7 @@ public class ToolkitUtil {
         String ret = null;
         IDataProvider dataProvider = null;
         try {
-            dataProvider = new DatabaseDataProvider();
+            dataProvider = DataProviderFactory.getDataProvider(IDecision.class);
             dataProvider.openResources();
             List<AbstractDecision> obs = p.getDecisions(dataProvider, null, 0, null);
             for(AbstractDecision ob : obs) {
@@ -313,7 +320,7 @@ public class ToolkitUtil {
         String ret = null;
         IDataProvider dataProvider = null;
         try {
-            dataProvider = new DatabaseDataProvider();
+            dataProvider = DataProviderFactory.getDataProvider(IMeeting.class);
             dataProvider.openResources();
             List<AbstractMeeting> obs = p.getMeetings(dataProvider, null, 0, null);
             for(AbstractMeeting ob : obs) {
@@ -339,7 +346,7 @@ public class ToolkitUtil {
         String ret = null;
         IDataProvider dataProvider = null;
         try {
-            dataProvider = new DatabaseDataProvider();
+            dataProvider = DataProviderFactory.getDataProvider(IContact.class);
             dataProvider.openResources();
             List<AbstractContact> obs = p.getContacts(dataProvider, null, 0, null);
             for(AbstractContact ob : obs) {
@@ -363,7 +370,7 @@ public class ToolkitUtil {
         String ret = null;
         IDataProvider dataProvider = null;
         try {
-            dataProvider = new DatabaseDataProvider();
+            dataProvider = DataProviderFactory.getDataProvider(ICountryReport.class);
             dataProvider.openResources();
             List<AbstractCountryReport> obs = p.getCountryReports(dataProvider, null, 0, null);
             for(AbstractCountryReport ob : obs) {
@@ -389,7 +396,7 @@ public class ToolkitUtil {
         String ret = null;
         IDataProvider dataProvider = null;
         try {
-            dataProvider = new DatabaseDataProvider();
+            dataProvider = DataProviderFactory.getDataProvider(ICountryProfile.class);
             dataProvider.openResources();
             List<AbstractCountryProfile> obs = p.getCountryProfiles(dataProvider, null, 0, null);
             for(AbstractCountryProfile ob : obs) {
@@ -418,7 +425,7 @@ public class ToolkitUtil {
         String ret = null;
         IDataProvider dataProvider = null;
         try {
-            dataProvider = new DatabaseDataProvider();
+            dataProvider = DataProviderFactory.getDataProvider(INationalPlan.class);
             dataProvider.openResources();
             List<AbstractNationalPlan> obs = p.getNationalPlans(dataProvider, null, 0, null);
             for(AbstractNationalPlan ob : obs) {
@@ -451,7 +458,7 @@ public class ToolkitUtil {
         String ret = null;
         IDataProvider dataProvider = null;
         try {
-            dataProvider = new DatabaseDataProvider();
+            dataProvider = DataProviderFactory.getDataProvider(ISite.class);
             dataProvider.openResources();
             List<AbstractSite> obs = p.getSites(dataProvider, null, 0, null);
             for(AbstractSite ob : obs) {
@@ -520,15 +527,16 @@ public class ToolkitUtil {
      * @return Status per entity type
      */
     public static Map<EntityType, Map<String, Object>> getEntityStatus(HttpServletRequest request, String endpointURL) {
+        IDataProvider dp = null;
         Map<EntityType, Map<String, Object>> ret = new HashMap<EntityType, Map<String, Object>>();
         Configuration cfg = Configuration.getInstance();
-        IDataProvider dp = null;
         List<EntityType> entities = EntityType.getEntities();
-        try {
-            dp = new DatabaseDataProvider();
-            dp.openResources();
-            Producer p = new Producer();
-            for(EntityType key : entities) {
+
+        Producer p = new Producer();
+        for(EntityType key : entities) {
+            try {
+                dp = DataProviderFactory.getDataProvider(key);
+                dp.openResources();
                 Map<String, Object> itemCfg = new HashMap<String, Object>();
                 boolean inUse = cfg.isUse(key);
                 Integer count = 0;
@@ -541,20 +549,20 @@ public class ToolkitUtil {
                 itemCfg.put("count", count);
                 itemCfg.put("url", url);
                 ret.put(key, itemCfg);
-            }
-        } catch(Exception ex) {
-            ex.printStackTrace();
-            log.log(Level.SEVERE, "Error getting entity status", ex);
-        } finally {
-            if(dp != null) {
-                dp.closeResources();
+            } catch(Exception ex) {
+                ex.printStackTrace();
+                log.log(Level.SEVERE, "Error getting entity status", ex);
+            } finally {
+                if(dp != null) {
+                    dp.closeResources();
+                }
             }
         }
         return ret;
     }
 
     /**
-     * Check wether the user has selected at least one entity when choosing in configuration screen.
+     * Check whether the user has selected at least one entity when choosing in configuration screen.
      * @param request HTTP request
      * @return true if selection is valid
      */

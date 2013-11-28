@@ -6,6 +6,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.informea.odata.Configuration;
+import org.informea.odata.IContact;
+import org.informea.odata.ICountryProfile;
+import org.informea.odata.ICountryReport;
+import org.informea.odata.IDecision;
+import org.informea.odata.IMeeting;
+import org.informea.odata.INationalPlan;
+import org.informea.odata.ISite;
+import org.informea.odata.constants.EntityType;
+import org.informea.odata.pojo.AbstractContact;
+import org.informea.odata.pojo.AbstractCountryProfile;
+import org.informea.odata.pojo.AbstractCountryReport;
+import org.informea.odata.pojo.AbstractDecision;
+import org.informea.odata.pojo.AbstractMeeting;
+import org.informea.odata.pojo.AbstractNationalPlan;
+import org.informea.odata.pojo.AbstractSite;
 import org.informea.odata.producer.InvalidValueException;
 import org.informea.odata.producer.toolkit.IDataProvider;
 import org.informea.odata.producer.toolkit.impl.DatabaseDataProvider;
@@ -29,9 +44,9 @@ public class DataProviderFactory {
                 log.warning(String.format("Could not decode data providers mappings."));
             } else if(mappings.containsKey(entityClassName)) {
                 String value = mappings.get(entityClassName);
-                if(DatabaseDataProvider.class.getName().equalsIgnoreCase(value)) {
+                if(DatabaseDataProvider.class.getName().equals(value)) {
                     ret = new DatabaseDataProvider();
-                } else if(LDAPDataProvider.class.getName().equalsIgnoreCase(value)) {
+                } else if(LDAPDataProvider.class.getName().equals(value)) {
                     ret = new LDAPDataProvider();
                 } else {
                     throw new InvalidValueException(String.format("Data provider: %s is not supported. Please check your configuration", value));
@@ -49,5 +64,61 @@ public class DataProviderFactory {
             ret = new DatabaseDataProvider();
         }
         return ret;
+    }
+
+
+    public static IDataProvider getDataProvider(String entitySetName) throws InvalidValueException {
+        Class entity = null;
+        if(AbstractDecision.COLLECTION_NAME.contains(entitySetName)) {
+            entity = IDecision.class;
+        } else if (AbstractContact.COLLECTION_NAME.equals(entitySetName)) {
+            entity = IContact.class;
+        } else if (AbstractCountryProfile.COLLECTION_NAME.equals(entitySetName)) {
+            entity = ICountryProfile.class;
+        } else if (AbstractCountryReport.COLLECTION_NAME.equals(entitySetName)) {
+            entity = ICountryReport.class;
+        } else if (AbstractMeeting.COLLECTION_NAME.equals(entitySetName)) {
+            entity = IMeeting.class;
+        } else if (AbstractNationalPlan.COLLECTION_NAME.equals(entitySetName)) {
+            entity = INationalPlan.class;
+        } else if (AbstractSite.COLLECTION_NAME.equals(entitySetName)) {
+            entity = ISite.class;
+        } else {
+            throw new InvalidValueException(String.format("Unsupported collection name: %s", entitySetName));
+        }
+        return getDataProvider(entity);
+    }
+
+    public static IDataProvider getDataProvider(EntityType entityType) throws InvalidValueException {
+        Class entity = null;
+        if(entityType == null) {
+            throw new InvalidValueException("Unsupported collection name: null");
+        }
+        switch(entityType) {
+            case DECISIONS:
+                entity = IDecision.class;
+                break;
+            case CONTACTS:
+                entity = IContact.class;
+                break;
+            case COUNTRY_PROFILES:
+                entity = ICountryProfile.class;
+                break;
+            case COUNTRY_REPORTS:
+                entity = ICountryReport.class;
+                break;
+            case MEETINGS:
+                entity = IMeeting.class;
+                break;
+            case NATIONAL_PLANS:
+                entity = INationalPlan.class;
+                break;
+            case SITES:
+                entity = ISite.class;
+                break;
+            default:
+                throw new InvalidValueException(String.format("Unsupported collection name: %s", entityType.toString()));
+        }
+        return getDataProvider(entity);
     }
 }

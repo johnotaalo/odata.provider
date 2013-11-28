@@ -17,13 +17,15 @@ package org.informea.odata.producer.toolkit.test;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+
+import org.informea.odata.IMeeting;
 import org.informea.odata.constants.Treaty;
+import org.informea.odata.data.DataProviderFactory;
 import org.informea.odata.pojo.AbstractMeeting;
 import org.informea.odata.pojo.LocalizableString;
 import org.informea.odata.producer.InvalidValueException;
 import org.informea.odata.producer.toolkit.IDataProvider;
 import org.informea.odata.producer.toolkit.Producer;
-import org.informea.odata.producer.toolkit.impl.DatabaseDataProvider;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -46,7 +48,7 @@ public class MeetingsTest {
     @BeforeClass
     public static void setUp() {
         p = new Producer();
-        IDataProvider dp = new DatabaseDataProvider();
+        IDataProvider dp = DataProviderFactory.getDataProvider(IMeeting.class);
         dp.openResources();
         m1 = p.getMeeting(dp, "1"); // Valid
         m2 = p.getMeeting(dp, "2"); // Invalid treaty

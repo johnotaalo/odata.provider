@@ -20,7 +20,6 @@ import org.junit.Test;
 import com.unboundid.ldap.listener.InMemoryDirectoryServer;
 import com.unboundid.ldap.listener.InMemoryDirectoryServerConfig;
 import com.unboundid.ldap.listener.InMemoryListenerConfig;
-import com.unboundid.ldap.sdk.Entry;
 import com.unboundid.ldap.sdk.LDAPConnection;
 import com.unboundid.ldap.sdk.SearchResultEntry;
 import com.unboundid.ldap.sdk.SearchScope;
@@ -212,7 +211,6 @@ public class LDAPDataProviderTest {
         LDAPDataProvider dp = new LDAPDataProvider();
         Configuration cfg = Configuration.getInstance();
 
-        Entry e = new Entry("testDN");
         LDAPConnection conn = ldapServer.getConnection();
         SearchResultEntry item = conn.searchForEntry(
                 cfg.getString(Configuration.LDAP_USER_BASE_DN),

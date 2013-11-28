@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 import org.core4j.Enumerable;
 import org.informea.odata.Configuration;
 import org.informea.odata.constants.Treaty;
+import org.informea.odata.data.DataProviderFactory;
 import org.informea.odata.pojo.AbstractContact;
 import org.informea.odata.pojo.AbstractCountryProfile;
 import org.informea.odata.pojo.AbstractCountryReport;
@@ -33,7 +34,6 @@ import org.informea.odata.pojo.IAbstractEntity;
 import org.informea.odata.pojo.LocalizableString;
 import org.informea.odata.pojo.VocabularyTerm;
 import org.informea.odata.producer.toolkit.IDataProvider;
-import org.informea.odata.producer.toolkit.impl.DatabaseDataProvider;
 import org.informea.odata.util.ODataTransformationUtil;
 import org.odata4j.core.ODataConstants;
 import org.odata4j.core.OEntity;
@@ -406,7 +406,7 @@ public abstract class AbstractInformeaProducer implements ODataProducer {
      * @return Site object
      */
     @SuppressWarnings("rawtypes")
-	public abstract Object getEntity(IDataProvider dataProvider, Object id, Class entity);
+    public abstract Object getEntity(IDataProvider dataProvider, Object id, Class entity);
 
     /**
      * Retrieve the list of entities from local storage.
@@ -418,7 +418,7 @@ public abstract class AbstractInformeaProducer implements ODataProducer {
      * information for next page. skipToken is sent back to the client to you in <code>q.skipToken</code>.
      */
     @SuppressWarnings("rawtypes")
-	public abstract List getEntityList(IDataProvider dataProvider, QueryInfo q, int startResult, Integer pageSize, Class entity);
+    public abstract List getEntityList(IDataProvider dataProvider, QueryInfo q, int startResult, Integer pageSize, Class entity);
 
     /**
      * The total count of sites taking into account the filtering, if provided.
@@ -428,7 +428,7 @@ public abstract class AbstractInformeaProducer implements ODataProducer {
      * @return Total count of items, used by the client to compute pagination.
      */
     @SuppressWarnings("rawtypes")
-	public abstract Integer getEntityCount(IDataProvider dataProvider, QueryInfo qm, Class entity);
+    public abstract Integer getEntityCount(IDataProvider dataProvider, QueryInfo qm, Class entity);
 
     /**
      * Retrieve the title of a national plan. Used for OData navigable property 'title'. Multilingual.
@@ -446,8 +446,9 @@ public abstract class AbstractInformeaProducer implements ODataProducer {
         log.info(String.format("getEntities(entity=%s)", entitySetName, q));
         log.info(String.format("OData parameters: $skipToken=%s, $skip=%s, $top=%s", q.skipToken, q.skip, q.top));
 
-        IDataProvider dataProvider = new DatabaseDataProvider();
+        IDataProvider dataProvider = DataProviderFactory.getDataProvider(entitySetName);
         dataProvider.openResources();
+
         try {
 
             EdmEntitySet ees = null;
@@ -531,7 +532,7 @@ public abstract class AbstractInformeaProducer implements ODataProducer {
         log.info(String.format("getEntity(entity=%s, key=%s)", entitySetName, entityKey));
         EntityResponse ret = null;
 
-        IDataProvider dataProvider = new DatabaseDataProvider();
+        IDataProvider dataProvider = DataProviderFactory.getDataProvider(entitySetName);
         dataProvider.openResources();
         try {
             EdmEntitySet ees = getMetadata().getEdmEntitySet(entitySetName);
@@ -575,7 +576,7 @@ public abstract class AbstractInformeaProducer implements ODataProducer {
         BaseResponse ret = null;
         log.info(String.format("getNavProperty(entity=%s, key=%s, property=%s)", entitySetName, entityKey, navProp));
 
-        IDataProvider dataProvider = new DatabaseDataProvider();
+        IDataProvider dataProvider = DataProviderFactory.getDataProvider(entitySetName);
         dataProvider.openResources();
         try {
             EdmEntitySet ees = getMetadata().getEdmEntitySet(navProp);

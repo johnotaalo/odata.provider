@@ -21,8 +21,10 @@ import java.util.List;
 import java.util.prefs.BackingStoreException;
 
 import org.informea.odata.Configuration;
+import org.informea.odata.IDecision;
 import org.informea.odata.constants.MimeType;
 import org.informea.odata.constants.Treaty;
+import org.informea.odata.data.DataProviderFactory;
 import org.informea.odata.pojo.AbstractDecision;
 import org.informea.odata.pojo.DecisionDocument;
 import org.informea.odata.pojo.LocalizableString;
@@ -30,7 +32,6 @@ import org.informea.odata.pojo.VocabularyTerm;
 import org.informea.odata.producer.InvalidValueException;
 import org.informea.odata.producer.toolkit.IDataProvider;
 import org.informea.odata.producer.toolkit.Producer;
-import org.informea.odata.producer.toolkit.impl.DatabaseDataProvider;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -51,7 +52,7 @@ public class DecisionsTest {
     @BeforeClass
     public static void setUp() {
         p = new Producer();
-        IDataProvider dp = new DatabaseDataProvider();
+        IDataProvider dp = DataProviderFactory.getDataProvider(IDecision.class);
         dp.openResources();
         d1 = p.getDecision(dp, "1"); // Valid
         d2 = p.getDecision(dp, "2"); // Invalid
