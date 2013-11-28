@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.informea.odata.data;
+package org.informea.odata.data.db;
 
 import java.io.Serializable;
 import javax.persistence.Cacheable;

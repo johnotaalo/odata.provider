@@ -30,7 +30,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 import org.informea.odata.constants.Treaty;
-import org.informea.odata.data.ContactTreaty;
 import org.informea.odata.pojo.AbstractContact;
 import org.informea.odata.producer.InvalidValueException;
 

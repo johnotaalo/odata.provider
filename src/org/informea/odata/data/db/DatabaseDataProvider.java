@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * InforMEA Toolkit. If not, see http://www.gnu.org/licenses/.
  */
-package org.informea.odata.data;
+package org.informea.odata.data.db;
 
 import java.util.Date;
 import java.util.List;
@@ -25,6 +25,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.informea.odata.HibernateConfigurator;
+import org.informea.odata.data.IDataProvider;
 import org.joda.time.LocalDateTime;
 import org.odata4j.expression.DateTimeLiteral;
 import org.odata4j.expression.EntitySimpleProperty;

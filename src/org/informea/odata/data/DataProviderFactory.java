@@ -14,6 +14,8 @@ import org.informea.odata.IMeeting;
 import org.informea.odata.INationalPlan;
 import org.informea.odata.ISite;
 import org.informea.odata.constants.EntityType;
+import org.informea.odata.data.db.DatabaseDataProvider;
+import org.informea.odata.data.ldap.LDAPDataProvider;
 import org.informea.odata.pojo.AbstractContact;
 import org.informea.odata.pojo.AbstractCountryProfile;
 import org.informea.odata.pojo.AbstractCountryReport;

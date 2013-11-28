@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * InforMEA Toolkit. If not, see http://www.gnu.org/licenses/.
  */
-package org.informea.odata.data;
+package org.informea.odata.data.db;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
@@ -22,32 +22,32 @@ import javax.persistence.Table;
 
 
 /**
- * National plan title entity
+ * Decision keyword entity
  * <br />
  * @author Cristian Romanescu {@code cristian.romanescu _at_ eaudeweb.ro}
  * @version 1.4.0, 10/28/2011
  * @since 1.3.3
  */
 @Entity
-@Table(name="informea_national_plans_title")
+@Table(name="informea_decisions_keywords")
 @Cacheable
-public class NationalPlanTitle {
+public class DecisionKeyword {
 
     @Id
     private String id;
 
-    @Column(name = "national_plan_id")
-    private String nationalPlanId;
-    private String language;
-    private String title;
+    @Column(name = "decision_id")
+    private String decisionId;
+    private String namespace;
+    private String term;
 
 
-    public String getLanguage() {
-        return language;
+    public String getNamespace() {
+        return namespace;
     }
 
 
-    public String getTitle() {
-        return title;
+    public String getTerm() {
+        return term;
     }
 }

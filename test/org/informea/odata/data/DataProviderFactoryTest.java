@@ -6,6 +6,8 @@ import org.informea.odata.IContact;
 import org.informea.odata.IDecision;
 import org.informea.odata.constants.EntityType;
 import org.informea.odata.data.DataProviderFactory;
+import org.informea.odata.data.db.DatabaseDataProvider;
+import org.informea.odata.data.ldap.LDAPDataProvider;
 import org.informea.odata.pojo.AbstractContact;
 import org.informea.odata.producer.InvalidValueException;
 import org.junit.Test;

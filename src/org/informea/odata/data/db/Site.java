@@ -12,12 +12,11 @@
  * You should have received a copy of the GNU General Public License along with
  * InforMEA Toolkit. If not, see http://www.gnu.org/licenses/.
  */
-package org.informea.odata.data;
+package org.informea.odata.data.db;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -29,47 +28,41 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.informea.odata.constants.Treaty;
-import org.informea.odata.pojo.AbstractNationalPlan;
+import org.informea.odata.pojo.AbstractSite;
 import org.informea.odata.pojo.LocalizableString;
 import org.informea.odata.producer.InvalidValueException;
 
 
 /**
- * National plan primary entity
+ * Site primary entity
  * <br />
  * @author Cristian Romanescu {@code cristian.romanescu _at_ eaudeweb.ro}
  * @version 1.4.0, 10/28/2011
  * @since 1.3.3
  */
 @Entity
-@Table(name = "informea_national_plans")
+@Table(name = "informea_sites")
 @Cacheable
-public class NationalPlan extends AbstractNationalPlan {
+public class Site extends AbstractSite {
 
-    private static final long serialVersionUID = -3594401418854291067L;
+    private static final long serialVersionUID = 1817551213460990482L;
 
     @Id
     private String id;
-    private String treaty;
-    private String country;
     private String type;
+    private String country;
+    private String treaty;
     private String url;
+    private Double latitude;
+    private Double longitude;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date submission;
+
+    @OneToMany(cascade= CascadeType.ALL, fetch= FetchType.LAZY)
+    @JoinColumn(name="site_id")
+    private List<SiteName> names;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date updated;
-
-    @OneToMany(cascade= CascadeType.ALL, fetch= FetchType.LAZY)
-    @JoinColumn(name="national_plan_id")
-    private Set<NationalPlanTitle> titles;
-
-
-    @Override
-    public Short getProtocolVersion() {
-        return 1;
-    }
 
 
     @Override
@@ -77,40 +70,36 @@ public class NationalPlan extends AbstractNationalPlan {
         return id;
     }
 
-
-    @Override
-    public Treaty getTreaty() {
-        if(treaty == null || treaty.isEmpty()) {
-            throw new InvalidValueException(String.format("'treaty' property cannot be null (Affected national plan with ID:%s)", id));
-        }
-        return Treaty.getTreaty(treaty);
-    }
-
-
-    @Override
-    public String getCountry() {
-        if(country == null) {
-            throw new InvalidValueException(String.format("'country' is invalid. Each national plan must have a valid non-null country. Check informea_national_plans (Affected national plan with ID:%s)", id));
-        }
-        return country;
-    }
-
-
     @Override
     public String getType() {
         return type;
     }
 
+    @Override
+    public String getCountry() {
+        if(country == null) {
+            throw new InvalidValueException(String.format("'country' is invalid. Each site must have a valid non-null country. Check informea_sites (Affected site with ID:%s)", id));
+        }
+        return country;
+    }
 
     @Override
-    public List<LocalizableString> getTitle() {
+    public Treaty getTreaty() {
+        if(treaty == null || treaty.isEmpty()) {
+            throw new InvalidValueException(String.format("'treaty' property cannot be null (Affected site with ID:%s)", id));
+        }
+        return Treaty.getTreaty(treaty);
+    }
+
+    @Override
+    public List<LocalizableString> getName() {
         List<LocalizableString> ret = new ArrayList<LocalizableString>();
-        if (titles.isEmpty()) {
-            throw new InvalidValueException(String.format("'title' property is empty. Every national plan must have at least an title in english. Check informea_national_plans_title view. (Affected national plan with ID:%s)", id));
+        if (names.isEmpty()) {
+            throw new InvalidValueException(String.format("'name' property is empty. Every site must have at least an name in english. Check informea_sites_name view. (Affected site with ID:%s)", id));
         }
         boolean hasEnglish = false;
-        for(NationalPlanTitle t : titles) {
-            String tt = t.getTitle();
+        for(SiteName t : names) {
+            String tt = t.getName();
             String language = t.getLanguage();
             if("en".equalsIgnoreCase(language)) {
                 hasEnglish = true;
@@ -118,28 +107,35 @@ public class NationalPlan extends AbstractNationalPlan {
             if(tt != null && language != null && !"".equals(tt.trim()) && !"".equals(language.trim())) {
                 ret.add(new LocalizableString(t.getLanguage(), tt));
             } else {
-                throw new InvalidValueException(String.format("'title' is invalid (language/value pairs must be non-null and one of language/value was null). (Affected national plan with ID:%s)", id));
+                throw new InvalidValueException(String.format("'name' is invalid (language/value pairs must be non-null and one of language/value was null). (Affected site with ID:%s)", id));
             }
         }
         if(!hasEnglish) {
-            throw new InvalidValueException(String.format("Every national plan must have the title in english. Check informea_national_plans_title view. (Affected national plan with ID:%s)", id));
+            throw new InvalidValueException(String.format("Every site must have the name in english. Check informea_sites_name view. (Affected site with ID:%s)", id));
         }
         return ret;
     }
-
 
     @Override
     public String getUrl() {
         return url;
     }
 
-    @Override
-    public Date getSubmission() {
-        return submission;
-    }
 
     @Override
     public Date getUpdated() {
         return updated;
     }
+
+
+    @Override
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    @Override
+    public Double getLongitude() {
+        return longitude;
+    }
+
 }

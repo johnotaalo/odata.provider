@@ -1,4 +1,4 @@
-package org.informea.odata.data;
+package org.informea.odata.data.ldap;
 
 import java.util.Date;
 import java.util.List;

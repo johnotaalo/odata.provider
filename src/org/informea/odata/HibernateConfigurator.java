@@ -88,43 +88,43 @@ public class HibernateConfigurator {
         hc.setProperty("zeroDateTimeBehavior", "convertToNull");
 
         if(cfg.isUseContacts()) {
-            hc.addAnnotatedClass(org.informea.odata.data.ContactTreaty.class);
+            hc.addAnnotatedClass(org.informea.odata.data.db.ContactTreaty.class);
             hc.addAnnotatedClass(org.informea.odata.data.db.Contact.class);
         }
 
         if(cfg.isUseCountryProfiles()) {
-            hc.addAnnotatedClass(org.informea.odata.data.CountryProfile.class);
+            hc.addAnnotatedClass(org.informea.odata.data.db.CountryProfile.class);
         }
 
         if(cfg.isUseCountryReports()) {
-            hc.addAnnotatedClass(org.informea.odata.data.CountryReport.class);
-            hc.addAnnotatedClass(org.informea.odata.data.CountryReportTitle.class);
+            hc.addAnnotatedClass(org.informea.odata.data.db.CountryReport.class);
+            hc.addAnnotatedClass(org.informea.odata.data.db.CountryReportTitle.class);
         }
 
         if(cfg.isUseDecisions()) {
-            hc.addAnnotatedClass(org.informea.odata.data.DBDecisionDocument.class);
-            hc.addAnnotatedClass(org.informea.odata.data.DecisionKeyword.class);
-            hc.addAnnotatedClass(org.informea.odata.data.DecisionContent.class);
-            hc.addAnnotatedClass(org.informea.odata.data.DecisionSummary.class);
-            hc.addAnnotatedClass(org.informea.odata.data.DecisionLongTitle.class);
-            hc.addAnnotatedClass(org.informea.odata.data.DecisionTitle.class);
-            hc.addAnnotatedClass(org.informea.odata.data.Decision.class);
+            hc.addAnnotatedClass(org.informea.odata.data.db.DBDecisionDocument.class);
+            hc.addAnnotatedClass(org.informea.odata.data.db.DecisionKeyword.class);
+            hc.addAnnotatedClass(org.informea.odata.data.db.DecisionContent.class);
+            hc.addAnnotatedClass(org.informea.odata.data.db.DecisionSummary.class);
+            hc.addAnnotatedClass(org.informea.odata.data.db.DecisionLongTitle.class);
+            hc.addAnnotatedClass(org.informea.odata.data.db.DecisionTitle.class);
+            hc.addAnnotatedClass(org.informea.odata.data.db.Decision.class);
         }
 
         if(cfg.isUseMeetings()) {
-            hc.addAnnotatedClass(org.informea.odata.data.MeetingDescription.class);
-            hc.addAnnotatedClass(org.informea.odata.data.MeetingTitle.class);
-            hc.addAnnotatedClass(org.informea.odata.data.Meeting.class);
+            hc.addAnnotatedClass(org.informea.odata.data.db.MeetingDescription.class);
+            hc.addAnnotatedClass(org.informea.odata.data.db.MeetingTitle.class);
+            hc.addAnnotatedClass(org.informea.odata.data.db.Meeting.class);
         }
 
         if(cfg.isUseNationalPlans()) {
-            hc.addAnnotatedClass(org.informea.odata.data.NationalPlanTitle.class);
-            hc.addAnnotatedClass(org.informea.odata.data.NationalPlan.class);
+            hc.addAnnotatedClass(org.informea.odata.data.db.NationalPlanTitle.class);
+            hc.addAnnotatedClass(org.informea.odata.data.db.NationalPlan.class);
         }
 
         if(cfg.isUseSites()) {
-            hc.addAnnotatedClass(org.informea.odata.data.Site.class);
-            hc.addAnnotatedClass(org.informea.odata.data.SiteName.class);
+            hc.addAnnotatedClass(org.informea.odata.data.db.Site.class);
+            hc.addAnnotatedClass(org.informea.odata.data.db.SiteName.class);
         }
         sessionFactory = hc.buildSessionFactory();
     }

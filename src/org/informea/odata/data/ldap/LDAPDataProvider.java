@@ -1,4 +1,4 @@
-package org.informea.odata.data;
+package org.informea.odata.data.ldap;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,6 +11,7 @@ import org.hibernate.criterion.Order;
 import org.informea.odata.Configuration;
 import org.informea.odata.IContact;
 import org.informea.odata.constants.Treaty;
+import org.informea.odata.data.IDataProvider;
 import org.odata4j.producer.QueryInfo;
 
 import com.unboundid.ldap.sdk.Attribute;
