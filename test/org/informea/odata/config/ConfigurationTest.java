@@ -1,7 +1,8 @@
-package org.informea.odata;
+package org.informea.odata.config;
 
 import static org.junit.Assert.*;
 
+import org.informea.odata.config.Configuration;
 import org.junit.Test;
 
 public class ConfigurationTest {

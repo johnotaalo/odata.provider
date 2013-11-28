@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * InforMEA Toolkit. If not, see http://www.gnu.org/licenses/.
  */
-package org.informea.odata;
+package org.informea.odata.config;
 
 import java.io.IOException;
 import java.util.Properties;

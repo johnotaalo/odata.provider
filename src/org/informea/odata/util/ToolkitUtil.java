@@ -30,7 +30,6 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.informea.odata.Configuration;
 import org.informea.odata.IContact;
 import org.informea.odata.ICountryProfile;
 import org.informea.odata.ICountryReport;
@@ -38,6 +37,7 @@ import org.informea.odata.IDecision;
 import org.informea.odata.IMeeting;
 import org.informea.odata.INationalPlan;
 import org.informea.odata.ISite;
+import org.informea.odata.config.Configuration;
 import org.informea.odata.constants.EntityType;
 import org.informea.odata.constants.MimeType;
 import org.informea.odata.data.DataProviderFactory;

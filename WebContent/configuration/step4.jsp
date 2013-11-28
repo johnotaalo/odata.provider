@@ -1,6 +1,6 @@
 <%@page import="org.informea.odata.util.ToolkitUtil"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="org.informea.odata.Configuration" %>
+<%@page import="org.informea.odata.config.Configuration" %>
 <%
 // If user drops to this page and setup is not configured, just redirect to start
 if(session.getAttribute(Configuration.DB_TYPE) == null) {

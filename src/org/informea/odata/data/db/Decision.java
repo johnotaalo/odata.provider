@@ -30,7 +30,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
-import org.informea.odata.Configuration;
+import org.informea.odata.config.Configuration;
 import org.informea.odata.constants.MimeType;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.pojo.AbstractDecision;

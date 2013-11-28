@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.core4j.Enumerable;
-import org.informea.odata.Configuration;
+import org.informea.odata.config.Configuration;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.data.DataProviderFactory;
 import org.informea.odata.data.IDataProvider;

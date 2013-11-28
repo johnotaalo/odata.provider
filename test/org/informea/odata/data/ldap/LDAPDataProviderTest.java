@@ -9,8 +9,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-import org.informea.odata.Configuration;
 import org.informea.odata.IContact;
+import org.informea.odata.config.Configuration;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.data.ldap.LDAPDataProvider;
 import org.junit.AfterClass;
@@ -67,7 +67,7 @@ public class LDAPDataProviderTest {
         ldapServer.importFromLDIF(true, ldifTestFile);
         ldapServer.startListening();
 
-        Configuration cfg = org.informea.odata.Configuration.getInstance();
+        Configuration cfg = org.informea.odata.config.Configuration.getInstance();
         cfg.setString(Configuration.LDAP_HOST, ldapServer.getListenAddress().getHostAddress());
         cfg.setInt(Configuration.LDAP_PORT, ldapServer.getListenPort());
         cfg.setString(Configuration.LDAP_BIND_DN, BIND_DN);

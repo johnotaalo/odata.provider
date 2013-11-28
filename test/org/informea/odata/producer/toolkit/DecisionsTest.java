@@ -20,8 +20,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.prefs.BackingStoreException;
 
-import org.informea.odata.Configuration;
 import org.informea.odata.IDecision;
+import org.informea.odata.config.Configuration;
 import org.informea.odata.constants.MimeType;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.data.DataProviderFactory;

@@ -1,9 +1,9 @@
 package org.informea.odata.data;
 import static org.junit.Assert.*;
 
-import org.informea.odata.Configuration;
 import org.informea.odata.IContact;
 import org.informea.odata.IDecision;
+import org.informea.odata.config.Configuration;
 import org.informea.odata.constants.EntityType;
 import org.informea.odata.data.DataProviderFactory;
 import org.informea.odata.data.db.DatabaseDataProvider;

@@ -24,7 +24,7 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.informea.odata.HibernateConfigurator;
+import org.informea.odata.config.HibernateConfigurator;
 import org.informea.odata.data.IDataProvider;
 import org.joda.time.LocalDateTime;
 import org.odata4j.expression.DateTimeLiteral;

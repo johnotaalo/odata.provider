@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * InforMEA Toolkit. If not, see http://www.gnu.org/licenses/.
  */
-package org.informea.odata;
+package org.informea.odata.config;
 
 import java.util.logging.Logger;
 import org.hibernate.Session;
@@ -49,7 +49,7 @@ public class HibernateConfigurator {
 
 
     private void configure() {
-        org.informea.odata.Configuration cfg = org.informea.odata.Configuration.getInstance();
+        org.informea.odata.config.Configuration cfg = org.informea.odata.config.Configuration.getInstance();
 
         //Preferences.userRoot().getBoolean(USE_PATH_PREFIX, false);
         Configuration hc = new Configuration();
