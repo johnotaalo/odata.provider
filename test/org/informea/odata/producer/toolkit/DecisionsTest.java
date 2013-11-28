@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * InforMEA Toolkit. If not, see http://www.gnu.org/licenses/.
  */
-package org.informea.odata.producer.toolkit.test;
+package org.informea.odata.producer.toolkit;
 
 import java.io.File;
 import java.util.Arrays;
