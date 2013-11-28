@@ -2,8 +2,6 @@ package org.informea.odata.producer.toolkit.impl;
 
 import static org.junit.Assert.*;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -11,7 +9,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-import org.apache.commons.io.IOUtils;
 import org.informea.odata.Configuration;
 import org.informea.odata.IContact;
 import org.informea.odata.constants.Treaty;
@@ -23,7 +20,6 @@ import org.junit.Test;
 import com.unboundid.ldap.listener.InMemoryDirectoryServer;
 import com.unboundid.ldap.listener.InMemoryDirectoryServerConfig;
 import com.unboundid.ldap.listener.InMemoryListenerConfig;
-import com.unboundid.ldap.sdk.Control;
 import com.unboundid.ldap.sdk.Entry;
 import com.unboundid.ldap.sdk.LDAPConnection;
 import com.unboundid.ldap.sdk.SearchResultEntry;
