@@ -33,7 +33,7 @@ import org.informea.odata.producer.InvalidValueException;
 @Entity
 @Table(name="informea_decisions_documents")
 @Cacheable
-public class DecisionDbDocument {
+public class DBDecisionDocument {
 
     @Id
     private String id;

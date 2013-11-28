@@ -102,7 +102,7 @@ public class HibernateConfigurator {
         }
 
         if(cfg.isUseDecisions()) {
-            hc.addAnnotatedClass(org.informea.odata.producer.toolkit.impl.DecisionDbDocument.class);
+            hc.addAnnotatedClass(org.informea.odata.producer.toolkit.impl.DBDecisionDocument.class);
             hc.addAnnotatedClass(org.informea.odata.producer.toolkit.impl.DecisionKeyword.class);
             hc.addAnnotatedClass(org.informea.odata.producer.toolkit.impl.DecisionContent.class);
             hc.addAnnotatedClass(org.informea.odata.producer.toolkit.impl.DecisionSummary.class);

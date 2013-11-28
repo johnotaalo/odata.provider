@@ -86,7 +86,7 @@ public class Decision extends AbstractDecision {
     private Set<DecisionKeyword> keywords;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "decision_id")
-    private Set<DecisionDbDocument> documents;
+    private Set<DBDecisionDocument> documents;
 
     @Override
     public Short getProtocolVersion() {
@@ -270,7 +270,7 @@ public class Decision extends AbstractDecision {
     @Override
     public List<DecisionDocument> getDocuments() {
         List<DecisionDocument> ret = new ArrayList<DecisionDocument>();
-        for (DecisionDbDocument doc : documents) {
+        for (DBDecisionDocument doc : documents) {
             MimeType mime = doc.getMimeType();
             String language = doc.getLanguage();
 
