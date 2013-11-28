@@ -1,4 +1,4 @@
-package org.informea.odata.producer.toolkit.impl;
+package org.informea.odata.data;
 
 import static org.junit.Assert.*;
 
@@ -12,6 +12,7 @@ import java.util.TimeZone;
 import org.informea.odata.Configuration;
 import org.informea.odata.IContact;
 import org.informea.odata.constants.Treaty;
+import org.informea.odata.data.LDAPDataProvider;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;

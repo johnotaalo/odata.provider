@@ -1,4 +1,4 @@
-package org.informea.odata.producer.toolkit.impl;
+package org.informea.odata.data;
 
 import java.util.Date;
 import java.util.List;
