@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * InforMEA Toolkit. If not, see http://www.gnu.org/licenses/.
  */
-package org.informea.odata.producer.toolkit.impl;
+package org.informea.odata.data;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
@@ -22,16 +22,16 @@ import javax.persistence.Table;
 
 
 /**
- * Decision content entity
+ * Decision summary entity
  * <br />
  * @author Cristian Romanescu {@code cristian.romanescu _at_ eaudeweb.ro}
  * @version 1.4.0, 10/28/2011
  * @since 1.3.3
  */
 @Entity
-@Table(name="informea_decisions_content")
+@Table(name="informea_decisions_summary")
 @Cacheable
-public class DecisionContent {
+public class DecisionSummary {
 
     @Id
     private String id;
@@ -39,7 +39,7 @@ public class DecisionContent {
     @Column(name = "decision_id")
     private String decisionId;
     private String language;
-    private String content;
+    private String summary;
 
 
     public String getLanguage() {
@@ -47,7 +47,7 @@ public class DecisionContent {
     }
 
 
-    public String getContent() {
-        return content;
+    public String getSummary() {
+        return summary;
     }
 }

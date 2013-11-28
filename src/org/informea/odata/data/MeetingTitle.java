@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * InforMEA Toolkit. If not, see http://www.gnu.org/licenses/.
  */
-package org.informea.odata.producer.toolkit.impl;
+package org.informea.odata.data;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
@@ -22,27 +22,34 @@ import javax.persistence.Table;
 
 
 /**
- * Contacts-treaty relation entity
+ * Meeting title entity
  * <br />
  * @author Cristian Romanescu {@code cristian.romanescu _at_ eaudeweb.ro}
  * @version 1.4.0, 10/28/2011
  * @since 1.3.3
  */
 @Entity
-@Table(name="informea_contacts_treaties")
+@Table(name="informea_meetings_title")
 @Cacheable
-public class ContactTreaty {
+public class MeetingTitle implements java.io.Serializable {
+
+    private static final long serialVersionUID = -5620841827224197133L;
 
     @Id
     private String id;
 
-    @Column(name = "contact_id")
+    @Column(name = "meeting_id")
+    private String meetingId;
+    private String language;
+    private String title;
 
-    private String contactId;
-    private String treaty;
+
+    public String getLanguage() {
+        return language;
+    }
 
 
-    public String getTreaty() {
-        return treaty;
+    public String getTitle() {
+        return title;
     }
 }

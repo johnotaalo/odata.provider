@@ -18,9 +18,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.hibernate.criterion.Order;
 import org.informea.odata.constants.EntityType;
 import org.informea.odata.constants.Treaty;
+import org.informea.odata.data.Contact;
+import org.informea.odata.data.CountryProfile;
+import org.informea.odata.data.CountryReport;
+import org.informea.odata.data.Decision;
+import org.informea.odata.data.Meeting;
+import org.informea.odata.data.NationalPlan;
+import org.informea.odata.data.Site;
 import org.informea.odata.pojo.AbstractContact;
 import org.informea.odata.pojo.AbstractCountryProfile;
 import org.informea.odata.pojo.AbstractCountryReport;
@@ -32,13 +40,6 @@ import org.informea.odata.pojo.DecisionDocument;
 import org.informea.odata.pojo.LocalizableString;
 import org.informea.odata.pojo.VocabularyTerm;
 import org.informea.odata.producer.AbstractInformeaProducer;
-import org.informea.odata.producer.toolkit.impl.Contact;
-import org.informea.odata.producer.toolkit.impl.CountryProfile;
-import org.informea.odata.producer.toolkit.impl.CountryReport;
-import org.informea.odata.producer.toolkit.impl.Decision;
-import org.informea.odata.producer.toolkit.impl.Meeting;
-import org.informea.odata.producer.toolkit.impl.NationalPlan;
-import org.informea.odata.producer.toolkit.impl.Site;
 import org.odata4j.producer.QueryInfo;
 
 

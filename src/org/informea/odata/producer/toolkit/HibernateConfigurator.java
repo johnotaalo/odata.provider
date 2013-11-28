@@ -88,43 +88,43 @@ public class HibernateConfigurator {
         hc.setProperty("zeroDateTimeBehavior", "convertToNull");
 
         if(cfg.isUseContacts()) {
-            hc.addAnnotatedClass(org.informea.odata.producer.toolkit.impl.ContactTreaty.class);
-            hc.addAnnotatedClass(org.informea.odata.producer.toolkit.impl.Contact.class);
+            hc.addAnnotatedClass(org.informea.odata.data.ContactTreaty.class);
+            hc.addAnnotatedClass(org.informea.odata.data.Contact.class);
         }
 
         if(cfg.isUseCountryProfiles()) {
-            hc.addAnnotatedClass(org.informea.odata.producer.toolkit.impl.CountryProfile.class);
+            hc.addAnnotatedClass(org.informea.odata.data.CountryProfile.class);
         }
 
         if(cfg.isUseCountryReports()) {
-            hc.addAnnotatedClass(org.informea.odata.producer.toolkit.impl.CountryReport.class);
-            hc.addAnnotatedClass(org.informea.odata.producer.toolkit.impl.CountryReportTitle.class);
+            hc.addAnnotatedClass(org.informea.odata.data.CountryReport.class);
+            hc.addAnnotatedClass(org.informea.odata.data.CountryReportTitle.class);
         }
 
         if(cfg.isUseDecisions()) {
-            hc.addAnnotatedClass(org.informea.odata.producer.toolkit.impl.DBDecisionDocument.class);
-            hc.addAnnotatedClass(org.informea.odata.producer.toolkit.impl.DecisionKeyword.class);
-            hc.addAnnotatedClass(org.informea.odata.producer.toolkit.impl.DecisionContent.class);
-            hc.addAnnotatedClass(org.informea.odata.producer.toolkit.impl.DecisionSummary.class);
-            hc.addAnnotatedClass(org.informea.odata.producer.toolkit.impl.DecisionLongTitle.class);
-            hc.addAnnotatedClass(org.informea.odata.producer.toolkit.impl.DecisionTitle.class);
-            hc.addAnnotatedClass(org.informea.odata.producer.toolkit.impl.Decision.class);
+            hc.addAnnotatedClass(org.informea.odata.data.DBDecisionDocument.class);
+            hc.addAnnotatedClass(org.informea.odata.data.DecisionKeyword.class);
+            hc.addAnnotatedClass(org.informea.odata.data.DecisionContent.class);
+            hc.addAnnotatedClass(org.informea.odata.data.DecisionSummary.class);
+            hc.addAnnotatedClass(org.informea.odata.data.DecisionLongTitle.class);
+            hc.addAnnotatedClass(org.informea.odata.data.DecisionTitle.class);
+            hc.addAnnotatedClass(org.informea.odata.data.Decision.class);
         }
 
         if(cfg.isUseMeetings()) {
-            hc.addAnnotatedClass(org.informea.odata.producer.toolkit.impl.MeetingDescription.class);
-            hc.addAnnotatedClass(org.informea.odata.producer.toolkit.impl.MeetingTitle.class);
-            hc.addAnnotatedClass(org.informea.odata.producer.toolkit.impl.Meeting.class);
+            hc.addAnnotatedClass(org.informea.odata.data.MeetingDescription.class);
+            hc.addAnnotatedClass(org.informea.odata.data.MeetingTitle.class);
+            hc.addAnnotatedClass(org.informea.odata.data.Meeting.class);
         }
 
         if(cfg.isUseNationalPlans()) {
-            hc.addAnnotatedClass(org.informea.odata.producer.toolkit.impl.NationalPlanTitle.class);
-            hc.addAnnotatedClass(org.informea.odata.producer.toolkit.impl.NationalPlan.class);
+            hc.addAnnotatedClass(org.informea.odata.data.NationalPlanTitle.class);
+            hc.addAnnotatedClass(org.informea.odata.data.NationalPlan.class);
         }
 
         if(cfg.isUseSites()) {
-            hc.addAnnotatedClass(org.informea.odata.producer.toolkit.impl.Site.class);
-            hc.addAnnotatedClass(org.informea.odata.producer.toolkit.impl.SiteName.class);
+            hc.addAnnotatedClass(org.informea.odata.data.Site.class);
+            hc.addAnnotatedClass(org.informea.odata.data.SiteName.class);
         }
         sessionFactory = hc.buildSessionFactory();
     }
