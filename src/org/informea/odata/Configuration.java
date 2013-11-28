@@ -179,6 +179,8 @@ public class Configuration {
     public static final String LDAP_MAPPING_TREATIES = "informea.ldap.mapping.treaties";
     public static final String LDAP_MAPPING_PRIMARY_NFP = "informea.ldap.mapping.primaryNFP";
 
+    public static final String DATA_PROVIDERS = "informea.dataProviders";
+
     private Preferences prefs;
     private String prefix = "";
     private Properties api = new Properties();

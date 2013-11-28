@@ -1,9 +1,7 @@
 package org.informea.odata.producer.toolkit.impl;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -16,7 +14,6 @@ import org.informea.odata.constants.Treaty;
 import org.informea.odata.producer.toolkit.IDataProvider;
 import org.odata4j.producer.QueryInfo;
 
-import com.sun.corba.se.impl.protocol.giopmsgheaders.RequestMessage;
 import com.unboundid.ldap.sdk.Attribute;
 import com.unboundid.ldap.sdk.LDAPConnection;
 import com.unboundid.ldap.sdk.LDAPException;
