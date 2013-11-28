@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * InforMEA Toolkit. If not, see http://www.gnu.org/licenses/.
  */
-package org.informea.odata.producer.toolkit;
+package org.informea.odata.producer;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +28,7 @@ import org.informea.odata.INationalPlan;
 import org.informea.odata.ISite;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.data.DataProviderFactory;
+import org.informea.odata.data.IDataProvider;
 import org.informea.odata.pojo.AbstractContact;
 import org.informea.odata.pojo.AbstractCountryProfile;
 import org.informea.odata.pojo.AbstractCountryReport;
@@ -38,8 +39,7 @@ import org.informea.odata.pojo.AbstractSite;
 import org.informea.odata.pojo.DecisionDocument;
 import org.informea.odata.pojo.LocalizableString;
 import org.informea.odata.pojo.VocabularyTerm;
-import org.informea.odata.producer.toolkit.IDataProvider;
-import org.informea.odata.producer.toolkit.Producer;
+import org.informea.odata.producer.Producer;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

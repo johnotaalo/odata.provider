@@ -17,14 +17,14 @@ package org.informea.odata.data;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.informea.odata.producer.toolkit.HibernateConfigurator;
-import org.informea.odata.producer.toolkit.IDataProvider;
+import org.informea.odata.HibernateConfigurator;
 import org.joda.time.LocalDateTime;
 import org.odata4j.expression.DateTimeLiteral;
 import org.odata4j.expression.EntitySimpleProperty;

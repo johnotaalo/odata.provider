@@ -140,7 +140,7 @@ public interface IDecision extends java.io.Serializable {
      * Date returned by this record will be used by the synchronization process to retrieve only the newest
      * records from the database. It is not mandatory, but if not provided, the service will retrieve always all records.
      * If you don't have this information always return current date.
-     * @see org.informea.odata.producer.toolkit.Producer#getEntities as an example on how to handle queries that will return only the newest records
+     * @see org.informea.odata.producer.Producer#getEntities as an example on how to handle queries that will return only the newest records
      * @return Date when this record was last updated.
      */
     Date getUpdated();

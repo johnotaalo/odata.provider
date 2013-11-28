@@ -41,6 +41,7 @@ import org.informea.odata.ISite;
 import org.informea.odata.constants.EntityType;
 import org.informea.odata.constants.MimeType;
 import org.informea.odata.data.DataProviderFactory;
+import org.informea.odata.data.IDataProvider;
 import org.informea.odata.pojo.AbstractContact;
 import org.informea.odata.pojo.AbstractCountryProfile;
 import org.informea.odata.pojo.AbstractCountryReport;
@@ -49,8 +50,7 @@ import org.informea.odata.pojo.AbstractMeeting;
 import org.informea.odata.pojo.AbstractNationalPlan;
 import org.informea.odata.pojo.AbstractSite;
 import org.informea.odata.producer.InvalidValueException;
-import org.informea.odata.producer.toolkit.IDataProvider;
-import org.informea.odata.producer.toolkit.Producer;
+import org.informea.odata.producer.Producer;
 
 
 /**

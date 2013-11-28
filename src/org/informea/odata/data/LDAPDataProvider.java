@@ -11,7 +11,6 @@ import org.hibernate.criterion.Order;
 import org.informea.odata.Configuration;
 import org.informea.odata.IContact;
 import org.informea.odata.constants.Treaty;
-import org.informea.odata.producer.toolkit.IDataProvider;
 import org.odata4j.producer.QueryInfo;
 
 import com.unboundid.ldap.sdk.Attribute;

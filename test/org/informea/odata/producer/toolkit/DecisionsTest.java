@@ -25,13 +25,13 @@ import org.informea.odata.IDecision;
 import org.informea.odata.constants.MimeType;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.data.DataProviderFactory;
+import org.informea.odata.data.IDataProvider;
 import org.informea.odata.pojo.AbstractDecision;
 import org.informea.odata.pojo.DecisionDocument;
 import org.informea.odata.pojo.LocalizableString;
 import org.informea.odata.pojo.VocabularyTerm;
 import org.informea.odata.producer.InvalidValueException;
-import org.informea.odata.producer.toolkit.IDataProvider;
-import org.informea.odata.producer.toolkit.Producer;
+import org.informea.odata.producer.Producer;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

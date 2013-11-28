@@ -22,6 +22,7 @@ import org.core4j.Enumerable;
 import org.informea.odata.Configuration;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.data.DataProviderFactory;
+import org.informea.odata.data.IDataProvider;
 import org.informea.odata.pojo.AbstractContact;
 import org.informea.odata.pojo.AbstractCountryProfile;
 import org.informea.odata.pojo.AbstractCountryReport;
@@ -33,7 +34,6 @@ import org.informea.odata.pojo.DecisionDocument;
 import org.informea.odata.pojo.IAbstractEntity;
 import org.informea.odata.pojo.LocalizableString;
 import org.informea.odata.pojo.VocabularyTerm;
-import org.informea.odata.producer.toolkit.IDataProvider;
 import org.informea.odata.util.ODataTransformationUtil;
 import org.odata4j.core.ODataConstants;
 import org.odata4j.core.OEntity;
@@ -56,7 +56,7 @@ import org.odata4j.producer.QueryInfo;
  * The {@code buildMetadata()} method will be used in the service to construct the metadata for the service, while queries are handled by
  * {@code getEntities}, {@code getEntity} and {@code getNavProperty} methods.
  * <br />
- * In order to successfully create your producer you must implement a factory class for your producer, see {@link org.informea.odata.producer.toolkit.ProducerFactory} and configure the factory
+ * In order to successfully create your producer you must implement a factory class for your producer, see {@link org.informea.odata.producer.ProducerFactory} and configure the factory
  * from web.xml as in the following example:
  * <pre>
  * {@code
@@ -82,7 +82,7 @@ import org.odata4j.producer.QueryInfo;
  *    <url-pattern>/services/service.svc/*</url-pattern>
  *  </servlet-mapping>}
  * </pre>
- * @see org.informea.odata.producer.toolkit.Producer
+ * @see org.informea.odata.producer.Producer
  *
  * @author Cristian Romanescu {@code cristian.romanescu _at_ eaudeweb.ro}
  * @version 1.4.0, 10/28/2011

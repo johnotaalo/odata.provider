@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-    <!-- //TODO: -Dodata4j.producerfactory=org.informea.odata.producer.toolkit.ProducerFactory -->
+    <!-- //TODO: -Dodata4j.producerfactory=org.informea.odata.producer.ProducerFactory -->
     <display-name>InforMEA OData Java producer</display-name>
     <description>
 	This is the OData producer for the InforMEA project. It implements the API for data retrieval from MEAs into Analytical Index central database
@@ -21,7 +21,7 @@
         <init-param>
             <description>Factory that will instantiate the factory of web service</description>
             <param-name>odata4j.producerfactory</param-name>
-            <param-value>org.informea.odata.producer.toolkit.ProducerFactory</param-value>
+            <param-value>org.informea.odata.producer.ProducerFactory</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>

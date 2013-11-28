@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.informea.odata.producer.toolkit;
+package org.informea.odata.data;
 
 import java.util.List;
 import org.hibernate.criterion.Order;

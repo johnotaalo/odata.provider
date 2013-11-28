@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * InforMEA Toolkit. If not, see http://www.gnu.org/licenses/.
  */
-package org.informea.odata.producer.toolkit;
+package org.informea.odata.producer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +22,14 @@ import java.util.logging.Logger;
 import org.hibernate.criterion.Order;
 import org.informea.odata.constants.EntityType;
 import org.informea.odata.constants.Treaty;
-import org.informea.odata.data.Contact;
 import org.informea.odata.data.CountryProfile;
 import org.informea.odata.data.CountryReport;
 import org.informea.odata.data.Decision;
+import org.informea.odata.data.IDataProvider;
 import org.informea.odata.data.Meeting;
 import org.informea.odata.data.NationalPlan;
 import org.informea.odata.data.Site;
+import org.informea.odata.data.db.Contact;
 import org.informea.odata.pojo.AbstractContact;
 import org.informea.odata.pojo.AbstractCountryProfile;
 import org.informea.odata.pojo.AbstractCountryReport;
@@ -39,7 +40,6 @@ import org.informea.odata.pojo.AbstractSite;
 import org.informea.odata.pojo.DecisionDocument;
 import org.informea.odata.pojo.LocalizableString;
 import org.informea.odata.pojo.VocabularyTerm;
-import org.informea.odata.producer.AbstractInformeaProducer;
 import org.odata4j.producer.QueryInfo;
 
 

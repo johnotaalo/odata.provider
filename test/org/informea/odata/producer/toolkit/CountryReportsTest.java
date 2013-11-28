@@ -21,11 +21,11 @@ import java.util.List;
 import org.informea.odata.ICountryReport;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.data.DataProviderFactory;
+import org.informea.odata.data.IDataProvider;
 import org.informea.odata.pojo.AbstractCountryReport;
 import org.informea.odata.pojo.LocalizableString;
 import org.informea.odata.producer.InvalidValueException;
-import org.informea.odata.producer.toolkit.IDataProvider;
-import org.informea.odata.producer.toolkit.Producer;
+import org.informea.odata.producer.Producer;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

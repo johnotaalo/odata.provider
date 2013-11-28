@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="org.informea.odata.Configuration"%>
-<%@page import="org.informea.odata.producer.toolkit.HibernateConfigurator"%>
+<%@page import="org.informea.odata.HibernateConfiguratorrnateConfigurator"%>
 <%@page import="org.informea.odata.util.ToolkitUtil" %>
 <%@page import="org.informea.odata.util.JDBCHelper"%>
 <%

@@ -22,7 +22,6 @@ import org.informea.odata.pojo.AbstractMeeting;
 import org.informea.odata.pojo.AbstractNationalPlan;
 import org.informea.odata.pojo.AbstractSite;
 import org.informea.odata.producer.InvalidValueException;
-import org.informea.odata.producer.toolkit.IDataProvider;
 
 import com.google.gson.Gson;
 

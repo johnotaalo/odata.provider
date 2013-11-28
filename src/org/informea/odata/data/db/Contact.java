@@ -12,12 +12,13 @@
  * You should have received a copy of the GNU General Public License along with
  * InforMEA Toolkit. If not, see http://www.gnu.org/licenses/.
  */
-package org.informea.odata.data;
+package org.informea.odata.data.db;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+
 import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -27,7 +28,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+
 import org.informea.odata.constants.Treaty;
+import org.informea.odata.data.ContactTreaty;
 import org.informea.odata.pojo.AbstractContact;
 import org.informea.odata.producer.InvalidValueException;
 

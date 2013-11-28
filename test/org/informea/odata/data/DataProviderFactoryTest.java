@@ -8,7 +8,6 @@ import org.informea.odata.constants.EntityType;
 import org.informea.odata.data.DataProviderFactory;
 import org.informea.odata.pojo.AbstractContact;
 import org.informea.odata.producer.InvalidValueException;
-import org.informea.odata.producer.toolkit.IDataProvider;
 import org.junit.Test;
 
 

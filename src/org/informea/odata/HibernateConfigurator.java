@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * InforMEA Toolkit. If not, see http://www.gnu.org/licenses/.
  */
-package org.informea.odata.producer.toolkit;
+package org.informea.odata;
 
 import java.util.logging.Logger;
 import org.hibernate.Session;
@@ -89,7 +89,7 @@ public class HibernateConfigurator {
 
         if(cfg.isUseContacts()) {
             hc.addAnnotatedClass(org.informea.odata.data.ContactTreaty.class);
-            hc.addAnnotatedClass(org.informea.odata.data.Contact.class);
+            hc.addAnnotatedClass(org.informea.odata.data.db.Contact.class);
         }
 
         if(cfg.isUseCountryProfiles()) {
