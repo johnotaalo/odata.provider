@@ -107,14 +107,8 @@ public class Configuration {
     public static Properties getAPIProperties() {
         Properties ret = new Properties();
         try {
-            String filePath = System.getProperty("informea.api.properties");
-            if(filePath != null) {
-                log.info(String.format("Loading configuration from %s", filePath));
-                ret.load(new FileInputStream(filePath));
-            } else {
-                log.info("Loading configuration from informea.api.properties");
-                ret.load(Configuration.class.getClassLoader().getResourceAsStream("informea.api.properties"));
-            }
+            log.info("Loading configuration from informea.api.properties");
+            ret.load(Configuration.class.getClassLoader().getResourceAsStream("informea.api.properties"));
         } catch(IOException ex) {
             log.log(Level.SEVERE, "Cannot load configuration file informea.api.properties", ex);
         }
