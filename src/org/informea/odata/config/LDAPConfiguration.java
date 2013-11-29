@@ -3,6 +3,8 @@ package org.informea.odata.config;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.informea.odata.util.ToolkitUtil;
 
 public class LDAPConfiguration {
@@ -10,15 +12,20 @@ public class LDAPConfiguration {
     public static final String LDAP_HOST = "ldap_host";
     public static final String LDAP_PORT = "ldap_port";
     public static final String LDAP_BIND_DN = "ldap_bindDN";
-    public static final String LDAP_USER_BASE_DN = "ldap_user_baseDN";
-    public static final String LDAP_USER_QUERY_FILTER = "ldap_user_queryFilter";
+    public static final String LDAP_PASSWORD = "ldap_password";
+    public static final String LDAP_USER_BASE_DN = "ldap_userBaseDN";
+    public static final String LDAP_USER_QUERY_FILTER = "ldap_userQueryFilter";
+    public static final String LDAP_ID_ATTRIBUTE = "ldap_idAttribute";
 
-    public static final String LDAP_USERS_BASE_DN = "ldap_users_baseDN";
-    public static final String LDAP_USERS_QUERY_FILTER = "ldap_users_queryFilter";
+    public static final String LDAP_MAX_PAGE_SIZE = "ldap_maxPageSize";
 
-    public static final String LDAP_USE_TLS = "ldap_use_tls";
-    public static final String LDAP_USE_SSL = "ldap_use_ssl";
+    public static final String LDAP_USERS_BASE_DN = "ldap_usersBaseDN";
+    public static final String LDAP_USERS_QUERY_FILTER = "ldap_usersQueryFilter";
 
+    public static final String LDAP_USE_TLS = "ldap_useTLS";
+    public static final String LDAP_USE_SSL = "ldap_useSSL";
+
+    public static final String LDAP_MAPPING_ID = "informea_ldap_mapping_id";
     public static final String LDAP_MAPPING_PREFIX = "informea_ldap_mapping_personalTitle";
     public static final String LDAP_MAPPING_FIRST_NAME = "informea_ldap_mapping_firstName";
     public static final String LDAP_MAPPING_LAST_NAME = "informea_ldap_mapping_lastName";
@@ -39,7 +46,6 @@ public class LDAPConfiguration {
     private String bindDN;
     private String password;
 
-    private String userIdAttribute;
     private String userBaseDN;
     private String userQueryFilter;
 
@@ -88,9 +94,6 @@ public class LDAPConfiguration {
             return false;
         }
         if(!ToolkitUtil.compareStrings(userQueryFilter, o.getUserQueryFilter())) {
-            return false;
-        }
-        if(!ToolkitUtil.compareStrings(userIdAttribute, o.getUserIdAttribute())) {
             return false;
         }
         if(!mappings.equals(o.getMappings())) {
@@ -165,7 +168,7 @@ public class LDAPConfiguration {
     }
 
     public String getUserIdAttribute() {
-        return userIdAttribute;
+        return mappings.get(LDAP_MAPPING_ID);
     }
 
     public void setHost(String host) {
@@ -220,7 +223,51 @@ public class LDAPConfiguration {
         this.useTLS = useTLS;
     }
 
-    public void setUserIdAttribute(String userIdAttribute) {
-        this.userIdAttribute = userIdAttribute;
+    public static LDAPConfiguration fromHttpRequest(HttpServletRequest request) {
+        LDAPConfiguration ret = new LDAPConfiguration();
+
+        ret.setHost(ToolkitUtil.getRequestValue(LDAPConfiguration.LDAP_HOST, request));
+        ret.setPort(ToolkitUtil.getRequestInteger(LDAPConfiguration.LDAP_PORT, request));
+        ret.setBindDN(ToolkitUtil.getRequestValue(LDAPConfiguration.LDAP_BIND_DN, request));
+        ret.setPassword(ToolkitUtil.getRequestValue(LDAPConfiguration.LDAP_PASSWORD, request));
+        ret.setUserBaseDN(ToolkitUtil.getRequestValue(LDAPConfiguration.LDAP_USER_BASE_DN, request));
+        ret.setUserQueryFilter(ToolkitUtil.getRequestValue(LDAPConfiguration.LDAP_USER_QUERY_FILTER, request));
+        ret.setUsersBaseDN(ToolkitUtil.getRequestValue(LDAPConfiguration.LDAP_USERS_BASE_DN, request));
+        ret.setUsersQueryFilter(ToolkitUtil.getRequestValue(LDAPConfiguration.LDAP_USERS_QUERY_FILTER, request));
+        ret.setUseSSL(ToolkitUtil.getRequestCheckbox(LDAPConfiguration.LDAP_USE_SSL, request));
+        ret.setUseTLS(ToolkitUtil.getRequestCheckbox(LDAPConfiguration.LDAP_USE_TLS, request));
+        ret.setMaxPageSize(ToolkitUtil.getRequestInteger(LDAPConfiguration.LDAP_MAX_PAGE_SIZE, request));
+
+        ret.setMapping(LDAPConfiguration.LDAP_MAPPING_ID,
+                ToolkitUtil.getRequestValue(LDAPConfiguration.LDAP_MAPPING_ID, request));
+        ret.setMapping(LDAPConfiguration.LDAP_MAPPING_ADDRESS,
+                ToolkitUtil.getRequestValue(LDAPConfiguration.LDAP_MAPPING_ADDRESS, request));
+        ret.setMapping(LDAPConfiguration.LDAP_MAPPING_COUNTRY,
+                ToolkitUtil.getRequestValue(LDAPConfiguration.LDAP_MAPPING_COUNTRY, request));
+        ret.setMapping(LDAPConfiguration.LDAP_MAPPING_DEPARTMENT,
+                ToolkitUtil.getRequestValue(LDAPConfiguration.LDAP_MAPPING_DEPARTMENT, request));
+        ret.setMapping(LDAPConfiguration.LDAP_MAPPING_EMAIL,
+                ToolkitUtil.getRequestValue(LDAPConfiguration.LDAP_MAPPING_EMAIL, request));
+        ret.setMapping(LDAPConfiguration.LDAP_MAPPING_FAX,
+                ToolkitUtil.getRequestValue(LDAPConfiguration.LDAP_MAPPING_FAX, request));
+        ret.setMapping(LDAPConfiguration.LDAP_MAPPING_FIRST_NAME,
+                ToolkitUtil.getRequestValue(LDAPConfiguration.LDAP_MAPPING_FIRST_NAME, request));
+        ret.setMapping(LDAPConfiguration.LDAP_MAPPING_INSTITUTION,
+                ToolkitUtil.getRequestValue(LDAPConfiguration.LDAP_MAPPING_INSTITUTION, request));
+        ret.setMapping(LDAPConfiguration.LDAP_MAPPING_LAST_NAME,
+                ToolkitUtil.getRequestValue(LDAPConfiguration.LDAP_MAPPING_LAST_NAME, request));
+        ret.setMapping(LDAPConfiguration.LDAP_MAPPING_PHONE,
+                ToolkitUtil.getRequestValue(LDAPConfiguration.LDAP_MAPPING_PHONE, request));
+        ret.setMapping(LDAPConfiguration.LDAP_MAPPING_POSITION,
+                ToolkitUtil.getRequestValue(LDAPConfiguration.LDAP_MAPPING_POSITION, request));
+        ret.setMapping(LDAPConfiguration.LDAP_MAPPING_PREFIX,
+                ToolkitUtil.getRequestValue(LDAPConfiguration.LDAP_MAPPING_PREFIX, request));
+        ret.setMapping(LDAPConfiguration.LDAP_MAPPING_PRIMARY_NFP,
+                ToolkitUtil.getRequestValue(LDAPConfiguration.LDAP_MAPPING_PRIMARY_NFP, request));
+        ret.setMapping(LDAPConfiguration.LDAP_MAPPING_TREATIES,
+                ToolkitUtil.getRequestValue(LDAPConfiguration.LDAP_MAPPING_TREATIES, request));
+        ret.setMapping(LDAPConfiguration.LDAP_MAPPING_UPDATED,
+                ToolkitUtil.getRequestValue(LDAPConfiguration.LDAP_MAPPING_UPDATED, request));
+        return ret;
     }
 }

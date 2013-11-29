@@ -135,7 +135,7 @@ public class LDAPDataProviderTest {
     @Test
     public void testGetPrimaryEntities() {
         LDAPConfiguration ldapCfg = Configuration.getInstance().getLDAPConfiguration();
-        ldapCfg.setUserIdAttribute("uid");
+        ldapCfg.setMapping(LDAPConfiguration.LDAP_MAPPING_ID, "uid");
 
         LDAPDataProvider dp = new LDAPDataProvider();
         users = dp.getPrimaryEntities(null, null, 0, 10, null);
@@ -149,7 +149,7 @@ public class LDAPDataProviderTest {
     @Test
     public void testGetPrimaryEntitiesBiggerPage() {
         LDAPConfiguration ldapCfg = Configuration.getInstance().getLDAPConfiguration();
-        ldapCfg.setUserIdAttribute("uid");
+        ldapCfg.setMapping(LDAPConfiguration.LDAP_MAPPING_ID, "uid");
 
         LDAPDataProvider dp = new LDAPDataProvider();
         users = dp.getPrimaryEntities(null, null, 0, 20, null);
@@ -163,7 +163,7 @@ public class LDAPDataProviderTest {
     @Test
     public void testGetPrimaryEntitiesNegativeStart() {
         LDAPConfiguration ldapCfg = Configuration.getInstance().getLDAPConfiguration();
-        ldapCfg.setUserIdAttribute("uid");
+        ldapCfg.setMapping(LDAPConfiguration.LDAP_MAPPING_ID, "uid");
 
         LDAPDataProvider dp = new LDAPDataProvider();
         users = dp.getPrimaryEntities(null, null, -1, 5, null);
@@ -179,7 +179,7 @@ public class LDAPDataProviderTest {
         Configuration cfg = Configuration.getInstance();
         LDAPConfiguration ldapCfg = cfg.getLDAPConfiguration();
         ldapCfg.setMaxPageSize(5);
-        ldapCfg.setUserIdAttribute("uid");
+        ldapCfg.setMapping(LDAPConfiguration.LDAP_MAPPING_ID, "uid");
 
         LDAPDataProvider dp = new LDAPDataProvider();
         users = dp.getPrimaryEntities(null, null, 10, -1, null);
@@ -196,7 +196,7 @@ public class LDAPDataProviderTest {
     public void testGetPrimaryEntitiesMaxPageSize() {
         Configuration cfg = Configuration.getInstance();
         LDAPConfiguration ldapCfg = Configuration.getInstance().getLDAPConfiguration();
-        ldapCfg.setUserIdAttribute("uid");
+        ldapCfg.setMapping(LDAPConfiguration.LDAP_MAPPING_ID, "uid");
         ldapCfg.setMaxPageSize(8);
 
         LDAPDataProvider dp = new LDAPDataProvider();
@@ -214,7 +214,7 @@ public class LDAPDataProviderTest {
     public void testGetPrimaryEntity() {
         Configuration cfg = Configuration.getInstance();
         LDAPConfiguration ldap = cfg.getLDAPConfiguration();
-        ldap.setUserIdAttribute("uid");
+        ldap.setMapping(LDAPConfiguration.LDAP_MAPPING_ID, "uid");
 
         LDAPDataProvider dp = new LDAPDataProvider();
         IContact row = (IContact)dp.getPrimaryEntity(null, "bjensen");

@@ -2,8 +2,13 @@ package org.informea.odata.config;
 
 import static org.junit.Assert.*;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.informea.odata.util.ToolkitUtil;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.mockito.Mockito.*;
 
 public class DatabaseConfigurationTest {
 
@@ -120,22 +125,62 @@ public class DatabaseConfigurationTest {
         assertFalse(cfg.equals(obj));
 
         obj.setType("com.mysql.jdbc.Driver");
-        assertFalse(cfg.equals(obj));
-
         obj.setHost("localhost");
-        assertFalse(cfg.equals(obj));
-
         obj.setPort(3306);
-        assertFalse(cfg.equals(obj));
-
         obj.setUser("root");
-        assertFalse(cfg.equals(obj));
-
         obj.setPassword("password");
-        assertFalse(cfg.equals(obj));
+        obj.setDatabase("db");
 
+        assertTrue(cfg.equals(obj));
+
+        obj.setType("1");
+        assertFalse(cfg.equals(obj));
+        obj.setType("com.mysql.jdbc.Driver");
+        assertTrue(cfg.equals(obj));
+
+        obj.setHost("1");
+        assertFalse(cfg.equals(obj));
+        obj.setHost("localhost");
+        assertTrue(cfg.equals(obj));
+
+        obj.setPort(1);
+        assertFalse(cfg.equals(obj));
+        obj.setPort(3306);
+        assertTrue(cfg.equals(obj));
+
+        obj.setUser("1");
+        assertFalse(cfg.equals(obj));
+        obj.setUser("root");
+        assertTrue(cfg.equals(obj));
+
+        obj.setPassword("1");
+        assertFalse(cfg.equals(obj));
+        obj.setPassword("password");
+        assertTrue(cfg.equals(obj));
+
+        obj.setDatabase("1");
+        assertFalse(cfg.equals(obj));
         obj.setDatabase("db");
         assertTrue(cfg.equals(obj));
     }
 
+    @Test
+    public void testFromHttpRequest() {
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        assertNotNull(request);
+        when(request.getParameter(DatabaseConfiguration.DB_DATABASE)).thenReturn("thedatabase");
+        when(request.getParameter(DatabaseConfiguration.DB_HOST)).thenReturn("localhost");
+        when(request.getParameter(DatabaseConfiguration.DB_PASS)).thenReturn("password");
+        when(request.getParameter(DatabaseConfiguration.DB_PORT)).thenReturn("134");
+        when(request.getParameter(DatabaseConfiguration.DB_TYPE)).thenReturn("com.mysql.jdbc.Driver");
+        when(request.getParameter(DatabaseConfiguration.DB_USER)).thenReturn("root");
+
+        DatabaseConfiguration s = DatabaseConfiguration.fromHttpRequest(request);
+        assertEquals("thedatabase", s.getDatabase());
+        assertEquals("localhost", s.getHost());
+        assertEquals("password", s.getPassword());
+        assertEquals(134, s.getPort());
+        assertEquals("com.mysql.jdbc.Driver", s.getType());
+        assertEquals("root", s.getUser());
+    }
 }

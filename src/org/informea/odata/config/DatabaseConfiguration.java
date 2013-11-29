@@ -36,6 +36,13 @@ public class DatabaseConfiguration {
      */
     public static final String DB_DATABASE = "db_database";
 
+    private String type;
+    private String host;
+    private int port;
+    private String user;
+    private String password;
+    private String database;
+
     @Override
     public boolean equals(Object obj) {
         if(obj == this) {
@@ -66,13 +73,6 @@ public class DatabaseConfiguration {
         }
         return true;
     }
-
-    private String type;
-    private String host;
-    private int port;
-    private String user;
-    private String password;
-    private String database;
 
     public DatabaseConfiguration() {
         // no arguments constructor
@@ -153,20 +153,14 @@ public class DatabaseConfiguration {
         this.database = database;
     }
 
-    public static DatabaseConfiguration fromRequest(HttpServletRequest request) {
-        String db_type = ToolkitUtil.getRequestValue(DatabaseConfiguration.DB_TYPE, request);
-        String db_host = ToolkitUtil.getRequestValue(DatabaseConfiguration.DB_HOST, request);
-        int db_port = ToolkitUtil.getRequestInteger(DatabaseConfiguration.DB_PORT, request);
-        String db_user = ToolkitUtil.getRequestValue(DatabaseConfiguration.DB_USER, request);
-        String db_pass = ToolkitUtil.getRequestValue(DatabaseConfiguration.DB_PASS, request);
-        String db_database = ToolkitUtil.getRequestValue(DatabaseConfiguration.DB_DATABASE, request);
+    public static DatabaseConfiguration fromHttpRequest(HttpServletRequest request) {
         DatabaseConfiguration db = new DatabaseConfiguration();
-        db.setDatabase(db_database);
-        db.setHost(db_host);
-        db.setPassword(db_pass);
-        db.setPort(db_port);
-        db.setType(db_type);
-        db.setUser(db_user);
+        db.setDatabase(ToolkitUtil.getRequestValue(DatabaseConfiguration.DB_DATABASE, request));
+        db.setHost(ToolkitUtil.getRequestValue(DatabaseConfiguration.DB_HOST, request));
+        db.setPassword(ToolkitUtil.getRequestValue(DatabaseConfiguration.DB_PASS, request));
+        db.setPort(ToolkitUtil.getRequestInteger(DatabaseConfiguration.DB_PORT, request));
+        db.setType(ToolkitUtil.getRequestValue(DatabaseConfiguration.DB_TYPE, request));
+        db.setUser(ToolkitUtil.getRequestValue(DatabaseConfiguration.DB_USER, request));
         return db;
     }
 }
