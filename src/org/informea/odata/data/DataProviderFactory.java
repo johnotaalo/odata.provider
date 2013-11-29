@@ -1,6 +1,5 @@
 package org.informea.odata.data;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,8 +24,6 @@ import org.informea.odata.pojo.AbstractNationalPlan;
 import org.informea.odata.pojo.AbstractSite;
 import org.informea.odata.producer.InvalidValueException;
 
-import com.google.gson.Gson;
-
 public class DataProviderFactory {
 
     private static final Logger log = Logger.getLogger(DataProviderFactory.class.getName());
@@ -36,9 +33,7 @@ public class DataProviderFactory {
         String entityClassName = entity.getName();
         try {
             Configuration cfg = Configuration.getInstance();
-            String settingsStr = cfg.getString(Configuration.DATA_PROVIDERS);
-            Gson json = new Gson();
-            Map<String, String> mappings = json.fromJson(settingsStr, new HashMap<String, String>().getClass());
+            Map<String, String> mappings = cfg.getDataProviders();
             if(mappings == null) {
                 log.warning(String.format("Could not decode data providers mappings."));
             } else if(mappings.containsKey(entityClassName)) {

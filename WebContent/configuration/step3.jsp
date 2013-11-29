@@ -1,19 +1,20 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="org.informea.odata.util.ToolkitUtil" %>
 <%@page import="org.informea.odata.config.Configuration" %>
+<%@page import="org.informea.odata.config.DatabaseConfiguration" %>
 <%@page import="org.informea.odata.util.JDBCHelper"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 Configuration cfg = Configuration.getInstance();
 // If user drops to this page and setup is not configured, just redirect to start
-if(session.getAttribute(Configuration.DB_TYPE) == null) {
+if(session.getAttribute("informea.in_progress") == null) {
     response.sendRedirect("index.jsp");
     return;
 }
 boolean next = ToolkitUtil.isOnRequest("next", request);
 if(next) {
-    cfg.setUsePathPrefix(ToolkitUtil.getRequestCheckbox(Configuration.USE_PATH_PREFIX, request));
-    cfg.setPathPrefix(ToolkitUtil.getRequestValue(Configuration.PATH_PREFIX, request));
+    cfg.setUsePathPrefix(ToolkitUtil.getRequestCheckbox("usePathPrefix", request));
+    cfg.setPathPrefix(ToolkitUtil.getRequestValue("pathPrefix", request));
 
     response.sendRedirect("step4.jsp");
 }
@@ -81,7 +82,7 @@ You have two options:
             <div class="checkbox">
                 <label>
                     <input type="checkbox" value="ON" tabindex="1" 
-                        id="<%= Configuration.USE_PATH_PREFIX %>" name="<%= Configuration.USE_PATH_PREFIX %>"
+                        id="usePathPrefix" name="usePathPrefix"
                         <c:if test="${usePathPrefix}"> checked="checked"</c:if>
                     />
                     <strong>Append the prefix path below</strong>
@@ -90,11 +91,10 @@ You have two options:
         </div>
     </div>
     <div class="form-group">
-        <label for="<%= Configuration.PATH_PREFIX %>" class="col-sm-2 control-label">Prefix</label>
+        <label for="pathPrefix" class="col-sm-2 control-label">Prefix</label>
         <div class="col-sm-10">
             <input type="text" class="form-control" size="60" tabindex="2"
-                id="<%= Configuration.PATH_PREFIX %>" 
-                name="<%= Configuration.PATH_PREFIX %>"
+                id="pathPrefix" name="pathPrefix"
                 <c:if test="${usePathPrefix}">
                     value="<c:out value="${cfg.getPathPrefix()}" />"
                </c:if>

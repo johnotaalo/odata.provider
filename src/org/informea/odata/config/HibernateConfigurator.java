@@ -65,13 +65,14 @@ public class HibernateConfigurator {
         hc.setProperty("hibernate.c3p0.testConnectionOnCheckout", "true"); // Very important to validate connections - for ITPGRFA fails if false since it's remote DB.
 
         // Database connection configuration
-        hc.setProperty("hibernate.connection.driver_class", cfg.getJDBCDriver());
-        hc.setProperty("hibernate.connection.url", cfg.getJDBCUrl());
-        hc.setProperty("hibernate.connection.username", cfg.getDBUser());
-        hc.setProperty("hibernate.connection.password", cfg.getDBPassword());
+        DatabaseConfiguration dbCfg = cfg.getDatabaseConfiguration();
+        hc.setProperty("hibernate.connection.driver_class", dbCfg.getJDBCDriver());
+        hc.setProperty("hibernate.connection.url", dbCfg.getJDBCUrl());
+        hc.setProperty("hibernate.connection.username", dbCfg.getUser());
+        hc.setProperty("hibernate.connection.password", dbCfg.getPassword());
         hc.setProperty("hibernate.connection.zeroDateTimeBehavior", "convertToNull");
 
-        hc.setProperty("hibernate.dialect", cfg.getHibernateDialect());
+        hc.setProperty("hibernate.dialect", dbCfg.getHibernateDialect());
 
         // Cache configuration - Second level
         // log.info("Secondary cache is disabled - Dynamic enabling not implemented.");
@@ -81,7 +82,7 @@ public class HibernateConfigurator {
         hc.setProperty("hibernate.cache.use_query_cache", "true");
         hc.setProperty("hibernate.cache.use_second_level_cache", "true");
         hc.setProperty("hibernate.cache.provider_configuration", "/ehcache.xml");
-        */
+         */
 
         hc.setProperty("hibernate.current_session_context_class", "thread");
         hc.setProperty("hibernate.show_sql", "true");

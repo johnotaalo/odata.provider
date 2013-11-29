@@ -3,7 +3,7 @@
 <%@page import="org.informea.odata.config.Configuration" %>
 <%
 // If user drops to this page and setup is not configured, just redirect to start
-if(session.getAttribute(Configuration.DB_TYPE) == null) {
+if(session.getAttribute("informea.in_progress") == null) {
     response.sendRedirect("index.jsp");
     return;
 }

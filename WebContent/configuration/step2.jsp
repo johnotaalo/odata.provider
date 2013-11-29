@@ -7,7 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 // If user drops to this page and setup is not configured, just redirect to start
-if(session.getAttribute(Configuration.DB_TYPE) == null) {
+if(session.getAttribute("informea.in_progress") == null) {
     response.sendRedirect("index.jsp");
     return;
 }
@@ -17,7 +17,7 @@ if(next) {
     validSelection = ToolkitUtil.isValidEntitiesSelection(request);
     if(validSelection) {
         ToolkitUtil.saveEntitiesSelectionOnSession(session, request);
-        boolean useDecisions = ToolkitUtil.getRequestCheckbox(Configuration.USE_DECISIONS, request);
+        boolean useDecisions = ToolkitUtil.getRequestCheckbox("useDecisions", request);
         if(useDecisions) {
             response.sendRedirect("step3.jsp");
         } else {
@@ -96,10 +96,10 @@ pageContext.setAttribute("useSites", jdbc.detectSites());
             <tbody>
                 <tr>
                     <td>
-                        <label for="<%= Configuration.USE_DECISIONS %>">Decisions</label>
+                        <label for="useDecisions">Decisions</label>
                     </td>
                     <td class="text-right">
-                        <input type="checkbox" id="<%= Configuration.USE_DECISIONS %>" name="<%= Configuration.USE_DECISIONS %>"
+                        <input type="checkbox" id="useDecisions" name="useDecisions"
                             value="ON" tabindex="1"
                             <c:if test="${!useDecisions}"> disabled="disabled"</c:if>
                             <c:if test="${useDecisions}"> checked="checked"</c:if>
@@ -107,9 +107,9 @@ pageContext.setAttribute("useSites", jdbc.detectSites());
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="<%= Configuration.USE_MEETINGS %>">Meetings</label></td>
+                    <td><label for="useMeetings">Meetings</label></td>
                     <td class="text-right">
-                        <input type="checkbox" id="<%= Configuration.USE_MEETINGS %>" name="<%= Configuration.USE_MEETINGS %>"
+                        <input type="checkbox" id="useMeetings" name="useMeetings"
                             value="ON" tabindex="2"
                             <c:if test="${!useMeetings}"> disabled="disabled"</c:if>
                             <c:if test="${useMeetings}"> checked="checked"</c:if>
@@ -117,9 +117,9 @@ pageContext.setAttribute("useSites", jdbc.detectSites());
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="<%= Configuration.USE_CONTACTS %>">Contacts</label></td>
+                    <td><label for="useContacts">Contacts</label></td>
                     <td class="text-right">
-                        <input type="checkbox" id="<%= Configuration.USE_CONTACTS %>" name="<%= Configuration.USE_CONTACTS %>"
+                        <input type="checkbox" id="useContacts" name="useContacts"
                             value="ON" tabindex="3"
                             <c:if test="${!useContacts}"> disabled="disabled"</c:if>
                             <c:if test="${useContacts}"> checked="checked"</c:if>
@@ -127,9 +127,9 @@ pageContext.setAttribute("useSites", jdbc.detectSites());
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="<%= Configuration.USE_COUNTRY_REPORTS %>">Country reports</label></td>
+                    <td><label for="useCountryReports">Country reports</label></td>
                     <td class="text-right">
-                        <input type="checkbox" id="<%= Configuration.USE_COUNTRY_REPORTS %>" name="<%= Configuration.USE_COUNTRY_REPORTS %>"
+                        <input type="checkbox" id="useCountryReports" name="useCountryReports"
                         value="ON" tabindex="4"
                             <c:if test="${!useCountryReports}"> disabled="disabled"</c:if>
                             <c:if test="${useCountryReports}"> checked="checked"</c:if>
@@ -137,9 +137,9 @@ pageContext.setAttribute("useSites", jdbc.detectSites());
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="<%= Configuration.USE_COUNTRY_PROFILES %>">Country profiles</label></td>
+                    <td><label for="useCountryProfiles">Country profiles</label></td>
                     <td class="text-right">
-                        <input type="checkbox" id="<%= Configuration.USE_COUNTRY_PROFILES %>" name="<%= Configuration.USE_COUNTRY_PROFILES %>"
+                        <input type="checkbox" id="useCountryProfiles" name="useCountryProfiles"
                             value="ON" tabindex="5"
                             <c:if test="${!useCountryProfiles}"> disabled="disabled"</c:if>
                             <c:if test="${useCountryProfiles}"> checked="checked"</c:if>
@@ -147,9 +147,9 @@ pageContext.setAttribute("useSites", jdbc.detectSites());
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="<%= Configuration.USE_NATIONAL_PLANS %>">National plans</label></td>
+                    <td><label for="useNationalPlans">National plans</label></td>
                     <td class="text-right">
-                        <input type="checkbox" id="<%= Configuration.USE_NATIONAL_PLANS %>" name="<%= Configuration.USE_NATIONAL_PLANS %>"
+                        <input type="checkbox" id="useNationalPlans" name="useNationalPlans"
                             value="ON" tabindex="6"
                             <c:if test="${!useNationalPlans}"> disabled="disabled"</c:if>
                             <c:if test="${useNationalPlans}"> checked="checked"</c:if>
@@ -157,9 +157,9 @@ pageContext.setAttribute("useSites", jdbc.detectSites());
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="<%= Configuration.USE_SITES %>">Sites</label></td>
+                    <td><label for="useSites">Sites</label></td>
                     <td class="text-right">
-                        <input type="checkbox" id="<%= Configuration.USE_SITES %>" name="<%= Configuration.USE_SITES %>"
+                        <input type="checkbox" id="useSites" name="useSites"
                             value="ON" tabindex="7"
                             <c:if test="${!useSites}"> disabled="disabled"</c:if>
                             <c:if test="${useSites}"> checked="checked"</c:if>

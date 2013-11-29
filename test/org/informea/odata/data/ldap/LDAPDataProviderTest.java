@@ -11,6 +11,7 @@ import java.util.TimeZone;
 
 import org.informea.odata.IContact;
 import org.informea.odata.config.Configuration;
+import org.informea.odata.config.LDAPConfiguration;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.data.ldap.LDAPDataProvider;
 import org.junit.AfterClass;
@@ -68,12 +69,16 @@ public class LDAPDataProviderTest {
         ldapServer.startListening();
 
         Configuration cfg = org.informea.odata.config.Configuration.getInstance();
-        cfg.setString(Configuration.LDAP_HOST, ldapServer.getListenAddress().getHostAddress());
-        cfg.setInt(Configuration.LDAP_PORT, ldapServer.getListenPort());
-        cfg.setString(Configuration.LDAP_BIND_DN, BIND_DN);
-        cfg.setString(Configuration.LDAP_PASSWORD, BIND_PASSWORD);
-        cfg.setString(Configuration.LDAP_USERS_BASE_DN, "ou=People,dc=example,dc=com");
-        cfg.setString(Configuration.LDAP_USERS_FILTER, "uid=*");
+
+        LDAPConfiguration ldapCfg = new LDAPConfiguration();
+        ldapCfg.setHost(ldapServer.getListenAddress().getHostAddress());
+        ldapCfg.setPort(ldapServer.getListenPort());
+        ldapCfg.setBindDN(BIND_DN);
+        ldapCfg.setPassword(BIND_PASSWORD);
+        ldapCfg.setUserBaseDN("ou=People,dc=example,dc=com");
+        ldapCfg.setUsersQueryFilter("uid=*");
+
+        cfg.setLDAPConfiguration(ldapCfg);
     }
 
     @Before
@@ -163,7 +168,7 @@ public class LDAPDataProviderTest {
     @Test
     public void testGetPrimaryEntitiesNegativePageSize() {
         Configuration cfg = Configuration.getInstance();
-        cfg.setInt(Configuration.LDAP_MAX_PAGE_SIZE, 5);
+        cfg.getLDAPConfiguration().setMaxPageSize(5);
         LDAPDataProvider dp = new LDAPDataProvider();
         users = dp.getPrimaryEntities(null, null, 10, -1, null);
         assertEquals(2, users.size());
@@ -172,13 +177,13 @@ public class LDAPDataProviderTest {
         assertEquals("uid=alutz,ou=People,dc=example,dc=com", first.getId());
         assertEquals("uid=ashelton,ou=People,dc=example,dc=com", last.getId());
         // Reset to default
-        cfg.setInt(Configuration.LDAP_MAX_PAGE_SIZE, 0);
+        cfg.getLDAPConfiguration().setMaxPageSize(0);
     }
 
     @Test
     public void testGetPrimaryEntitiesMaxPageSize() {
         Configuration cfg = Configuration.getInstance();
-        cfg.setInt(Configuration.LDAP_MAX_PAGE_SIZE, 8);
+        cfg.getLDAPConfiguration().setMaxPageSize(8);
         LDAPDataProvider dp = new LDAPDataProvider();
         users = dp.getPrimaryEntities(null, null, 0, 10000, null);
         assertEquals(8, users.size());
@@ -187,20 +192,20 @@ public class LDAPDataProviderTest {
         assertEquals("cn=Barbara Jensen,ou=People,dc=example,dc=com", first.getId());
         assertEquals("uid=ajensen,ou=People,dc=example,dc=com", last.getId());
         // Reset to default
-        cfg.setInt(Configuration.LDAP_MAX_PAGE_SIZE, 0);
+        cfg.getLDAPConfiguration().setMaxPageSize(0);
     }
 
     @Test
     public void testGetPageSize() {
         Configuration cfg = Configuration.getInstance();
-        cfg.setInt(Configuration.LDAP_MAX_PAGE_SIZE, 0);
+        cfg.getLDAPConfiguration().setMaxPageSize(0);
         LDAPDataProvider dp = new LDAPDataProvider();
         assertEquals(10, dp.getPageSize(10));
         assertEquals(100, dp.getPageSize(-1));
         assertEquals(100, dp.getPageSize(100));
         assertEquals(100, dp.getPageSize(10000));
 
-        cfg.setInt(Configuration.LDAP_MAX_PAGE_SIZE, 200);
+        cfg.getLDAPConfiguration().setMaxPageSize(200);
         assertEquals(10, dp.getPageSize(10));
         assertEquals(200, dp.getPageSize(-1));
         assertEquals(200, dp.getPageSize(200));
@@ -214,7 +219,7 @@ public class LDAPDataProviderTest {
 
         LDAPConnection conn = ldapServer.getConnection();
         SearchResultEntry item = conn.searchForEntry(
-                cfg.getString(Configuration.LDAP_USER_BASE_DN),
+                cfg.getLDAPConfiguration().getUserBaseDN(),
                 SearchScope.SUB,
                 "uid=bjensen");
 
@@ -223,19 +228,21 @@ public class LDAPDataProviderTest {
             add(Treaty.AEWA);
         }};
 
-        cfg.setString(Configuration.LDAP_MAPPING_PREFIX, "personalTitle");
-        cfg.setString(Configuration.LDAP_MAPPING_COUNTRY, "c");
-        cfg.setString(Configuration.LDAP_MAPPING_FIRST_NAME, "givenName");
-        cfg.setString(Configuration.LDAP_MAPPING_LAST_NAME, "sn");
-        cfg.setString(Configuration.LDAP_MAPPING_ADDRESS, "Address: ${registeredAddress} ${postalCode}");
-        cfg.setString(Configuration.LDAP_MAPPING_DEPARTMENT, "ou");
-        cfg.setString(Configuration.LDAP_MAPPING_EMAIL, "mail");
-        cfg.setString(Configuration.LDAP_MAPPING_FAX, "facsimileTelephoneNumber");
-        cfg.setString(Configuration.LDAP_MAPPING_INSTITUTION, "o");
-        cfg.setString(Configuration.LDAP_MAPPING_PHONE, "telephoneNumber");
-        cfg.setString(Configuration.LDAP_MAPPING_POSITION, "title");
-        cfg.setString(Configuration.LDAP_MAPPING_UPDATED, "roomNumber");
-        cfg.setString(Configuration.LDAP_MAPPING_TREATIES, "carLicense");
+        LDAPConfiguration ldap = cfg.getLDAPConfiguration();
+        ldap.setMapping(LDAPConfiguration.LDAP_MAPPING_PREFIX, "personalTitle");
+        ldap.setMapping(LDAPConfiguration.LDAP_MAPPING_COUNTRY, "c");
+        ldap.setMapping(LDAPConfiguration.LDAP_MAPPING_FIRST_NAME, "givenName");
+        ldap.setMapping(LDAPConfiguration.LDAP_MAPPING_LAST_NAME, "sn");
+        ldap.setMapping(LDAPConfiguration.LDAP_MAPPING_ADDRESS, "Address: ${registeredAddress} ${postalCode}");
+        ldap.setMapping(LDAPConfiguration.LDAP_MAPPING_DEPARTMENT, "ou");
+        ldap.setMapping(LDAPConfiguration.LDAP_MAPPING_EMAIL, "mail");
+        ldap.setMapping(LDAPConfiguration.LDAP_MAPPING_FAX, "facsimileTelephoneNumber");
+        ldap.setMapping(LDAPConfiguration.LDAP_MAPPING_INSTITUTION, "o");
+        ldap.setMapping(LDAPConfiguration.LDAP_MAPPING_PHONE, "telephoneNumber");
+        ldap.setMapping(LDAPConfiguration.LDAP_MAPPING_POSITION, "title");
+        ldap.setMapping(LDAPConfiguration.LDAP_MAPPING_UPDATED, "roomNumber");
+        ldap.setMapping(LDAPConfiguration.LDAP_MAPPING_TREATIES, "carLicense");
+        cfg.save();
 
         IContact c = dp.fromSearchResultEntry(item);
 

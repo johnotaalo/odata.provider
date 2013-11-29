@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import org.hibernate.criterion.Order;
 import org.informea.odata.IContact;
 import org.informea.odata.config.Configuration;
+import org.informea.odata.config.LDAPConfiguration;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.data.IDataProvider;
 import org.odata4j.producer.QueryInfo;
@@ -31,14 +32,13 @@ public class LDAPDataProvider implements IDataProvider {
     @Override
     public void openResources() {
         if(conn == null) {
-            Configuration cfg = Configuration.getInstance();
+            LDAPConfiguration ldapCfg = Configuration.getInstance().getLDAPConfiguration();
             try {
                 conn = new LDAPConnection(
-                        cfg.getString(Configuration.LDAP_HOST),
-                        cfg.getInt(Configuration.LDAP_PORT));
-                conn.bind(cfg.getString(Configuration.LDAP_BIND_DN),
-                        cfg.getString(Configuration.LDAP_PASSWORD)
-                        );
+                        ldapCfg.getHost(),
+                        ldapCfg.getPort());
+                conn.bind(ldapCfg.getBindDN(),
+                        ldapCfg.getPassword());
             } catch(LDAPException ex) {
                 log.log(Level.SEVERE, "Cannot connect to LDAP server", ex);
             }
@@ -55,14 +55,14 @@ public class LDAPDataProvider implements IDataProvider {
     @Override
     public Integer countPrimaryEntities(Class entityClass, QueryInfo q) {
         int ret = 0;
-        Configuration cfg = Configuration.getInstance();
         try {
             if(conn == null || !conn.isConnected()) {
                 openResources();
             }
+            LDAPConfiguration ldapCfg = Configuration.getInstance().getLDAPConfiguration();
             SearchResult results = conn.search(
-                    cfg.getString(Configuration.LDAP_USERS_BASE_DN), SearchScope.SUB,
-                    cfg.getString(Configuration.LDAP_USERS_FILTER),
+                    ldapCfg.getUserBaseDN(), SearchScope.SUB,
+                    ldapCfg.getUsersQueryFilter(),
                     "ldapentrycount"
                     );
             ret = results.getEntryCount();
@@ -76,16 +76,15 @@ public class LDAPDataProvider implements IDataProvider {
     public List getPrimaryEntities(Class entityClass, QueryInfo query,
             int startResult, Integer pageSize, Order orderBy) {
         List<IContact> ret = new ArrayList<IContact>();
-        Configuration cfg = Configuration.getInstance();
         int actualPageSize = getPageSize(pageSize);
         try {
             if(conn == null || !conn.isConnected()) {
                 openResources();
             }
+            LDAPConfiguration ldapCfg = Configuration.getInstance().getLDAPConfiguration();
             SearchResult results = conn.search(
-                    cfg.getString(Configuration.LDAP_USERS_BASE_DN), SearchScope.SUB,
-                    cfg.getString(Configuration.LDAP_USERS_FILTER)
-                    );
+                    ldapCfg.getUsersQueryFilter(), SearchScope.SUB,
+                    ldapCfg.getUsersQueryFilter());
             List<IContact> items = fromSearchResult(results);
             // Sanity checks
             int start = startResult;
@@ -114,10 +113,11 @@ public class LDAPDataProvider implements IDataProvider {
             if(conn == null || !conn.isConnected()) {
                 openResources();
             }
+            LDAPConfiguration ldapCfg = Configuration.getInstance().getLDAPConfiguration();
             SearchResultEntry item = conn.searchForEntry(
-                    cfg.getString(Configuration.LDAP_USER_BASE_DN),
+                    ldapCfg.getUserBaseDN(),
                     SearchScope.SUB,
-                    String.format(cfg.getString(Configuration.LDAP_USER_FILTER), id)
+                    String.format(ldapCfg.getUserQueryFilter(), id)
                     );
             if(item != null) {
                 ret = fromSearchResultEntry(item);
@@ -149,7 +149,8 @@ public class LDAPDataProvider implements IDataProvider {
      */
     protected int getPageSize(int requestedPageSize) {
         int ret = 100;
-        int maxPageSize = Configuration.getInstance().getInt(Configuration.LDAP_MAX_PAGE_SIZE);
+        LDAPConfiguration ldapCfg = Configuration.getInstance().getLDAPConfiguration();
+        int maxPageSize = ldapCfg.getMaxPageSize();
         if(maxPageSize > 0) {
             ret = maxPageSize;
         }
@@ -182,57 +183,57 @@ public class LDAPDataProvider implements IDataProvider {
         if(ob == null) {
             return null;
         }
-        Configuration cfg = Configuration.getInstance();
+        LDAPConfiguration ldapCfg = Configuration.getInstance().getLDAPConfiguration();
         LDAPContact ret = new LDAPContact();
         ret.setId(ob.getDN());
 
-        String fieldValue = getFieldValue(ob, cfg.getString(Configuration.LDAP_MAPPING_PREFIX));
+        String fieldValue = getFieldValue(ob, ldapCfg.getMapping(LDAPConfiguration.LDAP_MAPPING_PREFIX));
         ret.setPrefix(fieldValue);
 
-        fieldValue = getFieldValue(ob, cfg.getString(Configuration.LDAP_MAPPING_FIRST_NAME));
+        fieldValue = getFieldValue(ob, ldapCfg.getMapping(LDAPConfiguration.LDAP_MAPPING_FIRST_NAME));
         ret.setFirstName(fieldValue);
 
-        fieldValue = getFieldValue(ob, cfg.getString(Configuration.LDAP_MAPPING_LAST_NAME));
+        fieldValue = getFieldValue(ob, ldapCfg.getMapping(LDAPConfiguration.LDAP_MAPPING_LAST_NAME));
         ret.setLastName(fieldValue);
 
-        fieldValue = getFieldValue(ob, cfg.getString(Configuration.LDAP_MAPPING_ADDRESS));
+        fieldValue = getFieldValue(ob, ldapCfg.getMapping(LDAPConfiguration.LDAP_MAPPING_ADDRESS));
         ret.setAddress(fieldValue);
 
-        fieldValue = getFieldValue(ob, cfg.getString(Configuration.LDAP_MAPPING_COUNTRY));
+        fieldValue = getFieldValue(ob, ldapCfg.getMapping(LDAPConfiguration.LDAP_MAPPING_COUNTRY));
         ret.setCountry(fieldValue);
 
-        fieldValue = getFieldValue(ob, cfg.getString(Configuration.LDAP_MAPPING_DEPARTMENT));
+        fieldValue = getFieldValue(ob, ldapCfg.getMapping(LDAPConfiguration.LDAP_MAPPING_DEPARTMENT));
         ret.setDepartment(fieldValue);
 
-        fieldValue = getFieldValue(ob, cfg.getString(Configuration.LDAP_MAPPING_EMAIL));
+        fieldValue = getFieldValue(ob, ldapCfg.getMapping(LDAPConfiguration.LDAP_MAPPING_EMAIL));
         ret.setEmail(fieldValue);
 
-        fieldValue = getFieldValue(ob, cfg.getString(Configuration.LDAP_MAPPING_FAX));
+        fieldValue = getFieldValue(ob, ldapCfg.getMapping(LDAPConfiguration.LDAP_MAPPING_FAX));
         ret.setFax(fieldValue);
 
-        fieldValue = getFieldValue(ob, cfg.getString(Configuration.LDAP_MAPPING_INSTITUTION));
+        fieldValue = getFieldValue(ob, ldapCfg.getMapping(LDAPConfiguration.LDAP_MAPPING_INSTITUTION));
         ret.setInstitution(fieldValue);
 
-        fieldValue = getFieldValue(ob, cfg.getString(Configuration.LDAP_MAPPING_PHONE));
+        fieldValue = getFieldValue(ob, ldapCfg.getMapping(LDAPConfiguration.LDAP_MAPPING_PHONE));
         ret.setPhoneNumber(fieldValue);
 
-        fieldValue = getFieldValue(ob, cfg.getString(Configuration.LDAP_MAPPING_POSITION));
+        fieldValue = getFieldValue(ob, ldapCfg.getMapping(LDAPConfiguration.LDAP_MAPPING_POSITION));
         ret.setPosition(fieldValue);
 
-        fieldValue = getFieldValue(ob, cfg.getString(Configuration.LDAP_MAPPING_PRIMARY_NFP));
+        fieldValue = getFieldValue(ob, ldapCfg.getMapping(LDAPConfiguration.LDAP_MAPPING_PRIMARY_NFP));
         try {
             ret.setPrimary(Boolean.parseBoolean(fieldValue));
         } catch(Exception ex) {
             log.log(Level.WARNING, "Failed to parse boolean for 'primary' NFP", ex);
         }
 
-        String key = cfg.getString(Configuration.LDAP_MAPPING_UPDATED);
+        String key = ldapCfg.getMapping(LDAPConfiguration.LDAP_MAPPING_UPDATED);
         if(key != null && ob.hasAttribute(key)) {
             java.util.Date d = ob.getAttributeValueAsDate(key);
             ret.setUpdated(d);
         }
 
-        key = cfg.getString(Configuration.LDAP_MAPPING_TREATIES);
+        key = ldapCfg.getMapping(LDAPConfiguration.LDAP_MAPPING_TREATIES);
         List<Treaty> treaties = new ArrayList<Treaty>();
         if(key != null && ob.hasAttribute(key)) {
             String[] items = ob.getAttributeValues(key);
