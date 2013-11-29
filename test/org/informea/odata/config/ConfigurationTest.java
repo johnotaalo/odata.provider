@@ -77,6 +77,8 @@ public class ConfigurationTest {
         cfg.setDataProvider(IContact.class.getName(), DatabaseDataProvider.class.getName());
 
         cfg.setInstalled(true);
+        cfg.setUseDatabase(true);
+        cfg.setUseLDAP(true);
 
         LDAPConfiguration ldap = getSampleLDAPConfiguration();
         cfg.setLDAPConfiguration(ldap);
@@ -208,5 +210,19 @@ public class ConfigurationTest {
     public void getPrefix() {
         Configuration cfg = Configuration.getInstance();
         assertEquals("junit", cfg.getPrefix());
+    }
+
+    @Test
+    public void testIsUseDatabase() {
+        Configuration cfg = Configuration.getInstance();
+        setFullConfiguration();
+        assertTrue(cfg.isUseDatabase());
+    }
+
+    @Test
+    public void testIsUseLDAP() {
+        Configuration cfg = Configuration.getInstance();
+        setFullConfiguration();
+        assertTrue(cfg.isUseLDAP());
     }
 }

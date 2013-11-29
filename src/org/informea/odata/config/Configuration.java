@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.informea.odata.constants.EntityType;
@@ -43,6 +44,8 @@ public class Configuration {
 
     private static transient final Logger log = Logger.getLogger(Configuration.class.getName());
     private static transient Configuration instance;
+    private transient String prefix;
+    private transient Preferences prefs;
 
     private boolean useDatabase;
     private boolean useLDAP;
@@ -63,9 +66,6 @@ public class Configuration {
     private DatabaseConfiguration database = null;
     private Map<String, String> dataProviders;
 
-    private transient String prefix;
-
-    private transient Preferences prefs;
 
     private Configuration() {
         prefs = Preferences.userRoot();
@@ -343,49 +343,6 @@ public class Configuration {
     }
 
     /**
-     * Set the preferences from HTTP session. Shortcut method.
-     * @param session Valid HTTP session object
-     */
-    public void putFromSession(HttpSession session) {
-        //TODO: setString(DB_TYPE, (String)session.getAttribute(DB_TYPE));
-        //TODO: setString(DB_HOST, (String)session.getAttribute(DB_HOST));
-        //TODO: setString(DB_USER, (String)session.getAttribute(DB_USER));
-        //TODO: setString(DB_PASS, (String)session.getAttribute(DB_PASS));
-        //TODO: setString(DB_DATABASE, (String)session.getAttribute(DB_DATABASE));
-        //TODO: setInt(DB_PORT, (Integer)session.getAttribute(DB_PORT));
-
-        //        if(session.getAttribute(USE_DECISIONS) != null) {
-        //            setBoolean(USE_DECISIONS, (Boolean)session.getAttribute(USE_DECISIONS));
-        //        }
-        //
-        //        if(session.getAttribute(USE_MEETINGS) != null) {
-        //            setBoolean(USE_MEETINGS, (Boolean)session.getAttribute(USE_MEETINGS));
-        //        }
-        //
-        //        if(session.getAttribute(USE_CONTACTS) != null) {
-        //            setBoolean(USE_CONTACTS, (Boolean)session.getAttribute(USE_CONTACTS));
-        //        }
-        //
-        //        if(session.getAttribute(USE_COUNTRY_REPORTS) != null) {
-        //            setBoolean(USE_COUNTRY_REPORTS, (Boolean)session.getAttribute(USE_COUNTRY_REPORTS));
-        //        }
-        //
-        //        if(session.getAttribute(USE_COUNTRY_PROFILES) != null) {
-        //            setBoolean(USE_COUNTRY_PROFILES, (Boolean)session.getAttribute(USE_COUNTRY_PROFILES));
-        //        }
-        //
-        //        if(session.getAttribute(USE_NATIONAL_PLANS) != null) {
-        //            setBoolean(USE_NATIONAL_PLANS, (Boolean)session.getAttribute(USE_NATIONAL_PLANS));
-        //        }
-        //
-        //        if(session.getAttribute(USE_SITES) != null) {
-        //            setBoolean(USE_SITES, (Boolean)session.getAttribute(USE_SITES));
-        //        }
-
-        save();
-    }
-
-    /**
      * Check if an entity is configured into the toolkit
      * @param type Type of entity
      * @return true if enabled/configured
@@ -413,7 +370,7 @@ public class Configuration {
     }
 
     /**
-     * Reset all preferences
+     * Reset all preferences to their defaults
      */
     public void reset() {
         setDatabaseConfiguration(new DatabaseConfiguration());
