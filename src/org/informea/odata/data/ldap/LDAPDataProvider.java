@@ -42,6 +42,7 @@ public class LDAPDataProvider implements IDataProvider {
                         ldapCfg.getPassword());
             } catch(LDAPException ex) {
                 log.log(Level.SEVERE, "Cannot connect to LDAP server", ex);
+                throw new RuntimeException(ex);
             }
         }
     }

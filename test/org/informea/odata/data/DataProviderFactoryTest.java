@@ -27,7 +27,7 @@ public class DataProviderFactoryTest {
     @Test
     public void testGetDataProviderDatabase() {
         Configuration cfg = Configuration.getInstance();
-        cfg.setDataProvider("org.informea.odata.IContact", "org.informea.odata.producer.toolkit.impl.LDAPDataProvider");
+        cfg.setDataProvider("org.informea.odata.IContact", "org.informea.odata.data.ldap.LDAPDataProvider");
         IDataProvider s = DataProviderFactory.getDataProvider(IContact.class);
         assertNotNull(s);
         assertTrue(s instanceof LDAPDataProvider);
@@ -43,7 +43,7 @@ public class DataProviderFactoryTest {
     @Test
     public void testGetDataProviderStringParam() {
         Configuration cfg = Configuration.getInstance();
-        cfg.setDataProvider("org.informea.odata.IContact", "org.informea.odata.producer.toolkit.impl.LDAPDataProvider");
+        cfg.setDataProvider("org.informea.odata.IContact", "org.informea.odata.data.ldap.LDAPDataProvider");
         IDataProvider s = DataProviderFactory.getDataProvider(AbstractContact.COLLECTION_NAME);
         assertNotNull(s);
         assertTrue(s instanceof LDAPDataProvider);
@@ -57,7 +57,7 @@ public class DataProviderFactoryTest {
     @Test
     public void testGetDataProviderEntityTypeParam() {
         Configuration cfg = Configuration.getInstance();
-        cfg.setDataProvider("org.informea.odata.IContact", "org.informea.odata.producer.toolkit.impl.LDAPDataProvider");
+        cfg.setDataProvider("org.informea.odata.IContact", "org.informea.odata.data.ldap.LDAPDataProvider");
         IDataProvider s = DataProviderFactory.getDataProvider(EntityType.CONTACTS);
         assertNotNull(s);
         assertTrue(s instanceof LDAPDataProvider);

@@ -14,6 +14,7 @@ import org.informea.odata.config.Configuration;
 import org.informea.odata.config.LDAPConfiguration;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.data.ldap.LDAPDataProvider;
+import org.informea.odata.producer.InvalidValueException;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -111,6 +112,31 @@ public class LDAPDataProviderTest {
         assertNotNull(conn);
         assertTrue(conn.isConnected());
         dp.closeResources();
+    }
+
+    @Test(expected=RuntimeException.class)
+    public void testOpenResourcesException() {
+        // Test invalid connection
+        LDAPConfiguration ldap = new LDAPConfiguration();
+        ldap.setHost("invalid");
+        ldap.setPort(-1);
+        Configuration cfg = Configuration.getInstance();
+        cfg.setLDAPConfiguration(ldap);
+
+        LDAPDataProvider dp = new LDAPDataProvider();
+        try {
+            dp.openResources();
+            assertNull(dp.getConnection());
+        } finally {
+            // Put back the correct configuration
+            ldap.setHost(ldapServer.getListenAddress().getHostAddress());
+            ldap.setPort(ldapServer.getListenPort());
+            ldap.setBindDN(BIND_DN);
+            ldap.setPassword(BIND_PASSWORD);
+            ldap.setUserBaseDN("ou=People,dc=example,dc=com");
+            ldap.setUsersQueryFilter("uid=*");
+            cfg.setLDAPConfiguration(ldap);
+        }
     }
 
     @Test
@@ -296,6 +322,26 @@ public class LDAPDataProviderTest {
         assertEquals(updated, d);
     }
 
+    @Test(expected=InvalidValueException.class)
+    public void testFromSearchResultEntryMissingId() throws Exception {
+        LDAPDataProvider dp = new LDAPDataProvider();
+        Configuration cfg = Configuration.getInstance();
+
+        LDAPConnection conn = ldapServer.getConnection();
+        SearchResultEntry item = conn.searchForEntry(
+                cfg.getLDAPConfiguration().getUserBaseDN(),
+                SearchScope.SUB,
+                "uid=bjensen");
+        cfg.getLDAPConfiguration().setMapping(LDAPConfiguration.LDAP_MAPPING_ID, "unknown");
+        dp.fromSearchResultEntry(item);
+    }
+
+    @Test(expected=InvalidValueException.class)
+    public void testFromSearchResultEntryNull() throws Exception {
+        LDAPDataProvider dp = new LDAPDataProvider();
+        assertNull(dp.fromSearchResultEntry(null));
+    }
+
     @Test
     public void testGetFieldValue() throws Exception {
         LDAPConnection conn = ldapServer.getConnection();
@@ -318,5 +364,11 @@ public class LDAPDataProviderTest {
 
         assertEquals(" BJ Web Developer arbitrary string", dp.getFieldValue(item, " ${initials} ${title} arbitrary string"));
         assertEquals(" BJWeb Developerarbitrary string", dp.getFieldValue(item, " ${initials}${title}arbitrary string"));
+    }
+
+    @Test
+    public void testGetEntity() {
+        LDAPDataProvider dp = new LDAPDataProvider();
+        assertNull(dp.getEntity(null, null));
     }
 }
