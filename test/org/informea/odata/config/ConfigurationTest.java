@@ -33,6 +33,7 @@ public class ConfigurationTest {
     @Before
     public void setUp() throws Exception {
         clearPreferences();
+        Configuration.reloadConfiguration();
     }
 
     @AfterClass

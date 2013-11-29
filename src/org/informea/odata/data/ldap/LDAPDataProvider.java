@@ -13,6 +13,7 @@ import org.informea.odata.config.Configuration;
 import org.informea.odata.config.LDAPConfiguration;
 import org.informea.odata.constants.Treaty;
 import org.informea.odata.data.IDataProvider;
+import org.informea.odata.producer.InvalidValueException;
 import org.odata4j.producer.QueryInfo;
 
 import com.unboundid.ldap.sdk.Attribute;
@@ -108,17 +109,14 @@ public class LDAPDataProvider implements IDataProvider {
     @Override
     public Object getPrimaryEntity(Class entityClass, String id) {
         IContact ret = null;
-        Configuration cfg = Configuration.getInstance();
         try {
             if(conn == null || !conn.isConnected()) {
                 openResources();
             }
             LDAPConfiguration ldapCfg = Configuration.getInstance().getLDAPConfiguration();
+            String filter = String.format("%s=%s", ldapCfg.getUserIdAttribute(), id);
             SearchResultEntry item = conn.searchForEntry(
-                    ldapCfg.getUserBaseDN(),
-                    SearchScope.SUB,
-                    String.format(ldapCfg.getUserQueryFilter(), id)
-                    );
+                    ldapCfg.getUserBaseDN(), SearchScope.SUB, filter );
             if(item != null) {
                 ret = fromSearchResultEntry(item);
             }
@@ -185,7 +183,14 @@ public class LDAPDataProvider implements IDataProvider {
         }
         LDAPConfiguration ldapCfg = Configuration.getInstance().getLDAPConfiguration();
         LDAPContact ret = new LDAPContact();
-        ret.setId(ob.getDN());
+
+        String idAttribute = ldapCfg.getUserIdAttribute();
+        if(!ob.hasAttribute(idAttribute)) {
+            throw new InvalidValueException(
+                    String.format("LDAP entry does not have attribute %s marked as primary key! Entry %s", idAttribute, ob.getDN()));
+        } else {
+            ret.setId(ob.getAttributeValue(idAttribute));
+        }
 
         String fieldValue = getFieldValue(ob, ldapCfg.getMapping(LDAPConfiguration.LDAP_MAPPING_PREFIX));
         ret.setPrefix(fieldValue);

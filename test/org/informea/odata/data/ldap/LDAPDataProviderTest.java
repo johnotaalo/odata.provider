@@ -134,48 +134,60 @@ public class LDAPDataProviderTest {
 
     @Test
     public void testGetPrimaryEntities() {
+        LDAPConfiguration ldapCfg = Configuration.getInstance().getLDAPConfiguration();
+        ldapCfg.setUserIdAttribute("uid");
+
         LDAPDataProvider dp = new LDAPDataProvider();
         users = dp.getPrimaryEntities(null, null, 0, 10, null);
         assertEquals(10, users.size());
         first = users.get(0);
         last = users.get(users.size() - 1);
-        assertEquals("cn=Barbara Jensen,ou=People,dc=example,dc=com", first.getId());
-        assertEquals("uid=alangdon,ou=People,dc=example,dc=com", last.getId());
+        assertEquals("bjensen", first.getId());
+        assertEquals("alangdon", last.getId());
     }
 
     @Test
     public void testGetPrimaryEntitiesBiggerPage() {
+        LDAPConfiguration ldapCfg = Configuration.getInstance().getLDAPConfiguration();
+        ldapCfg.setUserIdAttribute("uid");
+
         LDAPDataProvider dp = new LDAPDataProvider();
         users = dp.getPrimaryEntities(null, null, 0, 20, null);
         assertEquals(12, users.size());
         first = users.get(0);
         last = users.get(users.size() - 1);
-        assertEquals("cn=Barbara Jensen,ou=People,dc=example,dc=com", first.getId());
-        assertEquals("uid=ashelton,ou=People,dc=example,dc=com", last.getId());
+        assertEquals("bjensen", first.getId());
+        assertEquals("ashelton", last.getId());
     }
 
     @Test
     public void testGetPrimaryEntitiesNegativeStart() {
+        LDAPConfiguration ldapCfg = Configuration.getInstance().getLDAPConfiguration();
+        ldapCfg.setUserIdAttribute("uid");
+
         LDAPDataProvider dp = new LDAPDataProvider();
         users = dp.getPrimaryEntities(null, null, -1, 5, null);
         assertEquals(5, users.size());
         first = users.get(0);
         last = users.get(users.size() - 1);
-        assertEquals("cn=Barbara Jensen,ou=People,dc=example,dc=com", first.getId());
-        assertEquals("uid=ahall,ou=People,dc=example,dc=com", last.getId());
+        assertEquals("bjensen", first.getId());
+        assertEquals("ahall", last.getId());
     }
 
     @Test
     public void testGetPrimaryEntitiesNegativePageSize() {
         Configuration cfg = Configuration.getInstance();
-        cfg.getLDAPConfiguration().setMaxPageSize(5);
+        LDAPConfiguration ldapCfg = cfg.getLDAPConfiguration();
+        ldapCfg.setMaxPageSize(5);
+        ldapCfg.setUserIdAttribute("uid");
+
         LDAPDataProvider dp = new LDAPDataProvider();
         users = dp.getPrimaryEntities(null, null, 10, -1, null);
         assertEquals(2, users.size());
         first = users.get(0);
         last = users.get(users.size() - 1);
-        assertEquals("uid=alutz,ou=People,dc=example,dc=com", first.getId());
-        assertEquals("uid=ashelton,ou=People,dc=example,dc=com", last.getId());
+        assertEquals("alutz", first.getId());
+        assertEquals("ashelton", last.getId());
         // Reset to default
         cfg.getLDAPConfiguration().setMaxPageSize(0);
     }
@@ -183,14 +195,17 @@ public class LDAPDataProviderTest {
     @Test
     public void testGetPrimaryEntitiesMaxPageSize() {
         Configuration cfg = Configuration.getInstance();
-        cfg.getLDAPConfiguration().setMaxPageSize(8);
+        LDAPConfiguration ldapCfg = Configuration.getInstance().getLDAPConfiguration();
+        ldapCfg.setUserIdAttribute("uid");
+        ldapCfg.setMaxPageSize(8);
+
         LDAPDataProvider dp = new LDAPDataProvider();
         users = dp.getPrimaryEntities(null, null, 0, 10000, null);
         assertEquals(8, users.size());
         first = users.get(0);
         last = users.get(users.size() - 1);
-        assertEquals("cn=Barbara Jensen,ou=People,dc=example,dc=com", first.getId());
-        assertEquals("uid=ajensen,ou=People,dc=example,dc=com", last.getId());
+        assertEquals("bjensen", first.getId());
+        assertEquals("ajensen", last.getId());
         // Reset to default
         cfg.getLDAPConfiguration().setMaxPageSize(0);
     }
@@ -199,11 +214,12 @@ public class LDAPDataProviderTest {
     public void testGetPrimaryEntity() {
         Configuration cfg = Configuration.getInstance();
         LDAPConfiguration ldap = cfg.getLDAPConfiguration();
-        ldap.setUserQueryFilter("");
+        ldap.setUserIdAttribute("uid");
+
         LDAPDataProvider dp = new LDAPDataProvider();
-        IContact row = (IContact)dp.getPrimaryEntity(null, "uid=bjensen");
+        IContact row = (IContact)dp.getPrimaryEntity(null, "bjensen");
         assertNotNull(row);
-        assertEquals("cn=Barbara Jensen,ou=People,dc=example,dc=com", row.getId());
+        assertEquals("bjensen", row.getId());
     }
 
     @Test
@@ -258,7 +274,7 @@ public class LDAPDataProviderTest {
         IContact c = dp.fromSearchResultEntry(item);
 
         assertEquals("Address: 5th Avenue, NY 12345", c.getAddress());
-        assertEquals("cn=Barbara Jensen,ou=People,dc=example,dc=com", c.getId());
+        assertEquals("bjensen", c.getId());
         assertEquals("RO", c.getCountry());
         assertEquals("Software Development", c.getDepartment());
         assertEquals("bjensen@siroe.com", c.getEmail());
