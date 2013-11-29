@@ -196,6 +196,17 @@ public class LDAPDataProviderTest {
     }
 
     @Test
+    public void testGetPrimaryEntity() {
+        Configuration cfg = Configuration.getInstance();
+        LDAPConfiguration ldap = cfg.getLDAPConfiguration();
+        ldap.setUserQueryFilter("");
+        LDAPDataProvider dp = new LDAPDataProvider();
+        IContact row = (IContact)dp.getPrimaryEntity(null, "uid=bjensen");
+        assertNotNull(row);
+        assertEquals("cn=Barbara Jensen,ou=People,dc=example,dc=com", row.getId());
+    }
+
+    @Test
     public void testGetPageSize() {
         Configuration cfg = Configuration.getInstance();
         cfg.getLDAPConfiguration().setMaxPageSize(0);

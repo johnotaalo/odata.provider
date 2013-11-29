@@ -16,7 +16,7 @@ public class LDAPConfigurationTest {
     @Before
     public void before() {
         cfg = new LDAPConfiguration();
-        cfg.setBaseDN("baseDN");
+        cfg.setUsersBaseDN("baseDN");
         cfg.setBindDN("bindDN");
         cfg.setHost("localhost");
         cfg.setMapping("one", "one-x");
@@ -24,10 +24,12 @@ public class LDAPConfigurationTest {
         cfg.setPassword("password");
         cfg.setPort(389);
         cfg.setUserBaseDN("userBaseDN");
-        cfg.setUserQueryFilter("uid=*");
-        cfg.setUsersQueryFilter("cn=*");
+        cfg.setUserQueryFilter("userQueryFilter");
+        cfg.setUsersBaseDN("usersBaseDN");
+        cfg.setUsersQueryFilter("usersQueryFilter");
         cfg.setUseSSL(true);
         cfg.setUseTLS(true);
+        cfg.setUserIdAttribute("userIdAttribute");
     }
 
     @Test
@@ -43,66 +45,105 @@ public class LDAPConfigurationTest {
         assertFalse(cfg.equals(null));
         assertFalse(cfg.equals(obj));
 
-        obj.setBaseDN("baseDN");
-        assertFalse(cfg.equals(obj));
-
+        obj.setUsersBaseDN("usersBaseDN");
         obj.setBindDN("bindDN");
-        assertFalse(cfg.equals(obj));
-
         obj.setHost("localhost");
-        assertFalse(cfg.equals(obj));
-
         obj.setMapping("one", "one-x");
-        assertFalse(cfg.equals(obj));
-
         obj.setMaxPageSize(233);
-        assertFalse(cfg.equals(obj));
-
         obj.setPassword("password");
-        assertFalse(cfg.equals(obj));
-
         obj.setPort(389);
-        assertFalse(cfg.equals(obj));
-
         obj.setUserBaseDN("userBaseDN");
-        assertFalse(cfg.equals(obj));
-
-        obj.setUserQueryFilter("uid=*");
-        assertFalse(cfg.equals(obj));
-
-        obj.setUsersQueryFilter("cn=*");
-        assertFalse(cfg.equals(obj));
-
+        obj.setUserQueryFilter("userQueryFilter");
+        obj.setUsersBaseDN("usersBaseDN");
+        obj.setUsersQueryFilter("usersQueryFilter");
         obj.setUseSSL(true);
-        assertFalse(cfg.equals(obj));
+        obj.setUseTLS(true);
+        obj.setBindDN("bindDN");
+        obj.setPassword("password");
+        obj.setUserIdAttribute("userIdAttribute");
 
+        assertTrue(cfg.equals(obj));
+
+        obj.setUsersBaseDN("");
+        assertFalse(cfg.equals(obj));
+        obj.setUsersBaseDN("usersBaseDN");
+        assertTrue(cfg.equals(obj));
+
+        obj.setBindDN("");
+        assertFalse(cfg.equals(obj));
+        obj.setBindDN("bindDN");
+        assertTrue(cfg.equals(obj));
+
+        obj.setHost("");
+        assertFalse(cfg.equals(obj));
+        obj.setHost("localhost");
+        assertTrue(cfg.equals(obj));
+
+        obj.setMapping("two", "two");
+        assertFalse(cfg.equals(obj));
+        obj.clearMappings();
+        obj.setMapping("one", "one-x");
+        assertTrue(cfg.equals(obj));
+
+        obj.setMaxPageSize(0);
+        assertFalse(cfg.equals(obj));
+        obj.setMaxPageSize(233);
+        assertTrue(cfg.equals(obj));
+
+        obj.setPassword("");
+        assertFalse(cfg.equals(obj));
+        obj.setPassword("password");
+        assertTrue(cfg.equals(obj));
+
+        obj.setPort(0);
+        assertFalse(cfg.equals(obj));
+        obj.setPort(389);
+        assertTrue(cfg.equals(obj));
+
+        obj.setUserBaseDN("");
+        assertFalse(cfg.equals(obj));
+        obj.setUserBaseDN("userBaseDN");
+        assertTrue(cfg.equals(obj));
+
+        obj.setUserQueryFilter("");
+        assertFalse(cfg.equals(obj));
+        obj.setUserQueryFilter("userQueryFilter");
+        assertTrue(cfg.equals(obj));
+
+        obj.setUsersBaseDN("");
+        assertFalse(cfg.equals(obj));
+        obj.setUsersBaseDN("usersBaseDN");
+        assertTrue(cfg.equals(obj));
+
+        obj.setUsersQueryFilter("");
+        assertFalse(cfg.equals(obj));
+        obj.setUsersQueryFilter("usersQueryFilter");
+        assertTrue(cfg.equals(obj));
+
+        obj.setUseSSL(false);
+        assertFalse(cfg.equals(obj));
+        obj.setUseSSL(true);
+        assertTrue(cfg.equals(obj));
+
+        obj.setUseTLS(false);
+        assertFalse(cfg.equals(obj));
         obj.setUseTLS(true);
         assertTrue(cfg.equals(obj));
 
-        obj.setBindDN("1");
+        obj.setBindDN("");
         assertFalse(cfg.equals(obj));
         obj.setBindDN("bindDN");
+        assertTrue(cfg.equals(obj));
 
-        obj.setPassword("1");
+        obj.setPassword("");
         assertFalse(cfg.equals(obj));
         obj.setPassword("password");
+        assertTrue(cfg.equals(obj));
 
-        obj.setBaseDN("1");
+        obj.setUserIdAttribute("");
         assertFalse(cfg.equals(obj));
-        obj.setBaseDN("baseDN");
-
-        obj.setUserBaseDN("1");
-        assertFalse(cfg.equals(obj));
-        obj.setUserBaseDN("userBaseDN");
-
-        obj.setUserQueryFilter("1");
-        assertFalse(cfg.equals(obj));
-        obj.setUserQueryFilter("uid=*");
-
-        obj.setMaxPageSize(1);
-        assertFalse(cfg.equals(obj));
-        obj.setMaxPageSize(233);
-
+        obj.setUserIdAttribute("userIdAttribute");
+        assertTrue(cfg.equals(obj));
     }
 
     @Test
@@ -126,13 +167,13 @@ public class LDAPConfigurationTest {
     }
 
     @Test
-    public void testGetBaseDN() {
-        assertEquals("baseDN", cfg.getBaseDN());
+    public void testGetUsersBaseDN() {
+        assertEquals("usersBaseDN", cfg.getUsersBaseDN());
     }
 
     @Test
     public void testGetUsersQueryFilter() {
-        assertEquals("cn=*", cfg.getUsersQueryFilter());
+        assertEquals("usersQueryFilter", cfg.getUsersQueryFilter());
     }
 
     @Test
@@ -142,7 +183,7 @@ public class LDAPConfigurationTest {
 
     @Test
     public void testGetUserQueryFilter() {
-        assertEquals("uid=*", cfg.getUserQueryFilter());
+        assertEquals("userQueryFilter", cfg.getUserQueryFilter());
     }
 
     @Test
@@ -173,6 +214,11 @@ public class LDAPConfigurationTest {
     @Test
     public void testIsUseTLS() {
         assertTrue(cfg.isUseTLS());
+    }
+
+    @Test
+    public void testGetUserIdAttribute() {
+        assertEquals("userIdAttribute", cfg.getUserIdAttribute());
     }
 
     @Test

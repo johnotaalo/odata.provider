@@ -53,7 +53,7 @@ public class ConfigurationTest {
 
     private LDAPConfiguration getSampleLDAPConfiguration() {
         LDAPConfiguration ldap = new LDAPConfiguration();
-        ldap.setBaseDN("baseDN");
+        ldap.setUsersBaseDN("usersBaseDN");
         ldap.setBindDN("bindDN");
         ldap.setHost("localhost");
         ldap.setMaxPageSize(139);

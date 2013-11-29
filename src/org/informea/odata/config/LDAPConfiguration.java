@@ -34,26 +34,25 @@ public class LDAPConfiguration {
     public static final String LDAP_MAPPING_TREATIES = "informea_ldap_mapping_treaties";
     public static final String LDAP_MAPPING_PRIMARY_NFP = "informea_ldap_mapping_primaryNFP";
 
-
     private String host;
     private int port;
     private String bindDN;
     private String password;
 
-    private String baseDN;
+    private String userIdAttribute;
     private String userBaseDN;
     private String userQueryFilter;
 
+    private String usersBaseDN;
     private String usersQueryFilter;
 
-    private Map<String, String> mappings;
+    private Map<String, String> mappings = new HashMap<String, String>();
     private int maxPageSize;
 
     private boolean useSSL;
     private boolean useTLS;
 
     public LDAPConfiguration() {
-        mappings = new HashMap<String, String>();
         // no parameter constructor
     }
 
@@ -79,7 +78,7 @@ public class LDAPConfiguration {
         if(!ToolkitUtil.compareStrings(password, o.getPassword())) {
             return false;
         }
-        if(!ToolkitUtil.compareStrings(baseDN, o.getBaseDN())) {
+        if(!ToolkitUtil.compareStrings(usersBaseDN, o.getUsersBaseDN())) {
             return false;
         }
         if(!ToolkitUtil.compareStrings(usersQueryFilter, o.getUsersQueryFilter())) {
@@ -91,14 +90,11 @@ public class LDAPConfiguration {
         if(!ToolkitUtil.compareStrings(userQueryFilter, o.getUserQueryFilter())) {
             return false;
         }
-        if(mappings != null && o.getMappings() != null) {
-            if(!mappings.equals(o.getMappings())) {
-                return false;
-            }
-        } else {
-            if(mappings == null && o.getMappings() != null) {
-                return false;
-            }
+        if(!ToolkitUtil.compareStrings(userIdAttribute, o.getUserIdAttribute())) {
+            return false;
+        }
+        if(!mappings.equals(o.getMappings())) {
+            return false;
         }
         if(maxPageSize != o.getMaxPageSize()) {
             return false;
@@ -111,7 +107,6 @@ public class LDAPConfiguration {
         }
         return true;
     }
-
 
 
     public String getHost() {
@@ -130,8 +125,8 @@ public class LDAPConfiguration {
         return password;
     }
 
-    public String getBaseDN() {
-        return baseDN;
+    public String getUsersBaseDN() {
+        return usersBaseDN;
     }
 
     public String getUsersQueryFilter() {
@@ -151,7 +146,7 @@ public class LDAPConfiguration {
     }
 
     public String getMapping(String key) {
-        if(mappings != null && mappings.containsKey(key)) {
+        if(mappings.containsKey(key)) {
             return mappings.get(key);
         }
         return null;
@@ -167,6 +162,10 @@ public class LDAPConfiguration {
 
     public boolean isUseTLS() {
         return useTLS;
+    }
+
+    public String getUserIdAttribute() {
+        return userIdAttribute;
     }
 
     public void setHost(String host) {
@@ -185,8 +184,8 @@ public class LDAPConfiguration {
         this.password = password;
     }
 
-    public void setBaseDN(String baseDN) {
-        this.baseDN = baseDN;
+    public void setUsersBaseDN(String usersBaseDN) {
+        this.usersBaseDN = usersBaseDN;
     }
 
     public void setUsersQueryFilter(String usersQueryFilter) {
@@ -219,5 +218,9 @@ public class LDAPConfiguration {
 
     public void setUseTLS(boolean useTLS) {
         this.useTLS = useTLS;
+    }
+
+    public void setUserIdAttribute(String userIdAttribute) {
+        this.userIdAttribute = userIdAttribute;
     }
 }
