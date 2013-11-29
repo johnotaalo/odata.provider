@@ -14,7 +14,6 @@
  */
 package org.informea.odata.config;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,8 +38,14 @@ import com.google.gson.Gson;
  */
 public class Configuration {
 
+    public static String USE_DATABASE = "use_database";
+    public static String USE_LDAP = "use_ldap";
+
     private static transient final Logger log = Logger.getLogger(Configuration.class.getName());
     private static transient Configuration instance;
+
+    private boolean useDatabase;
+    private boolean useLDAP;
 
     private boolean installed;
     private boolean usePathPrefix;
@@ -58,7 +63,7 @@ public class Configuration {
     private DatabaseConfiguration database = null;
     private Map<String, String> dataProviders;
 
-    private String prefix;
+    private transient String prefix;
 
     private transient Preferences prefs;
 
@@ -319,6 +324,22 @@ public class Configuration {
         } catch(BackingStoreException ex) {
             throw new RuntimeException("Cannot save preferences in backstore", ex);
         }
+    }
+
+    public boolean isUseDatabase() {
+        return useDatabase;
+    }
+
+    public boolean isUseLDAP() {
+        return useLDAP;
+    }
+
+    public void setUseDatabase(boolean value) {
+        this.useDatabase = value;
+    }
+
+    public void setUseLDAP(boolean value) {
+        this.useLDAP = value;
     }
 
     /**

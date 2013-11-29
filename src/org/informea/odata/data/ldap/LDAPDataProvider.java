@@ -83,7 +83,7 @@ public class LDAPDataProvider implements IDataProvider {
             }
             LDAPConfiguration ldapCfg = Configuration.getInstance().getLDAPConfiguration();
             SearchResult results = conn.search(
-                    ldapCfg.getUsersQueryFilter(), SearchScope.SUB,
+                    ldapCfg.getUserBaseDN(), SearchScope.SUB,
                     ldapCfg.getUsersQueryFilter());
             List<IContact> items = fromSearchResult(results);
             // Sanity checks

@@ -16,7 +16,6 @@
     <script type="text/javascript">
         var updateURL = "<%= ToolkitUtil.url(request, "/update-check")%>";
     </script>
-    <script type="text/javascript" src="<%= ToolkitUtil.url(request, "/themes/js/jquery-1.10.2.min.js") %>"></script>
     <script type="text/javascript" src="<%= ToolkitUtil.url(request, "/themes/js/bootstrap.min.js") %>"></script>
     <script type="text/javascript" src="<%= ToolkitUtil.url(request, "/themes/js/informea.js") %>"></script>
 </body>

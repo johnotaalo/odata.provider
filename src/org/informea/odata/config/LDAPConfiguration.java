@@ -7,20 +7,33 @@ import org.informea.odata.util.ToolkitUtil;
 
 public class LDAPConfiguration {
 
-    public static final String LDAP_MAPPING_PREFIX = "informea.ldap.mapping.personalTitle";
-    public static final String LDAP_MAPPING_FIRST_NAME = "informea.ldap.mapping.firstName";
-    public static final String LDAP_MAPPING_LAST_NAME = "informea.ldap.mapping.lastName";
-    public static final String LDAP_MAPPING_ADDRESS = "informea.ldap.mapping.address";
-    public static final String LDAP_MAPPING_COUNTRY = "informea.ldap.mapping.country";
-    public static final String LDAP_MAPPING_DEPARTMENT = "informea.ldap.mapping.department";
-    public static final String LDAP_MAPPING_EMAIL = "informea.ldap.mapping.email";
-    public static final String LDAP_MAPPING_FAX = "informea.ldap.mapping.fax";
-    public static final String LDAP_MAPPING_INSTITUTION = "informea.ldap.mapping.institution";
-    public static final String LDAP_MAPPING_PHONE = "informea.ldap.mapping.phone";
-    public static final String LDAP_MAPPING_POSITION = "informea.ldap.mapping.position";
-    public static final String LDAP_MAPPING_UPDATED = "informea.ldap.mapping.updated";
-    public static final String LDAP_MAPPING_TREATIES = "informea.ldap.mapping.treaties";
-    public static final String LDAP_MAPPING_PRIMARY_NFP = "informea.ldap.mapping.primaryNFP";
+    public static final String LDAP_HOST = "ldap_host";
+    public static final String LDAP_PORT = "ldap_port";
+    public static final String LDAP_BIND_DN = "ldap_bindDN";
+    public static final String LDAP_USER_BASE_DN = "ldap_user_baseDN";
+    public static final String LDAP_USER_QUERY_FILTER = "ldap_user_queryFilter";
+
+    public static final String LDAP_USERS_BASE_DN = "ldap_users_baseDN";
+    public static final String LDAP_USERS_QUERY_FILTER = "ldap_users_queryFilter";
+
+    public static final String LDAP_USE_TLS = "ldap_use_tls";
+    public static final String LDAP_USE_SSL = "ldap_use_ssl";
+
+    public static final String LDAP_MAPPING_PREFIX = "informea_ldap_mapping_personalTitle";
+    public static final String LDAP_MAPPING_FIRST_NAME = "informea_ldap_mapping_firstName";
+    public static final String LDAP_MAPPING_LAST_NAME = "informea_ldap_mapping_lastName";
+    public static final String LDAP_MAPPING_ADDRESS = "informea_ldap_mapping_address";
+    public static final String LDAP_MAPPING_COUNTRY = "informea_ldap.mapping_country";
+    public static final String LDAP_MAPPING_DEPARTMENT = "informea_ldap_mapping_department";
+    public static final String LDAP_MAPPING_EMAIL = "informea_ldap_mapping_email";
+    public static final String LDAP_MAPPING_FAX = "informea_ldap_mapping_fax";
+    public static final String LDAP_MAPPING_INSTITUTION = "informea_ldap_mapping_institution";
+    public static final String LDAP_MAPPING_PHONE = "informea_ldap_mapping_phone";
+    public static final String LDAP_MAPPING_POSITION = "informea_ldap_mapping_position";
+    public static final String LDAP_MAPPING_UPDATED = "informea_ldap_mapping_updated";
+    public static final String LDAP_MAPPING_TREATIES = "informea_ldap_mapping_treaties";
+    public static final String LDAP_MAPPING_PRIMARY_NFP = "informea_ldap_mapping_primaryNFP";
+
 
     private String host;
     private int port;
@@ -28,9 +41,10 @@ public class LDAPConfiguration {
     private String password;
 
     private String baseDN;
-    private String usersQueryFilter;
     private String userBaseDN;
     private String userQueryFilter;
+
+    private String usersQueryFilter;
 
     private Map<String, String> mappings;
     private int maxPageSize;

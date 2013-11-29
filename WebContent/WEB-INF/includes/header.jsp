@@ -12,14 +12,14 @@ if(currentItem == null || "".equalsIgnoreCase(currentItem)) {
     currentItem = "home";
 }
 pageContext.setAttribute("menu", currentItem);
-%>
-<html>
+out.clear();%><html>
     <head>
         <title><%= request.getParameter("html_title")%></title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta charset="UTF-8" />
         <link rel="stylesheet" type="text/css" href="<%= ToolkitUtil.url(request, "/themes/css/bootstrap.min.css") %>"></link>
         <link rel="stylesheet" type="text/css" href="<%= ToolkitUtil.url(request, "/themes/css/informea.css") %>"></link>
+        <script type="text/javascript" src="<%= ToolkitUtil.url(request, "/themes/js/jquery-1.10.2.min.js") %>"></script>
     </head>
     <body>
       <!-- Static navbar -->

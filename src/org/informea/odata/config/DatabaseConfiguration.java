@@ -1,5 +1,7 @@
 package org.informea.odata.config;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.informea.odata.util.ToolkitUtil;
 
 public class DatabaseConfiguration {
@@ -7,32 +9,32 @@ public class DatabaseConfiguration {
     /**
      * Constant, value: informea.db_type
      */
-    public static final String DB_TYPE = "informea.db_type";
+    public static final String DB_TYPE = "db_type";
 
     /**
      * Constant, value: informea.db_host
      */
-    public static final String DB_HOST = "informea.db_host";
+    public static final String DB_HOST = "db_host";
 
     /**
      * Constant, value: informea.db_port
      */
-    public static final String DB_PORT = "informea.db_port";
+    public static final String DB_PORT = "db_port";
 
     /**
      * Constant, value: informea.db_user
      */
-    public static final String DB_USER = "informea.db_user";
+    public static final String DB_USER = "db_user";
 
     /**
      * Constant, value: informea.db_pass
      */
-    public static final String DB_PASS = "informea.db_pass";
+    public static final String DB_PASS = "db_pass";
 
     /**
      * Constant, value: informea.db_database
      */
-    public static final String DB_DATABASE = "informea.db_database";
+    public static final String DB_DATABASE = "db_database";
 
     @Override
     public boolean equals(Object obj) {
@@ -149,5 +151,22 @@ public class DatabaseConfiguration {
 
     public void setDatabase(String database) {
         this.database = database;
+    }
+
+    public static DatabaseConfiguration fromRequest(HttpServletRequest request) {
+        String db_type = ToolkitUtil.getRequestValue(DatabaseConfiguration.DB_TYPE, request);
+        String db_host = ToolkitUtil.getRequestValue(DatabaseConfiguration.DB_HOST, request);
+        int db_port = ToolkitUtil.getRequestInteger(DatabaseConfiguration.DB_PORT, request);
+        String db_user = ToolkitUtil.getRequestValue(DatabaseConfiguration.DB_USER, request);
+        String db_pass = ToolkitUtil.getRequestValue(DatabaseConfiguration.DB_PASS, request);
+        String db_database = ToolkitUtil.getRequestValue(DatabaseConfiguration.DB_DATABASE, request);
+        DatabaseConfiguration db = new DatabaseConfiguration();
+        db.setDatabase(db_database);
+        db.setHost(db_host);
+        db.setPassword(db_pass);
+        db.setPort(db_port);
+        db.setType(db_type);
+        db.setUser(db_user);
+        return db;
     }
 }

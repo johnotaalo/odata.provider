@@ -7,7 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 // If user drops to this page and setup is not configured, just redirect to start
-if(session.getAttribute("informea.in_progress") == null) {
+if(session.getAttribute("informea.step1") != "done") {
     response.sendRedirect("index.jsp");
     return;
 }

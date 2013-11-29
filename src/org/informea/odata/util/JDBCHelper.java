@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.informea.odata.config.DatabaseConfiguration;
+
 
 /**
  * Execute database operations through direct JDBC access
@@ -33,12 +35,12 @@ public class JDBCHelper {
     /**
      * Constant, value: "mysql"
      */
-    public static final String DB_TYPE_MYSQL = "mysql";
+    public static final String DB_TYPE_MYSQL = "com.mysql.jdbc.Driver";
 
     /**
      * Constant, value "postgresql"
      */
-    public static final String DB_TYPE_POSTGRESQL = "postgresql";
+    public static final String DB_TYPE_POSTGRESQL = "org.postgresql.Driver";
 
     private String db_type;
     private String db_host;
@@ -48,7 +50,7 @@ public class JDBCHelper {
     private String db_database;
 
     @SuppressWarnings("rawtypes")
-	private List cache_db_tables = null;
+    private List cache_db_tables = null;
 
 
     /**
@@ -69,6 +71,9 @@ public class JDBCHelper {
         this.db_database = db_database;
     }
 
+    public JDBCHelper(DatabaseConfiguration db) {
+        this(db.getType(), db.getHost(), db.getPort(), db.getUser(), db.getPassword(), db.getDatabase());
+    }
 
     /**
      * Check if the database connectivity is OK
@@ -85,7 +90,7 @@ public class JDBCHelper {
         conn = getDBConnection();
         conn.prepareStatement("SELECT 1").execute();
         ret = true;
-        log.info("Successfully connected to PostgreSQL server");
+        log.info("Successfully connected to database");
         close(conn);
         return ret;
     }
@@ -231,7 +236,7 @@ public class JDBCHelper {
      * @return List of tables. Uses internal cache to avoid DB overhead
      */
     @SuppressWarnings("unchecked")
-	public List<String> getTables() {
+    public List<String> getTables() {
         if(cache_db_tables != null && cache_db_tables.size() > 0) {
             return cache_db_tables;
         }
