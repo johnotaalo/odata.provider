@@ -70,6 +70,11 @@
         <servlet-name>Update</servlet-name>
         <jsp-file>/update.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>ConfigurationDatabase</servlet-name>
+        <jsp-file>/configuration/step1.database.jsp</jsp-file>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>CrossDomain</servlet-name>
         <url-pattern>/services/*</url-pattern>
@@ -85,6 +90,10 @@
     <servlet-mapping>
         <servlet-name>Update</servlet-name>
         <url-pattern>/update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConfigurationDatabase</servlet-name>
+        <url-pattern>/configuration/database</url-pattern>
     </servlet-mapping>
     <!-- Define the Login Configuration for this Application -->
     <security-constraint>

@@ -19,7 +19,7 @@ pageContext.setAttribute("isInstalled", cfg.isInstalled());
             <br />
             The toolkit is already configured. Are you sure you want to <em>reconfigure</em>?
             <br /><br />
-            <a class="btn btn-default" href="step1.jsp">Reconfigure</a>
+            <a class="btn btn-default" href="database">Reconfigure</a>
          </div>
     </c:if>
     <c:if test="${!isInstalled}">
@@ -35,10 +35,9 @@ pageContext.setAttribute("isInstalled", cfg.isInstalled());
                 <li>
                     Database views/tables created for the exposed entities. <strong>Read below</strong>!
                 </li>
-                
             </ul>
             <br />
-            <a class="btn btn-primary" href="step1.jsp">Proceed</a>
+            <a class="btn btn-primary" href="database">Proceed</a>
         </div>
         <jsp:include page="../WEB-INF/includes/documentation.jsp" />
     </c:if>
