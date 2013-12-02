@@ -87,8 +87,16 @@ public class JDBCHelper {
         if("".equalsIgnoreCase(db_type)) {
             throw new Exception("Database type not specified");
         }
+        if("".equalsIgnoreCase(db_database)) {
+            throw new Exception("Database name not specified");
+        }
         conn = getDBConnection();
-        conn.prepareStatement("SELECT 1").execute();
+        conn.prepareStatement(
+                String.format("USE %s", db_database)
+                ).execute();
+        conn.prepareStatement(
+                String.format("SELECT 1", db_database)
+                ).execute();
         ret = true;
         log.info("Successfully connected to database");
         close(conn);
