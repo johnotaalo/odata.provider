@@ -13,7 +13,6 @@ DatabaseConfiguration db = DatabaseConfiguration.fromHttpRequest(request);
 int port = db.getPort();
 
 Exception e = null;
-boolean validConnection = false;
 if(useDB) {
     if(verify) {
         try {
@@ -158,7 +157,7 @@ function validateOnSubmit() {
             </div>
         </div>
         <div class="form-group">
-            <label for="<%= DatabaseConfiguration.DB_TYPE %>" class="col-sm-3 control-label">Type</label>
+            <label for="<%= DatabaseConfiguration.DB_TYPE %>" class="col-sm-3 control-label">Type *</label>
             <div class="col-sm-4">
                 <select id="<%= DatabaseConfiguration.DB_TYPE %>" name="<%= DatabaseConfiguration.DB_TYPE %>" 
                     tabindex="2" class="form-control">
@@ -175,7 +174,7 @@ function validateOnSubmit() {
         </div>
 
         <div class="form-group">
-            <label for="<%= DatabaseConfiguration.DB_HOST %>" class="col-sm-3 control-label">Server address</label>
+            <label for="<%= DatabaseConfiguration.DB_HOST %>" class="col-sm-3 control-label">Server address *</label>
             <div class="col-sm-4">
                 <input type="text" class="form-control"
                     name="<%= DatabaseConfiguration.DB_HOST %>" 
@@ -187,7 +186,7 @@ function validateOnSubmit() {
         </div>
 
         <div class="form-group">
-            <label for="<%= DatabaseConfiguration.DB_PORT %>" class="col-sm-3 control-label">Server port</label>
+            <label for="<%= DatabaseConfiguration.DB_PORT %>" class="col-sm-3 control-label">Server port *</label>
             <div class="col-sm-4">
                 <input type="text" class="form-control"
                     name="<%= DatabaseConfiguration.DB_PORT %>" 
@@ -199,7 +198,7 @@ function validateOnSubmit() {
         </div>
 
         <div class="form-group">
-            <label for="<%= DatabaseConfiguration.DB_USER%>" class="col-sm-3 control-label">Username</label>
+            <label for="<%= DatabaseConfiguration.DB_USER%>" class="col-sm-3 control-label">Username *</label>
             <div class="col-sm-4">
                 <input type="text" class="form-control"
                     name="<%= DatabaseConfiguration.DB_USER %>" 
@@ -222,7 +221,7 @@ function validateOnSubmit() {
         </div>
 
         <div class="form-group">
-            <label for="<%= DatabaseConfiguration.DB_DATABASE%>" class="col-sm-3 control-label">Database name</label>
+            <label for="<%= DatabaseConfiguration.DB_DATABASE%>" class="col-sm-3 control-label">Database name *</label>
             <div class="col-sm-4">
                 <input type="text" class="form-control"
                     name="<%= DatabaseConfiguration.DB_DATABASE %>" 
@@ -238,6 +237,9 @@ function validateOnSubmit() {
             <div class="col-sm-7">
                 <input type="submit" name="verify" value="Next" tabindex="8" class="btn btn-primary pull-right" />
             </div>
+        </div>
+        <div class="alert alert-info">
+            * If you check "Use database", then the fields marked with star are required
         </div>
     </form>
 
