@@ -2,10 +2,17 @@ package org.informea.odata.config;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.informea.odata.util.ToolkitUtil;
+import org.odata4j.producer.QueryInfo;
+
+import com.unboundid.ldap.sdk.LDAPConnection;
+import com.unboundid.ldap.sdk.LDAPException;
+import com.unboundid.ldap.sdk.SearchResult;
+import com.unboundid.ldap.sdk.SearchScope;
 
 public class LDAPConfiguration {
 
@@ -268,6 +275,31 @@ public class LDAPConfiguration {
                 ToolkitUtil.getRequestValue(LDAPConfiguration.LDAP_MAPPING_TREATIES, request));
         ret.setMapping(LDAPConfiguration.LDAP_MAPPING_UPDATED,
                 ToolkitUtil.getRequestValue(LDAPConfiguration.LDAP_MAPPING_UPDATED, request));
+        return ret;
+    }
+
+    public boolean testConnection() throws LDAPException {
+        LDAPConnection conn = null;
+        boolean ret = true;
+        try {
+            conn = new LDAPConnection(getHost(), getPort());
+            conn.bind(getBindDN(), getPassword());
+
+            SearchResult results = conn.search(
+                    getUserBaseDN(), SearchScope.SUB,
+                    getUsersQueryFilter(),
+                    "ldapentrycount");
+            int c = results.getEntryCount();
+            if(c <= 0) {
+                throw new RuntimeException("The search query returned zero results");
+            }
+        } catch(LDAPException ex) {
+            throw ex;
+        } finally {
+            if(conn != null) {
+                conn.close();
+            }
+        }
         return ret;
     }
 }
