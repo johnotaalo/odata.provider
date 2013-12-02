@@ -91,9 +91,11 @@ public class JDBCHelper {
             throw new Exception("Database name not specified");
         }
         conn = getDBConnection();
+        /* TODO: This is only valid for MySQL.
         conn.prepareStatement(
                 String.format("USE %s", db_database)
                 ).execute();
+         */
         conn.prepareStatement(
                 String.format("SELECT 1", db_database)
                 ).execute();
