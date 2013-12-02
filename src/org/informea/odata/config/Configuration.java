@@ -24,9 +24,18 @@ import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
+import org.informea.odata.IContact;
+import org.informea.odata.ICountryProfile;
+import org.informea.odata.ICountryReport;
+import org.informea.odata.IDecision;
+import org.informea.odata.IMeeting;
+import org.informea.odata.INationalPlan;
+import org.informea.odata.ISite;
 import org.informea.odata.constants.EntityType;
+import org.informea.odata.data.db.DatabaseDataProvider;
+import org.informea.odata.data.ldap.LDAPDataProvider;
+import org.informea.odata.util.ToolkitUtil;
 
 import com.google.gson.Gson;
 
@@ -94,7 +103,6 @@ public class Configuration {
                 log.info(String.format("No toolkit configuration (%s) in persistent storage. Creating new instance.", key));
                 instance = new Configuration();
                 instance.setPrefix(prefix);
-                instance.save();
             }
         }
         return instance;
@@ -130,7 +138,6 @@ public class Configuration {
 
     public void setDatabaseConfiguration(DatabaseConfiguration config) {
         database = config;
-        save();
     }
 
     public LDAPConfiguration getLDAPConfiguration() {
@@ -139,7 +146,6 @@ public class Configuration {
 
     public void setLDAPConfiguration(LDAPConfiguration config) {
         ldap = config;
-        save();
     }
 
     /**
@@ -156,7 +162,6 @@ public class Configuration {
      */
     public void setInstalled(boolean value) {
         installed = value;
-        save();
     }
 
 
@@ -175,7 +180,6 @@ public class Configuration {
      */
     public void setUsePathPrefix(boolean value) {
         usePathPrefix = value;
-        save();
     }
 
 
@@ -193,7 +197,6 @@ public class Configuration {
      */
     public void setPathPrefix(String value) {
         pathPrefix = value;
-        save();
     }
 
     /**
@@ -206,7 +209,6 @@ public class Configuration {
 
     public void setUseDecisions(boolean value) {
         useDecisions = value;
-        save();
     }
 
 
@@ -220,7 +222,6 @@ public class Configuration {
 
     public void setUseMeetings(boolean value) {
         useMeetings = value;
-        save();
     }
 
 
@@ -234,7 +235,6 @@ public class Configuration {
 
     public void setUseContacts(boolean value) {
         useContacts = value;
-        save();
     }
 
 
@@ -248,7 +248,6 @@ public class Configuration {
 
     public void setUseCountryReports(boolean value) {
         useCountryReports = value;
-        save();
     }
 
 
@@ -262,7 +261,6 @@ public class Configuration {
 
     public void setUseCountryProfiles(boolean value) {
         useCountryProfiles = value;
-        save();
     }
 
 
@@ -276,7 +274,6 @@ public class Configuration {
 
     public void setUseNationalPlans(boolean value) {
         useNationalPlans = value;
-        save();
     }
 
 
@@ -290,7 +287,6 @@ public class Configuration {
 
     public void setUseSites(boolean value) {
         useSites = value;
-        save();
     }
 
     public Map<String, String> getDataProviders() {
@@ -299,7 +295,6 @@ public class Configuration {
 
     public void setDataProvider(String key, String value) {
         dataProviders.put(key, value);
-        save();
     }
 
     public void clearDataProviders() {
@@ -387,6 +382,49 @@ public class Configuration {
 
         setPathPrefix(null);
         setUsePathPrefix(false);
-        save();
+    }
+
+
+    public void loadFromRequest(HttpServletRequest request) {
+
+        database = (DatabaseConfiguration)request.getSession().getAttribute("db");
+        ldap = (LDAPConfiguration)request.getSession().getAttribute("ldap");
+
+        useDatabase = (database != null);
+        useLDAP = (ldap != null);
+
+        useDecisions = ToolkitUtil.isOnRequest("useDecisions", request);
+        useMeetings = ToolkitUtil.isOnRequest("useMeetings", request);
+        useContacts = ToolkitUtil.isOnRequest("useContacts", request);
+        useCountryReports = ToolkitUtil.isOnRequest("useCountryReports", request);
+        useCountryProfiles = ToolkitUtil.isOnRequest("useCountryProfiles", request);
+        useNationalPlans = ToolkitUtil.isOnRequest("useCountryProfiles", request);
+        useSites = ToolkitUtil.isOnRequest("useSites", request);
+
+        if(useDecisions) {
+            dataProviders.put(IDecision.class.getName(), DatabaseDataProvider.class.getName());
+        }
+        if(useMeetings) {
+            dataProviders.put(IMeeting.class.getName(), DatabaseDataProvider.class.getName());
+        }
+        if(useContacts) {
+            if(ldap != null) {
+                dataProviders.put(IContact.class.getName(), LDAPDataProvider.class.getName());
+            } else {
+                dataProviders.put(IContact.class.getName(), DatabaseDataProvider.class.getName());
+            }
+        }
+        if(useCountryReports) {
+            dataProviders.put(ICountryReport.class.getName(), DatabaseDataProvider.class.getName());
+        }
+        if(useCountryProfiles) {
+            dataProviders.put(ICountryProfile.class.getName(), DatabaseDataProvider.class.getName());
+        }
+        if(useNationalPlans) {
+            dataProviders.put(INationalPlan.class.getName(), DatabaseDataProvider.class.getName());
+        }
+        if(useSites) {
+            dataProviders.put(ISite.class.getName(), DatabaseDataProvider.class.getName());
+        }
     }
 }

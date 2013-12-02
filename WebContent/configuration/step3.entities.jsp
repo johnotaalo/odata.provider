@@ -1,3 +1,5 @@
+<%@page import="org.informea.odata.config.LDAPConfiguration"%>
+<%@page import="org.informea.odata.config.DatabaseConfiguration"%>
 <%@page import="org.informea.odata.constants.EntityType"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -7,18 +9,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 // If user drops to this page and setup is not configured, just redirect to start
-if(session.getAttribute("informea.step1") != "done") {
+if(!"done".equals(session.getAttribute("step2.ldap"))) {
     response.sendRedirect("index.jsp");
     return;
 }
+
+DatabaseConfiguration db = (DatabaseConfiguration)session.getAttribute("db");
+LDAPConfiguration ldap = (LDAPConfiguration)session.getAttribute("ldap");
+Configuration cfg = Configuration.getInstance();
+
 boolean next = ToolkitUtil.isOnRequest("next", request);
 boolean validSelection = false;
 if(next) {
     validSelection = ToolkitUtil.isValidEntitiesSelection(request);
     if(validSelection) {
-        ToolkitUtil.saveEntitiesSelectionOnSession(session, request);
-        boolean useDecisions = ToolkitUtil.getRequestCheckbox("useDecisions", request);
-        if(useDecisions) {
+        cfg.loadFromRequest(request);
+        if(cfg.isUseDecisions()) {
             response.sendRedirect("step3.jsp");
         } else {
             response.sendRedirect("step4.jsp");
@@ -26,16 +32,20 @@ if(next) {
         return;
     }
 }
-JDBCHelper jdbc = ToolkitUtil.createJDBCHelperFromSession(session);
-pageContext.setAttribute("jdbc", jdbc);
-pageContext.setAttribute("allMissing", jdbc.isMissingAllEntities());
-pageContext.setAttribute("useDecisions", jdbc.detectDecisions());
-pageContext.setAttribute("useMeetings", jdbc.detectMeetings());
-pageContext.setAttribute("useContacts", jdbc.detectContacts());
-pageContext.setAttribute("useCountryReports", jdbc.detectCountryReports());
-pageContext.setAttribute("useCountryProfiles", jdbc.detectCountryProfiles());
-pageContext.setAttribute("useNationalPlans", jdbc.detectNationalPlans());
-pageContext.setAttribute("useSites", jdbc.detectSites());
+
+if(db != null) {
+    JDBCHelper jdbc = new JDBCHelper(db);
+    pageContext.setAttribute("useDecisions", jdbc.detectDecisions());
+    pageContext.setAttribute("useMeetings", jdbc.detectMeetings());
+    pageContext.setAttribute("useCountryReports", jdbc.detectCountryReports());
+    pageContext.setAttribute("useCountryProfiles", jdbc.detectCountryProfiles());
+    pageContext.setAttribute("useNationalPlans", jdbc.detectNationalPlans());
+    pageContext.setAttribute("useSites", jdbc.detectSites());
+    pageContext.setAttribute("useContacts", jdbc.detectContacts());
+}
+if(ldap != null) {
+    pageContext.setAttribute("useContacts", ldap != null);
+}
 %>
 <jsp:include page="../WEB-INF/includes/header.jsp">
     <jsp:param name="html_title" value="Select available entities" />
@@ -64,24 +74,13 @@ pageContext.setAttribute("useSites", jdbc.detectSites());
     </div>
 <% } %>
 
-<c:if test="${allMissing}">
-    <div class="alert alert-danger">
-        <h4>Fatal error</h4>
-        <p>
-            The database is not contain any correctly entity.
-        </p>
-        <p>
-            Please create the appropriate views in database for the entities you want exposed.
-        </p>
-        <p>
-            <strong>Configuration cannot continue!</strong>
-        </p>
-    </div>
-</c:if>
-<c:if test="${!allMissing}">
 <p>
-    Please check all the entities that you want to expose via this service. By default this setup has checked all the
-    entities detected inside the database and disabled the checkboxes for those that do not exist.
+    Please check all the entities that you want to expose via this service.
+    <br />
+    Setup has detected automatically all entities according to your previous steps
+    and <strong>disabled</strong> those not found.
+    <br />
+    If nothing is selectable, go back and review your settings and/or database views/structure.
 </p>
 <form action="" method="post" class="form-horizontal" role="form">
     <div class="form-group">
@@ -176,5 +175,7 @@ pageContext.setAttribute("useSites", jdbc.detectSites());
         </div>
     </div>
 </form>
-</c:if>
+<p>
+    <span class="label label-info">Contacts usage</span> If you have both database and LDAP contacts configured, only LDAP will be used.
+</p>
 <jsp:include page="../WEB-INF/includes/footer.jsp" />

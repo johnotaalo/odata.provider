@@ -232,16 +232,6 @@ public class JDBCHelper {
 
 
     /**
-     * Check if all the database required for toolkit are missing
-     * @return true if all tables are missing
-     */
-    public boolean isMissingAllEntities() {
-        return !detectDecisions() && !detectMeetings() && !detectContacts() && !detectCountryReports()
-                && !detectCountryProfiles() && !detectNationalPlans() && !detectSites();
-    }
-
-
-    /**
      * Retrieve the list of tables from database
      * @return List of tables. Uses internal cache to avoid DB overhead
      */
