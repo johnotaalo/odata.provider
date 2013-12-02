@@ -74,6 +74,10 @@
         <servlet-name>ConfigurationDatabase</servlet-name>
         <jsp-file>/configuration/step1.database.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>ConfigurationLDAP</servlet-name>
+        <jsp-file>/configuration/step2.ldap.jsp</jsp-file>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>CrossDomain</servlet-name>
@@ -94,6 +98,10 @@
     <servlet-mapping>
         <servlet-name>ConfigurationDatabase</servlet-name>
         <url-pattern>/configuration/database</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConfigurationLDAP</servlet-name>
+        <url-pattern>/configuration/ldap</url-pattern>
     </servlet-mapping>
     <!-- Define the Login Configuration for this Application -->
     <security-constraint>
