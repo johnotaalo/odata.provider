@@ -68,11 +68,8 @@ jQuery(document).ready(function() {
             dbName.attr('disabled', 'disabled');
         }
     });
-
-    <c:if test="${installed == true}">
-    dbCheck.trigger('click'); dbCheck.trigger('click');
-    </c:if>
-    <c:if test="${installed == false}">
+    <c:if test="${!useDB}">
+    dbCheck.trigger('click');
     dbCheck.trigger('click');
     </c:if>
 });
@@ -163,7 +160,8 @@ function validateOnSubmit() {
         <div class="form-group">
             <label for="<%= DatabaseConfiguration.DB_TYPE %>" class="col-sm-3 control-label">Type</label>
             <div class="col-sm-4">
-                <select id="<%= DatabaseConfiguration.DB_TYPE %>" name="<%= DatabaseConfiguration.DB_TYPE %>" tabindex="1" class="form-control">
+                <select id="<%= DatabaseConfiguration.DB_TYPE %>" name="<%= DatabaseConfiguration.DB_TYPE %>" 
+                    tabindex="2" class="form-control">
                     <option value="">-- Please select --</option>
                     <option 
                         <% if(JDBCHelper.DB_TYPE_MYSQL.equals(db.getType())) {%> selected="selected"<% } %>
@@ -183,7 +181,7 @@ function validateOnSubmit() {
                     name="<%= DatabaseConfiguration.DB_HOST %>" 
                     id="<%= DatabaseConfiguration.DB_HOST %>"
                     placeholder="Server name, address e.g. localhost" 
-                    value="<c:out value="${db.getHost()}" />" tabindex="2" />
+                    value="<c:out value="${db.getHost()}" />" tabindex="3" />
                 <p class="help-block"></p>
             </div>
         </div>
@@ -195,7 +193,7 @@ function validateOnSubmit() {
                     name="<%= DatabaseConfiguration.DB_PORT %>" 
                     id="<%= DatabaseConfiguration.DB_PORT %>"
                     placeholder="Server TCP port, e.g. 3306"
-                    value="<c:out value="${port}" />" tabindex="3" />
+                    value="<c:out value="${port}" />" tabindex="4" />
                 <p class="help-block"></p>
             </div>
         </div>
@@ -207,7 +205,7 @@ function validateOnSubmit() {
                     name="<%= DatabaseConfiguration.DB_USER %>" 
                     id="<%= DatabaseConfiguration.DB_USER %>"
                     placeholder="User connecting to the database"
-                    value="<c:out value="${db.getUser()}" />" tabindex="4" />
+                    value="<c:out value="${db.getUser()}" />" tabindex="5" />
                 <p class="help-block"></p>
             </div>
         </div>
@@ -218,7 +216,7 @@ function validateOnSubmit() {
                 <input type="password" class="form-control"
                     name="<%= DatabaseConfiguration.DB_PASS %>"
                     placeholder="Password for the authentication" 
-                    id="<%= DatabaseConfiguration.DB_PASS %>" value="" tabindex="5" />
+                    id="<%= DatabaseConfiguration.DB_PASS %>" value="" tabindex="6" />
                 <p class="help-block"></p>
             </div>
         </div>
@@ -231,14 +229,14 @@ function validateOnSubmit() {
                     id="<%= DatabaseConfiguration.DB_DATABASE %>"
                     value="<c:out value="${db.getDatabase()}" />" 
                     placeholder="Name of the database"
-                    tabindex="6" />
+                    tabindex="7" />
                 <p class="help-block"></p>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-sm-7">
-                <input type="submit" name="verify" value="Next" tabindex="7" class="btn btn-primary pull-right" />
+                <input type="submit" name="verify" value="Next" tabindex="8" class="btn btn-primary pull-right" />
             </div>
         </div>
     </form>
