@@ -28,7 +28,9 @@ if(useDB) {
 
 if((useDB && databaseOK) || (verify && !useDB)) {
     session.setAttribute("step1.database", "done");
-    session.setAttribute("db", db);
+    if(useDB) {
+        session.setAttribute("db", db);
+    }
     response.sendRedirect("ldap");
     return;
 }

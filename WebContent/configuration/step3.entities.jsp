@@ -24,10 +24,11 @@ if(next) {
     validSelection = ToolkitUtil.isValidEntitiesSelection(request);
     if(validSelection) {
         cfg.loadFromRequest(request);
+        session.setAttribute("step3.entities", "done");
         if(cfg.isUseDecisions()) {
-            response.sendRedirect("step3.jsp");
+            response.sendRedirect("decisions");
         } else {
-            response.sendRedirect("step4.jsp");
+            response.sendRedirect("finish");
         }
         return;
     }

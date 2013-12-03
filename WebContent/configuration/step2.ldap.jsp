@@ -25,7 +25,9 @@ if(useLDAP) {
 
 if((useLDAP && ldapOK) || (verify && !useLDAP)) {
     session.setAttribute("step2.ldap", "done");
-    session.setAttribute("ldap", ldap);
+    if(useLDAP) {
+        session.setAttribute("ldap", ldap);
+    }
     response.sendRedirect("entities");
     return;
 }
