@@ -5,6 +5,10 @@
     <jsp:param name="current_menu_item" value="faq" />
 </jsp:include>
 <div class="content">
+    <ol class="breadcrumb">
+        <li><a href="<%= ToolkitUtil.url(request, null) %>">Home</a></li>
+        <li class="active">FAQ</li>
+    </ol>
 
     <h1>Frequently Asked Questions</h1>
 

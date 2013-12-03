@@ -1,3 +1,4 @@
+<%@page import="org.informea.odata.util.ToolkitUtil"%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="org.informea.odata.config.Configuration"%>
 <%@page import="java.util.prefs.*"%>
@@ -7,6 +8,11 @@
     <jsp:param name="current_menu_item" value="about" />
 </jsp:include>
 <div class="content">
+    <ol class="breadcrumb">
+        <li><a href="<%= ToolkitUtil.url(request, null) %>">Home</a></li>
+        <li class="active">About</li>
+    </ol>
+
     <h1>About</h1>
     <div class="row">
     <div class="col-md-8">

@@ -18,6 +18,11 @@ request.getSession().removeAttribute("cfg");
 </jsp:include>
 
 <div class="content">
+    <ol class="breadcrumb">
+        <li><a href="<%= ToolkitUtil.url(request, null) %>">Home</a></li>
+        <li class="active">Configuration</li>
+    </ol>
+
     <h1>Toolkit configuration</h1>
     <c:if test="${isInstalled}">
         <div class="alert alert-warning">
