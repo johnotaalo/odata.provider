@@ -398,7 +398,7 @@ public class Configuration {
         useContacts = ToolkitUtil.isOnRequest("useContacts", request);
         useCountryReports = ToolkitUtil.isOnRequest("useCountryReports", request);
         useCountryProfiles = ToolkitUtil.isOnRequest("useCountryProfiles", request);
-        useNationalPlans = ToolkitUtil.isOnRequest("useCountryProfiles", request);
+        useNationalPlans = ToolkitUtil.isOnRequest("useNationalPlans", request);
         useSites = ToolkitUtil.isOnRequest("useSites", request);
 
         if(useDecisions) {
