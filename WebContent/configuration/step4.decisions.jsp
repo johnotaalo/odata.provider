@@ -5,18 +5,17 @@
 <%@page import="org.informea.odata.util.JDBCHelper"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-Configuration cfg = Configuration.getInstance();
-// If user drops to this page and setup is not configured, just redirect to start
-if(session.getAttribute("informea.in_progress") == null) {
+if(!"done".equals(session.getAttribute("step3.entities"))) {
     response.sendRedirect("index.jsp");
     return;
 }
+
+Configuration cfg = Configuration.getInstance();
 boolean next = ToolkitUtil.isOnRequest("next", request);
 if(next) {
     cfg.setUsePathPrefix(ToolkitUtil.getRequestCheckbox("usePathPrefix", request));
     cfg.setPathPrefix(ToolkitUtil.getRequestValue("pathPrefix", request));
-
-    response.sendRedirect("step4.jsp");
+    response.sendRedirect("finish");
 }
 pageContext.setAttribute("cfg", cfg);
 pageContext.setAttribute("usePathPrefix", cfg.isUsePathPrefix());

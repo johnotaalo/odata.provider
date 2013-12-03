@@ -88,7 +88,7 @@
     </servlet>
     <servlet>
         <servlet-name>ConfigurationFinish</servlet-name>
-        <jsp-file>/configuration/step4.finish.jsp</jsp-file>
+        <jsp-file>/configuration/step5.finish.jsp</jsp-file>
     </servlet>
 
     <servlet-mapping>
