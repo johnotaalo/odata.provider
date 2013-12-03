@@ -6,6 +6,11 @@
 Configuration cfg = Configuration.getInstance();
 pageContext.setAttribute("cfg", cfg);
 pageContext.setAttribute("isInstalled", cfg.isInstalled());
+
+// Reset the session
+request.getSession().removeAttribute("db");
+request.getSession().removeAttribute("ldap");
+request.getSession().removeAttribute("cfg");
 %>
 <jsp:include page="../WEB-INF/includes/header.jsp">
     <jsp:param name="html_title" value="InforMEA provider configuration" />
