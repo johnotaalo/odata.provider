@@ -52,131 +52,139 @@ if(ldap != null) {
     <jsp:param name="html_title" value="Select available entities" />
     <jsp:param name="current_menu_item" value="configuration" />
 </jsp:include>
+<div class="content">
+    <ol class="breadcrumb">
+        <li><a href="<%= ToolkitUtil.url(request, null) %>">Home</a></li>
+        <li><a href="<%= ToolkitUtil.url(request, "/configuration") %>">Configuration</a></li>
+        <li class="active">Choose entities</li>
+    </ol>
 
-<ol class="breadcrumb">
-    <li><a href="<%= ToolkitUtil.url(request, null) %>">Home</a></li>
-    <li><a href="<%= ToolkitUtil.url(request, "/configuration") %>">Configuration</a></li>
-    <li class="active">Choose entities</li>
-</ol>
-
-<div class="progress progress-striped">
-    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
-        <span class="sr-only">50% Complete</span>
+    <div class="progress progress-striped">
+        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+            <span class="sr-only">50% Complete</span>
+        </div>
     </div>
-</div>
 
-<h1>Choose entities</h1>
-<% if(next && !validSelection) { %>
-    <div class="alert alert-danger">
-        <h4>Invalid selection</h4>
+    <h1>Choose entities</h1>
+    <div class="row">
+    <div class="col col-md-8">
+        <% if(next && !validSelection) { %>
+        <div class="alert alert-danger">
+            <h4>Invalid selection</h4>
+            <p>
+                Hmmm, I wonder what's the purpose of an empty service?
+            </p>
+        </div>
+        <% } %>
+    
         <p>
-            Hmmm, I wonder what's the purpose of an empty service?
+            Please check all the entities that you want to expose via this service.
+            <br />
+            Setup has detected automatically all entities according to your previous steps
+            and <strong>disabled</strong> those not found.
+            <br />
+            If nothing is selectable, go back and review your settings and/or database views/structure.
+        </p>
+        <form action="" method="post" class="form-horizontal" role="form">
+            <div class="form-group">
+                <div class="col-sm-6">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Entity</th>
+                            <th class="text-right">Expose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <label for="useDecisions">Decisions</label>
+                            </td>
+                            <td class="text-right">
+                                <input type="checkbox" id="useDecisions" name="useDecisions"
+                                    value="ON" tabindex="1"
+                                    <c:if test="${!useDecisions}"> disabled="disabled"</c:if>
+                                    <c:if test="${useDecisions}"> checked="checked"</c:if>
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="useMeetings">Meetings</label></td>
+                            <td class="text-right">
+                                <input type="checkbox" id="useMeetings" name="useMeetings"
+                                    value="ON" tabindex="2"
+                                    <c:if test="${!useMeetings}"> disabled="disabled"</c:if>
+                                    <c:if test="${useMeetings}"> checked="checked"</c:if>
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="useContacts">Contacts</label></td>
+                            <td class="text-right">
+                                <input type="checkbox" id="useContacts" name="useContacts"
+                                    value="ON" tabindex="3"
+                                    <c:if test="${!useContacts}"> disabled="disabled"</c:if>
+                                    <c:if test="${useContacts}"> checked="checked"</c:if>
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="useCountryReports">Country reports</label></td>
+                            <td class="text-right">
+                                <input type="checkbox" id="useCountryReports" name="useCountryReports"
+                                value="ON" tabindex="4"
+                                    <c:if test="${!useCountryReports}"> disabled="disabled"</c:if>
+                                    <c:if test="${useCountryReports}"> checked="checked"</c:if>
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="useCountryProfiles">Country profiles</label></td>
+                            <td class="text-right">
+                                <input type="checkbox" id="useCountryProfiles" name="useCountryProfiles"
+                                    value="ON" tabindex="5"
+                                    <c:if test="${!useCountryProfiles}"> disabled="disabled"</c:if>
+                                    <c:if test="${useCountryProfiles}"> checked="checked"</c:if>
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="useNationalPlans">National plans</label></td>
+                            <td class="text-right">
+                                <input type="checkbox" id="useNationalPlans" name="useNationalPlans"
+                                    value="ON" tabindex="6"
+                                    <c:if test="${!useNationalPlans}"> disabled="disabled"</c:if>
+                                    <c:if test="${useNationalPlans}"> checked="checked"</c:if>
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="useSites">Sites</label></td>
+                            <td class="text-right">
+                                <input type="checkbox" id="useSites" name="useSites"
+                                    value="ON" tabindex="7"
+                                    <c:if test="${!useSites}"> disabled="disabled"</c:if>
+                                    <c:if test="${useSites}"> checked="checked"</c:if>
+                               />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <input type="submit" name="next" value="Next &raquo;" tabindex="8" class="btn btn-primary" />
+                </div>
+            </div>
+        </form>
+    </div><!-- /.col-md-8 -->
+    <div class="col col-md-4">
+        <h4>Duplicate storage</h4>
+        <p>
+            If you have both database and LDAP contacts configured, only LDAP will be used
         </p>
     </div>
-<% } %>
-
-<p>
-    Please check all the entities that you want to expose via this service.
-    <br />
-    Setup has detected automatically all entities according to your previous steps
-    and <strong>disabled</strong> those not found.
-    <br />
-    If nothing is selectable, go back and review your settings and/or database views/structure.
-</p>
-<form action="" method="post" class="form-horizontal" role="form">
-    <div class="form-group">
-        <div class="col-sm-6">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Entity</th>
-                    <th class="text-right">Expose</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <label for="useDecisions">Decisions</label>
-                    </td>
-                    <td class="text-right">
-                        <input type="checkbox" id="useDecisions" name="useDecisions"
-                            value="ON" tabindex="1"
-                            <c:if test="${!useDecisions}"> disabled="disabled"</c:if>
-                            <c:if test="${useDecisions}"> checked="checked"</c:if>
-                        />
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="useMeetings">Meetings</label></td>
-                    <td class="text-right">
-                        <input type="checkbox" id="useMeetings" name="useMeetings"
-                            value="ON" tabindex="2"
-                            <c:if test="${!useMeetings}"> disabled="disabled"</c:if>
-                            <c:if test="${useMeetings}"> checked="checked"</c:if>
-                        />
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="useContacts">Contacts</label></td>
-                    <td class="text-right">
-                        <input type="checkbox" id="useContacts" name="useContacts"
-                            value="ON" tabindex="3"
-                            <c:if test="${!useContacts}"> disabled="disabled"</c:if>
-                            <c:if test="${useContacts}"> checked="checked"</c:if>
-                        />
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="useCountryReports">Country reports</label></td>
-                    <td class="text-right">
-                        <input type="checkbox" id="useCountryReports" name="useCountryReports"
-                        value="ON" tabindex="4"
-                            <c:if test="${!useCountryReports}"> disabled="disabled"</c:if>
-                            <c:if test="${useCountryReports}"> checked="checked"</c:if>
-                        />
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="useCountryProfiles">Country profiles</label></td>
-                    <td class="text-right">
-                        <input type="checkbox" id="useCountryProfiles" name="useCountryProfiles"
-                            value="ON" tabindex="5"
-                            <c:if test="${!useCountryProfiles}"> disabled="disabled"</c:if>
-                            <c:if test="${useCountryProfiles}"> checked="checked"</c:if>
-                        />
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="useNationalPlans">National plans</label></td>
-                    <td class="text-right">
-                        <input type="checkbox" id="useNationalPlans" name="useNationalPlans"
-                            value="ON" tabindex="6"
-                            <c:if test="${!useNationalPlans}"> disabled="disabled"</c:if>
-                            <c:if test="${useNationalPlans}"> checked="checked"</c:if>
-                        />
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="useSites">Sites</label></td>
-                    <td class="text-right">
-                        <input type="checkbox" id="useSites" name="useSites"
-                            value="ON" tabindex="7"
-                            <c:if test="${!useSites}"> disabled="disabled"</c:if>
-                            <c:if test="${useSites}"> checked="checked"</c:if>
-                       />
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-6">
-            <input type="submit" name="next" value="Next &raquo;" tabindex="8" class="btn btn-primary" />
-        </div>
-    </div>
-</form>
-<p>
-    <span class="label label-info">Contacts usage</span> If you have both database and LDAP contacts configured, only LDAP will be used.
-</p>
+    </div><!-- /.row -->
+</div><!-- /.content -->
 <jsp:include page="../WEB-INF/includes/footer.jsp" />

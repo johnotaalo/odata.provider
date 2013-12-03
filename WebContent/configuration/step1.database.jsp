@@ -126,132 +126,139 @@ function validateOnSubmit() {
     </div>
     <h1>Database configuration</h1>
 
-    <form action="" method="post" onsubmit="return validateOnSubmit();" role="form" class="form-horizontal">
-        <% if(useDB && verify && !databaseOK) { %>
-        <div class="alert alert-danger">
-            <h4>Error validating the data</h4>
-            <% if(e != null) { %>
-                <%= e.getMessage() %>
+    <div class="row">
+    <div class="col col-md-8">
+        <form action="" method="post" onsubmit="return validateOnSubmit();" role="form" class="form-horizontal">
+            <% if(useDB && verify && !databaseOK) { %>
+            <div class="alert alert-danger">
+                <h4>Error validating the data</h4>
+                <% if(e != null) { %>
+                    <%= e.getMessage() %>
+                <% } %>
+                <p>
+                    Please review the settings and try again.
+                </p>
+            </div>
             <% } %>
-            <p>
-                Please review the settings and try again.
-            </p>
-        </div>
-        <% } %>
-        <% if(HibernateConfigurator.getInstance().isConfigured()) { %>
-        <div class="alert alert-danger">
-            <h4>Warning</h4>
-            <p>
-                Database is already configured, <strong>restart the servlet container when done with the configuration</strong>!
-            </p>
-        </div>
-        <% } %>
-        <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-10">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="<%= Configuration.USE_DATABASE %>" 
-                            id="<%= Configuration.USE_DATABASE %>" <c:if test="${useDB}">checked="checked"</c:if>
-                            value="ON" tabindex="1" />
-                            Use database
-                    </label>
+            <% if(HibernateConfigurator.getInstance().isConfigured()) { %>
+            <div class="alert alert-danger">
+                <h4>Warning</h4>
+                <p>
+                    Database is already configured, <strong>restart the servlet container when done with the configuration</strong>!
+                </p>
+            </div>
+            <% } %>
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-10">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="<%= Configuration.USE_DATABASE %>" 
+                                id="<%= Configuration.USE_DATABASE %>" <c:if test="${useDB}">checked="checked"</c:if>
+                                value="ON" tabindex="1" />
+                                Use database
+                        </label>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="<%= DatabaseConfiguration.DB_TYPE %>" class="col-sm-3 control-label">Type *</label>
-            <div class="col-sm-4">
-                <select id="<%= DatabaseConfiguration.DB_TYPE %>" name="<%= DatabaseConfiguration.DB_TYPE %>" 
-                    tabindex="2" class="form-control">
-                    <option value="">-- Please select --</option>
-                    <option 
-                        <% if(JDBCHelper.DB_TYPE_MYSQL.equals(db.getType())) {%> selected="selected"<% } %>
-                        value="<%= JDBCHelper.DB_TYPE_MYSQL %>">MySQL</option>
-                    <option
-                        <% if(JDBCHelper.DB_TYPE_POSTGRESQL.equals(db.getType())) {%> selected="selected"<% } %> 
-                        value="<%= JDBCHelper.DB_TYPE_POSTGRESQL %>">PostgreSQL</option>
-                </select>
-                <p class="help-block"></p>
+            <div class="form-group">
+                <label for="<%= DatabaseConfiguration.DB_TYPE %>" class="col-sm-3 control-label">Type *</label>
+                <div class="col-sm-4">
+                    <select id="<%= DatabaseConfiguration.DB_TYPE %>" name="<%= DatabaseConfiguration.DB_TYPE %>" 
+                        tabindex="2" class="form-control">
+                        <option value="">-- Please select --</option>
+                        <option 
+                            <% if(JDBCHelper.DB_TYPE_MYSQL.equals(db.getType())) {%> selected="selected"<% } %>
+                            value="<%= JDBCHelper.DB_TYPE_MYSQL %>">MySQL</option>
+                        <option
+                            <% if(JDBCHelper.DB_TYPE_POSTGRESQL.equals(db.getType())) {%> selected="selected"<% } %> 
+                            value="<%= JDBCHelper.DB_TYPE_POSTGRESQL %>">PostgreSQL</option>
+                    </select>
+                    <p class="help-block"></p>
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <label for="<%= DatabaseConfiguration.DB_HOST %>" class="col-sm-3 control-label">Server address *</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control"
-                    name="<%= DatabaseConfiguration.DB_HOST %>" 
-                    id="<%= DatabaseConfiguration.DB_HOST %>"
-                    placeholder="Server name, address e.g. localhost" 
-                    value="<c:out value="${db.getHost()}" />" tabindex="3" />
-                <p class="help-block"></p>
+    
+            <div class="form-group">
+                <label for="<%= DatabaseConfiguration.DB_HOST %>" class="col-sm-3 control-label">Server address *</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control"
+                        name="<%= DatabaseConfiguration.DB_HOST %>" 
+                        id="<%= DatabaseConfiguration.DB_HOST %>"
+                        placeholder="Server name, address e.g. localhost" 
+                        value="<c:out value="${db.getHost()}" />" tabindex="3" />
+                    <p class="help-block"></p>
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <label for="<%= DatabaseConfiguration.DB_PORT %>" class="col-sm-3 control-label">Server port *</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control"
-                    name="<%= DatabaseConfiguration.DB_PORT %>" 
-                    id="<%= DatabaseConfiguration.DB_PORT %>"
-                    placeholder="Server TCP port, e.g. 3306"
-                    value="<c:out value="${port}" />" tabindex="4" />
-                <p class="help-block"></p>
+    
+            <div class="form-group">
+                <label for="<%= DatabaseConfiguration.DB_PORT %>" class="col-sm-3 control-label">Server port *</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control"
+                        name="<%= DatabaseConfiguration.DB_PORT %>" 
+                        id="<%= DatabaseConfiguration.DB_PORT %>"
+                        placeholder="Server TCP port, e.g. 3306"
+                        value="<c:out value="${port}" />" tabindex="4" />
+                    <p class="help-block"></p>
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <label for="<%= DatabaseConfiguration.DB_USER%>" class="col-sm-3 control-label">Username *</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control"
-                    name="<%= DatabaseConfiguration.DB_USER %>" 
-                    id="<%= DatabaseConfiguration.DB_USER %>"
-                    placeholder="User connecting to the database"
-                    value="<c:out value="${db.getUser()}" />" tabindex="5" />
-                <p class="help-block"></p>
+    
+            <div class="form-group">
+                <label for="<%= DatabaseConfiguration.DB_USER%>" class="col-sm-3 control-label">Username *</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control"
+                        name="<%= DatabaseConfiguration.DB_USER %>" 
+                        id="<%= DatabaseConfiguration.DB_USER %>"
+                        placeholder="User connecting to the database"
+                        value="<c:out value="${db.getUser()}" />" tabindex="5" />
+                    <p class="help-block"></p>
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <label for="<%= DatabaseConfiguration.DB_PASS%>" class="col-sm-3 control-label">Password</label>
-            <div class="col-sm-4">
-                <input type="password" class="form-control"
-                    name="<%= DatabaseConfiguration.DB_PASS %>"
-                    placeholder="Password for the authentication" 
-                    id="<%= DatabaseConfiguration.DB_PASS %>" value="" tabindex="6" />
-                <p class="help-block"></p>
+    
+            <div class="form-group">
+                <label for="<%= DatabaseConfiguration.DB_PASS%>" class="col-sm-3 control-label">Password</label>
+                <div class="col-sm-4">
+                    <input type="password" class="form-control"
+                        name="<%= DatabaseConfiguration.DB_PASS %>"
+                        placeholder="Password for the authentication" 
+                        id="<%= DatabaseConfiguration.DB_PASS %>" value="" tabindex="6" />
+                    <p class="help-block"></p>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label for="<%= DatabaseConfiguration.DB_DATABASE%>" class="col-sm-3 control-label">Database name *</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control"
-                    name="<%= DatabaseConfiguration.DB_DATABASE %>" 
-                    id="<%= DatabaseConfiguration.DB_DATABASE %>"
-                    value="<c:out value="${db.getDatabase()}" />" 
-                    placeholder="Name of the database"
-                    tabindex="7" />
-                <p class="help-block"></p>
+            <div class="form-group">
+                <label for="<%= DatabaseConfiguration.DB_DATABASE%>" class="col-sm-3 control-label">Database name *</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control"
+                        name="<%= DatabaseConfiguration.DB_DATABASE %>" 
+                        id="<%= DatabaseConfiguration.DB_DATABASE %>"
+                        value="<c:out value="${db.getDatabase()}" />" 
+                        placeholder="Name of the database"
+                        tabindex="7" />
+                    <p class="help-block"></p>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-sm-7">
-                <input type="submit" name="verify" value="Next" tabindex="8" class="btn btn-primary pull-right" />
+            <div class="form-group">
+                <div class="col-sm-7">
+                    <input type="submit" name="verify" value="Next" tabindex="8" class="btn btn-primary pull-right" />
+                </div>
             </div>
-        </div>
-        <div class="alert alert-info">
-            * If you check "Use database", then the fields marked with star are required
-        </div>
-    </form>
+        </form>
+    </div><!-- /.col-md-8 -->
+    <div class="col col-md-4">
+        <h3>Required fields</h3>
+        <p>
+            If you check "Use database", then the fields marked with star (*) are required
+        </p>
+        <hr />
 
-    <p>
-        <div class="label label-info">Security advice</div>
-        To improve the security, you are advised to create a dedicated user for the toolkit having only
-        <code>SELECT</code> permission on the database tables.
-    </p>
-    </div>
-    For MySQL this is accomplished by issuing the following statement:
-    <pre>GRANT SELECT ON database_name.* TO 'informea_user'@'localhost' IDENTIFIED BY 'secure-password'</pre>
-</div>
+        <h3>Security advice</h3>
+        <p>
+            To improve the security, you are advised to create a dedicated user for the toolkit having only
+            <code>SELECT</code> permission on the database tables.
+            For MySQL this is accomplished by issuing the following statement:
+            <pre>GRANT SELECT ON database_name.* TO 'informea_user'@'localhost' IDENTIFIED BY 'secure-password'</pre>
+        </p>
+    </div><!-- /.col-md-4 -->
+    </div><!-- ./row -->
+</div><!-- /.content -->
 <jsp:include page="../WEB-INF/includes/footer.jsp" />

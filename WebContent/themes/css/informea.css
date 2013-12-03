@@ -1,6 +1,14 @@
 /* Space out content a bit */
 body {
-  padding: 20px 10px 20px 10px;
+  padding: 0;
+}
+
+div.content {
+ padding: 0 10px 0 10px;
+}
+
+div.footer {
+ margin-left: 10px;
 }
 
 div#version, div#updateStatus {

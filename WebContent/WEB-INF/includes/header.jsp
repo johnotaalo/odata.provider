@@ -22,19 +22,19 @@ out.clear();%><html>
         <script type="text/javascript" src="<%= ToolkitUtil.url(request, "/themes/js/jquery-1.10.2.min.js") %>"></script>
     </head>
     <body>
-      <!-- Static navbar -->
-      <div class="navbar navbar-default" role="navigation">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="<%= ToolkitUtil.url(request, null) %>">InforMEA toolkit</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
+        <!-- Static navbar -->
+        <div class="navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="<%= ToolkitUtil.url(request, null) %>">InforMEA toolkit</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
                     <li<c:if test="${menu == 'home' }"> class="active"</c:if>>
                         <a href="<%= ToolkitUtil.url(request, "/") %>">Home</a>
                     </li>
@@ -50,18 +50,16 @@ out.clear();%><html>
                     <li id="updateButton" <c:if test="${menu == 'update' }"> class="active"</c:if><c:if test="${menu != 'update' }"> class="hidden"</c:if>>
                         <a href="<%= ToolkitUtil.url(request, "/update") %>">Update</a>
                     </li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li>
-                <div id="version" class="label label-info pull-right">
-                    <%= ToolkitUtil.getToolkitVersion() %>
-                </div>
-            </li>
-            <li>
-                <div id="updateStatus" class="label label-info pull-right">Checking for newer version ...</div>
-            </li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-
-      
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <div id="version" class="label label-info pull-right">
+                            <%= ToolkitUtil.getToolkitVersion() %>
+                        </div>
+                    </li>
+                    <li>
+                        <div id="updateStatus" class="label label-info pull-right">Checking for newer version ...</div>
+                    </li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div><!--  /.navbar -->

@@ -12,16 +12,17 @@
     List<EntityType> entities = EntityType.getEntities();
     pageContext.setAttribute("entities", entities);
 %>
-    <p>
-        Endpoint URL address is <a href="<%= serviceURL %>">here</a>. Schema is <a href="<%= serviceURL %>/$metadata">here</a>.
-    </p>
+    <ul>
+        <li>Endpoint <a href="<%= serviceURL %>">URL</a></li>
+        <li>Schema <a href="<%= serviceURL %>/$metadata">URL</a></li>
+    </ul>
     <table class="table">
         <thead>
             <tr>
                 <th>Exposed entity</th>
                 <th>Enabled</th>
-                <th>Count</th>
-                <th>URL</th>
+                <th class="hidden-xs">Count</th>
+                <th class="hidden-xs">URL</th>
             </tr>
         </thead>
         <tbody>
@@ -44,11 +45,11 @@
                    <c:if test="${inUse}"><span class="glyphicon glyphicon-check"></span></c:if>
                    <c:if test="${!inUse}">No</c:if>
                 </td>
-                <td>
+                <td class="hidden-xs">
                     <c:if test="${inUse}"><c:out value="${count}" /></c:if>
                     <c:if test="${!inUse}">n/a</c:if>
                 </td>
-                <td>
+                <td class="hidden-xs">
                 <c:if test="${inUse}">
                     <a target="_blank" href="<c:out value="${url}" />">Browse</a>
                 </c:if>&nbsp;

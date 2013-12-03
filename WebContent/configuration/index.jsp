@@ -16,6 +16,7 @@ request.getSession().removeAttribute("cfg");
     <jsp:param name="html_title" value="InforMEA provider configuration" />
     <jsp:param name="current_menu_item" value="configuration" />
 </jsp:include>
+
 <div class="content">
     <h1>Toolkit configuration</h1>
     <c:if test="${isInstalled}">
@@ -24,7 +25,7 @@ request.getSession().removeAttribute("cfg");
             <br />
             The toolkit is already configured. Are you sure you want to <em>reconfigure</em>?
             <br /><br />
-            <a class="btn btn-default" href="database" tabindex="1">Reconfigure</a>
+            <a class="btn btn-primary" href="database" tabindex="1">Reconfigure</a>
          </div>
     </c:if>
     <c:if test="${!isInstalled}">
@@ -44,7 +45,7 @@ request.getSession().removeAttribute("cfg");
             <br />
             <a class="btn btn-primary" href="database" tabindex="1">Proceed</a>
         </div>
-        <jsp:include page="../WEB-INF/includes/documentation.jsp" />
     </c:if>
+    <jsp:include page="../WEB-INF/includes/documentation.jsp" />
 </div>
 <jsp:include page="../WEB-INF/includes/footer.jsp" />

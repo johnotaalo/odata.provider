@@ -5,9 +5,10 @@
 <% 
 Configuration cfg = Configuration.getInstance();
 %>
-    <jsp:include page="WEB-INF/includes/header.jsp">
-        <jsp:param name="html_title" value="InforMEA OData provider" />
-    </jsp:include>
+<jsp:include page="WEB-INF/includes/header.jsp">
+    <jsp:param name="html_title" value="InforMEA OData provider" />
+</jsp:include>
+<div class="content">
     <div class="jumbotron">
         <h1>InforMEA toolkit</h1>
         <p class="lead">
@@ -41,4 +42,5 @@ Configuration cfg = Configuration.getInstance();
         <jsp:include page="WEB-INF/includes/status.jsp" />
     <% } %>
     </div>
-    <jsp:include page="WEB-INF/includes/footer.jsp" />
+</div><!-- /.content -->
+<jsp:include page="WEB-INF/includes/footer.jsp" />
