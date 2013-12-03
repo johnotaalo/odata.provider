@@ -82,6 +82,14 @@
         <servlet-name>ConfigurationEntities</servlet-name>
         <jsp-file>/configuration/step3.entities.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>ConfigurationDecisions</servlet-name>
+        <jsp-file>/configuration/step4.decisions.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>ConfigurationFinish</servlet-name>
+        <jsp-file>/configuration/step4.finish.jsp</jsp-file>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>CrossDomain</servlet-name>
@@ -110,6 +118,14 @@
     <servlet-mapping>
         <servlet-name>ConfigurationEntities</servlet-name>
         <url-pattern>/configuration/entities</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConfigurationDecisions</servlet-name>
+        <url-pattern>/configuration/decisions</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConfigurationFinish</servlet-name>
+        <url-pattern>/configuration/finish</url-pattern>
     </servlet-mapping>
     <!-- Define the Login Configuration for this Application -->
     <security-constraint>

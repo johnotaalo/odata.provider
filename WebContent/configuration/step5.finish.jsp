@@ -8,7 +8,6 @@ if(session.getAttribute("informea.in_progress") == null) {
     return;
 }
 Configuration cfg = Configuration.getInstance();
-cfg.putFromSession(session);
 cfg.setInstalled(true);
 %>
 <jsp:include page="../WEB-INF/includes/header.jsp">
