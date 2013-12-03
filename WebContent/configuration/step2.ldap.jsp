@@ -34,6 +34,7 @@ if((useLDAP && ldapOK) || (verify && !useLDAP)) {
 
 pageContext.setAttribute("useLDAP", useLDAP);
 pageContext.setAttribute("ldap", ldap);
+pageContext.setAttribute("port", ldap.getPort() <= 0 ? "389" : ldap.getPort());
 
 out.clear();%><jsp:include page="../WEB-INF/includes/header.jsp">
 <jsp:param name="html_title" value="Database configuration" />
@@ -119,7 +120,7 @@ jQuery(document).ready(function() {
                     <input type="text" class="form-control"
                         name="<%= LDAPConfiguration.LDAP_PORT %>" 
                         id="<%= LDAPConfiguration.LDAP_PORT %>" 
-                        value="<c:out value="${ldap.getPort()}" />" tabindex="3" />
+                        value="<c:out value="${port}" />" tabindex="3" />
                 </div>
             </div>
     

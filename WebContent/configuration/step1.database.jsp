@@ -37,6 +37,8 @@ if((useDB && databaseOK) || (verify && !useDB)) {
 pageContext.setAttribute("port", port == 0 ? "" : port);
 pageContext.setAttribute("useDB", useDB);
 pageContext.setAttribute("db", db);
+pageContext.setAttribute("host", (null == db.getHost() || "".equals(db.getHost())) ? "localhost" : db.getHost());
+pageContext.setAttribute("port", db.getPort() <= 0 ? "3306" : db.getPort());
 out.clear();%><jsp:include page="../WEB-INF/includes/header.jsp">
     <jsp:param name="html_title" value="Database configuration" />
     <jsp:param name="current_menu_item" value="configuration" />
@@ -184,7 +186,7 @@ function validateOnSubmit() {
                         name="<%= DatabaseConfiguration.DB_HOST %>" 
                         id="<%= DatabaseConfiguration.DB_HOST %>"
                         placeholder="Server name, address e.g. localhost" 
-                        value="<c:out value="${db.getHost()}" />" tabindex="3" />
+                        value="<c:out value="${host}" />" tabindex="3" />
                     <p class="help-block"></p>
                 </div>
             </div>
