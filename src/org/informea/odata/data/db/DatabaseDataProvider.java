@@ -56,7 +56,9 @@ public class DatabaseDataProvider implements IDataProvider {
     public void closeResources() {
         if(this.session != null) {
             log.info("Closing Hibernate database session");
-            session.close();
+            if(session.isOpen()) {
+                session.close();
+            }
         }
     }
 
