@@ -11,6 +11,8 @@
         <pathelement location="WebContent/WEB-INF/lib/odata4j-nojpabundle-SNAPSHOT-20110317110824.jar" />
         <pathelement location="WebContent/WEB-INF/lib/hibernate3.jar" />
         <pathelement location="WebContent/WEB-INF/lib/hibernate-validator.jar" />
+        <pathelement location="WebContent/WEB-INF/lib/unboundid-ldapsdk-se.jar" />
+        <pathelement location="WebContent/WEB-INF/lib/gson-2.2.4.jar" />
         <pathelement location="etc/servlet-api.jar" />
     </path>
 
