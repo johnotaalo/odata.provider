@@ -535,19 +535,21 @@ public class ToolkitUtil {
         Producer p = new Producer();
         for(EntityType key : entities) {
             try {
-                dp = DataProviderFactory.getDataProvider(key);
-                dp.openResources();
-                Map<String, Object> itemCfg = new HashMap<String, Object>();
                 boolean inUse = cfg.isUse(key);
                 Integer count = 0;
                 String url = "";
-                if(inUse) {
-                    count = p.getCount(key, dp);
-                    url = EntityType.getEndpointURL(request, key, endpointURL);
-                }
+                Map<String, Object> itemCfg = new HashMap<String, Object>();
                 itemCfg.put("inUse", inUse);
                 itemCfg.put("count", count);
                 itemCfg.put("url", url);
+                if(inUse) {
+                    dp = DataProviderFactory.getDataProvider(key);
+                    dp.openResources();
+                    count = p.getCount(key, dp);
+                    url = EntityType.getEndpointURL(request, key, endpointURL);
+                    itemCfg.put("count", count);
+                    itemCfg.put("url", url);
+                }
                 ret.put(key, itemCfg);
             } catch(Exception ex) {
                 ex.printStackTrace();

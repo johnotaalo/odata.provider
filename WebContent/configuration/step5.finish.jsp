@@ -1,16 +1,22 @@
+<%@page import="org.informea.odata.config.LDAPConfiguration"%>
+<%@page import="org.informea.odata.config.DatabaseConfiguration"%>
 <%@page import="org.informea.odata.util.ToolkitUtil"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="org.informea.odata.config.Configuration" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-Configuration cfg = Configuration.getInstance();
-
 if(!"done".equals(session.getAttribute("step3.entities"))) {
     response.sendRedirect("index.jsp");
     return;
 }
 
+Configuration cfg = Configuration.getInstance();
+
 if(ToolkitUtil.isOnRequest("save", request)) {
+    DatabaseConfiguration db = (DatabaseConfiguration)session.getAttribute("db");
+    LDAPConfiguration ldap = (LDAPConfiguration)session.getAttribute("ldap");
+    cfg.setDatabaseConfiguration(db);
+    cfg.setLDAPConfiguration(ldap);
     cfg.setInstalled(true);
     cfg.save();
     response.sendRedirect(request.getContextPath());

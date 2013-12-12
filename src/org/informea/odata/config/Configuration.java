@@ -311,6 +311,7 @@ public class Configuration {
 
     public void save() {
         try {
+            log.info("Saving configuration to persistent storage");
             String key = String.format("informea.toolkit.%s.config", prefix);
             Gson json = new Gson();
             String data = json.toJson(instance);

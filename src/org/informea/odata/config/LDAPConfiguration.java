@@ -287,7 +287,7 @@ public class LDAPConfiguration {
 
             SearchResult results = conn.search(
                     getUserBaseDN(), SearchScope.SUB,
-                    getUsersQueryFilter(),
+                    String.format("%s=*", getMapping(LDAP_MAPPING_ID)),
                     "ldapentrycount");
             int c = results.getEntryCount();
             if(c <= 0) {
