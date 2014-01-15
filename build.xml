@@ -7,32 +7,34 @@
     <property name="target" value="1.5" />
 
     <path id="compile.classpath">
-        <pathelement location="WebContent/WEB-INF/lib/junit-4.9b2.jar" />
         <pathelement location="WebContent/WEB-INF/lib/odata4j-nojpabundle-SNAPSHOT-20110317110824.jar" />
         <pathelement location="WebContent/WEB-INF/lib/hibernate3.jar" />
         <pathelement location="WebContent/WEB-INF/lib/hibernate-validator.jar" />
         <pathelement location="WebContent/WEB-INF/lib/unboundid-ldapsdk-se.jar" />
         <pathelement location="WebContent/WEB-INF/lib/gson-2.2.4.jar" />
         <pathelement location="etc/servlet-api.jar" />
-        <pathelement location="etc/mockito-all-1.9.5.jar" />
     </path>
 
     <path id="test.classpath">
-        <pathelement location="WebContent/WEB-INF/lib/junit-4.9b2.jar" />
         <pathelement location="WebContent/WEB-INF/lib/odata4j-nojpabundle-SNAPSHOT-20110317110824.jar" />
         <pathelement location="WebContent/WEB-INF/lib/hibernate3.jar" />
         <pathelement location="WebContent/WEB-INF/lib/hibernate-validator.jar" />
         <pathelement location="WebContent/WEB-INF/lib/unboundid-ldapsdk-se.jar" />
         <pathelement location="WebContent/WEB-INF/lib/gson-2.2.4.jar" />
-        <pathelement location="etc/servlet-api.jar" />
+        <pathelement location="WebContent/WEB-INF/lib/junit-4.9b2.jar" />
         <pathelement location="etc/mockito-all-1.9.5.jar" />
         <pathelement location="build/classes" />
+        <pathelement location="build/test-classes" />
         <pathelement location="etc" />
+        <pathelement location="etc/mockito-all-1.9.5.jar" />
+        <pathelement location="etc/junit-4.9b2.jar" />
+    	<pathelement location="etc/servlet-api.jar" />
     </path>
 
     <target name="init" description="Create the build directories, initialize the build">
         <mkdir dir="build" />
         <mkdir dir="build/classes" />
+        <mkdir dir="build/test-classes" />
         <mkdir dir="temp" />
         <mkdir dir="temp/doc" />
         <mkdir dir="temp/doc/api" />
@@ -46,13 +48,23 @@
                 target="${target}" includeantruntime="false">
             <!-- compilerarg value="-Xlint:unchecked"/ -->
             <src path="src" />
-            <src path="test" />
             <classpath refid="compile.classpath" />
         </javac>
-        <jar destfile="dist/informea-api-${imea.odata.version}.jar">
+        <jar destfile="dist/informea-api-${imea.odata.version}.jar" excludes="**/*Test*.class">
             <fileset dir="build/classes" />
         </jar>
         <jar destfile="dist/informea-api-${imea.odata.version}-src.jar" basedir="src" />
+    </target>
+
+    <target name="test-compile" depends="compile" description="Compile test source files">
+        <javac debug="true"
+                debuglevel="${debuglevel}"
+                destdir="build/test-classes" source="${source}"
+                target="${target}" includeantruntime="false">
+            <!-- compilerarg value="-Xlint:unchecked"/ -->
+            <src path="test" />
+            <classpath refid="test.classpath" />
+        </javac>
     </target>
 
     <target name="javadoc" description="Generate the JavaDoc documentation">
@@ -94,7 +106,7 @@
         <delete dir="dist/informea" />
     </target>
 
-    <target name="test" depends="compile" description="Run the JUnit tests from command line (preffered way, because it sets environment variables)">
+    <target name="test" depends="test-compile" description="Run the JUnit tests from command line (preffered way, because it sets environment variables)">
         <junit haltonfailure="yes" fork="true" printsummary="yes" showoutput="true">
             <test name="org.informea.odata.config.ConfigurationTest"></test>
             <formatter type="plain" usefile="false" />
