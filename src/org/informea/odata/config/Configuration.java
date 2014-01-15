@@ -76,7 +76,7 @@ public class Configuration {
     private Map<String, String> dataProviders;
 
 
-    private Configuration() {
+    public Configuration() {
         prefs = Preferences.userRoot();
         ldap = new LDAPConfiguration();
         database = new DatabaseConfiguration();

@@ -1,6 +1,7 @@
 package org.informea.odata.config;
 
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +15,8 @@ import org.informea.odata.data.db.DatabaseDataProvider;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.google.gson.Gson;
 
 public class ConfigurationTest {
 
@@ -224,5 +227,27 @@ public class ConfigurationTest {
         Configuration cfg = Configuration.getInstance();
         setFullConfiguration();
         assertTrue(cfg.isUseLDAP());
+    }
+
+    @Test
+    public void testSave() {
+        Configuration cfg = Configuration.getInstance();
+        cfg.setUseDecisions(true);
+        cfg.save();
+
+        cfg.setUseDecisions(false);
+
+        String prefix = cfg.getPrefix();
+        Preferences prefs = Preferences.userRoot();
+        Gson json = new Gson();
+        String key = String.format("informea.toolkit.%s.config", prefix);
+        String jsonCode = prefs.get(key, null);
+        assertNotNull(jsonCode);
+        assertThat(jsonCode, is(not("")));
+
+        Configuration subject = new Configuration();
+        subject = json.fromJson(prefs.get(key, null), Configuration.class);
+
+        assertTrue(subject.isUseDecisions());
     }
 }

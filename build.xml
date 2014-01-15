@@ -97,6 +97,7 @@
     <target name="test" depends="compile" description="Run the JUnit tests from command line (preffered way, because it sets environment variables)">
         <junit haltonfailure="yes" fork="true" printsummary="yes" showoutput="true">
             <test name="org.informea.odata.config.ConfigurationTest"></test>
+            <formatter type="plain" usefile="false" />
             <classpath>
                 <path refid="test.classpath" />
             </classpath>
