@@ -27,6 +27,7 @@
         <pathelement location="etc/servlet-api.jar" />
         <pathelement location="etc/mockito-all-1.9.5.jar" />
         <pathelement location="build/classes" />
+        <pathelement location="etc" />
     </path>
 
     <target name="init" description="Create the build directories, initialize the build">
@@ -96,7 +97,6 @@
     <target name="test" depends="compile" description="Run the JUnit tests from command line (preffered way, because it sets environment variables)">
         <junit haltonfailure="yes" fork="true" printsummary="yes" showoutput="true">
             <test name="org.informea.odata.config.ConfigurationTest"></test>
-            <formatter type="plain" usefile="false" />
             <classpath>
                 <path refid="test.classpath" />
             </classpath>
