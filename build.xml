@@ -14,6 +14,19 @@
         <pathelement location="WebContent/WEB-INF/lib/unboundid-ldapsdk-se.jar" />
         <pathelement location="WebContent/WEB-INF/lib/gson-2.2.4.jar" />
         <pathelement location="etc/servlet-api.jar" />
+        <pathelement location="etc/mockito-all-1.9.5.jar" />
+    </path>
+
+    <path id="test.classpath">
+        <pathelement location="WebContent/WEB-INF/lib/junit-4.9b2.jar" />
+        <pathelement location="WebContent/WEB-INF/lib/odata4j-nojpabundle-SNAPSHOT-20110317110824.jar" />
+        <pathelement location="WebContent/WEB-INF/lib/hibernate3.jar" />
+        <pathelement location="WebContent/WEB-INF/lib/hibernate-validator.jar" />
+        <pathelement location="WebContent/WEB-INF/lib/unboundid-ldapsdk-se.jar" />
+        <pathelement location="WebContent/WEB-INF/lib/gson-2.2.4.jar" />
+        <pathelement location="etc/servlet-api.jar" />
+        <pathelement location="etc/mockito-all-1.9.5.jar" />
+        <pathelement location="build/classes" />
     </path>
 
     <target name="init" description="Create the build directories, initialize the build">
@@ -78,6 +91,16 @@
         <delete dir="temp" />
         <delete dir="build" />
         <delete dir="dist/informea" />
+    </target>
+
+    <target name="test" depends="compile" description="Run the JUnit tests from command line (preffered way, because it sets environment variables)">
+        <junit haltonfailure="yes" fork="true" printsummary="yes" showoutput="true">
+            <test name="org.informea.odata.config.ConfigurationTest"></test>
+            <formatter type="plain" usefile="false" />
+            <classpath>
+                <path refid="test.classpath" />
+            </classpath>
+        </junit>
     </target>
 
     <target name="clean" description="Clean all build output from the source tree">
