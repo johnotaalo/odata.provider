@@ -122,8 +122,9 @@ public class Configuration {
         try {
             log.info("Loading configuration from informea.api.properties");
             ret.load(Configuration.class.getClassLoader().getResourceAsStream("informea.api.properties"));
-        } catch(IOException ex) {
+        } catch(Exception ex) {
             log.log(Level.SEVERE, "Cannot load configuration file informea.api.properties", ex);
+            throw new RuntimeException(ex);
         }
         return ret;
     }
