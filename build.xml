@@ -17,7 +17,6 @@
     </path>
 
     <target name="init">
-        <mkdir dir="bin" />
         <mkdir dir="build" />
         <mkdir dir="build/classes" />
         <mkdir dir="temp" />
@@ -72,15 +71,12 @@
         </zip>
 
         <!-- Clean the temporary files -->
-
-        <delete dir="bin" />
         <delete dir="temp" />
         <delete dir="build" />
         <delete dir="dist/informea" />
     </target>
 
     <target name="clean">
-        <delete dir="bin" />
         <delete dir="temp" />
         <delete dir="build" />
         <delete dir="dist" />
