@@ -16,7 +16,7 @@
         <pathelement location="etc/servlet-api.jar" />
     </path>
 
-    <target name="init">
+    <target name="init" description="Create the build directories, initialize the build">
         <mkdir dir="build" />
         <mkdir dir="build/classes" />
         <mkdir dir="temp" />
@@ -25,10 +25,14 @@
         <mkdir dir="dist" />
     </target>
 
-    <target name="compile" depends="init">
-        <javac debug="true"  debuglevel="${debuglevel}" destdir="build/classes" source="${source}" target="${target}">
+    <target name="compile" depends="init" description="Compile the source files, including the tests">
+        <javac debug="true"
+                debuglevel="${debuglevel}"
+                destdir="build/classes" source="${source}"
+                target="${target}" includeantruntime="false">
             <!-- compilerarg value="-Xlint:unchecked"/ -->
             <src path="src" />
+            <src path="test" />
             <classpath refid="compile.classpath" />
         </javac>
         <jar destfile="dist/informea-api-${imea.odata.version}.jar">
@@ -37,7 +41,7 @@
         <jar destfile="dist/informea-api-${imea.odata.version}-src.jar" basedir="src" />
     </target>
 
-    <target name="javadoc">
+    <target name="javadoc" description="Generate the JavaDoc documentation">
         <javadoc sourcepath="src"
                 packagenames="org.informea.*"
                 defaultexcludes="yes"
@@ -55,7 +59,7 @@
         <jar destfile="dist/informea-api-${imea.odata.version}-javadoc.jar" basedir="temp/doc/api" />
     </target>
 
-    <target name="bundle" depends="compile, javadoc">
+    <target name="bundle" depends="compile, javadoc" description="Create a release">
         <mkdir dir="dist/informea" />
         <delete file="dist/toolkit-webapp-${imea.odata.version}.zip" />
         <copy todir="dist/informea">
@@ -76,7 +80,7 @@
         <delete dir="dist/informea" />
     </target>
 
-    <target name="clean">
+    <target name="clean" description="Clean all build output from the source tree">
         <delete dir="temp" />
         <delete dir="build" />
         <delete dir="dist" />
