@@ -79,36 +79,6 @@
         <delete dir="dist/informea" />
     </target>
 
-    <target name="bundle-jrun" depends="compile, javadoc">
-        <mkdir dir="dist/informea" />
-        <delete file="dist/toolkit-webapp-${imea.odata.version}.zip" />
-        <copy todir="dist/informea" overwrite="true">
-            <!-- Ignore JSTL libraries - required by Tomcat, but rejected by JRun -->
-            <fileset dir="WebContent" excludes="**/jstl-1.2.jar, **/jstl-api-1.2.jar, **/jstl-impl-1.2.jar, **/web.xml" />
-        </copy>
-        <copy todir="dist/informea/WEB-INF/lib" file="dist/informea-api-${imea.odata.version}.jar" />
-        <copy todir="dist/informea/WEB-INF/lib" file="dist/informea-api-${imea.odata.version}-src.jar" />
-        <copy todir="dist/informea/WEB-INF/lib" file="dist/informea-api-${imea.odata.version}-javadoc.jar" />
-
-        <!-- Copy JRun specific WEB-INF/ folder -->
-        <copy todir="dist/informea">
-            <fileset dir="jrun" />
-        </copy>
-
-
-        <!-- Zip the webapp directory -->
-        <zip destfile="dist/toolkit-webapp-${imea.odata.version}.zip" duplicate="fail">
-            <zipfileset dir="dist/informea" excludes="*.jar" />
-        </zip>
-
-        <!-- Clean the temporary files -->
-
-        <delete dir="bin" />
-        <delete dir="temp" />
-        <delete dir="build" />
-        <delete dir="dist/informea" />
-    </target>
-
     <target name="clean">
         <delete dir="bin" />
         <delete dir="temp" />
