@@ -740,6 +740,7 @@ public abstract class AbstractInformeaProducer implements ODataProducer {
             eetLocString = LocalizableString.getEntityType(namespace);
             eesLocString = new EdmEntitySet(propertyName, eetLocString);
             entitySets.add(eesLocString);
+            entityTypes.add(eetLocString);
         }
 
 
