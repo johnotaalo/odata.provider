@@ -1,5 +1,7 @@
 == ABOUT ==
 
+!!!! IMPORTANT !!!! This is version 1 of the toolkit which is only receives maintenance updates.
+
 Java service that exposes the a MEA node database through OData service.
 
 == BUILDING ==
