@@ -31,6 +31,7 @@ public class MeetingsTest {
 	public void testGetMeetings() throws Exception {
 		EntityManager em = factory.createEntityManager();
 		Query q = em.createQuery("select m from Meeting m");
+		@SuppressWarnings("unchecked")
 		List<Meeting> rows = q.getResultList();
 		assertEquals(1, rows.size());
 		em.close();
