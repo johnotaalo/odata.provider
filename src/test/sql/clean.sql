@@ -552,6 +552,7 @@ CREATE TABLE `ai_people` (
   `email` varchar(64) DEFAULT NULL COMMENT 'E-Mail',
   `telephone` varchar(64) DEFAULT NULL COMMENT 'Telephone number',
   `fax` varchar(64) DEFAULT NULL COMMENT 'Fax number',
+  `type` varchar(64) DEFAULT NULL,
   `is_primary` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '1 means primary NFP',
   `rec_created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Date when record was created',
   `rec_author` varchar(32) DEFAULT NULL COMMENT 'Record author - username',
@@ -561,7 +562,7 @@ CREATE TABLE `ai_people` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_unq_original_id` (`original_id`),
   KEY `idx_is_indexed` (`is_indexed`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Hold contact persons information';
+) ENGINE=InnoDB AUTO_INCREMENT=1831 DEFAULT CHARSET=utf8 COMMENT='Hold contact persons information';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -570,6 +571,7 @@ CREATE TABLE `ai_people` (
 
 LOCK TABLES `ai_people` WRITE;
 /*!40000 ALTER TABLE `ai_people` DISABLE KEYS */;
+INSERT INTO `ai_people` VALUES (1830,'cbd-3270',1,'H.R.H. Prince','Mostapha','Zaher','Director General/Advisor to the President of Afghanistan on Environment','National Environmental Protection Agency','department name','Central Post Office Box Number 209','mihaita_zaharia@hotmail.com','telephone no','fax no','licensed',1,'2012-03-26 10:00:57','sync_service','2014-11-10 13:18:35','sync_service',0);
 /*!40000 ALTER TABLE `ai_people` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -590,7 +592,7 @@ CREATE TABLE `ai_people_treaty` (
   KEY `idx_id_treaty` (`id_treaty`),
   CONSTRAINT `fk_ai_people_treaty_people` FOREIGN KEY (`id_people`) REFERENCES `ai_people` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_ai_people_treaty_treaty` FOREIGN KEY (`id_treaty`) REFERENCES `ai_treaty` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Assignments of people to treaty (many-to-many)';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='Assignments of people to treaty (many-to-many)';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -599,6 +601,7 @@ CREATE TABLE `ai_people_treaty` (
 
 LOCK TABLES `ai_people_treaty` WRITE;
 /*!40000 ALTER TABLE `ai_people_treaty` DISABLE KEYS */;
+INSERT INTO `ai_people_treaty` VALUES (1,1830,1);
 /*!40000 ALTER TABLE `ai_people_treaty` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1046,6 +1049,48 @@ LOCK TABLES `geg_ai_theme` WRITE;
 UNLOCK TABLES;
 
 --
+-- Temporary table structure for view `informea_contacts`
+--
+
+DROP TABLE IF EXISTS `informea_contacts`;
+/*!50001 DROP VIEW IF EXISTS `informea_contacts`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `informea_contacts` (
+  `id` tinyint NOT NULL,
+  `country` tinyint NOT NULL,
+  `prefix` tinyint NOT NULL,
+  `firstName` tinyint NOT NULL,
+  `lastName` tinyint NOT NULL,
+  `position` tinyint NOT NULL,
+  `institution` tinyint NOT NULL,
+  `department` tinyint NOT NULL,
+  `address` tinyint NOT NULL,
+  `email` tinyint NOT NULL,
+  `phoneNumber` tinyint NOT NULL,
+  `fax` tinyint NOT NULL,
+  `type` tinyint NOT NULL,
+  `primary` tinyint NOT NULL,
+  `updated` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `informea_contacts_treaties`
+--
+
+DROP TABLE IF EXISTS `informea_contacts_treaties`;
+/*!50001 DROP VIEW IF EXISTS `informea_contacts_treaties`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `informea_contacts_treaties` (
+  `id` tinyint NOT NULL,
+  `contact_id` tinyint NOT NULL,
+  `treaty` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Temporary table structure for view `informea_meetings`
 --
 
@@ -1267,6 +1312,44 @@ LOCK TABLES `voc_synonym` WRITE;
 UNLOCK TABLES;
 
 --
+-- Final view structure for view `informea_contacts`
+--
+
+/*!50001 DROP TABLE IF EXISTS `informea_contacts`*/;
+/*!50001 DROP VIEW IF EXISTS `informea_contacts`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `informea_contacts` AS select `a`.`id` AS `id`,`c`.`code` AS `country`,`a`.`prefix` AS `prefix`,`a`.`first_name` AS `firstName`,`a`.`last_name` AS `lastName`,`a`.`position` AS `position`,`a`.`institution` AS `institution`,`a`.`department` AS `department`,`a`.`address` AS `address`,`a`.`email` AS `email`,`a`.`telephone` AS `phoneNumber`,`a`.`fax` AS `fax`,`a`.`type` AS `type`,`a`.`is_primary` AS `primary`,`a`.`rec_updated` AS `updated` from (`ai_people` `a` join `ai_country` `c` on((`c`.`id` = `a`.`id_country`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `informea_contacts_treaties`
+--
+
+/*!50001 DROP TABLE IF EXISTS `informea_contacts_treaties`*/;
+/*!50001 DROP VIEW IF EXISTS `informea_contacts_treaties`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `informea_contacts_treaties` AS select concat(`a`.`id`,'-',`c`.`odata_name`) AS `id`,`a`.`id` AS `contact_id`,`c`.`odata_name` AS `treaty` from ((`ai_people` `a` join `ai_people_treaty` `b` on((`a`.`id` = `b`.`id_people`))) join `ai_treaty` `c` on((`c`.`id` = `b`.`id_treaty`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
 -- Final view structure for view `informea_meetings`
 --
 
@@ -1332,4 +1415,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-10 14:10:00
+-- Dump completed on 2014-11-10 15:18:37
