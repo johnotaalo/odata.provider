@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
 
 import edw.olingo.model.Contact;
+import edw.olingo.model.ContactTreaty;
 
 @RunWith(BlockJUnit4ClassRunner.class)
 public class ContactsTest {
@@ -57,6 +58,11 @@ public class ContactsTest {
 		assertEquals("fax no", row.getFax());
 		assertEquals("licensed", row.getType());
 		assertEquals(1, row.getPrimary());
+		List<ContactTreaty> treaties = row.getTreaties();
+		assertEquals(1, treaties.size());
+		
+		ContactTreaty treaty = treaties.get(0);
+		assertEquals("test", treaty.getTreaty());
 		
 		Calendar c = new GregorianCalendar(2014, 10, 10, 15, 18, 35);
 		assertEquals(c.getTime(), row.getUpdated());
