@@ -20,7 +20,7 @@
   </servlet>
  <servlet-mapping>
     <servlet-name>OlingoServlet</servlet-name> 
-    <url-pattern>/olingo.svc/*</url-pattern> 
+    <url-pattern>/informea.svc/*</url-pattern>
   </servlet-mapping>
   
 </web-app>
