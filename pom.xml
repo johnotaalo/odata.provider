@@ -115,7 +115,7 @@
 
 	</dependencies>
 	<build>
-		<finalName>informea.toolkit</finalName>
+		<finalName>informea</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
