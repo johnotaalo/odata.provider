@@ -43,7 +43,7 @@ public class MeetingsTest {
 		Query q = em.createQuery("select m from Meeting m");
 		Meeting row = (Meeting)q.getSingleResult();
 		
-		assertEquals(1596, row.getId());
+		assertEquals("1596", row.getId());
 		assertEquals("test", row.getTreaty());
 		assertEquals("http://www.cbd.int/doc/meetings/cop/cop-05/", row.getUrl());
 		assertEquals("official", row.getKind());

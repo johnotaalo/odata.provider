@@ -12,7 +12,7 @@ public class Meeting {
 
 	@Id
 	@Column(name = "id")
-	private int id;
+	private String id;
 
     @Column (nullable = false)
 	private String treaty;
@@ -48,11 +48,11 @@ public class Meeting {
 	@OneToMany(mappedBy = "meeting", cascade = CascadeType.ALL)
 	private List<MeetingTitle> titles = new ArrayList<MeetingTitle>();
 
-    public long getId() {
+    public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
