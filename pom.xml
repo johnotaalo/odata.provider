@@ -115,7 +115,7 @@
 
 	</dependencies>
 	<build>
-		<finalName>olingo.odata2.jpa.processor.ref.web</finalName>
+		<finalName>informea.toolkit</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
