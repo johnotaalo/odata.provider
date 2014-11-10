@@ -490,7 +490,7 @@ CREATE TABLE `ai_event` (
 
 LOCK TABLES `ai_event` WRITE;
 /*!40000 ALTER TABLE `ai_event` DISABLE KEYS */;
-INSERT INTO `ai_event` VALUES (1596,'cbd-COP-05',NULL,1,'http://www.cbd.int/doc/meetings/cop/cop-05/','Fifth Ordinary Meeting of the Conference of the Parties to the Convention on Biological Diversity','COP 5','Sample description of COP 5','2000-05-15 00:00:00','2000-05-15 00:00:00','yearly',NULL,'official','cop','invitation','confirmed',NULL,'image copyright text','UNEP Headquarters','Nairobi',84,-1.274359,36.81311,NULL,1,'2012-09-27 17:19:04','kelly','2014-11-10 10:46:19','sync_service',1);
+INSERT INTO `ai_event` VALUES (1596,'cbd-COP-05',NULL,1,'http://www.cbd.int/doc/meetings/cop/cop-05/','Fifth Ordinary Meeting of the Conference of the Parties to the Convention on Biological Diversity','COP 5','Sample description of COP 5','2000-05-10 14:00:00','2000-05-15 15:00:00','yearly',NULL,'official','cop','invitation','confirmed','image url','image copyright text','UNEP Headquarters','Nairobi',84,-1.274359,36.81311,NULL,1,'2012-09-27 17:19:04','kelly','2014-11-10 12:09:57','sync_service',1);
 /*!40000 ALTER TABLE `ai_event` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1046,6 +1046,68 @@ LOCK TABLES `geg_ai_theme` WRITE;
 UNLOCK TABLES;
 
 --
+-- Temporary table structure for view `informea_meetings`
+--
+
+DROP TABLE IF EXISTS `informea_meetings`;
+/*!50001 DROP VIEW IF EXISTS `informea_meetings`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `informea_meetings` (
+  `id` tinyint NOT NULL,
+  `treaty` tinyint NOT NULL,
+  `url` tinyint NOT NULL,
+  `start` tinyint NOT NULL,
+  `end` tinyint NOT NULL,
+  `repetition` tinyint NOT NULL,
+  `kind` tinyint NOT NULL,
+  `type` tinyint NOT NULL,
+  `access` tinyint NOT NULL,
+  `status` tinyint NOT NULL,
+  `imageUrl` tinyint NOT NULL,
+  `imageCopyright` tinyint NOT NULL,
+  `location` tinyint NOT NULL,
+  `city` tinyint NOT NULL,
+  `country` tinyint NOT NULL,
+  `latitude` tinyint NOT NULL,
+  `longitude` tinyint NOT NULL,
+  `updated` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `informea_meetings_description`
+--
+
+DROP TABLE IF EXISTS `informea_meetings_description`;
+/*!50001 DROP VIEW IF EXISTS `informea_meetings_description`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `informea_meetings_description` (
+  `id` tinyint NOT NULL,
+  `meeting_id` tinyint NOT NULL,
+  `language` tinyint NOT NULL,
+  `description` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `informea_meetings_title`
+--
+
+DROP TABLE IF EXISTS `informea_meetings_title`;
+/*!50001 DROP VIEW IF EXISTS `informea_meetings_title`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `informea_meetings_title` (
+  `id` tinyint NOT NULL,
+  `meeting_id` tinyint NOT NULL,
+  `language` tinyint NOT NULL,
+  `title` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `voc_concept`
 --
 
@@ -1203,6 +1265,63 @@ LOCK TABLES `voc_synonym` WRITE;
 /*!40000 ALTER TABLE `voc_synonym` DISABLE KEYS */;
 /*!40000 ALTER TABLE `voc_synonym` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Final view structure for view `informea_meetings`
+--
+
+/*!50001 DROP TABLE IF EXISTS `informea_meetings`*/;
+/*!50001 DROP VIEW IF EXISTS `informea_meetings`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `informea_meetings` AS select `a`.`id` AS `id`,`b`.`odata_name` AS `treaty`,`a`.`event_url` AS `url`,`a`.`start` AS `start`,`a`.`end` AS `end`,`a`.`repetition` AS `repetition`,`a`.`kind` AS `kind`,`a`.`type` AS `type`,`a`.`access` AS `access`,`a`.`status` AS `status`,`a`.`image` AS `imageUrl`,`a`.`image_copyright` AS `imageCopyright`,`a`.`location` AS `location`,`a`.`city` AS `city`,`c`.`code` AS `country`,`a`.`latitude` AS `latitude`,`a`.`longitude` AS `longitude`,`a`.`rec_updated` AS `updated` from ((`ai_event` `a` join `ai_treaty` `b` on(((`a`.`id_treaty` = `b`.`id`) and (`b`.`odata_name` <> 'protocolwaterhealth')))) join `ai_country` `c` on((`a`.`id_country` = `c`.`id`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `informea_meetings_description`
+--
+
+/*!50001 DROP TABLE IF EXISTS `informea_meetings_description`*/;
+/*!50001 DROP VIEW IF EXISTS `informea_meetings_description`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `informea_meetings_description` AS select concat(`ai_event`.`id`,'-en') AS `id`,`ai_event`.`id` AS `meeting_id`,'en' AS `language`,`ai_event`.`description` AS `description` from `ai_event` where ((`ai_event`.`description` is not null) and (trim(`ai_event`.`description`) <> '')) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `informea_meetings_title`
+--
+
+/*!50001 DROP TABLE IF EXISTS `informea_meetings_title`*/;
+/*!50001 DROP VIEW IF EXISTS `informea_meetings_title`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `informea_meetings_title` AS select concat(`ai_event`.`id`,'-en') AS `id`,`ai_event`.`id` AS `meeting_id`,'en' AS `language`,`ai_event`.`title` AS `title` from `ai_event` where ((`ai_event`.`title` is not null) and (trim(`ai_event`.`title`) <> '')) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -1213,4 +1332,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-10 12:47:34
+-- Dump completed on 2014-11-10 14:10:00

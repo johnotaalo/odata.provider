@@ -1,7 +1,6 @@
 import static org.junit.Assert.assertEquals;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -44,7 +43,7 @@ public class MeetingsTest {
 		Meeting row = (Meeting)q.getSingleResult();
 		
 		assertEquals(1596, row.getId());
-		assertEquals("cbd", row.getTreaty());
+		assertEquals("test", row.getTreaty());
 		assertEquals("http://www.cbd.int/doc/meetings/cop/cop-05/", row.getUrl());
 		assertEquals("official", row.getKind());
 		assertEquals("cop", row.getType());
@@ -59,13 +58,13 @@ public class MeetingsTest {
 		assertEquals(new Double(-1.274359), row.getLatitude());
 		assertEquals(new Double(36.81311), row.getLongitude());
 		
-		Calendar c = new GregorianCalendar(2000, 04, 10);
+		Calendar c = new GregorianCalendar(2000, 04, 10, 14, 0, 0);
 		assertEquals(c.getTime(), row.getStart());
 		
-		c = new GregorianCalendar(2000, 04, 15);
+		c = new GregorianCalendar(2000, 04, 15, 15, 0, 0);
 		assertEquals(c.getTime(), row.getEnd());
 		
-		c = new GregorianCalendar(2014, 10, 10, 13, 10, 48);
+		c = new GregorianCalendar(2014, 10, 10, 14, 9, 57);
 		assertEquals(c.getTime(), row.getUpdated());
 
 		em.close();
