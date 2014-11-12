@@ -164,7 +164,7 @@ CREATE TABLE `ai_country_site` (
   KEY `idx_id_treaty` (`id_treaty`),
   CONSTRAINT `fk_ai_country_site_country` FOREIGN KEY (`id_country`) REFERENCES `ai_country` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_ai_country_site_treaty` FOREIGN KEY (`id_treaty`) REFERENCES `ai_treaty` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Keeps the Convention sites (Ramsar, WHC) for each country';
+) ENGINE=InnoDB AUTO_INCREMENT=2030 DEFAULT CHARSET=utf8 COMMENT='Keeps the Convention sites (Ramsar, WHC) for each country';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -173,6 +173,7 @@ CREATE TABLE `ai_country_site` (
 
 LOCK TABLES `ai_country_site` WRITE;
 /*!40000 ALTER TABLE `ai_country_site` DISABLE KEYS */;
+INSERT INTO `ai_country_site` VALUES (2029,'ramsar-860',57,1,'Aspskär Islands','http://www.wetlands.org/reports/spec.cfm?site_id=860',60.2666666667,26.4166666667,'2012-03-29 08:02:40','cristiroma','2014-11-12 13:55:41','cristiroma');
 /*!40000 ALTER TABLE `ai_country_site` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1153,6 +1154,43 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Temporary table structure for view `informea_sites`
+--
+
+DROP TABLE IF EXISTS `informea_sites`;
+/*!50001 DROP VIEW IF EXISTS `informea_sites`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `informea_sites` (
+  `id` tinyint NOT NULL,
+  `type` tinyint NOT NULL,
+  `country` tinyint NOT NULL,
+  `treaty` tinyint NOT NULL,
+  `name` tinyint NOT NULL,
+  `url` tinyint NOT NULL,
+  `latitude` tinyint NOT NULL,
+  `longitude` tinyint NOT NULL,
+  `updated` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `informea_sites_name`
+--
+
+DROP TABLE IF EXISTS `informea_sites_name`;
+/*!50001 DROP VIEW IF EXISTS `informea_sites_name`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `informea_sites_name` (
+  `id` tinyint NOT NULL,
+  `site_id` tinyint NOT NULL,
+  `language` tinyint NOT NULL,
+  `name` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `voc_concept`
 --
 
@@ -1405,6 +1443,44 @@ UNLOCK TABLES;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `informea_sites`
+--
+
+/*!50001 DROP TABLE IF EXISTS `informea_sites`*/;
+/*!50001 DROP VIEW IF EXISTS `informea_sites`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `informea_sites` AS select `a`.`id` AS `id`,(case when (`b`.`odata_name` = 'whc') then 'whc' else 'ramsar' end) AS `type`,`c`.`code` AS `country`,`b`.`odata_name` AS `treaty`,`a`.`name` AS `name`,`a`.`url` AS `url`,`a`.`latitude` AS `latitude`,`a`.`longitude` AS `longitude`,`a`.`rec_updated` AS `updated` from ((`ai_country_site` `a` join `ai_treaty` `b` on((`a`.`id_treaty` = `b`.`id`))) join `ai_country` `c` on((`c`.`id` = `a`.`id_country`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `informea_sites_name`
+--
+
+/*!50001 DROP TABLE IF EXISTS `informea_sites_name`*/;
+/*!50001 DROP VIEW IF EXISTS `informea_sites_name`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `informea_sites_name` AS select concat(`ai_country_site`.`id`,'-en') AS `id`,`ai_country_site`.`id` AS `site_id`,'en' AS `language`,`ai_country_site`.`name` AS `name` from `ai_country_site` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -1415,4 +1491,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-10 15:18:37
+-- Dump completed on 2014-11-12 15:56:37
