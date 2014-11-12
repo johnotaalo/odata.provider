@@ -83,7 +83,7 @@ CREATE TABLE `ai_country_plan` (
   CONSTRAINT `fk_ai_country_plan_ai_event` FOREIGN KEY (`id_event`) REFERENCES `ai_event` (`id`),
   CONSTRAINT `fk_ai_country_plan_country` FOREIGN KEY (`id_country`) REFERENCES `ai_country` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_ai_country_plan_treaty` FOREIGN KEY (`id_treaty`) REFERENCES `ai_treaty` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='National Plans';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='National Plans';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -92,6 +92,7 @@ CREATE TABLE `ai_country_plan` (
 
 LOCK TABLES `ai_country_plan` WRITE;
 /*!40000 ALTER TABLE `ai_country_plan` DISABLE KEYS */;
+INSERT INTO `ai_country_plan` VALUES (1,'MANUAL-1',NULL,159,1,'napa','National Biodiversity Strategy and Action Plan','1989-02-13','http://ch.chm-cbd.net/view/list/folder?idHierarchy=13377233&fullId=13329573.13377233.&baseurl=home',NULL,0,'0000-00-00 00:00:00',NULL,'2014-11-12 14:47:07',NULL);
 /*!40000 ALTER TABLE `ai_country_plan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -126,7 +127,7 @@ CREATE TABLE `ai_country_report` (
   CONSTRAINT `fk_ai_country_report_ai_event` FOREIGN KEY (`id_event`) REFERENCES `ai_event` (`id`),
   CONSTRAINT `fk_ai_country_report_country` FOREIGN KEY (`id_country`) REFERENCES `ai_country` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_ai_country_report_treaty` FOREIGN KEY (`id_treaty`) REFERENCES `ai_treaty` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Country Reports for Conventions';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='Country Reports for Conventions';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -135,6 +136,7 @@ CREATE TABLE `ai_country_report` (
 
 LOCK TABLES `ai_country_report` WRITE;
 /*!40000 ALTER TABLE `ai_country_report` DISABLE KEYS */;
+INSERT INTO `ai_country_report` VALUES (3,'MANUAL-3',NULL,84,1,'Fourth National Report','2009-03-30','http://www.cbd.int/doc/world/ke/ke-nr-04-en.pdf',NULL,0,'0000-00-00 00:00:00',NULL,'2013-11-01 22:00:00',NULL);
 /*!40000 ALTER TABLE `ai_country_report` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1092,6 +1094,40 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Temporary table structure for view `informea_country_reports`
+--
+
+DROP TABLE IF EXISTS `informea_country_reports`;
+/*!50001 DROP VIEW IF EXISTS `informea_country_reports`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `informea_country_reports` (
+  `id` tinyint NOT NULL,
+  `treaty` tinyint NOT NULL,
+  `country` tinyint NOT NULL,
+  `submission` tinyint NOT NULL,
+  `url` tinyint NOT NULL,
+  `updated` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `informea_country_reports_title`
+--
+
+DROP TABLE IF EXISTS `informea_country_reports_title`;
+/*!50001 DROP VIEW IF EXISTS `informea_country_reports_title`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `informea_country_reports_title` (
+  `id` tinyint NOT NULL,
+  `country_report_id` tinyint NOT NULL,
+  `language` tinyint NOT NULL,
+  `title` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Temporary table structure for view `informea_meetings`
 --
 
@@ -1148,6 +1184,41 @@ SET character_set_client = utf8;
 /*!50001 CREATE TABLE `informea_meetings_title` (
   `id` tinyint NOT NULL,
   `meeting_id` tinyint NOT NULL,
+  `language` tinyint NOT NULL,
+  `title` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `informea_national_plans`
+--
+
+DROP TABLE IF EXISTS `informea_national_plans`;
+/*!50001 DROP VIEW IF EXISTS `informea_national_plans`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `informea_national_plans` (
+  `id` tinyint NOT NULL,
+  `treaty` tinyint NOT NULL,
+  `country` tinyint NOT NULL,
+  `submission` tinyint NOT NULL,
+  `url` tinyint NOT NULL,
+  `type` tinyint NOT NULL,
+  `updated` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `informea_national_plans_title`
+--
+
+DROP TABLE IF EXISTS `informea_national_plans_title`;
+/*!50001 DROP VIEW IF EXISTS `informea_national_plans_title`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `informea_national_plans_title` (
+  `id` tinyint NOT NULL,
+  `national_plan_id` tinyint NOT NULL,
   `language` tinyint NOT NULL,
   `title` tinyint NOT NULL
 ) ENGINE=MyISAM */;
@@ -1388,6 +1459,44 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
+-- Final view structure for view `informea_country_reports`
+--
+
+/*!50001 DROP TABLE IF EXISTS `informea_country_reports`*/;
+/*!50001 DROP VIEW IF EXISTS `informea_country_reports`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `informea_country_reports` AS select `a`.`id` AS `id`,`b`.`odata_name` AS `treaty`,`c`.`code` AS `country`,`a`.`submission` AS `submission`,`a`.`document_url` AS `url`,`a`.`rec_updated` AS `updated` from ((`ai_country_report` `a` join `ai_treaty` `b` on((`a`.`id_treaty` = `b`.`id`))) join `ai_country` `c` on((`c`.`id` = `a`.`id_country`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `informea_country_reports_title`
+--
+
+/*!50001 DROP TABLE IF EXISTS `informea_country_reports_title`*/;
+/*!50001 DROP VIEW IF EXISTS `informea_country_reports_title`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `informea_country_reports_title` AS select concat(`a`.`id`,'-en') AS `id`,`a`.`id` AS `country_report_id`,'en' AS `language`,`a`.`title` AS `title` from ((`ai_country_report` `a` join `ai_treaty` `b` on((`a`.`id_treaty` = `b`.`id`))) join `ai_country` `c` on((`c`.`id` = `a`.`id_country`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
 -- Final view structure for view `informea_meetings`
 --
 
@@ -1445,6 +1554,44 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
+-- Final view structure for view `informea_national_plans`
+--
+
+/*!50001 DROP TABLE IF EXISTS `informea_national_plans`*/;
+/*!50001 DROP VIEW IF EXISTS `informea_national_plans`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `informea_national_plans` AS select `a`.`id` AS `id`,`b`.`odata_name` AS `treaty`,`c`.`code` AS `country`,`a`.`submission` AS `submission`,`a`.`document_url` AS `url`,`a`.`type` AS `type`,`a`.`rec_updated` AS `updated` from ((`ai_country_plan` `a` join `ai_treaty` `b` on((`a`.`id_treaty` = `b`.`id`))) join `ai_country` `c` on((`c`.`id` = `a`.`id_country`))) where (`a`.`type` is not null) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `informea_national_plans_title`
+--
+
+/*!50001 DROP TABLE IF EXISTS `informea_national_plans_title`*/;
+/*!50001 DROP VIEW IF EXISTS `informea_national_plans_title`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `informea_national_plans_title` AS select concat(`a`.`id`,'-en') AS `id`,`a`.`id` AS `national_plan_id`,'en' AS `language`,`a`.`title` AS `title` from ((`ai_country_plan` `a` join `ai_treaty` `b` on((`a`.`id_treaty` = `b`.`id`))) join `ai_country` `c` on((`c`.`id` = `a`.`id_country`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
 -- Final view structure for view `informea_sites`
 --
 
@@ -1491,4 +1638,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-12 15:56:37
+-- Dump completed on 2014-11-12 18:50:50
