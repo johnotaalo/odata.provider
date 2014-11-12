@@ -7,15 +7,23 @@ This project contains the OData provider web application to be deployed on third
 
 The 2.0 version contains amendments added to the API specification for data structures.
 
-@TODO:
 
-* Add links to InforMEA OData API specifications
-* Add the deployment documentation
-   
+Binary installation
+===================
 
-Installation
-============
+* Configure the database views
 
-mvn package
+> * visit http://www.informea.org/api on how to do that 
+> * src/test/sql/clean.sql has sample data.
 
-http://localhost:8080/olingo.odata2.jpa.processor.ref.web/olingo.svc/
+* Deploy the WAR package into Tomcat.
+* Edit persistence.xml and add your own database connection settings
+* Restart Tomcat to take effect
+
+Build from source
+=================
+
+* Install the SQL database from src/test/sql/clean.sql
+* mvn package
+* Use the war for binary installation
+
