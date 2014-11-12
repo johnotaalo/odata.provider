@@ -32,8 +32,8 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/informea_odata_test_source?zeroDateTimeBehavior=convertToNull" />
-			<property name="javax.persistence.jdbc.user" value="root" />
-			<property name="javax.persistence.jdbc.password" value="root" />
+			<property name="javax.persistence.jdbc.user" value="jenkins" />
+			<property name="javax.persistence.jdbc.password" value="jenkins" />
 
 			<!-- EclipseLink should create the database schema automatically -->
 			<!--<property name="eclipselink.ddl-generation" value="create-tables" />-->
