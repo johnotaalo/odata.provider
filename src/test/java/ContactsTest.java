@@ -17,6 +17,7 @@ import org.junit.runners.BlockJUnit4ClassRunner;
 
 import edw.olingo.model.Contact;
 import edw.olingo.model.ContactTreaty;
+import edw.olingo.model.Site;
 
 @RunWith(BlockJUnit4ClassRunner.class)
 public class ContactsTest {
@@ -41,10 +42,8 @@ public class ContactsTest {
 	@Test
 	public void testGetSingleContact() throws Exception {
 		EntityManager em = factory.createEntityManager();
-		Query q = em.createQuery("select m from Contact m");
-		Contact row = (Contact)q.getSingleResult();
+		Contact row = em.find(Contact.class, "1830");
 
-		assertEquals("1830", row.getId());
 		assertEquals("AFG", row.getCountry());
 		assertEquals("H.R.H. Prince", row.getPrefix());
 		assertEquals("Mostapha", row.getFirstName());

@@ -40,8 +40,7 @@ public class MeetingsTest {
 	@Test
 	public void testGetSingleMeeting() throws Exception {
 		EntityManager em = factory.createEntityManager();
-		Query q = em.createQuery("select m from Meeting m");
-		Meeting row = (Meeting)q.getSingleResult();
+		Meeting row = em.find(Meeting.class, "1596");
 		
 		assertEquals("1596", row.getId());
 		assertEquals("test", row.getTreaty());
