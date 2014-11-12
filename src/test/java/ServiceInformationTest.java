@@ -9,7 +9,6 @@ import org.junit.runners.BlockJUnit4ClassRunner;
 import edw.olingo.model.Meeting;
 import edw.olingo.service.ServiceInformation;
 
-
 @RunWith(BlockJUnit4ClassRunner.class)
 public class ServiceInformationTest {
 
@@ -17,7 +16,7 @@ public class ServiceInformationTest {
 	public void testCountEntities() {
 		assertEquals(1, ServiceInformation.countEntities(Meeting.class));
 	}
-	
+
 	@Test
 	public void testCheckProductUpdates() {
 		String baseDir = "file://" + System.getProperty("user.dir") + "/src/main/webapp/";

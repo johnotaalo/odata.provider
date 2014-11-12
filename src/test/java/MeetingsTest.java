@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -30,9 +31,8 @@ public class MeetingsTest {
 	@Test
 	public void testGetMeetings() throws Exception {
 		EntityManager em = factory.createEntityManager();
-		Query q = em.createQuery("select m from Meeting m");
-		@SuppressWarnings("unchecked")
-		List<Meeting> rows = q.getResultList();
+		CriteriaBuilder qb = em.getCriteriaBuilder();
+		List<Meeting> rows = em.createQuery(qb.createQuery(Meeting.class)).getResultList();
 		assertEquals(1, rows.size());
 		em.close();
 	}
