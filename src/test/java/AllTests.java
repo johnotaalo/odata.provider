@@ -6,7 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({ ContactsTest.class, CountryReportsTest.class,
 		DecisionsTest.class, MeetingsTest.class, NationalPlansTest.class,
 		ServiceInformationTest.class, SitesTest.class,
-		InformeaDebugCallbackTest.class})
+		InformeaDebugCallbackTest.class })
 public class AllTests {
 
 }

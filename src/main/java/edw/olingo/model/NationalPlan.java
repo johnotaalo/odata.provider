@@ -14,67 +14,74 @@
  */
 package edw.olingo.model;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
- * National plan primary entity
- * <br />
+ * National plan entity
+ * 
  * @author Cristian Romanescu {@code cristian.romanescu _at_ eaudeweb.ro}
- * @version 1.4.0, 10/28/2011
+ * @version 2.0.0, 11/13/2014
  * @since 1.3.3
  */
 @Entity
 @Table(name = "informea_national_plans")
 public class NationalPlan {
 
-    @Id
-    @Column (name = "id")
-    private String id;
-    @Column (nullable = false)
-    private String treaty;
-    @Column (nullable = false)
-    private String country;
-    @Column (nullable = false)
-    private String type;
-    private String url;
+	@Id
+	@Column(name = "id")
+	private String id;
+	@Column(nullable = false)
+	private String treaty;
+	@Column(nullable = false)
+	private String country;
+	@Column(nullable = false)
+	private String type;
+	private String url;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date submission;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date submission;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updated;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date updated;
 
-    @OneToMany(mappedBy = "national_plan", cascade= CascadeType.ALL)
-    private List<NationalPlanTitle> titles;
+	@OneToMany(mappedBy = "national_plan", cascade = CascadeType.ALL)
+	private List<NationalPlanTitle> titles;
 
-    public String getTreaty() {
-        return treaty;
-    }
+	public String getTreaty() {
+		return treaty;
+	}
 
-    public String getCountry() {
-        return country;
-    }
+	public String getCountry() {
+		return country;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public String getUrl() {
-        return url;
-    }
+	public String getUrl() {
+		return url;
+	}
 
-    public Date getSubmission() {
-        return submission;
-    }
+	public Date getSubmission() {
+		return submission;
+	}
 
-    public Date getUpdated() {
-        return updated;
-    }
+	public Date getUpdated() {
+		return updated;
+	}
 
-    public List<NationalPlanTitle> getTitles() {
-        return titles;
-    }
+	public List<NationalPlanTitle> getTitles() {
+		return titles;
+	}
 }

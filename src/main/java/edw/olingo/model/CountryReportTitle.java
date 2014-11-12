@@ -14,35 +14,37 @@
  */
 package edw.olingo.model;
 
-import javax.persistence.*;
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Country report title entity
- * <br />
+ * 
  * @author Cristian Romanescu {@code cristian.romanescu _at_ eaudeweb.ro}
- * @version 1.4.0, 10/28/2011
+ * @version 2.0.0, 11/13/2014
  * @since 1.3.3
  */
 @Entity
-@Table(name="informea_country_reports_title")
+@Table(name = "informea_country_reports_title")
 public class CountryReportTitle {
 
-    @Id
-    @Column(name = "id")
-    private String id;
+	@Id
+	@Column(name = "id")
+	private String id;
 
-    @SuppressWarnings("unused")
-    private CountryReport country_report;
+	@SuppressWarnings("unused")
+	private CountryReport country_report;
 
-    private String language;
-    private String title;
+	private String language;
+	private String title;
 
-    public String getLanguage() {
-        return language;
-    }
+	public String getLanguage() {
+		return language;
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	public String getTitle() {
+		return title;
+	}
 }

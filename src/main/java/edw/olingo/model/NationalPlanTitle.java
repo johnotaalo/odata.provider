@@ -14,35 +14,37 @@
  */
 package edw.olingo.model;
 
-import javax.persistence.*;
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * National plan title entity
- * <br />
+ * 
  * @author Cristian Romanescu {@code cristian.romanescu _at_ eaudeweb.ro}
- * @version 2.0.0, 11/12/2014
+ * @version 2.0.0, 11/13/2014
  * @since 1.3.3
  */
 @Entity
-@Table(name="informea_national_plans_title")
+@Table(name = "informea_national_plans_title")
 public class NationalPlanTitle {
 
-    @Id
-    @Column (name = "id")
-    private String id;
+	@Id
+	@Column(name = "id")
+	private String id;
 
-    @SuppressWarnings("unused")
+	@SuppressWarnings("unused")
 	private NationalPlan national_plan;
 
-    private String language;
-    private String title;
+	private String language;
+	private String title;
 
-    public String getLanguage() {
-        return language;
-    }
+	public String getLanguage() {
+		return language;
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	public String getTitle() {
+		return title;
+	}
 }

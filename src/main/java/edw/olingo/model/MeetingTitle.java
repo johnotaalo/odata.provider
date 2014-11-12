@@ -1,13 +1,16 @@
 package edw.olingo.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity(name = "MeetingTitle")
 @Table(name = "informea_meetings_title")
 public class MeetingTitle {
 
 	@Id
-    @Column(name = "id")
+	@Column(name = "id")
 	private String id;
 
 	private String language;

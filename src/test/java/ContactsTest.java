@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 
 import org.junit.Before;
@@ -17,7 +16,6 @@ import org.junit.runners.BlockJUnit4ClassRunner;
 
 import edw.olingo.model.Contact;
 import edw.olingo.model.ContactTreaty;
-import edw.olingo.model.Site;
 
 @RunWith(BlockJUnit4ClassRunner.class)
 public class ContactsTest {
@@ -33,8 +31,9 @@ public class ContactsTest {
 	@Test
 	public void testGetContacts() throws Exception {
 		EntityManager em = factory.createEntityManager();
-		CriteriaBuilder qb = em.getCriteriaBuilder(); 
-		List<Contact> rows = em.createQuery(qb.createQuery(Contact.class)).getResultList();
+		CriteriaBuilder qb = em.getCriteriaBuilder();
+		List<Contact> rows = em.createQuery(qb.createQuery(Contact.class))
+				.getResultList();
 		assertEquals(1, rows.size());
 		em.close();
 	}
@@ -48,8 +47,11 @@ public class ContactsTest {
 		assertEquals("H.R.H. Prince", row.getPrefix());
 		assertEquals("Mostapha", row.getFirstName());
 		assertEquals("Zaher", row.getLastName());
-		assertEquals("Director General/Advisor to the President of Afghanistan on Environment", row.getPosition());
-		assertEquals("National Environmental Protection Agency", row.getInstitution());
+		assertEquals(
+				"Director General/Advisor to the President of Afghanistan on Environment",
+				row.getPosition());
+		assertEquals("National Environmental Protection Agency",
+				row.getInstitution());
 		assertEquals("department name", row.getDepartment());
 		assertEquals("Central Post Office Box Number 209", row.getAddress());
 		assertEquals("mihaita_zaharia@hotmail.com", row.getEmail());
@@ -59,10 +61,10 @@ public class ContactsTest {
 		assertEquals(1, row.getPrimary());
 		List<ContactTreaty> treaties = row.getTreaties();
 		assertEquals(1, treaties.size());
-		
+
 		ContactTreaty treaty = treaties.get(0);
 		assertEquals("test", treaty.getTreaty());
-		
+
 		Calendar c = new GregorianCalendar(2014, 10, 10, 15, 18, 35);
 		assertEquals(c.getTime(), row.getUpdated());
 

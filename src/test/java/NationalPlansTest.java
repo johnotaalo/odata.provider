@@ -31,8 +31,9 @@ public class NationalPlansTest {
 	@Test
 	public void testGetContacts() throws Exception {
 		EntityManager em = factory.createEntityManager();
-		CriteriaBuilder qb = em.getCriteriaBuilder(); 
-		List<NationalPlan> rows = em.createQuery(qb.createQuery(NationalPlan.class)).getResultList();
+		CriteriaBuilder qb = em.getCriteriaBuilder();
+		List<NationalPlan> rows = em.createQuery(
+				qb.createQuery(NationalPlan.class)).getResultList();
 		assertEquals(1, rows.size());
 		em.close();
 	}
@@ -45,11 +46,14 @@ public class NationalPlansTest {
 		assertEquals("CHE", row.getCountry());
 		assertEquals("test", row.getTreaty());
 		assertEquals("napa", row.getType());
-		assertEquals("http://ch.chm-cbd.net/view/list/folder?idHierarchy=13377233&fullId=13329573.13377233.&baseurl=home", row.getUrl());
-		
+		assertEquals(
+				"http://ch.chm-cbd.net/view/list/folder?idHierarchy=13377233&fullId=13329573.13377233.&baseurl=home",
+				row.getUrl());
+
 		List<NationalPlanTitle> titles = row.getTitles();
 		NationalPlanTitle title = titles.get(0);
-		assertEquals("National Biodiversity Strategy and Action Plan", title.getTitle());
+		assertEquals("National Biodiversity Strategy and Action Plan",
+				title.getTitle());
 		assertEquals("en", title.getLanguage());
 
 		Calendar c = new GregorianCalendar(1989, 01, 13);

@@ -32,8 +32,9 @@ public class CountryReportsTest {
 	@Test
 	public void testGetCountryReports() throws Exception {
 		EntityManager em = factory.createEntityManager();
-		CriteriaBuilder qb = em.getCriteriaBuilder(); 
-		List<Contact> rows = em.createQuery(qb.createQuery(Contact.class)).getResultList();
+		CriteriaBuilder qb = em.getCriteriaBuilder();
+		List<Contact> rows = em.createQuery(qb.createQuery(Contact.class))
+				.getResultList();
 		assertEquals(1, rows.size());
 		em.close();
 	}
@@ -45,8 +46,9 @@ public class CountryReportsTest {
 
 		assertEquals("KEN", row.getCountry());
 		assertEquals("test", row.getTreaty());
-		assertEquals("http://www.cbd.int/doc/world/ke/ke-nr-04-en.pdf", row.getUrl());
-		
+		assertEquals("http://www.cbd.int/doc/world/ke/ke-nr-04-en.pdf",
+				row.getUrl());
+
 		List<CountryReportTitle> titles = row.getTitles();
 		CountryReportTitle title = titles.get(0);
 		assertEquals("Fourth National Report", title.getTitle());

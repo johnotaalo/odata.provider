@@ -31,8 +31,9 @@ public class SitesTest {
 	@Test
 	public void testGetSites() throws Exception {
 		EntityManager em = factory.createEntityManager();
-		CriteriaBuilder qb = em.getCriteriaBuilder(); 
-		List<Site> rows = em.createQuery(qb.createQuery(Site.class)).getResultList();
+		CriteriaBuilder qb = em.getCriteriaBuilder();
+		List<Site> rows = em.createQuery(qb.createQuery(Site.class))
+				.getResultList();
 		assertEquals(1, rows.size());
 		em.close();
 	}
@@ -46,10 +47,11 @@ public class SitesTest {
 		assertEquals("FIN", row.getCountry());
 		assertEquals("test", row.getTreaty());
 		assertEquals("ramsar", row.getType());
-		assertEquals("http://www.wetlands.org/reports/spec.cfm?site_id=860", row.getUrl());
+		assertEquals("http://www.wetlands.org/reports/spec.cfm?site_id=860",
+				row.getUrl());
 		assertEquals(new Double(60.2666666667), row.getLatitude());
 		assertEquals(new Double(26.4166666667), row.getLongitude());
-		
+
 		List<SiteName> names = row.getNames();
 		assertEquals(1, names.size());
 		SiteName name = names.get(0);

@@ -14,105 +14,113 @@
  */
 package edw.olingo.model;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+
 /**
- * Contacts primary entity
- * <br />
+ * Contacts entity
+ *
  * @author Cristian Romanescu {@code cristian.romanescu _at_ eaudeweb.ro}
- * @version 1.4.0, 10/28/2011
+ * @version 2.0.0, 11/13/2014
  * @since 1.3.3
  */
 @Entity
 @Table(name = "informea_contacts")
 public class Contact {
 
-    @Id
-    @Column (name = "id")
-    private String id;
-    @Column (nullable = false)
-    private String country;
-    private String prefix;
-    private String firstName;
-    private String lastName;
-    private String type;
-    private String position;
-    private String institution;
-    private String department;
-    private String address;
-    private String email;
-    private String phoneNumber;
-    private String fax;
+	@Id
+	@Column(name = "id")
+	private String id;
+	@Column(nullable = false)
+	private String country;
+	private String prefix;
+	private String firstName;
+	private String lastName;
+	private String type;
+	private String position;
+	private String institution;
+	private String department;
+	private String address;
+	private String email;
+	private String phoneNumber;
+	private String fax;
 
-    // primary is a reserved word in MySQL
-    @Column (name="\"primary\"")
-    private int primary;
+	// primary is a reserved word in MySQL
+	@Column(name = "\"primary\"")
+	private int primary;
 
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date updated;
+	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
+	private Date updated;
 
-    @OneToMany(mappedBy = "contact", cascade= CascadeType.ALL, fetch= FetchType.LAZY)
-    private List<ContactTreaty> treaties;
+	@OneToMany(mappedBy = "contact", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<ContactTreaty> treaties;
 
-    public String getCountry() {
-        return country;
-    }
+	public String getCountry() {
+		return country;
+	}
 
-    public String getPrefix() {
-        return prefix;
-    }
+	public String getPrefix() {
+		return prefix;
+	}
 
-    public String getFirstName() {
-        return firstName;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-    public String getPosition() {
-        return position;
-    }
+	public String getPosition() {
+		return position;
+	}
 
-    public String getInstitution() {
-        return institution;
-    }
+	public String getInstitution() {
+		return institution;
+	}
 
-    public String getDepartment() {
-        return department;
-    }
+	public String getDepartment() {
+		return department;
+	}
 
-    public String getAddress() {
-        return address;
-    }
+	public String getAddress() {
+		return address;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
 
-    public String getFax() {
-        return fax;
-    }
+	public String getFax() {
+		return fax;
+	}
 
-    public int getPrimary() {
-        return primary;
-    }
+	public int getPrimary() {
+		return primary;
+	}
 
-    public Date getUpdated() {
-        return updated;
-    }
+	public Date getUpdated() {
+		return updated;
+	}
 
-    public List<ContactTreaty> getTreaties() {
-        return treaties;
-    }
+	public List<ContactTreaty> getTreaties() {
+		return treaties;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public String getType() {
+		return type;
+	}
 }

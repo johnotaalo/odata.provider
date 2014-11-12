@@ -4,36 +4,37 @@
  */
 package edw.olingo.model;
 
-import javax.persistence.*;
-
-import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Site name entity
- * <br />
+ * 
  * @author Cristian Romanescu {@code cristian.romanescu _at_ eaudeweb.ro}
- * @version 1.4.0, 10/28/2011
+ * @version 2.0.0, 11/13/2014
  * @since 1.3.3
  */
 @Entity
-@Table(name="informea_sites_name")
+@Table(name = "informea_sites_name")
 public class SiteName {
 
-    @Id
-    @Column(name="id")
-    private String id;
+	@Id
+	@Column(name = "id")
+	private String id;
 
-    @SuppressWarnings("unused")
-    private Site site;
+	@SuppressWarnings("unused")
+	private Site site;
 
-    private String language;
-    private String name;
+	private String language;
+	private String name;
 
-    public String getLanguage() {
-        return language;
-    }
+	public String getLanguage() {
+		return language;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 }

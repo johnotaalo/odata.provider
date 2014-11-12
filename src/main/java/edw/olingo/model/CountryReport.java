@@ -14,62 +14,69 @@
  */
 package edw.olingo.model;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
- * Country report primary entity
- * <br />
+ * Country report entity
+ * 
  * @author Cristian Romanescu {@code cristian.romanescu _at_ eaudeweb.ro}
- * @version 1.4.0, 10/28/2011
+ * @version 2.0.0, 11/13/2014
  * @since 1.3.3
  */
 @Entity
 @Table(name = "informea_country_reports")
 public class CountryReport {
 
-    @Id
-    @Column(name="id")
-    private String id;
+	@Id
+	@Column(name = "id")
+	private String id;
 
-    @Column (nullable = false)
-    private String treaty;
-    @Column (nullable = false)
-    private String country;
+	@Column(nullable = false)
+	private String treaty;
+	@Column(nullable = false)
+	private String country;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date submission;
-    private String url;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date submission;
+	private String url;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updated;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date updated;
 
-    @OneToMany(mappedBy = "country_report", cascade= CascadeType.ALL)
-    private List<CountryReportTitle> titles;
+	@OneToMany(mappedBy = "country_report", cascade = CascadeType.ALL)
+	private List<CountryReportTitle> titles;
 
-    public String getTreaty() {
-        return treaty;
-    }
+	public String getTreaty() {
+		return treaty;
+	}
 
-    public String getCountry() {
-        return country;
-    }
+	public String getCountry() {
+		return country;
+	}
 
-    public Date getSubmission() {
-        return submission;
-    }
+	public Date getSubmission() {
+		return submission;
+	}
 
-    public String getUrl() {
-        return url;
-    }
+	public String getUrl() {
+		return url;
+	}
 
-    public Date getUpdated() {
-        return updated;
-    }
+	public Date getUpdated() {
+		return updated;
+	}
 
-    public List<CountryReportTitle> getTitles() {
-        return titles;
-    }
+	public List<CountryReportTitle> getTitles() {
+		return titles;
+	}
 }

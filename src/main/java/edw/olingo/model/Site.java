@@ -14,77 +14,82 @@
  */
 package edw.olingo.model;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Site primary entity
- * <br />
+ * 
  * @author Cristian Romanescu {@code cristian.romanescu _at_ eaudeweb.ro}
- * @version 1.4.0, 10/28/2011
+ * @version 2.0.0, 11/13/2014
  * @since 1.3.3
  */
 @Entity
 @Table(name = "informea_sites")
 public class Site {
 
-    @Id
-    @Column(name="id")
-    private String id;
+	@Id
+	@Column(name = "id")
+	private String id;
 
-    @Column (nullable = false)
-    private String type;
-    @Column (nullable = false)
-    private String country;
-    @Column (nullable = false)
-    private String treaty;
-    private String url;
-    private Double latitude;
-    private Double longitude;
+	@Column(nullable = false)
+	private String type;
+	@Column(nullable = false)
+	private String country;
+	@Column(nullable = false)
+	private String treaty;
+	private String url;
+	private Double latitude;
+	private Double longitude;
 
+	@OneToMany(mappedBy = "site", cascade = CascadeType.ALL)
+	private List<SiteName> names;
 
-    @OneToMany(mappedBy = "site", cascade= CascadeType.ALL)
-    private List<SiteName> names;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date updated;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updated;
+	public String getTreaty() {
+		return treaty;
+	}
 
+	public String getId() {
+		return id;
+	}
 
-    public String getTreaty() {
-        return treaty;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public String getId() {
-        return id;
-    }
+	public String getCountry() {
+		return country;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public String getUrl() {
+		return url;
+	}
 
-    public String getCountry() {
-        return country;
-    }
+	public Double getLatitude() {
+		return latitude;
+	}
 
-    public String getUrl() {
-        return url;
-    }
+	public Double getLongitude() {
+		return longitude;
+	}
 
-    public Double getLatitude() {
-        return latitude;
-    }
+	public List<SiteName> getNames() {
+		return names;
+	}
 
-    public Double getLongitude() {
-        return longitude;
-    }
-
-    public List<SiteName> getNames() {
-        return names;
-    }
-
-    public Date getUpdated() {
-        return updated;
-    }
+	public Date getUpdated() {
+		return updated;
+	}
 }

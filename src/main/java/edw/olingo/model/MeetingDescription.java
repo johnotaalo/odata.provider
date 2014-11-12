@@ -14,35 +14,37 @@
  */
 package edw.olingo.model;
 
-import javax.persistence.*;
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
- * Meeting description entity
- * <br />
+ * Meeting description entity <br />
+ * 
  * @author Cristian Romanescu {@code cristian.romanescu _at_ eaudeweb.ro}
- * @version 1.4.0, 10/28/2011
+ * @version 2.0.0, 11/13/2014
  * @since 1.3.3
  */
 @Entity
-@Table(name="informea_meetings_description")
+@Table(name = "informea_meetings_description")
 public class MeetingDescription {
 
-    @Id
-    @Column(name = "id")
-    private String id;
+	@Id
+	@Column(name = "id")
+	private String id;
 
-    private String language;
-    private String description;
+	private String language;
+	private String description;
 
-    @SuppressWarnings("unused")
-    private Meeting meeting;
+	@SuppressWarnings("unused")
+	private Meeting meeting;
 
-    public String getLanguage() {
-        return language;
-    }
+	public String getLanguage() {
+		return language;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public String getDescription() {
+		return description;
+	}
 }

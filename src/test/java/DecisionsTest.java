@@ -38,8 +38,9 @@ public class DecisionsTest {
 	@Test
 	public void testGetContacts() throws Exception {
 		EntityManager em = factory.createEntityManager();
-		CriteriaBuilder qb = em.getCriteriaBuilder(); 
-		List<Decision> rows = em.createQuery(qb.createQuery(Decision.class)).getResultList();
+		CriteriaBuilder qb = em.getCriteriaBuilder();
+		List<Decision> rows = em.createQuery(qb.createQuery(Decision.class))
+				.getResultList();
 		assertEquals(1, rows.size());
 		em.close();
 	}
@@ -60,9 +61,10 @@ public class DecisionsTest {
 		assertEquals("en", longTitle.getLanguage());
 
 		DecisionSummary summary = row.getSummaries().get(0);
-		assertEquals("<p><i>The Conference of the Parties </i></p>", summary.getSummary());
+		assertEquals("<p><i>The Conference of the Parties </i></p>",
+				summary.getSummary());
 		assertEquals("en", summary.getLanguage());
-		
+
 		assertEquals("decision", row.getType());
 		assertEquals("active", row.getStatus());
 		assertEquals("VIII/7", row.getNumber());
@@ -76,32 +78,35 @@ public class DecisionsTest {
 
 		assertEquals("1596", row.getMeetingId());
 
-		assertEquals("Eighth Ordinary Meeting of the Conference of the Parties to the Convention on Biological Diversity", row.getMeetingTitle());
-		assertEquals("http://www.cbd.int/doc/meetings/cop/cop-08/", row.getMeetingUrl());
+		assertEquals(
+				"Eighth Ordinary Meeting of the Conference of the Parties to the Convention on Biological Diversity",
+				row.getMeetingTitle());
+		assertEquals("http://www.cbd.int/doc/meetings/cop/cop-08/",
+				row.getMeetingUrl());
 
 		DecisionContent content = row.getContents().get(0);
-		assertEquals("<h1 align=\"center\"> Global Biodiversity Outlook </h1>", content.getContent());
+		assertEquals("<h1 align=\"center\"> Global Biodiversity Outlook </h1>",
+				content.getContent());
 		assertEquals("en", content.getLanguage());
 
 		DecisionFile file = row.getFiles().get(0);
 		assertEquals("1993", file.getId());
-		assertEquals("http://www.cbd.int/doc/decisions/COP-08/COP-08-dec-07-en.pdf", file.getUrl());
+		assertEquals(
+				"http://www.cbd.int/doc/decisions/COP-08/COP-08-dec-07-en.pdf",
+				file.getUrl());
 		assertEquals("pdf", file.getMimeType());
 		assertEquals("en", file.getLanguage());
 		assertEquals("COP-08-dec-07-en.pdf", file.getFilename());
-		
+
 		List<DecisionKeyword> tags = row.getKeywords();
 		assertEquals(6, tags.size());
-		
+
 		List<String> witness = Arrays.asList(
-			"Programme of Work (MEA Secretariat)",
-			"Sustainable Use and Wise Management",
-			"Integrated Ecosystems Management",
-			"Mitigation",
-			"Forest Biodiversity",
-			"Trade and Environment"
-		);
-		
+				"Programme of Work (MEA Secretariat)",
+				"Sustainable Use and Wise Management",
+				"Integrated Ecosystems Management", "Mitigation",
+				"Forest Biodiversity", "Trade and Environment");
+
 		DecisionKeyword tag = tags.get(0);
 		assertEquals("InforMEA", tag.getNamespace());
 		assertTrue(witness.contains(tag.getTerm()));

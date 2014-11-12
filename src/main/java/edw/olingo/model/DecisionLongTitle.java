@@ -14,37 +14,41 @@
  */
 package edw.olingo.model;
 
-import javax.persistence.*;
-
+import javax.persistence.Cacheable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Decision long title entity
- * <br />
+ * 
  * @author Cristian Romanescu {@code cristian.romanescu _at_ eaudeweb.ro}
- * @version 1.4.0, 10/28/2011
+ * @version 2.0.0, 11/13/2014
  * @since 1.3.3
  */
 @Entity
-@Table(name="informea_decisions_longtitle")
+@Table(name = "informea_decisions_longtitle")
 @Cacheable
 public class DecisionLongTitle {
 
-    @Id
-    @Column(name = "id")
-    private String id;
+	@Id
+	@Column(name = "id")
+	private String id;
 
-    private Decision decision;
+	@SuppressWarnings("unused")
+	private Decision decision;
 
-    private String language;
+	private String language;
 
-    @Column(name = "long_title")
-    private String longTitle;
+	@Column(name = "long_title")
+	private String longTitle;
 
-    public String getLanguage() {
-        return language;
-    }
+	public String getLanguage() {
+		return language;
+	}
 
-    public String getLongTitle() {
-        return longTitle;
-    }
+	public String getLongTitle() {
+		return longTitle;
+	}
 }

@@ -14,29 +14,31 @@
  */
 package edw.olingo.model;
 
-import javax.persistence.*;
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Contacts-treaty relation entity
- * <br />
+ * 
  * @author Cristian Romanescu {@code cristian.romanescu _at_ eaudeweb.ro}
- * @version 1.4.0, 10/28/2011
+ * @version 2.0.0, 11/13/2014
  * @since 1.3.3
  */
 @Entity
-@Table(name="informea_contacts_treaties")
+@Table(name = "informea_contacts_treaties")
 public class ContactTreaty {
 
-    @Id
-    @Column(name="id")
-    private String id;
+	@Id
+	@Column(name = "id")
+	private String id;
 
-    @SuppressWarnings("unused")
-    private Contact contact;
-    private String treaty;
+	@SuppressWarnings("unused")
+	private Contact contact;
+	private String treaty;
 
-    public String getTreaty() {
-        return treaty;
-    }
+	public String getTreaty() {
+		return treaty;
+	}
 }

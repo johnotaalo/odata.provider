@@ -30,37 +30,38 @@ public class ServiceInformation {
 
 	public static final String PERSISTENCE_UNIT_NAME = "persistence_unit";
 
-	private static final Logger log = Logger.getLogger(ServiceInformation.class.getName());
+	private static final Logger log = Logger.getLogger(ServiceInformation.class
+			.getName());
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static long countEntities(Class entityKlass) {
 		long count = 0;
 		try {
-			EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+			EntityManagerFactory factory = Persistence
+					.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 			EntityManager em = factory.createEntityManager();
 			CriteriaBuilder qb = em.getCriteriaBuilder();
 			CriteriaQuery<Long> query = qb.createQuery(Long.class);
 			query.select(qb.count(query.from(entityKlass)));
 			count = em.createQuery(query).getSingleResult();
-		} catch(Exception ex) {
+		} catch (Exception ex) {
 			// Give a nice error, don't throw a stack-trace to scare the DevOps.
-			log.warning(String.format(
-					"ServiceInformation:countEntities(): Cannot get entity count for %s. Probably not configured?",
-					entityKlass.getName()
-				)
-			);
+			log.warning(String
+					.format("ServiceInformation:countEntities(): Cannot get entity count for %s. Probably not configured?",
+							entityKlass.getName()));
 		}
 		return count;
 	}
-	
+
 	public static String getVersion() {
-		String ret = String.format("%s.%s.%s", VERSION_MAJOR, VERSION_MINOR, VERSION_REVISION);
-		if(VERSION_BETA) {
+		String ret = String.format("%s.%s.%s", VERSION_MAJOR, VERSION_MINOR,
+				VERSION_REVISION);
+		if (VERSION_BETA) {
 			ret += " beta";
 		}
 		return ret;
 	}
-	
+
 	public static long countMeetings() {
 		return ServiceInformation.countEntities(Meeting.class);
 	}
@@ -84,22 +85,25 @@ public class ServiceInformation {
 	public static long countSites() {
 		return ServiceInformation.countEntities(Site.class);
 	}
-	
+
 	public static Map<String, Object> checkProductUpdates() {
 		return checkProductUpdates(UPDATE_URL);
 	}
-	
+
 	/**
 	 * Check for toolkit update
+	 * 
 	 * @return Structure containing update information
 	 */
-	public static Map<String, Object> checkProductUpdates(String overrideUpdateUrl) {
+	public static Map<String, Object> checkProductUpdates(
+			String overrideUpdateUrl) {
 		Map<String, Object> ret = new HashMap<String, Object>();
 		ret.put("needsUpdate", false);
 		ret.put("success", false);
 		ret.put("remoteVersion", "");
 		ret.put("changes", "");
-		String updateUrl = (overrideUpdateUrl == null) ? UPDATE_URL : overrideUpdateUrl;
+		String updateUrl = (overrideUpdateUrl == null) ? UPDATE_URL
+				: overrideUpdateUrl;
 		try {
 			URL url = new URL(updateUrl);
 			URLConnection c = url.openConnection();
@@ -110,31 +114,34 @@ public class ServiceInformation {
 
 			int remoteMajor = Integer.parseInt(props.getProperty("MAJOR"));
 			int remoteMinor = Integer.parseInt(props.getProperty("MINOR"));
-			int remoteRevision = Integer.parseInt(props.getProperty("REVISION"));
-			boolean remoteBeta = Boolean.parseBoolean(props.getProperty("BETA"));
+			int remoteRevision = Integer
+					.parseInt(props.getProperty("REVISION"));
+			boolean remoteBeta = Boolean
+					.parseBoolean(props.getProperty("BETA"));
 			String changes = props.getProperty("CHANGES");
 
 			boolean needsUpdate = false;
-			if(remoteMajor > VERSION_MAJOR) {
+			if (remoteMajor > VERSION_MAJOR) {
 				needsUpdate = true;
-			} else if(remoteMajor == VERSION_MAJOR){
-				if(remoteMinor > VERSION_MINOR) {
+			} else if (remoteMajor == VERSION_MAJOR) {
+				if (remoteMinor > VERSION_MINOR) {
 					needsUpdate = true;
-				} else if(remoteMinor == VERSION_MINOR) {
-					if(remoteRevision > VERSION_REVISION) {
+				} else if (remoteMinor == VERSION_MINOR) {
+					if (remoteRevision > VERSION_REVISION) {
 						needsUpdate = true;
-					} else if(remoteRevision == VERSION_REVISION) {
-						if(VERSION_BETA == true && remoteBeta == false) {
+					} else if (remoteRevision == VERSION_REVISION) {
+						if (VERSION_BETA == true && remoteBeta == false) {
 							needsUpdate = true;
 						}
 					}
 				}
 			}
-			ret.put("remoteVersion", String.format("%s.%s.%s%s", remoteMajor, remoteMinor, remoteRevision, remoteBeta ? " beta" : ""));
+			ret.put("remoteVersion", String.format("%s.%s.%s%s", remoteMajor,
+					remoteMinor, remoteRevision, remoteBeta ? " beta" : ""));
 			ret.put("needsUpdate", needsUpdate);
 			ret.put("success", true);
 			ret.put("changes", changes);
-		} catch(Exception ex) {
+		} catch (Exception ex) {
 			log.log(Level.WARNING, "Cannot check for new version!", ex);
 		}
 		return ret;

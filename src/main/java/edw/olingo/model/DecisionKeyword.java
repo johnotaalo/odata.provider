@@ -14,35 +14,38 @@
  */
 package edw.olingo.model;
 
-import javax.persistence.*;
-
+import javax.persistence.Cacheable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Decision keyword entity
- * <br />
+ * 
  * @author Cristian Romanescu {@code cristian.romanescu _at_ eaudeweb.ro}
- * @version 1.4.0, 10/28/2011
+ * @version 2.0.0, 11/13/2014
  * @since 1.3.3
  */
 @Entity
-@Table(name="informea_decisions_keywords")
+@Table(name = "informea_decisions_keywords")
 @Cacheable
 public class DecisionKeyword {
 
-    @Id
-    @Column(name = "id")
-    private String id;
+	@Id
+	@Column(name = "id")
+	private String id;
 
-    @SuppressWarnings("unused")
+	@SuppressWarnings("unused")
 	private Decision decision;
-    private String namespace;
-    private String term;
+	private String namespace;
+	private String term;
 
-    public String getNamespace() {
-        return namespace;
-    }
+	public String getNamespace() {
+		return namespace;
+	}
 
-    public String getTerm() {
-        return term;
-    }
+	public String getTerm() {
+		return term;
+	}
 }

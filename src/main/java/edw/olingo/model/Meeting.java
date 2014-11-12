@@ -4,7 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity(name = "Meeting")
 @Table(name = "informea_meetings")
@@ -14,11 +21,11 @@ public class Meeting {
 	@Column(name = "id")
 	private String id;
 
-    @Column (nullable = false)
+	@Column(nullable = false)
 	private String treaty;
 	private String url;
 
-    @Column (nullable = false)
+	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date start;
 
@@ -34,7 +41,7 @@ public class Meeting {
 	private String imageCopyright;
 	private String location;
 	private String city;
-    @Column (nullable = false)
+	@Column(nullable = false)
 	private String country;
 	private Double latitude;
 	private Double longitude;
@@ -42,13 +49,13 @@ public class Meeting {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updated;
 
-    @OneToMany(mappedBy = "meeting", cascade = CascadeType.ALL)
-    private List<MeetingDescription> descriptions = new ArrayList<MeetingDescription>();
+	@OneToMany(mappedBy = "meeting", cascade = CascadeType.ALL)
+	private List<MeetingDescription> descriptions = new ArrayList<MeetingDescription>();
 
 	@OneToMany(mappedBy = "meeting", cascade = CascadeType.ALL)
 	private List<MeetingTitle> titles = new ArrayList<MeetingTitle>();
 
-    public String getId() {
+	public String getId() {
 		return id;
 	}
 

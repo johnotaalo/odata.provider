@@ -14,54 +14,56 @@
  */
 package edw.olingo.model;
 
-import javax.persistence.*;
-
+import javax.persistence.Cacheable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Decision document entity
- * <br />
+ * 
  * @author Cristian Romanescu {@code cristian.romanescu _at_ eaudeweb.ro}
- * @version 1.4.0, 10/28/2011
+ * @version 2.0.0, 11/13/2014
  * @since 1.3.3
  */
 @Entity
-@Table(name="informea_decisions_documents")
+@Table(name = "informea_decisions_documents")
 @Cacheable
 public class DecisionFile {
 
-    @Id
-    @Column(name = "id")
-    private String id;
+	@Id
+	@Column(name = "id")
+	private String id;
 
-    @SuppressWarnings("unused")
-    private Decision decision;
+	@SuppressWarnings("unused")
+	private Decision decision;
 
-//    private String diskPath;
-    private String url;
-    @Column (nullable = false)
-    private String mimeType;
-    @Column (nullable = false)
-    private String language;
-    private String filename;
+	// private String diskPath;
+	private String url;
+	@Column(nullable = false)
+	private String mimeType;
+	@Column(nullable = false)
+	private String language;
+	private String filename;
 
+	public String getId() {
+		return id;
+	}
 
-    public String getId() {
-        return id;
-    }
+	public String getUrl() {
+		return url;
+	}
 
-    public String getUrl() {
-        return url;
-    }
+	public String getLanguage() {
+		return language;
+	}
 
-    public String getLanguage() {
-        return language;
-    }
+	public String getFilename() {
+		return filename;
+	}
 
-    public String getFilename() {
-        return filename;
-    }
-
-    public String getMimeType() {
-        return mimeType;
-    }
+	public String getMimeType() {
+		return mimeType;
+	}
 }
