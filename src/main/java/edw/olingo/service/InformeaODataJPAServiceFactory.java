@@ -27,7 +27,8 @@ public class InformeaODataJPAServiceFactory extends org.apache.olingo.odata2.jpa
 		return oDataJPAContext;
 	}
 
-    public <T extends ODataCallback> T getCallback(final Class<? extends ODataCallback> callbackInterface) {
+    @SuppressWarnings("unchecked")
+	public <T extends ODataCallback> T getCallback(final Class<? extends ODataCallback> callbackInterface) {
         T callback;
         if (callbackInterface.isAssignableFrom(InformeaDebugCallback.class)) {
             callback = (T) new InformeaDebugCallback();

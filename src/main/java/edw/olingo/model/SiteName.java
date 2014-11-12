@@ -5,6 +5,7 @@
 package edw.olingo.model;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
 
 /**
@@ -22,40 +23,17 @@ public class SiteName {
     @Column(name="id")
     private String id;
 
+    @SuppressWarnings("unused")
     private Site site;
 
     private String language;
     private String name;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Site getSite() {
-        return site;
-    }
-
-    public void setSite(Site site) {
-        this.site = site;
-    }
-
     public String getLanguage() {
         return language;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

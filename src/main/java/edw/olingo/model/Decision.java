@@ -71,10 +71,6 @@ public class Decision {
 	@OneToMany(mappedBy = "decision", cascade = CascadeType.ALL)
 	private List<DecisionFile> files = new ArrayList<DecisionFile>();
 
-	public String getId() {
-		return id;
-	}
-
 	public String getLink() {
 		return link;
 	}
@@ -107,24 +103,12 @@ public class Decision {
 		return meetingId;
 	}
 
-	public void setMeetingId(String meetingId) {
-		this.meetingId = meetingId;
-	}
-
 	public String getMeetingTitle() {
 		return meetingTitle;
 	}
 
-	public void setMeetingTitle(String meetingTitle) {
-		this.meetingTitle = meetingTitle;
-	}
-
 	public String getMeetingUrl() {
 		return meetingUrl;
-	}
-
-	public void setMeetingUrl(String meetingUrl) {
-		this.meetingUrl = meetingUrl;
 	}
 
 	public List<DecisionTitle> getTitles() {

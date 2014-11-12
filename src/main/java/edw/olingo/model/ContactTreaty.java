@@ -32,30 +32,11 @@ public class ContactTreaty {
     @Column(name="id")
     private String id;
 
+    @SuppressWarnings("unused")
     private Contact contact;
     private String treaty;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Contact getContact() {
-        return contact;
-    }
-
-    public void setContact(Contact contact) {
-        this.contact = contact;
-    }
-
     public String getTreaty() {
         return treaty;
-    }
-
-    public void setTreaty(String treaty) {
-        this.treaty = treaty;
     }
 }

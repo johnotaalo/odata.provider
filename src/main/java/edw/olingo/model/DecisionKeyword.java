@@ -33,40 +33,16 @@ public class DecisionKeyword {
     @Column(name = "id")
     private String id;
 
-    private Decision decision;
+    @SuppressWarnings("unused")
+	private Decision decision;
     private String namespace;
     private String term;
-
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Decision getDecision() {
-        return decision;
-    }
-
-    public void setDecision(Decision decision) {
-        this.decision = decision;
-    }
 
     public String getNamespace() {
         return namespace;
     }
 
-    public void setNamespace(String namespace) {
-        this.namespace = namespace;
-    }
-
     public String getTerm() {
         return term;
-    }
-
-    public void setTerm(String term) {
-        this.term = term;
     }
 }

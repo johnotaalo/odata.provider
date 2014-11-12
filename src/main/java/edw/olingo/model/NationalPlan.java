@@ -50,67 +50,31 @@ public class NationalPlan {
     @OneToMany(mappedBy = "national_plan", cascade= CascadeType.ALL)
     private List<NationalPlanTitle> titles;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getTreaty() {
         return treaty;
-    }
-
-    public void setTreaty(String treaty) {
-        this.treaty = treaty;
     }
 
     public String getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
     public String getType() {
         return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
     public Date getSubmission() {
         return submission;
-    }
-
-    public void setSubmission(Date submission) {
-        this.submission = submission;
     }
 
     public Date getUpdated() {
         return updated;
     }
 
-    public void setUpdated(Date updated) {
-        this.updated = updated;
-    }
-
     public List<NationalPlanTitle> getTitles() {
         return titles;
-    }
-
-    public void setTitles(List<NationalPlanTitle> titles) {
-        this.titles = titles;
     }
 }

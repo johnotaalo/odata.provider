@@ -56,131 +56,63 @@ public class Contact {
     @OneToMany(mappedBy = "contact", cascade= CascadeType.ALL, fetch= FetchType.LAZY)
     private List<ContactTreaty> treaties;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getCountry() {
         return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
     }
 
     public String getPrefix() {
         return prefix;
     }
 
-    public void setPrefix(String prefix) {
-        this.prefix = prefix;
-    }
-
     public String getFirstName() {
         return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public String getPosition() {
         return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
     }
 
     public String getInstitution() {
         return institution;
     }
 
-    public void setInstitution(String institution) {
-        this.institution = institution;
-    }
-
     public String getDepartment() {
         return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public String getFax() {
         return fax;
-    }
-
-    public void setFax(String fax) {
-        this.fax = fax;
     }
 
     public int getPrimary() {
         return primary;
     }
 
-    public void setPrimary(int primary) {
-        this.primary = primary;
-    }
-
     public Date getUpdated() {
         return updated;
-    }
-
-    public void setUpdated(Date updated) {
-        this.updated = updated;
     }
 
     public List<ContactTreaty> getTreaties() {
         return treaties;
     }
 
-    public void setTreaties(List<ContactTreaty> treaties) {
-        this.treaties = treaties;
-    }
-
     public String getType() {
         return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 }

@@ -18,20 +18,17 @@ public class InformeaJPAExtension implements JPAEdmExtension {
 
     private static final Logger log = Logger.getLogger(InformeaJPAExtension.class.getName());
 
-
     @Override
     public void extendWithOperation(JPAEdmSchemaView jpaEdmSchemaView) {
     }
 
     @Override
     public void extendJPAEdmSchema(JPAEdmSchemaView jpaEdmSchemaView) {
-
         // Workaround for Olingo multiplicity bug.
         // The JPA OneToMany relationship is translated as 1 to * for some entities and as 1 to 1 for others.
         // This makes olingo throw "Requested entity could not be found" errors when accessing the 1:1 entities.
         // Workaround: if 1:1 multiplicity is found, it forces * on the child
         // Child is determined by the class prefix (the parent entity name must be a prefix of the child element entity)
-
         for(Association a : jpaEdmSchemaView.getEdmSchema().getAssociations()) {
 
             if(a.getEnd1().getMultiplicity() == EdmMultiplicity.ONE && a.getEnd2().getMultiplicity() == EdmMultiplicity.ONE ) {
@@ -45,7 +42,6 @@ public class InformeaJPAExtension implements JPAEdmExtension {
                 }
             }
         }
-
         // set the container name (the default is namespace + "Container")
         jpaEdmSchemaView.getJPAEdmEntityContainerView().getEdmEntityContainer().setName("InforMEAService");
 

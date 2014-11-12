@@ -32,40 +32,17 @@ public class DecisionContent {
     @Column(name = "id")
     private String id;
 
+    @SuppressWarnings("unused")
     private Decision decision;
 
     private String language;
     private String content;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Decision getDecision() {
-        return decision;
-    }
-
-    public void setDecision(Decision decision) {
-        this.decision = decision;
-    }
-
     public String getLanguage() {
         return language;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
     public String getContent() {
         return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 }

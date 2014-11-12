@@ -1,5 +1,7 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -17,6 +19,7 @@ import org.junit.runners.BlockJUnit4ClassRunner;
 import edw.olingo.model.Decision;
 import edw.olingo.model.DecisionContent;
 import edw.olingo.model.DecisionFile;
+import edw.olingo.model.DecisionKeyword;
 import edw.olingo.model.DecisionLongTitle;
 import edw.olingo.model.DecisionSummary;
 import edw.olingo.model.DecisionTitle;
@@ -78,6 +81,7 @@ public class DecisionsTest {
 
 		DecisionContent content = row.getContents().get(0);
 		assertEquals("<h1 align=\"center\"> Global Biodiversity Outlook </h1>", content.getContent());
+		assertEquals("en", content.getLanguage());
 
 		DecisionFile file = row.getFiles().get(0);
 		assertEquals("1993", file.getId());
@@ -85,6 +89,22 @@ public class DecisionsTest {
 		assertEquals("pdf", file.getMimeType());
 		assertEquals("en", file.getLanguage());
 		assertEquals("COP-08-dec-07-en.pdf", file.getFilename());
+		
+		List<DecisionKeyword> tags = row.getKeywords();
+		assertEquals(6, tags.size());
+		
+		List<String> witness = Arrays.asList(
+			"Programme of Work (MEA Secretariat)",
+			"Sustainable Use and Wise Management",
+			"Integrated Ecosystems Management",
+			"Mitigation",
+			"Forest Biodiversity",
+			"Trade and Environment"
+		);
+		
+		DecisionKeyword tag = tags.get(0);
+		assertEquals("InforMEA", tag.getNamespace());
+		assertTrue(witness.contains(tag.getTerm()));
 
 		em.close();
 	}

@@ -53,51 +53,23 @@ public class CountryReport {
         return treaty;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getCountry() {
         return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
     }
 
     public Date getSubmission() {
         return submission;
     }
 
-    public void setSubmission(Date submission) {
-        this.submission = submission;
-    }
-
     public String getUrl() {
         return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public Date getUpdated() {
         return updated;
     }
 
-    public void setUpdated(Date updated) {
-        this.updated = updated;
-    }
-
     public List<CountryReportTitle> getTitles() {
         return titles;
-    }
-
-    public void setTitles(List<CountryReportTitle> titles) {
-        this.titles = titles;
     }
 }

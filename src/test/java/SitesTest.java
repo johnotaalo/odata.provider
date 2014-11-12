@@ -45,6 +45,7 @@ public class SitesTest {
 		assertEquals("2029", row.getId());
 		assertEquals("FIN", row.getCountry());
 		assertEquals("test", row.getTreaty());
+		assertEquals("ramsar", row.getType());
 		assertEquals("http://www.wetlands.org/reports/spec.cfm?site_id=860", row.getUrl());
 		assertEquals(new Double(60.2666666667), row.getLatitude());
 		assertEquals(new Double(26.4166666667), row.getLongitude());

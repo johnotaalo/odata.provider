@@ -388,6 +388,7 @@ CREATE TABLE `ai_decision_vocabulary` (
 
 LOCK TABLES `ai_decision_vocabulary` WRITE;
 /*!40000 ALTER TABLE `ai_decision_vocabulary` DISABLE KEYS */;
+INSERT INTO `ai_decision_vocabulary` VALUES (3070,91,'2012-08-08 18:41:40','iddah','2014-11-12 22:28:54',NULL),(3070,220,'2012-08-08 18:41:40','iddah','2014-11-12 22:28:54',NULL),(3070,253,'2012-08-08 18:41:40','iddah','2014-11-12 22:28:54',NULL),(3070,256,'2012-08-08 18:41:40','iddah','2014-11-12 22:28:54',NULL),(3070,391,'2012-08-08 18:41:40','iddah','2014-11-12 22:28:54',NULL),(3070,441,'2012-08-08 18:41:40','iddah','2014-11-12 22:28:54',NULL);
 /*!40000 ALTER TABLE `ai_decision_vocabulary` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1412,7 +1413,7 @@ CREATE TABLE `voc_concept` (
   UNIQUE KEY `idx_term_id_source` (`term`,`id_source`),
   KEY `idx_id_source` (`id_source`),
   CONSTRAINT `fk_concept_source` FOREIGN KEY (`id_source`) REFERENCES `voc_source` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Terms definitions';
+) ENGINE=InnoDB AUTO_INCREMENT=581 DEFAULT CHARSET=utf8 COMMENT='Terms definitions';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1421,6 +1422,7 @@ CREATE TABLE `voc_concept` (
 
 LOCK TABLES `voc_concept` WRITE;
 /*!40000 ALTER TABLE `voc_concept` DISABLE KEYS */;
+INSERT INTO `voc_concept` VALUES (91,'Programme of Work (MEA Secretariat)','MEA Secretariats carry out their functions according to programmes and plans agreed to by their respective governing bodies for a given interval. These plans may be called Programmes of Work, Strategic Plan, Business Plan. ','','PoW',9,0,403,0,0,NULL,'2011-01-30 00:31:30',NULL,'2011-04-20 01:24:52',NULL),(220,'Sustainable Use and Wise Management','Use in a way and at a rate that does not lead to the long-term degradation of the environment, thereby maintaining its potential to meet the needs and aspirations of present and future generations.','','wise use',9,0,1296,0,0,NULL,'2011-01-30 03:00:42',NULL,'2011-10-04 03:30:52','eva'),(253,'Integrated Ecosystems Management','','','integrat. EcosysManagmt',9,0,1016,0,0,NULL,'2011-01-30 03:29:52',NULL,'2011-04-06 22:39:43',NULL),(256,'Mitigation','','','mitigation',9,0,1066,0,0,NULL,'2011-01-30 03:34:33',NULL,'2011-04-09 18:59:09',NULL),(391,'Forest Biodiversity','Forests are biologically diverse systems, representing some of the richest biological areas on Earth. They offer a variety of habitats for plants, animals and micro-organisms. However, forest biodiversity is increasingly threatened as a result of deforestation, fragmentation, climate change and other stressors (Source: CBD).','','forests',9,0,1104,0,0,NULL,'0000-00-00 00:00:00',NULL,'2012-03-13 09:27:03','eva'),(441,'Trade and Environment','','','',9,0,276,0,0,NULL,'0000-00-00 00:00:00',NULL,'2011-04-19 16:06:17',NULL);
 /*!40000 ALTER TABLE `voc_concept` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1502,7 +1504,7 @@ CREATE TABLE `voc_source` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_name` (`name`),
   UNIQUE KEY `idx_unq_url` (`url`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Keep the source of term. These are providers such as MEAs';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='Keep the source of term. These are providers such as MEAs';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1511,6 +1513,7 @@ CREATE TABLE `voc_source` (
 
 LOCK TABLES `voc_source` WRITE;
 /*!40000 ALTER TABLE `voc_source` DISABLE KEYS */;
+INSERT INTO `voc_source` VALUES (9,'InforMEA','http://www.informea.org','0000-00-00 00:00:00',NULL,'2012-03-05 10:29:29',NULL),(10,'GEG','http://geg.informea.org','0000-00-00 00:00:00',NULL,'2012-02-28 14:08:47',NULL),(11,'ECOLEX','http://www.ecolex.org/ecolex/ledge/view/Listing?screen=Common&listingField=keyword','2012-02-28 13:50:51','cristiroma','2012-02-28 15:50:51',NULL),(12,'GEMET','http://www.eionet.europa.eu/gemet','2012-02-28 13:51:11','cristiroma','2012-02-28 15:51:11',NULL),(13,'IEG','http://ieg.informea.org','0000-00-00 00:00:00','cristiroma','2013-01-10 13:30:52',NULL);
 /*!40000 ALTER TABLE `voc_source` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1895,4 +1898,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-12 22:20:41
+-- Dump completed on 2014-11-13  0:37:12

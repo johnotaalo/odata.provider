@@ -44,7 +44,11 @@ public class ServiceInformation {
 			count = em.createQuery(query).getSingleResult();
 		} catch(Exception ex) {
 			// Give a nice error, don't throw a stack-trace to scare the DevOps.
-			log.warning("ServiceInformation:countEntities(): Cannot get entity count for %s. Probably not configured?");
+			log.warning(String.format(
+					"ServiceInformation:countEntities(): Cannot get entity count for %s. Probably not configured?",
+					entityKlass.getName()
+				)
+			);
 		}
 		return count;
 	}

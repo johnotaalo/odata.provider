@@ -40,36 +40,11 @@ public class DecisionLongTitle {
     @Column(name = "long_title")
     private String longTitle;
 
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Decision getDecision() {
-        return decision;
-    }
-
-    public void setDecision(Decision decision) {
-        this.decision = decision;
-    }
-
     public String getLanguage() {
         return language;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
     public String getLongTitle() {
         return longTitle;
-    }
-
-    public void setLongTitle(String longTitle) {
-        this.longTitle = longTitle;
     }
 }

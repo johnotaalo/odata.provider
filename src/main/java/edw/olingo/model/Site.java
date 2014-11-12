@@ -60,63 +60,31 @@ public class Site {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getType() {
         return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
     public String getUrl() {
         return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
-
     public Double getLongitude() {
         return longitude;
-    }
-
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
     }
 
     public List<SiteName> getNames() {
         return names;
     }
 
-    public void setNames(List<SiteName> names) {
-        this.names = names;
-    }
-
     public Date getUpdated() {
         return updated;
-    }
-
-    public void setUpdated(Date updated) {
-        this.updated = updated;
     }
 }

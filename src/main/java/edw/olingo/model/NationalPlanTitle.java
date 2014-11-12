@@ -21,7 +21,7 @@ import javax.persistence.*;
  * National plan title entity
  * <br />
  * @author Cristian Romanescu {@code cristian.romanescu _at_ eaudeweb.ro}
- * @version 1.4.0, 10/28/2011
+ * @version 2.0.0, 11/12/2014
  * @since 1.3.3
  */
 @Entity
@@ -32,41 +32,17 @@ public class NationalPlanTitle {
     @Column (name = "id")
     private String id;
 
-    private NationalPlan national_plan;
+    @SuppressWarnings("unused")
+	private NationalPlan national_plan;
 
     private String language;
     private String title;
-
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public NationalPlan getNational_plan() {
-        return national_plan;
-    }
-
-    public void setNational_plan(NationalPlan national_plan) {
-        this.national_plan = national_plan;
-    }
 
     public String getLanguage() {
         return language;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 }

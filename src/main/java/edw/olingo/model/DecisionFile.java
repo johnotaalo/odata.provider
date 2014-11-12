@@ -33,6 +33,7 @@ public class DecisionFile {
     @Column(name = "id")
     private String id;
 
+    @SuppressWarnings("unused")
     private Decision decision;
 
 //    private String diskPath;
@@ -48,48 +49,16 @@ public class DecisionFile {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Decision getDecision() {
-        return decision;
-    }
-
-    public void setDecision(Decision decision) {
-        this.decision = decision;
-    }
-
-//    public String getDiskPath() {
-//        return diskPath;
-//    }
-//
-//    public void setDiskPath(String diskPath) {
-//        this.diskPath = diskPath;
-//    }
-
     public String getUrl() {
         return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public String getLanguage() {
         return language;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
     public String getFilename() {
         return filename;
-    }
-
-    public void setFilename(String filename) {
-        this.filename = filename;
     }
 
     public String getMimeType() {

@@ -16,6 +16,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
 
 import edw.olingo.model.Meeting;
+import edw.olingo.model.MeetingDescription;
+import edw.olingo.model.MeetingTitle;
 
 @RunWith(BlockJUnit4ClassRunner.class)
 public class MeetingsTest {
@@ -66,6 +68,14 @@ public class MeetingsTest {
 		
 		c = new GregorianCalendar(2014, 10, 10, 14, 9, 57);
 		assertEquals(c.getTime(), row.getUpdated());
+
+		MeetingDescription description = row.getDescriptions().get(0);
+		assertEquals("Sample description of COP 5", description.getDescription());
+		assertEquals("en", description.getLanguage());
+
+		MeetingTitle title = row.getTitles().get(0);
+		assertEquals("Fifth Ordinary Meeting of the Conference of the Parties to the Convention on Biological Diversity", title.getTitle());
+		assertEquals("en", title.getLanguage());
 
 		em.close();
 	}

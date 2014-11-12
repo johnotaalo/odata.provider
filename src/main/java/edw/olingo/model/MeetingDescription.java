@@ -35,6 +35,7 @@ public class MeetingDescription {
     private String language;
     private String description;
 
+    @SuppressWarnings("unused")
     private Meeting meeting;
 
     public String getLanguage() {
@@ -43,21 +44,5 @@ public class MeetingDescription {
 
     public String getDescription() {
         return description;
-    }
-
-    public Meeting getMeeting() {
-        return meeting;
-    }
-
-    public void setMeeting(Meeting meeting) {
-        this.meeting = meeting;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 }
