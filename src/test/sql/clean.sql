@@ -223,7 +223,7 @@ CREATE TABLE `ai_decision` (
   CONSTRAINT `fk_ai_decision_ai_organization` FOREIGN KEY (`id_organization`) REFERENCES `ai_organization` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_decision_event` FOREIGN KEY (`id_meeting`) REFERENCES `ai_event` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_decision_treaty` FOREIGN KEY (`id_treaty`) REFERENCES `ai_treaty` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='This table contains the decisions';
+) ENGINE=InnoDB AUTO_INCREMENT=3071 DEFAULT CHARSET=utf8 COMMENT='This table contains the decisions';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -232,6 +232,7 @@ CREATE TABLE `ai_decision` (
 
 LOCK TABLES `ai_decision` WRITE;
 /*!40000 ALTER TABLE `ai_decision` DISABLE KEYS */;
+INSERT INTO `ai_decision` VALUES (3070,'cbd-dec-COP-08-DEC-07',NULL,'http://www.cbd.int/decisions/?id=11019','Global Biodiversity Outlook','Global Biodiversity Outlook','<p><i>The Conference of the Parties </i></p>','decision','active','VIII/7',1,'2006-03-20','2014-02-01 00:00:00',1596,'Eighth Ordinary Meeting of the Conference of the Parties to the Convention on Biological Diversity','http://www.cbd.int/doc/meetings/cop/cop-08/','<h1 align=\"center\"> Global Biodiversity Outlook </h1>',312,'2011-06-13 00:15:38','sync_service','2014-11-12 18:17:39',NULL,1);
 /*!40000 ALTER TABLE `ai_decision` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -417,7 +418,7 @@ CREATE TABLE `ai_document` (
   KEY `idx_id_decision` (`id_decision`),
   KEY `idx_is_indexed` (`is_indexed`),
   CONSTRAINT `fk_documents_decisions` FOREIGN KEY (`id_decision`) REFERENCES `ai_decision` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1996 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -426,6 +427,7 @@ CREATE TABLE `ai_document` (
 
 LOCK TABLES `ai_document` WRITE;
 /*!40000 ALTER TABLE `ai_document` DISABLE KEYS */;
+INSERT INTO `ai_document` VALUES (1993,'cbd-http://www.cbd.int/doc/decisions/COP-08/COP-08-dec-07-en.pdf','pdf','http://www.cbd.int/doc/decisions/COP-08/COP-08-dec-07-en.pdf',3070,'uploads/decisions/cbd/_3070_COP-08-dec-07-en_4df5f160466e6.pdf','en',NULL,1,'COP-08-dec-07-en.pdf','0000-00-00 00:00:00',NULL,'2012-03-09 09:54:20',NULL),(1994,'cbd-http://www.cbd.int/doc/decisions/COP-08/COP-08-dec-07-en.doc','doc','http://www.cbd.int/doc/decisions/COP-08/COP-08-dec-07-en.doc',3070,'uploads/decisions/cbd/_3070_COP-08-dec-07-en_4df5f16048ebd.doc','en',NULL,1,'COP-08-dec-07-en.doc','0000-00-00 00:00:00',NULL,'2012-03-09 09:54:20',NULL),(1995,'cbd-http://www.cbd.int/doc/decisions/COP-08/COP-08-dec-08-en.pdf','pdf','http://www.cbd.int/doc/decisions/COP-08/COP-08-dec-08-en.pdf',3070,'uploads/decisions/cbd/_3071_COP-08-dec-08-en_4df5f16d8f29b.pdf','en',NULL,1,'COP-08-dec-08-en.pdf','0000-00-00 00:00:00',NULL,'2014-11-12 19:22:22',NULL);
 /*!40000 ALTER TABLE `ai_document` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1128,6 +1130,128 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Temporary table structure for view `informea_decisions`
+--
+
+DROP TABLE IF EXISTS `informea_decisions`;
+/*!50001 DROP VIEW IF EXISTS `informea_decisions`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `informea_decisions` (
+  `id` tinyint NOT NULL,
+  `link` tinyint NOT NULL,
+  `type` tinyint NOT NULL,
+  `status` tinyint NOT NULL,
+  `number` tinyint NOT NULL,
+  `treaty` tinyint NOT NULL,
+  `published` tinyint NOT NULL,
+  `updated` tinyint NOT NULL,
+  `meetingId` tinyint NOT NULL,
+  `meetingTitle` tinyint NOT NULL,
+  `meetingUrl` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `informea_decisions_content`
+--
+
+DROP TABLE IF EXISTS `informea_decisions_content`;
+/*!50001 DROP VIEW IF EXISTS `informea_decisions_content`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `informea_decisions_content` (
+  `id` tinyint NOT NULL,
+  `decision_id` tinyint NOT NULL,
+  `language` tinyint NOT NULL,
+  `content` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `informea_decisions_documents`
+--
+
+DROP TABLE IF EXISTS `informea_decisions_documents`;
+/*!50001 DROP VIEW IF EXISTS `informea_decisions_documents`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `informea_decisions_documents` (
+  `id` tinyint NOT NULL,
+  `decision_id` tinyint NOT NULL,
+  `diskPath` tinyint NOT NULL,
+  `url` tinyint NOT NULL,
+  `mimeType` tinyint NOT NULL,
+  `language` tinyint NOT NULL,
+  `filename` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `informea_decisions_keywords`
+--
+
+DROP TABLE IF EXISTS `informea_decisions_keywords`;
+/*!50001 DROP VIEW IF EXISTS `informea_decisions_keywords`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `informea_decisions_keywords` (
+  `id` tinyint NOT NULL,
+  `decision_id` tinyint NOT NULL,
+  `namespace` tinyint NOT NULL,
+  `term` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `informea_decisions_longtitle`
+--
+
+DROP TABLE IF EXISTS `informea_decisions_longtitle`;
+/*!50001 DROP VIEW IF EXISTS `informea_decisions_longtitle`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `informea_decisions_longtitle` (
+  `id` tinyint NOT NULL,
+  `decision_id` tinyint NOT NULL,
+  `language` tinyint NOT NULL,
+  `long_title` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `informea_decisions_summary`
+--
+
+DROP TABLE IF EXISTS `informea_decisions_summary`;
+/*!50001 DROP VIEW IF EXISTS `informea_decisions_summary`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `informea_decisions_summary` (
+  `id` tinyint NOT NULL,
+  `decision_id` tinyint NOT NULL,
+  `language` tinyint NOT NULL,
+  `summary` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `informea_decisions_title`
+--
+
+DROP TABLE IF EXISTS `informea_decisions_title`;
+/*!50001 DROP VIEW IF EXISTS `informea_decisions_title`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `informea_decisions_title` (
+  `id` tinyint NOT NULL,
+  `decision_id` tinyint NOT NULL,
+  `language` tinyint NOT NULL,
+  `title` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Temporary table structure for view `informea_meetings`
 --
 
@@ -1497,6 +1621,139 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
+-- Final view structure for view `informea_decisions`
+--
+
+/*!50001 DROP TABLE IF EXISTS `informea_decisions`*/;
+/*!50001 DROP VIEW IF EXISTS `informea_decisions`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `informea_decisions` AS select `a`.`id` AS `id`,`a`.`link` AS `link`,`a`.`type` AS `type`,`a`.`status` AS `status`,`a`.`number` AS `number`,`b`.`odata_name` AS `treaty`,`a`.`published` AS `published`,`a`.`updated` AS `updated`,`a`.`id_meeting` AS `meetingId`,`a`.`meeting_title` AS `meetingTitle`,`a`.`meeting_url` AS `meetingUrl` from (`ai_decision` `a` join `ai_treaty` `b` on((`b`.`id` = `a`.`id_treaty`))) where ((`a`.`id_meeting` is not null) or ((`a`.`meeting_title` is not null) and (trim(`a`.`meeting_title`) <> ''))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `informea_decisions_content`
+--
+
+/*!50001 DROP TABLE IF EXISTS `informea_decisions_content`*/;
+/*!50001 DROP VIEW IF EXISTS `informea_decisions_content`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `informea_decisions_content` AS select concat(`ai_decision`.`id`,'-en') AS `id`,`ai_decision`.`id` AS `decision_id`,'en' AS `language`,`ai_decision`.`body` AS `content` from `ai_decision` where ((`ai_decision`.`body` is not null) and (trim(`ai_decision`.`body`) <> '')) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `informea_decisions_documents`
+--
+
+/*!50001 DROP TABLE IF EXISTS `informea_decisions_documents`*/;
+/*!50001 DROP VIEW IF EXISTS `informea_decisions_documents`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `informea_decisions_documents` AS select `a`.`id` AS `id`,`a`.`id_decision` AS `decision_id`,`a`.`path` AS `diskPath`,`a`.`url` AS `url`,`a`.`mime` AS `mimeType`,`a`.`language` AS `language`,`a`.`filename` AS `filename` from `ai_document` `a` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `informea_decisions_keywords`
+--
+
+/*!50001 DROP TABLE IF EXISTS `informea_decisions_keywords`*/;
+/*!50001 DROP VIEW IF EXISTS `informea_decisions_keywords`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `informea_decisions_keywords` AS select distinct concat(`voc`.`id`,'-',`a`.`id_decision`) AS `id`,`a`.`id_decision` AS `decision_id`,`vs`.`name` AS `namespace`,`voc`.`term` AS `term` from ((`voc_concept` `voc` join `voc_source` `vs` on((`vs`.`id` = `voc`.`id_source`))) join `ai_decision_vocabulary` `a` on((`voc`.`id` = `a`.`id_concept`))) union select distinct concat(`voc`.`id`,'-',`dp`.`id_decision`) AS `id`,`dp`.`id_decision` AS `decision_id`,`vs`.`name` AS `namespace`,`voc`.`term` AS `term` from (((`voc_concept` `voc` join `voc_source` `vs` on((`vs`.`id` = `voc`.`id_source`))) join `ai_decision_paragraph_vocabulary` `a` on((`voc`.`id` = `a`.`id_concept`))) join `ai_decision_paragraph` `dp` on((`a`.`id_decision_paragraph` = `dp`.`id`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `informea_decisions_longtitle`
+--
+
+/*!50001 DROP TABLE IF EXISTS `informea_decisions_longtitle`*/;
+/*!50001 DROP VIEW IF EXISTS `informea_decisions_longtitle`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `informea_decisions_longtitle` AS select concat(`ai_decision`.`id`,'-en') AS `id`,`ai_decision`.`id` AS `decision_id`,'en' AS `language`,`ai_decision`.`long_title` AS `long_title` from `ai_decision` where ((`ai_decision`.`long_title` is not null) and (trim(`ai_decision`.`long_title`) <> '')) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `informea_decisions_summary`
+--
+
+/*!50001 DROP TABLE IF EXISTS `informea_decisions_summary`*/;
+/*!50001 DROP VIEW IF EXISTS `informea_decisions_summary`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `informea_decisions_summary` AS select concat(`ai_decision`.`id`,'-en') AS `id`,`ai_decision`.`id` AS `decision_id`,'en' AS `language`,`ai_decision`.`summary` AS `summary` from `ai_decision` where ((`ai_decision`.`summary` is not null) and (trim(`ai_decision`.`summary`) <> '')) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `informea_decisions_title`
+--
+
+/*!50001 DROP TABLE IF EXISTS `informea_decisions_title`*/;
+/*!50001 DROP VIEW IF EXISTS `informea_decisions_title`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `informea_decisions_title` AS select concat(`ai_decision`.`id`,'-en') AS `id`,`ai_decision`.`id` AS `decision_id`,'en' AS `language`,`ai_decision`.`short_title` AS `title` from `ai_decision` where ((`ai_decision`.`short_title` is not null) and (trim(`ai_decision`.`short_title`) <> '')) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
 -- Final view structure for view `informea_meetings`
 --
 
@@ -1638,4 +1895,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-12 18:50:50
+-- Dump completed on 2014-11-12 22:20:41
