@@ -14,8 +14,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
 
-import edw.olingo.model.CountryReport;
-import edw.olingo.model.CountryReportTitle;
 import edw.olingo.model.NationalPlan;
 import edw.olingo.model.NationalPlanTitle;
 
