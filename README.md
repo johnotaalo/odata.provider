@@ -1,6 +1,8 @@
 odata.provider
 ==============
 
+[![Build Status](http://ci.edw.ro/buildStatus/icon?job=informea.odata.provider&dummy=1)](http://ci.edw.ro/job/osha/)
+
 InforMEA OData provider version 2.0
 
 This project contains the OData provider web application to be deployed on third parties environments such as MEAs (Multilateral Environment Agreements) where it can be configured to expose the InforMEA compatible entities present inside their relational database back-end.
