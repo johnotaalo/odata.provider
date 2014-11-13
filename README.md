@@ -1,7 +1,7 @@
 odata.provider
 ==============
 
-[![Build Status](http://ci.edw.ro/buildStatus/icon?job=informea.odata.provider&dummy=1)](http://ci.edw.ro/job/osha/)
+[![Build Status](http://ci.edw.ro/buildStatus/icon?job=informea.odata.provider&dummy=1)](http://ci.edw.ro/job/informea.odata.provider/)
 
 InforMEA OData provider version 2.0
 
