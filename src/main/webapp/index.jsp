@@ -105,17 +105,12 @@
 					<td>Meetings</td>
 					<td><c:if test="${countMeetings > 0}">${countMeetings}</c:if>
 						<c:if test="${countMeetings == 0}">n/a</c:if></td>
-					<td>&nbsp; <c:if test="${countMeetings > 0}">
-							<a target="_blank" title="Click to see the entities"
-								href="informea.svc/Meetings">View</a>
-						</c:if>
+					<td>&nbsp; <c:if test="${countMeetings > 0}"><a target="_blank" title="Click to see the entities" href="informea.svc/Meetings">View</a></c:if>
 					</td>
 				</tr>
 				<tr>
 					<td>Decisions</td>
-					<td><c:if test="${countDecisions > 0}">
-							<a href="#">${countDecisions}</a>
-						</c:if> <c:if test="${countDecisions == 0}">n/a</c:if></td>
+					<td><c:if test="${countDecisions > 0}">${countDecisions}</c:if> <c:if test="${countDecisions == 0}">n/a</c:if></td>
 					<td>&nbsp; <c:if test="${countDecisions > 0}">
 							<a target="_blank" title="Click to see the entities"
 								href="informea.svc/Decisions">View</a>
@@ -124,9 +119,7 @@
 				</tr>
 				<tr>
 					<td>Contacts</td>
-					<td><c:if test="${countContacts > 0}">
-							<a href="#">${countContacts}</a>
-						</c:if> <c:if test="${countContacts == 0}">n/a</c:if></td>
+					<td><c:if test="${countContacts > 0}">${countContacts}</c:if> <c:if test="${countContacts == 0}">n/a</c:if></td>
 					<td>&nbsp; <c:if test="${countContacts > 0}">
 							<a target="_blank" title="Click to see the entities"
 								href="informea.svc/Contacts">View</a>
@@ -135,9 +128,7 @@
 				</tr>
 				<tr>
 					<td>National reports</td>
-					<td><c:if test="${countCountryReports > 0}">
-							<a href="#">${countCountryReports}</a>
-						</c:if> <c:if test="${countCountryReports == 0}">n/a</c:if></td>
+					<td><c:if test="${countCountryReports > 0}">${countCountryReports}</c:if> <c:if test="${countCountryReports == 0}">n/a</c:if></td>
 					<td>&nbsp; <c:if test="${countCountryReports > 0}">
 							<a target="_blank" title="Click to see the entities"
 								href="informea.svc/CountryReports">View</a>
@@ -146,9 +137,7 @@
 				</tr>
 				<tr>
 					<td>National action plans</td>
-					<td><c:if test="${countNationalPlans > 0}">
-							<a href="#">${countNationalPlans}</a>
-						</c:if> <c:if test="${countNationalPlans == 0}">n/a</c:if></td>
+					<td><c:if test="${countNationalPlans > 0}">${countNationalPlans}</c:if> <c:if test="${countNationalPlans == 0}">n/a</c:if></td>
 					<td>&nbsp; <c:if test="${countNationalPlans > 0}">
 							<a target="_blank" title="Click to see the entities"
 								href="informea.svc/NationalPlans">View</a>
@@ -157,9 +146,7 @@
 				</tr>
 				<tr>
 					<td>Sites</td>
-					<td><c:if test="${countSites > 0}">
-							<a href="#">${countSites}</a>
-						</c:if> <c:if test="${countSites == 0}">n/a</c:if></td>
+					<td><c:if test="${countSites > 0}">${countSites}</c:if><c:if test="${countSites == 0}">n/a</c:if></td>
 					<td>&nbsp; <c:if test="${countSites > 0}">
 							<a target="_blank" title="Click to see the entities"
 								href="informea.svc/Sites">View</a>
