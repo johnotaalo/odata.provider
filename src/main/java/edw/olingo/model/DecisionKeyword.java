@@ -48,4 +48,8 @@ public class DecisionKeyword {
 	public String getTerm() {
 		return term;
 	}
+
+	public String getId() {
+		return id;
+	}
 }

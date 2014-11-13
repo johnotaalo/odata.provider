@@ -16,6 +16,10 @@ public class MeetingTitle {
 	private String language;
 	private String title;
 
+	public String getId() {
+		return id;
+	}
+
 	@SuppressWarnings("unused")
 	private Meeting meeting;
 

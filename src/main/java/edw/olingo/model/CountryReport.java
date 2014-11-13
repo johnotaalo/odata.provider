@@ -79,4 +79,8 @@ public class CountryReport {
 	public List<CountryReportTitle> getTitles() {
 		return titles;
 	}
+
+	public String getId() {
+		return id;
+	}
 }

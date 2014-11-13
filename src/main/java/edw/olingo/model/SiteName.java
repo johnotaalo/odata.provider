@@ -37,4 +37,8 @@ public class SiteName {
 	public String getName() {
 		return name;
 	}
+
+	public String getId() {
+		return id;
+	}
 }

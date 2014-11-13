@@ -47,4 +47,8 @@ public class DecisionTitle {
 	public String getTitle() {
 		return title;
 	}
+
+	public String getId() {
+		return id;
+	}
 }

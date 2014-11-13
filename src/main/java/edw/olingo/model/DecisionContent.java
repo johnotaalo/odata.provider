@@ -47,4 +47,8 @@ public class DecisionContent {
 	public String getContent() {
 		return content;
 	}
+
+	public String getId() {
+		return id;
+	}
 }

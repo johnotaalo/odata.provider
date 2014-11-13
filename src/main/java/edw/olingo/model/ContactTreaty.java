@@ -41,4 +41,8 @@ public class ContactTreaty {
 	public String getTreaty() {
 		return treaty;
 	}
+
+	public String getId() {
+		return id;
+	}
 }

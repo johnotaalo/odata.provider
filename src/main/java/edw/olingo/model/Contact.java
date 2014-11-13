@@ -123,4 +123,8 @@ public class Contact {
 	public String getType() {
 		return type;
 	}
+
+	public String getId() {
+		return id;
+	}
 }

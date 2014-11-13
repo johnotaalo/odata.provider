@@ -141,4 +141,8 @@ public class Decision {
 	public List<DecisionFile> getFiles() {
 		return files;
 	}
+
+	public String getId() {
+		return id;
+	}
 }

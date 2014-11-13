@@ -47,4 +47,8 @@ public class NationalPlanTitle {
 	public String getTitle() {
 		return title;
 	}
+
+	public String getId() {
+		return id;
+	}
 }

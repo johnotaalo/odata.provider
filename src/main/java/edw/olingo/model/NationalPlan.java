@@ -84,4 +84,8 @@ public class NationalPlan {
 	public List<NationalPlanTitle> getTitles() {
 		return titles;
 	}
+
+	public String getId() {
+		return id;
+	}
 }

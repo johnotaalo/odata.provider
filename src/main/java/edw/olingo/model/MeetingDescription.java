@@ -47,4 +47,8 @@ public class MeetingDescription {
 	public String getDescription() {
 		return description;
 	}
+
+	public String getId() {
+		return id;
+	}
 }

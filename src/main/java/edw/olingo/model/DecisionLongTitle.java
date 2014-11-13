@@ -51,4 +51,8 @@ public class DecisionLongTitle {
 	public String getLongTitle() {
 		return longTitle;
 	}
+
+	public String getId() {
+		return id;
+	}
 }

@@ -47,4 +47,8 @@ public class DecisionSummary {
 	public String getSummary() {
 		return summary;
 	}
+
+	public String getId() {
+		return id;
+	}
 }
