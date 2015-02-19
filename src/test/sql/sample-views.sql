@@ -1,19 +1,19 @@
 -- Sample informea set of views for the toolkit configuration
 
 -- informea_contacts sample view
-CREATE ALGORITHM=UNDEFINED DEFINER=`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_contacts` AS 
+CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `informea_contacts` AS
     SELECT `a`.`id` AS `id`,`c`.`code` AS `country`,`a`.`prefix` AS `prefix`,`a`.`first_name` AS `firstName`,`a`.`last_name` AS `lastName`,`a`.`position` AS `position`,`a`.`institution` AS `institution`,`a`.`department` AS `department`,`a`.`address` AS `address`,`a`.`email` AS `email`,`a`.`telephone` AS `phoneNumber`,`a`.`fax` AS `fax`,`a`.`type` AS `type`,`a`.`is_primary` AS `primary`,`a`.`rec_updated` AS `updated` 
-        FROM `ai_people` `a` JOIN `ai_country` `c` ON `c`.`id` = `a`.`id_country`
+        FROM `ai_people` `a` JOIN `ai_country` `c` ON `c`.`id` = `a`.`id_country`;
     
 -- informea_contacts sample view for Drupal
-CREATE ALGORITHM=UNDEFINED DEFINER=`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_contacts_treaties` AS 
+CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `informea_contacts_treaties` AS
     SELECT concat(`a`.`id`,'-',`c`.`odata_name`) AS `id`,`a`.`id` AS `contact_id`,`c`.`odata_name` AS `treaty` 
-        FROM `ai_people` `a` JOIN `ai_people_treaty` `b` ON `a`.`id` = `b`.`id_people` JOIN `ai_treaty` `c` ON `c`.`id` = `b`.`id_treaty`
+        FROM `ai_people` `a` JOIN `ai_people_treaty` `b` ON `a`.`id` = `b`.`id_people` JOIN `ai_treaty` `c` ON `c`.`id` = `b`.`id_treaty`;
 
 -- MEETINGS
 
 -- informea_meetings sample view for Drupal 7
-CREATE OR REPLACE DEFINER =`informea`@`localhost`
+CREATE OR REPLACE DEFINER =`root`@`localhost`
   SQL SECURITY DEFINER VIEW `informea_meetings` AS
   SELECT
     a.uuid                                                     AS id,
@@ -59,7 +59,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost`
 
 
 -- informea_meetings_description sample view
-CREATE OR REPLACE DEFINER =`informea`@`localhost`
+CREATE OR REPLACE DEFINER =`root`@`localhost`
   SQL SECURITY DEFINER VIEW `informea_meetings_description` AS
   SELECT
     CONCAT(a.uuid, '-en') AS id,
@@ -74,7 +74,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost`
 
 
 -- informea_meetings_title sample view
-CREATE OR REPLACE DEFINER =`informea`@`localhost`
+CREATE OR REPLACE DEFINER =`root`@`localhost`
   SQL SECURITY DEFINER VIEW `informea_meetings_title` AS
   SELECT
     CONCAT(a.uuid, '-en') AS id,
@@ -87,7 +87,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost`
 -- DECISIONS
 
 -- informea_decisions
-CREATE OR REPLACE DEFINER =`informea`@`localhost`
+CREATE OR REPLACE DEFINER =`root`@`localhost`
   SQL SECURITY DEFINER VIEW `informea_decisions` AS
   SELECT
     a.uuid                                                     AS id,
@@ -117,7 +117,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost`
   GROUP BY a.uuid;
 
 -- informea_decisions_content
-CREATE OR REPLACE DEFINER =`informea`@`localhost`
+CREATE OR REPLACE DEFINER =`root`@`localhost`
   SQL SECURITY DEFINER VIEW `informea_decisions_content` AS
   SELECT
     NULL AS id,
@@ -128,7 +128,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost`
 
 
 -- informea_decisions_documents
-CREATE OR REPLACE DEFINER =`informea`@`localhost`
+CREATE OR REPLACE DEFINER =`root`@`localhost`
   SQL SECURITY DEFINER VIEW `informea_decisions_documents` AS
   SELECT
     CONCAT(a.uuid, '-', f2.fid)                                                         AS id,
@@ -155,7 +155,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost`
 
 
 -- informea_decisions_keywords
-CREATE OR REPLACE DEFINER =`informea`@`localhost`
+CREATE OR REPLACE DEFINER =`root`@`localhost`
   SQL SECURITY DEFINER VIEW `informea_decisions_keywords` AS
   SELECT
     NULL AS id,
@@ -166,7 +166,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost`
 
 
 -- informea_decisions_longtitle
-CREATE OR REPLACE DEFINER =`informea`@`localhost`
+CREATE OR REPLACE DEFINER =`root`@`localhost`
   SQL SECURITY DEFINER VIEW `informea_decisions_longtitle` AS
   SELECT
     NULL AS id,
@@ -177,7 +177,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost`
 
 
 -- informea_decisions_summary
-CREATE OR REPLACE DEFINER =`informea`@`localhost`
+CREATE OR REPLACE DEFINER =`root`@`localhost`
   SQL SECURITY DEFINER VIEW `informea_decisions_summary` AS
   SELECT
     NULL AS id,
@@ -188,7 +188,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost`
 
 
 -- informea_decisions_title
-CREATE OR REPLACE DEFINER =`informea`@`localhost`
+CREATE OR REPLACE DEFINER =`root`@`localhost`
   SQL SECURITY DEFINER VIEW `informea_decisions_title` AS
   SELECT
     CONCAT(a.uuid, '-', 'en') AS id,
@@ -211,7 +211,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost`
 -- COUNTRY REPORTS (National Reports)
 
 -- informea_country_reports
-CREATE OR REPLACE DEFINER =`informea`@`localhost`
+CREATE OR REPLACE DEFINER =`root`@`localhost`
   SQL SECURITY DEFINER VIEW `informea_country_reports` AS
   SELECT
     a.uuid                                                     AS id,
@@ -234,7 +234,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost`
   GROUP BY a.uuid;
 
 -- informea_country_reports_title
-CREATE OR REPLACE DEFINER =`informea`@`localhost`
+CREATE OR REPLACE DEFINER =`root`@`localhost`
   SQL SECURITY DEFINER VIEW `informea_country_reports_title` AS
   SELECT
     CONCAT(id, '-en') AS id,
