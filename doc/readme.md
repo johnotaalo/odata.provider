@@ -14,7 +14,8 @@ The InforMEA toolkit is a Java J2EE application able to run by a servlet contain
   * Download the distribution (or alternatively build it from source code)
   * Copy and deploy the war in $TOMCAT_HOME/webapps
   * Configure database connection parameters located in $TOMCAT_HOME/webapps/informea/WEB-INF/classes/persistence.xml
-  ```
+
+  ```XML
   		<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/informea_odata?zeroDateTimeBehavior=convertToNull" />
   		<property name="javax.persistence.jdbc.user" value="root" />
         <property name="javax.persistence.jdbc.password" value="root" />
