@@ -1,3 +1,16 @@
+-- Contacts
+
+-- informea_contacts
+CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `informea_contacts` AS 
+    SELECT `a`.`id` AS `id`,`c`.`code` AS `country`,`a`.`prefix` AS `prefix`,`a`.`first_name` AS `firstName`,`a`.`last_name` AS `lastName`,`a`.`position` AS `position`,`a`.`institution` AS `institution`,`a`.`department` AS `department`,`a`.`address` AS `address`,`a`.`email` AS `email`,`a`.`telephone` AS `phoneNumber`,`a`.`fax` AS `fax`,`a`.`type` AS `type`,`a`.`is_primary` AS `primary`,`a`.`rec_updated` AS `updated` 
+        FROM `ai_people` `a` JOIN `ai_country` `c` ON `c`.`id` = `a`.`id_country`;
+
+-- informea_contacts_treaties
+CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `informea_contacts_treaties` AS 
+    SELECT concat(`a`.`id`,'-',`c`.`odata_name`) AS `id`,`a`.`id` AS `contact_id`,`c`.`odata_name` AS `treaty` 
+        FROM `ai_people` `a` JOIN `ai_people_treaty` `b` ON `a`.`id` = `b`.`id_people` JOIN `ai_treaty` `c` ON `c`.`id` = `b`.`id_treaty`;
+
+
 -- Meetings
 
 -- informea_meetings
