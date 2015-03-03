@@ -1560,7 +1560,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50013 DEFINER=CURRENT_USER SQL SECURITY DEFINER */
 /*!50001 VIEW `informea_contacts` AS select `a`.`id` AS `id`,`c`.`code` AS `country`,`a`.`prefix` AS `prefix`,`a`.`first_name` AS `firstName`,`a`.`last_name` AS `lastName`,`a`.`position` AS `position`,`a`.`institution` AS `institution`,`a`.`department` AS `department`,`a`.`address` AS `address`,`a`.`email` AS `email`,`a`.`telephone` AS `phoneNumber`,`a`.`fax` AS `fax`,`a`.`type` AS `type`,`a`.`is_primary` AS `primary`,`a`.`rec_updated` AS `updated` from (`ai_people` `a` join `ai_country` `c` on((`c`.`id` = `a`.`id_country`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1579,7 +1579,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50013 DEFINER=CURRENT_USER SQL SECURITY DEFINER */
 /*!50001 VIEW `informea_contacts_treaties` AS select concat(`a`.`id`,'-',`c`.`odata_name`) AS `id`,`a`.`id` AS `contact_id`,`c`.`odata_name` AS `treaty` from ((`ai_people` `a` join `ai_people_treaty` `b` on((`a`.`id` = `b`.`id_people`))) join `ai_treaty` `c` on((`c`.`id` = `b`.`id_treaty`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1598,7 +1598,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50013 DEFINER=CURRENT_USER SQL SECURITY DEFINER */
 /*!50001 VIEW `informea_country_reports` AS select `a`.`id` AS `id`,`b`.`odata_name` AS `treaty`,`c`.`code` AS `country`,`a`.`submission` AS `submission`,`a`.`document_url` AS `url`,`a`.`rec_updated` AS `updated` from ((`ai_country_report` `a` join `ai_treaty` `b` on((`a`.`id_treaty` = `b`.`id`))) join `ai_country` `c` on((`c`.`id` = `a`.`id_country`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1617,7 +1617,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50013 DEFINER=CURRENT_USER SQL SECURITY DEFINER */
 /*!50001 VIEW `informea_country_reports_title` AS select concat(`a`.`id`,'-en') AS `id`,`a`.`id` AS `country_report_id`,'en' AS `language`,`a`.`title` AS `title` from ((`ai_country_report` `a` join `ai_treaty` `b` on((`a`.`id_treaty` = `b`.`id`))) join `ai_country` `c` on((`c`.`id` = `a`.`id_country`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1636,7 +1636,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50013 DEFINER=CURRENT_USER SQL SECURITY DEFINER */
 /*!50001 VIEW `informea_decisions` AS select `a`.`id` AS `id`,`a`.`link` AS `link`,`a`.`type` AS `type`,`a`.`status` AS `status`,`a`.`number` AS `number`,`b`.`odata_name` AS `treaty`,`a`.`published` AS `published`,`a`.`updated` AS `updated`,`a`.`id_meeting` AS `meetingId`,`a`.`meeting_title` AS `meetingTitle`,`a`.`meeting_url` AS `meetingUrl` from (`ai_decision` `a` join `ai_treaty` `b` on((`b`.`id` = `a`.`id_treaty`))) where ((`a`.`id_meeting` is not null) or ((`a`.`meeting_title` is not null) and (trim(`a`.`meeting_title`) <> ''))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1655,7 +1655,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50013 DEFINER=CURRENT_USER SQL SECURITY DEFINER */
 /*!50001 VIEW `informea_decisions_content` AS select concat(`ai_decision`.`id`,'-en') AS `id`,`ai_decision`.`id` AS `decision_id`,'en' AS `language`,`ai_decision`.`body` AS `content` from `ai_decision` where ((`ai_decision`.`body` is not null) and (trim(`ai_decision`.`body`) <> '')) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1674,7 +1674,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50013 DEFINER=CURRENT_USER SQL SECURITY DEFINER */
 /*!50001 VIEW `informea_decisions_documents` AS select `a`.`id` AS `id`,`a`.`id_decision` AS `decision_id`,`a`.`path` AS `diskPath`,`a`.`url` AS `url`,`a`.`mime` AS `mimeType`,`a`.`language` AS `language`,`a`.`filename` AS `filename` from `ai_document` `a` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1693,7 +1693,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50013 DEFINER=CURRENT_USER SQL SECURITY DEFINER */
 /*!50001 VIEW `informea_decisions_keywords` AS select distinct concat(`voc`.`id`,'-',`a`.`id_decision`) AS `id`,`a`.`id_decision` AS `decision_id`,`vs`.`name` AS `namespace`,`voc`.`term` AS `term` from ((`voc_concept` `voc` join `voc_source` `vs` on((`vs`.`id` = `voc`.`id_source`))) join `ai_decision_vocabulary` `a` on((`voc`.`id` = `a`.`id_concept`))) union select distinct concat(`voc`.`id`,'-',`dp`.`id_decision`) AS `id`,`dp`.`id_decision` AS `decision_id`,`vs`.`name` AS `namespace`,`voc`.`term` AS `term` from (((`voc_concept` `voc` join `voc_source` `vs` on((`vs`.`id` = `voc`.`id_source`))) join `ai_decision_paragraph_vocabulary` `a` on((`voc`.`id` = `a`.`id_concept`))) join `ai_decision_paragraph` `dp` on((`a`.`id_decision_paragraph` = `dp`.`id`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1712,7 +1712,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50013 DEFINER=CURRENT_USER SQL SECURITY DEFINER */
 /*!50001 VIEW `informea_decisions_longtitle` AS select concat(`ai_decision`.`id`,'-en') AS `id`,`ai_decision`.`id` AS `decision_id`,'en' AS `language`,`ai_decision`.`long_title` AS `long_title` from `ai_decision` where ((`ai_decision`.`long_title` is not null) and (trim(`ai_decision`.`long_title`) <> '')) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1731,7 +1731,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50013 DEFINER=CURRENT_USER SQL SECURITY DEFINER */
 /*!50001 VIEW `informea_decisions_summary` AS select concat(`ai_decision`.`id`,'-en') AS `id`,`ai_decision`.`id` AS `decision_id`,'en' AS `language`,`ai_decision`.`summary` AS `summary` from `ai_decision` where ((`ai_decision`.`summary` is not null) and (trim(`ai_decision`.`summary`) <> '')) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1750,7 +1750,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50013 DEFINER=CURRENT_USER SQL SECURITY DEFINER */
 /*!50001 VIEW `informea_decisions_title` AS select concat(`ai_decision`.`id`,'-en') AS `id`,`ai_decision`.`id` AS `decision_id`,'en' AS `language`,`ai_decision`.`short_title` AS `title` from `ai_decision` where ((`ai_decision`.`short_title` is not null) and (trim(`ai_decision`.`short_title`) <> '')) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1769,7 +1769,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50013 DEFINER=CURRENT_USER SQL SECURITY DEFINER */
 /*!50001 VIEW `informea_meetings` AS select `a`.`id` AS `id`,`b`.`odata_name` AS `treaty`,`a`.`event_url` AS `url`,`a`.`start` AS `start`,`a`.`end` AS `end`,`a`.`repetition` AS `repetition`,`a`.`kind` AS `kind`,`a`.`type` AS `type`,`a`.`access` AS `access`,`a`.`status` AS `status`,`a`.`image` AS `imageUrl`,`a`.`image_copyright` AS `imageCopyright`,`a`.`location` AS `location`,`a`.`city` AS `city`,`c`.`code` AS `country`,`a`.`latitude` AS `latitude`,`a`.`longitude` AS `longitude`,`a`.`rec_updated` AS `updated` from ((`ai_event` `a` join `ai_treaty` `b` on(((`a`.`id_treaty` = `b`.`id`) and (`b`.`odata_name` <> 'protocolwaterhealth')))) join `ai_country` `c` on((`a`.`id_country` = `c`.`id`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1788,7 +1788,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50013 DEFINER=CURRENT_USER SQL SECURITY DEFINER */
 /*!50001 VIEW `informea_meetings_description` AS select concat(`ai_event`.`id`,'-en') AS `id`,`ai_event`.`id` AS `meeting_id`,'en' AS `language`,`ai_event`.`description` AS `description` from `ai_event` where ((`ai_event`.`description` is not null) and (trim(`ai_event`.`description`) <> '')) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1807,7 +1807,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50013 DEFINER=CURRENT_USER SQL SECURITY DEFINER */
 /*!50001 VIEW `informea_meetings_title` AS select concat(`ai_event`.`id`,'-en') AS `id`,`ai_event`.`id` AS `meeting_id`,'en' AS `language`,`ai_event`.`title` AS `title` from `ai_event` where ((`ai_event`.`title` is not null) and (trim(`ai_event`.`title`) <> '')) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1826,7 +1826,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50013 DEFINER=CURRENT_USER SQL SECURITY DEFINER */
 /*!50001 VIEW `informea_national_plans` AS select `a`.`id` AS `id`,`b`.`odata_name` AS `treaty`,`c`.`code` AS `country`,`a`.`submission` AS `submission`,`a`.`document_url` AS `url`,`a`.`type` AS `type`,`a`.`rec_updated` AS `updated` from ((`ai_country_plan` `a` join `ai_treaty` `b` on((`a`.`id_treaty` = `b`.`id`))) join `ai_country` `c` on((`c`.`id` = `a`.`id_country`))) where (`a`.`type` is not null) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1845,7 +1845,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50013 DEFINER=CURRENT_USER SQL SECURITY DEFINER */
 /*!50001 VIEW `informea_national_plans_title` AS select concat(`a`.`id`,'-en') AS `id`,`a`.`id` AS `national_plan_id`,'en' AS `language`,`a`.`title` AS `title` from ((`ai_country_plan` `a` join `ai_treaty` `b` on((`a`.`id_treaty` = `b`.`id`))) join `ai_country` `c` on((`c`.`id` = `a`.`id_country`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1864,7 +1864,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50013 DEFINER=CURRENT_USER SQL SECURITY DEFINER */
 /*!50001 VIEW `informea_sites` AS select `a`.`id` AS `id`,(case when (`b`.`odata_name` = 'whc') then 'whc' else 'ramsar' end) AS `type`,`c`.`code` AS `country`,`b`.`odata_name` AS `treaty`,`a`.`name` AS `name`,`a`.`url` AS `url`,`a`.`latitude` AS `latitude`,`a`.`longitude` AS `longitude`,`a`.`rec_updated` AS `updated` from ((`ai_country_site` `a` join `ai_treaty` `b` on((`a`.`id_treaty` = `b`.`id`))) join `ai_country` `c` on((`c`.`id` = `a`.`id_country`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1883,7 +1883,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`informea`@`localhost` SQL SECURITY DEFINER */
+/*!50013 DEFINER=CURRENT_USER SQL SECURITY DEFINER */
 /*!50001 VIEW `informea_sites_name` AS select concat(`ai_country_site`.`id`,'-en') AS `id`,`ai_country_site`.`id` AS `site_id`,'en' AS `language`,`ai_country_site`.`name` AS `name` from `ai_country_site` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
