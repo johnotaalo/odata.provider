@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.30, for osx10.9 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.23, for osx10.10 (x86_64)
 --
 -- Host: localhost    Database: informea_odata_test_source
 -- ------------------------------------------------------
--- Server version	5.5.30-log
+-- Server version	5.6.23-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -496,7 +496,7 @@ CREATE TABLE `ai_event` (
 
 LOCK TABLES `ai_event` WRITE;
 /*!40000 ALTER TABLE `ai_event` DISABLE KEYS */;
-INSERT INTO `ai_event` VALUES (1596,'cbd-COP-05',NULL,1,'http://www.cbd.int/doc/meetings/cop/cop-05/','Fifth Ordinary Meeting of the Conference of the Parties to the Convention on Biological Diversity','COP 5','Sample description of COP 5','2000-05-10 14:00:00','2000-05-15 15:00:00','yearly',NULL,'official','cop','invitation','confirmed','image url','image copyright text','UNEP Headquarters','Nairobi',84,-1.274359,36.81311,NULL,1,'2012-09-27 17:19:04','kelly','2014-11-10 12:09:57','sync_service',1);
+INSERT INTO `ai_event` VALUES (1596,'cbd-COP-05',NULL,1,'http://www.cbd.int/doc/meetings/cop/cop-05/','Fifth Ordinary Meeting of the Conference of the Parties to the Convention on Biological Diversity','COP 5','Sample description of COP 5','2000-05-10 14:00:00','2000-05-15 15:00:00','yearly',NULL,'official','cop','invitation','confirmed','http://placehold.it/128x128.png','image copyright text','UNEP Headquarters','Nairobi',84,-1.274359,36.81311,NULL,1,'2012-09-27 17:19:04','kelly','2015-04-06 12:01:42','sync_service',1);
 /*!40000 ALTER TABLE `ai_event` ENABLE KEYS */;
 UNLOCK TABLES;
 
