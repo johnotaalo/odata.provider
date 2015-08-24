@@ -14,6 +14,7 @@
  */
 package edw.olingo.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +31,7 @@ import javax.persistence.TemporalType;
  * Country report entity
  * 
  * @author Cristian Romanescu {@code cristian.romanescu _at_ eaudeweb.ro}
- * @version 2.0.0, 11/13/2014
+ * @version 2.1.0, 08/24/2015
  * @since 1.3.3
  */
 @Entity
@@ -56,6 +57,10 @@ public class CountryReport {
 	@OneToMany(mappedBy = "country_report", cascade = CascadeType.ALL)
 	private List<CountryReportTitle> titles;
 
+	@OneToMany(mappedBy = "country_report", cascade = CascadeType.ALL)
+	private List<CountryReportFile> files = new ArrayList<CountryReportFile>();
+
+
 	public String getTreaty() {
 		return treaty;
 	}
@@ -78,6 +83,10 @@ public class CountryReport {
 
 	public List<CountryReportTitle> getTitles() {
 		return titles;
+	}
+
+	public List<CountryReportFile> getFiles() {
+		return files;
 	}
 
 	public String getId() {

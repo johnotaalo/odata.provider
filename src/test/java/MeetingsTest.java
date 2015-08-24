@@ -53,7 +53,7 @@ public class MeetingsTest {
 		assertEquals("invitation", row.getAccess());
 		assertEquals("confirmed", row.getStatus());
 		assertEquals("yearly", row.getRepetition());
-		assertEquals("image url", row.getImageUrl());
+		assertEquals("http://placehold.it/128x128.png", row.getImageUrl());
 		assertEquals("image copyright text", row.getImageCopyright());
 		assertEquals("UNEP Headquarters", row.getLocation());
 		assertEquals("Nairobi", row.getCity());
@@ -67,7 +67,7 @@ public class MeetingsTest {
 		c = new GregorianCalendar(2000, 04, 15, 15, 0, 0);
 		assertEquals(c.getTime(), row.getEnd());
 
-		c = new GregorianCalendar(2014, 10, 10, 14, 9, 57);
+		c = new GregorianCalendar(2015, 3, 6, 15, 1, 42);
 		assertEquals(c.getTime(), row.getUpdated());
 
 		MeetingDescription description = row.getDescriptions().get(0);

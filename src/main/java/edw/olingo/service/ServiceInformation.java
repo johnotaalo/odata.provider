@@ -24,7 +24,7 @@ public class ServiceInformation {
 
 	public static final String UPDATE_URL = "http://www.informea.org/api.properties";
 	public static final int VERSION_MAJOR = 2;
-	public static final int VERSION_MINOR = 0;
+	public static final int VERSION_MINOR = 1;
 	public static final int VERSION_REVISION = 0;
 	public static final boolean VERSION_BETA = false;
 
@@ -95,15 +95,13 @@ public class ServiceInformation {
 	 * 
 	 * @return Structure containing update information
 	 */
-	public static Map<String, Object> checkProductUpdates(
-			String overrideUpdateUrl) {
+	public static Map<String, Object> checkProductUpdates(String overrideUpdateUrl) {
 		Map<String, Object> ret = new HashMap<String, Object>();
 		ret.put("needsUpdate", false);
 		ret.put("success", false);
 		ret.put("remoteVersion", "");
 		ret.put("changes", "");
-		String updateUrl = (overrideUpdateUrl == null) ? UPDATE_URL
-				: overrideUpdateUrl;
+		String updateUrl = (overrideUpdateUrl == null) ? UPDATE_URL : overrideUpdateUrl;
 		try {
 			URL url = new URL(updateUrl);
 			URLConnection c = url.openConnection();
@@ -142,7 +140,7 @@ public class ServiceInformation {
 			ret.put("success", true);
 			ret.put("changes", changes);
 		} catch (Exception ex) {
-			log.log(Level.WARNING, "Cannot check for new version!", ex);
+			log.log(Level.WARNING, "Cannot check for new version at: " + updateUrl);
 		}
 		return ret;
 	}

@@ -141,6 +141,30 @@
 				</JPAAttributes>
 				<JPARelationships />
 			</JPAEntityType>
+			<JPAEntityType name="NationalPlanFile">
+				<EDMEntityType>NationalPlanFile</EDMEntityType>
+				<EDMEntitySet>NationalPlanFile</EDMEntitySet>
+				<JPAAttributes>
+					<JPAAttribute name="id">id</JPAAttribute>
+					<JPAAttribute name="url">url</JPAAttribute>
+					<JPAAttribute name="mimeType">mimeType</JPAAttribute>
+					<JPAAttribute name="language">language</JPAAttribute>
+					<JPAAttribute name="filename">filename</JPAAttribute>
+				</JPAAttributes>
+				<JPARelationships />
+			</JPAEntityType>
+			<JPAEntityType name="CountryReportFile">
+				<EDMEntityType>CountryReportFile</EDMEntityType>
+				<EDMEntitySet>CountryReportFile</EDMEntitySet>
+				<JPAAttributes>
+					<JPAAttribute name="id">id</JPAAttribute>
+					<JPAAttribute name="url">url</JPAAttribute>
+					<JPAAttribute name="mimeType">mimeType</JPAAttribute>
+					<JPAAttribute name="language">language</JPAAttribute>
+					<JPAAttribute name="filename">filename</JPAAttribute>
+				</JPAAttributes>
+				<JPARelationships />
+			</JPAEntityType>
 
 			<JPAEntityType name="Site">
 				<EDMEntityType>Site</EDMEntityType>
@@ -182,6 +206,7 @@
 				</JPAAttributes>
 				<JPARelationships>
 					<JPARelationship name="titles">title</JPARelationship>
+					<JPARelationship name="files">files</JPARelationship>
 				</JPARelationships>
 			</JPAEntityType>
 			<JPAEntityType name="CountryReportTitle">
@@ -208,6 +233,7 @@
 				</JPAAttributes>
 				<JPARelationships>
 					<JPARelationship name="titles">title</JPARelationship>
+					<JPARelationship name="files">files</JPARelationship>
 				</JPARelationships>
 			</JPAEntityType>
 			<JPAEntityType name="NationalPlanTitle">
