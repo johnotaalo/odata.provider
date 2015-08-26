@@ -62,10 +62,11 @@
 									</c:if>
 									<c:if test="${not updateRequired}">
 										<span class="label label-success">running v.
-											${f:getVersion()}</span>
+											${f:getVersion()} latest</span>
 									</c:if>
 								</c:when>
 							</c:choose>
+							<a href="http://github.com/informea/odata.provider/releases" target="_blank">view</a>
 						</p></li>
 				</ul>
 			</div>
@@ -96,8 +97,9 @@
 			<thead>
 				<tr>
 					<th>Entity</th>
-					<th>No. of records</th>
-					<th>Notes</th>
+					<th class="text-nowrap">Item count</th>
+					<th>Data</th>
+					<th class="hidden-xs">Notes</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -105,53 +107,63 @@
 					<td>Meetings</td>
 					<td><c:if test="${countMeetings > 0}">${countMeetings}</c:if>
 						<c:if test="${countMeetings == 0}">n/a</c:if></td>
-					<td>&nbsp; <c:if test="${countMeetings > 0}"><a target="_blank" title="Click to see the entities" href="informea.svc/Meetings">View</a></c:if>
+					<td>&nbsp; <c:if test="${countMeetings > 0}">
+							<a target="_blank" title="Click to see the entities. Open in new tab" 
+								href="informea.svc/Meetings">View first 10</a></c:if>
 					</td>
+					<td class="hidden-xs">&nbsp;</td>
 				</tr>
 				<tr>
 					<td>Decisions</td>
 					<td><c:if test="${countDecisions > 0}">${countDecisions}</c:if> <c:if test="${countDecisions == 0}">n/a</c:if></td>
 					<td>&nbsp; <c:if test="${countDecisions > 0}">
-							<a target="_blank" title="Click to see the entities"
-								href="informea.svc/Decisions">View</a>
+							<a target="_blank" title="Click to see the entities. Open in new tab"
+								href="informea.svc/Decisions?$top=10&$skip=0">View first 10</a>
 						</c:if>
 					</td>
+					<td class="hidden-xs">&nbsp;</td>
 				</tr>
 				<tr>
 					<td>Contacts</td>
 					<td><c:if test="${countContacts > 0}">${countContacts}</c:if> <c:if test="${countContacts == 0}">n/a</c:if></td>
 					<td>&nbsp; <c:if test="${countContacts > 0}">
-							<a target="_blank" title="Click to see the entities"
-								href="informea.svc/Contacts">View</a>
+							<a target="_blank" title="Click to see the entities. Open in new tab"
+								href="informea.svc/Contacts?$top=10&$skip=0">View first 10</a>
 						</c:if>
 					</td>
+					<td class="hidden-xs">&nbsp;</td>
 				</tr>
 				<tr>
 					<td>National reports</td>
 					<td><c:if test="${countCountryReports > 0}">${countCountryReports}</c:if> <c:if test="${countCountryReports == 0}">n/a</c:if></td>
 					<td>&nbsp; <c:if test="${countCountryReports > 0}">
-							<a target="_blank" title="Click to see the entities"
-								href="informea.svc/CountryReports">View</a>
+							<a target="_blank" title="Click to see the entities. Open in new tab"
+								href="informea.svc/CountryReports?$top=10&$skip=0">View first 10</a>
 						</c:if>
 					</td>
+					<td class="hidden-xs">&nbsp;</td>
 				</tr>
 				<tr>
 					<td>National action plans</td>
 					<td><c:if test="${countNationalPlans > 0}">${countNationalPlans}</c:if> <c:if test="${countNationalPlans == 0}">n/a</c:if></td>
 					<td>&nbsp; <c:if test="${countNationalPlans > 0}">
-							<a target="_blank" title="Click to see the entities"
-								href="informea.svc/NationalPlans">View</a>
+							<a target="_blank" title="Click to see the entities. Open in new tab"
+								href="informea.svc/NationalPlans?$top=10&$skip=0">View first 10</a>
 						</c:if>
 					</td>
+					<td class="hidden-xs">&nbsp;</td>
 				</tr>
 				<tr>
 					<td>Sites</td>
 					<td><c:if test="${countSites > 0}">${countSites}</c:if><c:if test="${countSites == 0}">n/a</c:if></td>
 					<td>&nbsp; <c:if test="${countSites > 0}">
-							<a target="_blank" title="Click to see the entities"
+							<a target="_blank" title="Click to see the entities. Open in new tab"
 								href="informea.svc/Sites">View</a>
 							<br />
-						</c:if> Note: Applies only to Ramsar &amp; WHC sites
+						</c:if>
+					</td>
+					<td class="hidden-xs">
+						Applies only to Ramsar &amp; WHC sites
 					</td>
 				</tr>
 			</tbody>
@@ -163,6 +175,7 @@
 			This project is built and supported under the <a target="_blank"
 				href="http://www.informea.org/api">InforMEA</a> project. Please
 			visit the support page where you can find up to date documentation.
+			<br /> OData documentation available at <a href="http://www.odata.org" target="_blank">http://www.odata.org</a>.
 		</p>
 	</div>
 	<!-- /container -->
