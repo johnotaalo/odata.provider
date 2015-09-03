@@ -158,7 +158,7 @@
 					<td><c:if test="${countSites > 0}">${countSites}</c:if><c:if test="${countSites == 0}">n/a</c:if></td>
 					<td>&nbsp; <c:if test="${countSites > 0}">
 							<a target="_blank" title="Click to see the entities. Open in new tab"
-								href="informea.svc/Sites">View</a>
+								href="informea.svc/Sites?$top=10&$skip=0">View first 10</a>
 							<br />
 						</c:if>
 					</td>
