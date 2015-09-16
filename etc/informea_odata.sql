@@ -21,9 +21,9 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
     FROM_UNIXTIME(a.changed) AS updated
   FROM
     `informea_drupal`.node a
-    LEFT JOIN `informea_drupal`.field_data_field_treaty b ON a.nid = b.entity_id
-    LEFT JOIN `informea_drupal`.field_data_field_odata_identifier c ON b.field_treaty_target_id = c.entity_id
-    LEFT JOIN `informea_drupal`.field_data_field_url url ON url.entity_id = a.nid
+    INNER JOIN `informea_drupal`.field_data_field_treaty b ON a.nid = b.entity_id
+    INNER JOIN `informea_drupal`.field_data_field_odata_identifier c ON b.field_treaty_target_id = c.entity_id
+    INNER JOIN `informea_drupal`.field_data_field_url url ON url.entity_id = a.nid
     INNER JOIN `informea_drupal`.field_data_event_calendar_date d ON d.entity_id = a.nid
     
     LEFT JOIN `informea_drupal`.field_data_field_event_repetition rep ON rep.entity_id = a.nid
