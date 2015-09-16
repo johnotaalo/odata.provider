@@ -109,7 +109,7 @@
 						<c:if test="${countMeetings == 0}">n/a</c:if></td>
 					<td>&nbsp; <c:if test="${countMeetings > 0}">
 							<a target="_blank" title="Click to see the entities. Open in new tab" 
-								href="informea.svc/Meetings">View first 10</a></c:if>
+								href="informea.svc/Meetings?$top=10&$skip=0">View first 10</a></c:if>
 					</td>
 					<td class="hidden-xs">&nbsp;</td>
 				</tr>
