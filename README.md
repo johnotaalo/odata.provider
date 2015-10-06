@@ -3,12 +3,20 @@ odata.provider
 
 [![Build Status](http://ci.edw.ro/buildStatus/icon?job=informea.odata.provider)](http://ci.edw.ro/job/informea.odata.provider/)
 
-InforMEA OData provider version 2.1.1
+InforMEA OData provider
 
 This project contains the OData provider web application to be deployed on third parties environments such as MEAs (Multilateral Environment Agreements) where it can be configured to expose the InforMEA compatible entities present inside their relational database back-end.
 
-The 2.0 version contains amendments added to the API specification for data structures.
+The 2.0 version features:
 
+* New implementation based on the Apache Olingo library
+* Amendments added to the API specification for data structures (ie File entity)
+
+Prerequisites
+=============
+
+* Java 1.7 (not tested with 1.8)
+* Apache Tomcat 7.x
 
 Binary installation
 ===================
