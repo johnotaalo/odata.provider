@@ -25,7 +25,7 @@ public class ServiceInformation {
 	public static final String UPDATE_URL = "http://www.informea.org/api.properties";
 	public static final int VERSION_MAJOR = 2;
 	public static final int VERSION_MINOR = 1;
-	public static final int VERSION_REVISION = 2;
+	public static final int VERSION_REVISION = 3;
 	public static final boolean VERSION_BETA = false;
 
 	public static final String PERSISTENCE_UNIT_NAME = "persistence_unit";
@@ -46,9 +46,12 @@ public class ServiceInformation {
 			count = em.createQuery(query).getSingleResult();
 		} catch (Exception ex) {
 			// Give a nice error, don't throw a stack-trace to scare the DevOps.
-			log.warning(String
-					.format("ServiceInformation:countEntities(): Cannot get entity count for %s. Probably not configured?",
-							entityKlass.getName()));
+			log.log(
+				Level.SEVERE,
+				String.format("ServiceInformation:countEntities(): Cannot get entity count for %s. Probably not configured?", entityKlass.getName()),
+				ex
+			);
+			ex.printStackTrace();
 		}
 		return count;
 	}
@@ -95,6 +98,7 @@ public class ServiceInformation {
 	 * 
 	 * @return Structure containing update information
 	 */
+	@SuppressWarnings("unused")
 	public static Map<String, Object> checkProductUpdates(String overrideUpdateUrl) {
 		Map<String, Object> ret = new HashMap<String, Object>();
 		ret.put("needsUpdate", false);
