@@ -1,7 +1,7 @@
 -- informea_meetings
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_meetings` AS
   SELECT
-    a.nid AS id,
+    a.uuid AS id,
     c.field_odata_identifier_value AS treaty,
     url.field_url_url AS url,
     d.event_calendar_date_value AS `start`,
@@ -86,14 +86,14 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
 -- informea_decisions
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_decisions` AS
   SELECT
-    a.nid AS id,
+    a.uuid AS id,
     IF (url.field_url_url IS NULL, concat('http://www.informea.org/node/' , a.nid), url.field_url_url) AS link,
     t1.name AS `type`,
     t2.name AS `status`,
     field_decision_number_value AS number,
     c.field_odata_identifier_value AS treaty,
     dp.field_decision_published_value AS published,
-    n2.nid AS meetingId,
+    n2.uuid AS meetingId,
     n2.title AS meetingTitle,
     urlm.field_url_url AS meetingUrl,
     IFNULL(upd.field_last_update_value, NOW()) AS updated
@@ -149,8 +149,8 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
 -- informea_decisions_documents
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_decisions_documents` AS
   SELECT
-    CONCAT(a.nid, '-', fm.fid) AS id,
-    a.nid AS decision_id,
+    CONCAT(a.uuid, '-', fm.uuid) AS id,
+    a.uuid AS decision_id,
     fm.uri AS diskPath,
     IF (f.field_files_description IS NULL, CONCAT('http://www.informea.org/sites/default/files/', REPLACE(fm.uri, 'public://', '')), f.field_files_description) AS url,
     fm.filemime AS mimeType,
@@ -196,7 +196,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
 -- informea_country_reports
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_country_reports` AS
   SELECT
-    a.nid AS id,
+    a.uuid AS id,
     c.field_odata_identifier_value AS treaty,
     iso2.field_country_iso2_value AS country,
     sd.field_report_submission_date_value AS submission,
@@ -229,8 +229,8 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
 -- informea_country_reports_documents
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_country_reports_documents` AS
   SELECT
-    CONCAT(a.nid, '-', fm.fid) AS id,
-    a.nid AS decision_id,
+    CONCAT(a.uuid, '-', fm.uuid) AS id,
+    a.uuid AS decision_id,
     fm.uri AS diskPath,
     IF (f.field_files_description = '', CONCAT('http://www.informea.org/sites/default/files/', REPLACE(fm.uri, 'public://', '')), f.field_files_description) AS url,
     fm.filemime AS mimeType,
@@ -246,7 +246,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
 -- informea_national_plans
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_national_plans` AS
   SELECT
-    a.nid AS id,
+    a.uuid AS id,
     c.field_odata_identifier_value AS treaty,
     iso2.field_country_iso2_value AS country,
     sd.field_report_submission_date_value AS submission,
@@ -287,8 +287,8 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
 -- informea_national_plans_documents
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_country_reports_documents` AS
   SELECT
-    CONCAT(a.nid, '-', fm.fid)  AS id,
-    a.nid AS decision_id,
+    CONCAT(a.uuid, '-', fm.uuid)  AS id,
+    a.uuid AS decision_id,
     fm.uri AS diskPath,
     IF (f.field_files_description = '', CONCAT('http://www.informea.org/sites/default/files/', REPLACE(fm.uri, 'public://', '')), f.field_files_description) AS url,
     fm.filemime AS mimeType,
@@ -302,7 +302,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
 -- CONTACTS (Focal Points)
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_contacts` AS
   SELECT
-    a.nid AS id,
+    a.uuid AS id,
     iso2.field_country_iso2_value AS country,
     prf.field_person_prefix_value AS prefix,
     fst.field_person_first_name_value AS firstName,
@@ -340,16 +340,16 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
     LEFT JOIN `informea_drupal`.field_data_field_contact_primary_nfp pri ON pri.entity_id = a.nid
 
     LEFT JOIN `informea_drupal`.field_data_field_last_update upd ON upd.entity_id = a.nid
-
   WHERE 
     a.`type` = 'contact_person'
   GROUP BY a.nid;
 
+
 -- informea_contacts_treaties
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_contacts_treaties` AS
   SELECT
-    CONCAT(a.nid, '-', d.field_odata_identifier_value) AS id,
-    a.nid AS contact_id,
+    CONCAT(a.uuid, '-', d.field_odata_identifier_value) AS id,
+    a.uuid AS contact_id,
     d.field_odata_identifier_value AS treaty
   FROM `informea_drupal`.node a
   INNER JOIN `informea_contacts` b ON a.nid = b.id
@@ -360,7 +360,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
 -- informea_sites
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_sites` AS
   SELECT
-    a.nid AS id,
+    a.uuid AS id,
     c.field_odata_identifier_value AS `type`,
     iso2.field_country_iso2_value AS country,
     c.field_odata_identifier_value AS treaty,
