@@ -30,6 +30,7 @@ public class Meeting {
 	private Date start;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "\"end\"")
 	private Date end;
 
 	private String repetition;
