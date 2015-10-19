@@ -24,6 +24,8 @@
 			ServiceInformation.countNationalPlans());
 	pageContext.setAttribute("countSites",
 			ServiceInformation.countSites());
+	pageContext.setAttribute("countTreaties",
+			ServiceInformation.countTreaties());
 %>
 <html>
 <head>
@@ -103,6 +105,16 @@
 				</tr>
 			</thead>
 			<tbody>
+				<tr>
+					<td>Treaties</td>
+					<td><c:if test="${countTreaties > 0}">${countTreaties}</c:if>
+						<c:if test="${countTreaties == 0}">n/a</c:if></td>
+					<td>&nbsp; <c:if test="${countTreaties > 0}">
+							<a target="_blank" title="Click to see the entities. Open in new tab" 
+								href="informea.svc/Treaties?$top=10&$skip=0">View first 10</a></c:if>
+					</td>
+					<td class="hidden-xs">&nbsp;</td>
+				</tr>
 				<tr>
 					<td>Meetings</td>
 					<td><c:if test="${countMeetings > 0}">${countMeetings}</c:if>

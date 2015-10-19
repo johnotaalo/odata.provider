@@ -1,3 +1,50 @@
+-- informea_treaties
+CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_treaties` AS
+  SELECT
+    a.nid AS id,
+    a.uuid AS uuid,
+    c.field_odata_identifier_value AS odataIdentifier,
+    CONCAT('http://www.informea.org/treaties/', c.field_odata_identifier_value) AS url,
+    url.field_treaty_website_url_url AS treatyWebsiteURL,
+    a.title AS titleEnglish,
+    d.field_official_name_value AS officialNameEnglish,
+    a.changed as updated
+  FROM
+    `informea_drupal`.node a
+    INNER JOIN `informea_drupal`.field_data_field_odata_identifier c ON a.nid = c.entity_id
+    LEFT JOIN `informea_drupal`.field_data_field_treaty_website_url url ON url.entity_id = a.nid
+    INNER JOIN `informea_drupal`.field_data_field_data_source src ON src.entity_id = a.nid
+    LEFT JOIN `informea_drupal`.field_data_field_official_name d  ON d.entity_id = a.nid
+  WHERE
+	src.field_data_source_tid = 815
+    AND a.`TYPE` = 'treaty'
+    AND a.`status` = 1
+    GROUP BY a.nid;
+
+-- informea_treaties_description
+CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_treaties_description` AS
+  SELECT
+    CONCAT(b.id, '-', c.language) AS id,
+    b.id AS treaty_id,
+    c.language AS `language`,
+    c.body_value AS description
+  FROM `informea_drupal`.node a
+    INNER JOIN `informea_treaties` b ON a.nid = b.id
+    INNER JOIN `informea_drupal`.field_data_body c ON a.nid = c.entity_id;
+
+
+-- informea_treaties_title
+CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_treaties_title` AS
+  SELECT
+    CONCAT(b.id, '-', c.language) AS id,
+    b.id AS treaty_id,
+    c.language AS `language`,
+    c.title_field_value AS title
+  FROM `informea_drupal`.node a
+    INNER JOIN `informea_treaties` b ON a.nid = b.id
+    INNER JOIN `informea_drupal`.field_data_title_field c ON a.nid = c.entity_id;
+
+
 -- informea_meetings
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_meetings` AS
   SELECT

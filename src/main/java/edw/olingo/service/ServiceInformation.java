@@ -19,6 +19,7 @@ import edw.olingo.model.Decision;
 import edw.olingo.model.Meeting;
 import edw.olingo.model.NationalPlan;
 import edw.olingo.model.Site;
+import edw.olingo.model.Treaty;
 
 public class ServiceInformation {
 
@@ -87,6 +88,10 @@ public class ServiceInformation {
 
 	public static long countSites() {
 		return ServiceInformation.countEntities(Site.class);
+	}
+
+	public static long countTreaties() {
+		return ServiceInformation.countEntities(Treaty.class);
 	}
 
 	public static Map<String, Object> checkProductUpdates() {

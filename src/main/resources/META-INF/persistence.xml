@@ -32,6 +32,10 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
 		<class>edw.olingo.model.Contact</class>
 		<class>edw.olingo.model.ContactTreaty</class>
 
+		<class>edw.olingo.model.Treaty</class>
+		<class>edw.olingo.model.TreatyDescription</class>
+		<class>edw.olingo.model.TreatyTitle</class>
+
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://php-mysql.edw.lan/informea_odata_test_source?zeroDateTimeBehavior=convertToNull" />
