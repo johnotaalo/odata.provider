@@ -230,7 +230,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_country_reports_documents` AS
   SELECT
     CONCAT(a.uuid, '-', fm.uuid) AS id,
-    a.uuid AS decision_id,
+    a.uuid AS country_report_id,
     fm.uri AS diskPath,
     IF (f.field_files_description = '', CONCAT('http://www.informea.org/sites/default/files/', REPLACE(fm.uri, 'public://', '')), f.field_files_description) AS url,
     fm.filemime AS mimeType,
@@ -285,10 +285,10 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
   INNER JOIN `informea_drupal`.field_data_title_field c ON a.nid = c.entity_id;
 
 -- informea_national_plans_documents
-CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_country_reports_documents` AS
+CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_national_plans_documents` AS
   SELECT
     CONCAT(a.uuid, '-', fm.uuid)  AS id,
-    a.uuid AS decision_id,
+    a.uuid AS national_plan_id,
     fm.uri AS diskPath,
     IF (f.field_files_description = '', CONCAT('http://www.informea.org/sites/default/files/', REPLACE(fm.uri, 'public://', '')), f.field_files_description) AS url,
     fm.filemime AS mimeType,
@@ -388,7 +388,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
 
 -- informea_sites_name
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_sites_name` AS
-  SELECT 
+  SELECT
     CONCAT(b.id, '-', c.language) AS id, 
     b.id AS site_id,
     c.language AS `language`,
