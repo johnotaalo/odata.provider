@@ -48,6 +48,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
   SELECT
     CAST(a.uuid AS CHAR) AS id,
     c.field_odata_identifier_value AS treaty,
+    tre.uuid as treatyUUID,
     url.field_url_url AS url,
     d.event_calendar_date_value AS `start`,
     d.event_calendar_date_value2 AS `end`,
@@ -97,6 +98,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
     LEFT JOIN `informea_drupal`.field_data_field_longitude lon ON lon.entity_id = a.nid
 
     LEFT JOIN `informea_drupal`.field_data_field_last_update upd ON upd.entity_id = a.nid
+    INNER JOIN `informea_drupal`.node tre ON b.field_treaty_target_id = tre.nid
 
   WHERE
     a.`TYPE` = 'event_calendar'
@@ -137,6 +139,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
     t2.name AS `status`,
     field_decision_number_value AS number,
     c.field_odata_identifier_value AS treaty,
+    tre.uuid AS treatyUUID,
     dp.field_decision_published_value AS published,
     n2.uuid AS meetingId,
     n2.title AS meetingTitle,
@@ -165,6 +168,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
     LEFT JOIN `informea_drupal`.field_data_field_url urlm ON urlm.entity_id = m.field_meeting_target_id
 
     LEFT JOIN `informea_drupal`.field_data_field_last_update upd ON upd.entity_id = a.nid
+    INNER JOIN `informea_drupal`.node tre ON b.field_treaty_target_id = tre.nid
   WHERE 
       a.type = 'decision';
 
@@ -243,6 +247,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
   SELECT
     a.uuid AS id,
     c.field_odata_identifier_value AS treaty,
+    tre.uuid AS treatyUUID,
     iso2.field_country_iso2_value AS country,
     sd.field_report_submission_date_value AS submission,
     durl.field_document_url_url AS url,
@@ -257,6 +262,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
     LEFT JOIN `informea_drupal`.field_data_field_report_submission_date sd ON sd.entity_id = a.nid
     LEFT JOIN `informea_drupal`.field_data_field_document_url durl ON durl.entity_id = a.nid
     LEFT JOIN `informea_drupal`.field_data_field_last_update upd ON upd.entity_id = a.nid
+    INNER JOIN `informea_drupal`.node tre ON b.field_treaty_target_id = tre.nid
   WHERE 
       a.`type` = 'national_report';
 
@@ -293,6 +299,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
   SELECT
     a.uuid AS id,
     c.field_odata_identifier_value AS treaty,
+    tre.uuid AS treatyUUID,
     iso2.field_country_iso2_value AS country,
     sd.field_report_submission_date_value AS submission,
     durl.field_document_url_url AS url,
@@ -314,6 +321,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
     LEFT JOIN `informea_drupal`.field_data_field_document_url durl ON durl.entity_id = a.nid
 
     LEFT JOIN `informea_drupal`.field_data_field_last_update upd ON upd.entity_id = a.nid
+    INNER JOIN `informea_drupal`.node tre ON b.field_treaty_target_id = tre.nid
   WHERE 
     a.type = 'action_plan';
 
@@ -396,10 +404,12 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
     CAST(CONCAT(a.id, '-', d.field_odata_identifier_value) AS CHAR) AS id,
     a.id AS contact_id,
     d.field_odata_identifier_value AS treaty
+    tre.uuid AS treatyUUID
   FROM `informea_contacts` a
   INNER JOIN `informea_drupal`.node b ON a.id = b.uuid
   INNER JOIN `informea_drupal`.field_data_field_treaty c ON b.nid = c.entity_id
   INNER JOIN `informea_drupal`.field_data_field_odata_identifier d ON c.field_treaty_target_id = d.entity_id;
+  INNER JOIN `informea_drupal`.node tre ON c.field_treaty_target_id = tre.nid;
 
 -- SITES
 -- informea_sites
@@ -409,6 +419,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
     c.field_odata_identifier_value AS `type`,
     iso2.field_country_iso2_value AS country,
     c.field_odata_identifier_value AS treaty,
+    tre.uuid AS treatyUUID,
     url.field_url_url AS url,
     lat.field_latitude_value AS latitude,
     lon.field_longitude_value AS longitude,
@@ -427,6 +438,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
     LEFT JOIN `informea_drupal`.field_data_field_longitude lon ON lon.entity_id = a.nid
 
     LEFT JOIN `informea_drupal`.field_data_field_last_update upd ON upd.entity_id = a.nid
+    INNER JOIN `informea_drupal`.node tre ON b.field_treaty_target_id = tre.nid
 
     WHERE a.`TYPE` = 'geographical_site'
     GROUP BY a.nid;

@@ -49,6 +49,8 @@ public class Decision {
 	private String type;
 	@Column(nullable = false)
 	private String treaty;
+	@Column(nullable = false)
+	private String treatyUUID;
 	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
 	private Date published;
 	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
@@ -144,5 +146,9 @@ public class Decision {
 
 	public String getId() {
 		return id;
+	}
+
+	public String getTreatyUUID() {
+		return treatyUUID;
 	}
 }
