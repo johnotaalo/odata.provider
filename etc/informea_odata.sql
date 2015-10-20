@@ -403,12 +403,12 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
   SELECT
     CAST(CONCAT(a.id, '-', d.field_odata_identifier_value) AS CHAR) AS id,
     a.id AS contact_id,
-    d.field_odata_identifier_value AS treaty
+    d.field_odata_identifier_value AS treaty,
     tre.uuid AS treatyUUID
   FROM `informea_contacts` a
   INNER JOIN `informea_drupal`.node b ON a.id = b.uuid
   INNER JOIN `informea_drupal`.field_data_field_treaty c ON b.nid = c.entity_id
-  INNER JOIN `informea_drupal`.field_data_field_odata_identifier d ON c.field_treaty_target_id = d.entity_id;
+  INNER JOIN `informea_drupal`.field_data_field_odata_identifier d ON c.field_treaty_target_id = d.entity_id
   INNER JOIN `informea_drupal`.node tre ON c.field_treaty_target_id = tre.nid;
 
 -- SITES
