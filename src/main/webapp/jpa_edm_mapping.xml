@@ -10,7 +10,6 @@
 				<JPAAttributes>
 					<JPAAttribute name="id">id</JPAAttribute>
 					<JPAAttribute name="uuid">UUID</JPAAttribute>
-					<JPAAttribute name="odataIdentifier">odataIdentifier</JPAAttribute>
 					<JPAAttribute name="url">url</JPAAttribute>
 					<JPAAttribute name="titleEnglish">titleEnglish</JPAAttribute>
 					<JPAAttribute name="officialNameEnglish">officialNameEnglish</JPAAttribute>

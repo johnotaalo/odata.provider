@@ -1,14 +1,13 @@
 -- informea_treaties
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_treaties` AS
   SELECT
-    a.nid AS id,
+    c.field_odata_identifier_value AS id,
     a.uuid AS uuid,
-    c.field_odata_identifier_value AS odataIdentifier,
     CONCAT('http://www.informea.org/treaties/', c.field_odata_identifier_value) AS url,
     url.field_treaty_website_url_url AS treatyWebsiteURL,
     a.title AS titleEnglish,
     d.field_official_name_value AS officialNameEnglish,
-    a.changed as updated
+    FROM_UNIXTIME(a.changed) as updated
   FROM
     `informea_drupal`.node a
     INNER JOIN `informea_drupal`.field_data_field_odata_identifier c ON a.nid = c.entity_id
@@ -24,26 +23,25 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
 -- informea_treaties_description
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_treaties_description` AS
   SELECT
-    CAST(CONCAT(b.id, '-', c.language) AS CHAR) AS id,
-    CAST(b.id AS CHAR) AS treaty_id,
+    CAST(CONCAT(a.id, '-', c.language) AS CHAR) AS id,
+    CAST(a.id AS CHAR) AS treaty_id,
     c.language AS `language`,
     c.body_value AS description
-  FROM `informea_drupal`.node a
-    INNER JOIN `informea_treaties` b ON a.nid = b.id
-    INNER JOIN `informea_drupal`.field_data_body c ON a.nid = c.entity_id;
+  FROM `informea_treaties` a
+    INNER JOIN `informea_drupal`.field_data_field_odata_identifier b ON a.id = b.field_odata_identifier_value
+    INNER JOIN `informea_drupal`.field_data_body c ON c.entity_id = b.entity_id;
 
 
 -- informea_treaties_title
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_treaties_title` AS
   SELECT
-    CAST(CONCAT(b.id, '-', c.language) AS CHAR) AS id,
-    CAST(b.id AS CHAR) AS treaty_id,
+    CAST(CONCAT(a.id, '-', c.language) AS CHAR) AS id,
+    CAST(a.id AS CHAR) AS treaty_id,
     c.language AS `language`,
     c.title_field_value AS title
-  FROM `informea_drupal`.node a
-    INNER JOIN `informea_treaties` b ON a.nid = b.id
-    INNER JOIN `informea_drupal`.field_data_title_field c ON a.nid = c.entity_id;
-
+  FROM `informea_treaties` a
+    INNER JOIN `informea_drupal`.field_data_field_odata_identifier b ON a.id = b.field_odata_identifier_value
+    INNER JOIN `informea_drupal`.field_data_title_field c ON c.entity_id = b.entity_id;
 
 -- informea_meetings
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_meetings` AS

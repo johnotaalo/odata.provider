@@ -19,8 +19,6 @@ public class Treaty {
 	private String id;
 	@Column(nullable = false)
 	private String uuid;
-	@Column(nullable = false)
-	private String odataIdentifier;
 
 	private String url;
 	private String treatyWebsiteURL;
@@ -38,9 +36,6 @@ public class Treaty {
 	}
 	public String getUuid() {
 		return uuid;
-	}
-	public String getOdataIdentifier() {
-		return odataIdentifier;
 	}
 	public String getUrl() {
 		return url;
