@@ -24,8 +24,8 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
 -- informea_treaties_description
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_treaties_description` AS
   SELECT
-    CONCAT(b.id, '-', c.language) AS id,
-    b.id AS treaty_id,
+    CAST(CONCAT(b.id, '-', c.language) AS CHAR) AS id,
+    CAST(b.id AS CHAR) AS treaty_id,
     c.language AS `language`,
     c.body_value AS description
   FROM `informea_drupal`.node a
@@ -36,8 +36,8 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
 -- informea_treaties_title
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_treaties_title` AS
   SELECT
-    CONCAT(b.id, '-', c.language) AS id,
-    b.id AS treaty_id,
+    CAST(CONCAT(b.id, '-', c.language) AS CHAR) AS id,
+    CAST(b.id AS CHAR) AS treaty_id,
     c.language AS `language`,
     c.title_field_value AS title
   FROM `informea_drupal`.node a
@@ -48,7 +48,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
 -- informea_meetings
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_meetings` AS
   SELECT
-    a.uuid AS id,
+    CAST(a.uuid AS CHAR) AS id,
     c.field_odata_identifier_value AS treaty,
     url.field_url_url AS url,
     d.event_calendar_date_value AS `start`,
@@ -109,25 +109,25 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
 -- informea_meetings_description
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_meetings_description` AS
   SELECT 
-    CONCAT(b.id, '-', c.language) AS id, 
-    b.id AS meeting_id,
+    CONCAT(CAST(a.id AS CHAR), '-', c.language) AS id, 
+    CAST(a.id AS CHAR) AS meeting_id,
     c.language AS `language`,
     c.body_value AS description
-  FROM `informea_drupal`.node a 
-    INNER JOIN `informea_meetings` b ON a.nid = b.id
-    INNER JOIN `informea_drupal`.field_data_body c ON a.nid = c.entity_id;
+  FROM `informea_meetings` a
+    INNER JOIN `informea_drupal`.node b ON a.id = b.uuid
+    INNER JOIN `informea_drupal`.field_data_body c ON b.nid = c.entity_id;
 
 
 -- informea_meetings_title
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_meetings_title` AS
   SELECT 
-    CONCAT(b.id, '-', c.language) AS id, 
-    b.id AS meeting_id,
+    CAST(CONCAT(a.id, '-', c.language) AS CHAR) AS id, 
+    CAST(a.id AS CHAR) AS meeting_id,
     c.language AS `language`,
     c.title_field_value AS title
-  FROM `informea_drupal`.node a 
-    INNER JOIN `informea_meetings` b ON a.nid = b.id
-    INNER JOIN `informea_drupal`.field_data_title_field c ON a.nid = c.entity_id;
+  FROM `informea_meetings` a 
+    INNER JOIN `informea_drupal`.node b ON a.id = b.uuid
+    INNER JOIN `informea_drupal`.field_data_title_field c ON b.nid = c.entity_id;
 
 -- DECISIONS 
 -- informea_decisions
@@ -173,51 +173,51 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
 -- informea_decisions_title
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_decisions_title` AS
   SELECT 
-    CONCAT(b.id, '-', c.language) AS id, 
-    b.id AS decision_id,
+    CAST(CONCAT(a.id, '-', c.language) AS CHAR) AS id, 
+    CAST(a.id AS CHAR) AS decision_id,
     c.language AS `language`,
     c.title_field_value AS title
-  FROM `informea_drupal`.node a 
-    INNER JOIN `informea_decisions` b ON a.nid = b.id
-    INNER JOIN `informea_drupal`.field_data_title_field c ON a.nid = c.entity_id;
+  FROM `informea_decisions` a
+    INNER JOIN `informea_drupal`.node b  ON a.id = b.uuid
+    INNER JOIN `informea_drupal`.field_data_title_field c ON b.nid = c.entity_id;
 
 -- informea_decisions_content
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_decisions_content` AS
   SELECT 
-    CONCAT(b.id, '-', c.language) AS id, 
-    b.id AS decision_id,
+    CAST(CONCAT(a.id, '-', c.language) AS CHAR) AS id, 
+    CAST(a.id AS CHAR) AS decision_id,
     c.language AS `language`,
     c.body_value AS content
-  FROM `informea_drupal`.node a 
-    INNER JOIN `informea_decisions` b ON a.nid = b.id
-    INNER JOIN `informea_drupal`.field_data_body c ON a.nid = c.entity_id
+  FROM `informea_decisions` a
+    INNER JOIN `informea_drupal`.node b  ON a.id = b.uuid
+    INNER JOIN `informea_drupal`.field_data_body c ON b.nid = c.entity_id
   WHERE c.body_value IS NOT NULL AND TRIM(c.body_value) <> '';
 
 -- informea_decisions_documents
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_decisions_documents` AS
   SELECT
-    CONCAT(a.uuid, '-', fm.uuid) AS id,
-    a.uuid AS decision_id,
+    CONCAT(a.id, '-', fm.uuid) AS id,
+    a.id AS decision_id,
     fm.uri AS diskPath,
     IF (f.field_files_description IS NULL, CONCAT('http://www.informea.org/sites/default/files/', REPLACE(fm.uri, 'public://', '')), f.field_files_description) AS url,
     fm.filemime AS mimeType,
     f.`language` AS `language`,
     fm.filename AS filename
-  FROM `informea_drupal`.node a
-    INNER JOIN `informea_decisions` b ON a.nid = b.id
-    INNER JOIN `informea_drupal`.field_data_field_files f ON f.entity_id = a.nid
+  FROM `informea_decisions` a
+    INNER JOIN `informea_drupal`.node b ON a.id = b.uuid
+    INNER JOIN `informea_drupal`.field_data_field_files f ON f.entity_id = b.nid
     INNER JOIN `informea_drupal`.file_managed fm ON fm.fid = field_files_fid;
 
 -- informea_decisions_keywords
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_decisions_keywords` AS
   SELECT 
-    CONCAT(b.id, '-en') AS id, 
-    b.id AS decision_id,
+    CAST(CONCAT(a.id, '-en') AS CHAR) AS id, 
+    CAST(a.id AS CHAR) AS decision_id,
     'http://www.informea.org/terms/' AS namespace,
     t1.name AS term
-  FROM `informea_drupal`.node a 
-    INNER JOIN `informea_decisions` b ON a.nid = b.id
-    INNER JOIN `informea_drupal`.field_data_field_informea_tags c ON a.nid = c.entity_id
+  FROM `informea_decisions` a
+    INNER JOIN `informea_drupal`.node b  ON a.id = b.uuid
+    INNER JOIN `informea_drupal`.field_data_field_informea_tags c ON b.nid = c.entity_id
     INNER JOIN `informea_drupal`.taxonomy_term_data t1 ON c.field_informea_tags_tid = t1.tid;
 
 -- informea_decisions_longtitle
@@ -265,27 +265,27 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
 -- informea_country_reports_title
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_country_reports_title` AS
   SELECT 
-    CONCAT(b.id, '-', c.language) AS id, 
-    b.id AS country_report_id,
+    CAST(CONCAT(a.id, '-', c.language) AS CHAR) AS id, 
+    CAST(a.id AS CHAR) AS country_report_id,
     c.language AS `language`,
     c.title_field_value AS title
-  FROM `informea_drupal`.node a 
-    INNER JOIN `informea_country_reports` b ON a.nid = b.id
-    INNER JOIN `informea_drupal`.field_data_title_field c ON a.nid = c.entity_id;
+  FROM `informea_country_reports` a 
+    INNER JOIN `informea_drupal`.node b ON a.id = b.uuid
+    INNER JOIN `informea_drupal`.field_data_title_field c ON b.nid = c.entity_id;
 
 -- informea_country_reports_documents
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_country_reports_documents` AS
   SELECT
-    CONCAT(a.uuid, '-', fm.uuid) AS id,
-    a.uuid AS country_report_id,
+    CONCAT(a.id, '-', fm.uuid) AS id,
+    a.id AS country_report_id,
     fm.uri AS diskPath,
     IF (f.field_files_description = '', CONCAT('http://www.informea.org/sites/default/files/', REPLACE(fm.uri, 'public://', '')), f.field_files_description) AS url,
     fm.filemime AS mimeType,
     f.`language` AS `language`,
     fm.filename AS filename
-  FROM `informea_drupal`.node a
-    INNER JOIN `informea_country_reports` b ON a.nid = b.id
-    INNER JOIN `informea_drupal`.field_data_field_files f ON f.entity_id = a.nid
+  FROM `informea_country_reports` a
+    INNER JOIN `informea_drupal`.node b ON a.id = b.uuid
+    INNER JOIN `informea_drupal`.field_data_field_files f ON f.entity_id = b.nid
     INNER JOIN `informea_drupal`.file_managed fm ON fm.fid = field_files_fid;
 
 -- NATIONAL PLANS (Action Plans)
@@ -323,27 +323,27 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
 -- informea_national_plans_title
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_national_plans_title` AS
   SELECT 
-    CONCAT(b.id, '-', c.language) AS id, 
-    b.id AS national_plan_id,
+    CAST(CONCAT(a.id, '-', c.language) AS CHAR) AS id, 
+    CAST(a.id AS CHAR) AS national_plan_id,
     c.language AS `language`,
     c.title_field_value AS title
-  FROM `informea_drupal`.node a 
-  INNER JOIN `informea_national_plans` b ON a.nid = b.id
-  INNER JOIN `informea_drupal`.field_data_title_field c ON a.nid = c.entity_id;
+  FROM `informea_national_plans` a
+  INNER JOIN `informea_drupal`.node b  ON a.id = b.uuid
+  INNER JOIN `informea_drupal`.field_data_title_field c ON b.nid = c.entity_id;
 
 -- informea_national_plans_documents
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_national_plans_documents` AS
   SELECT
-    CONCAT(a.uuid, '-', fm.uuid)  AS id,
-    a.uuid AS national_plan_id,
+    CONCAT(a.id, '-', fm.uuid)  AS id,
+    a.id AS national_plan_id,
     fm.uri AS diskPath,
     IF (f.field_files_description = '', CONCAT('http://www.informea.org/sites/default/files/', REPLACE(fm.uri, 'public://', '')), f.field_files_description) AS url,
     fm.filemime AS mimeType,
     f.`language` AS `language`,
     fm.filename AS filename
-  FROM `informea_drupal`.node a
-    INNER JOIN `informea_national_plans` b ON a.nid = b.id
-    INNER JOIN `informea_drupal`.field_data_field_files f ON f.entity_id = a.nid
+  FROM `informea_national_plans` a
+    INNER JOIN `informea_drupal`.node b ON a.id = b.uuid
+    INNER JOIN `informea_drupal`.field_data_field_files f ON f.entity_id = b.nid
     INNER JOIN `informea_drupal`.file_managed fm ON fm.fid = field_files_fid;
 
 -- CONTACTS (Focal Points)
@@ -378,7 +378,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
     LEFT JOIN `informea_drupal`.field_data_field_person_department dept ON dept.entity_id = a.nid
 
     LEFT JOIN `informea_drupal`.field_data_field_person_type ptype ON ptype.entity_id = a.nid
-    INNER JOIN `informea_drupal`.taxonomy_term_data t1 ON ptype.field_person_type_tid = t1.tid
+    LEFT JOIN `informea_drupal`.taxonomy_term_data t1 ON ptype.field_person_type_tid = t1.tid
 
     LEFT JOIN `informea_drupal`.field_data_field_address addr ON addr.entity_id = a.nid
     LEFT JOIN `informea_drupal`.field_data_field_person_email mail ON mail.entity_id = a.nid
@@ -395,14 +395,14 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
 -- informea_contacts_treaties
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_contacts_treaties` AS
   SELECT
-    CONCAT(a.uuid, '-', d.field_odata_identifier_value) AS id,
-    a.uuid AS contact_id,
+    CAST(CONCAT(a.id, '-', d.field_odata_identifier_value) AS CHAR) AS id,
+    a.id AS contact_id,
     d.field_odata_identifier_value AS treaty
-  FROM `informea_drupal`.node a
-  INNER JOIN `informea_contacts` b ON a.nid = b.id
-  INNER JOIN `informea_drupal`.field_data_field_treaty c ON a.nid = c.entity_id
+  FROM `informea_contacts` a
+  INNER JOIN `informea_drupal`.node b ON a.id = b.uuid
+  INNER JOIN `informea_drupal`.field_data_field_treaty c ON b.nid = c.entity_id
   INNER JOIN `informea_drupal`.field_data_field_odata_identifier d ON c.field_treaty_target_id = d.entity_id;
-  
+
 -- SITES
 -- informea_sites
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_sites` AS
@@ -436,10 +436,10 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
 -- informea_sites_name
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_sites_name` AS
   SELECT
-    CONCAT(b.id, '-', c.language) AS id, 
-    b.id AS site_id,
+    CAST(CONCAT(a.id, '-', c.language) AS CHAR) AS id, 
+    CAST(a.id AS CHAR) AS site_id,
     c.language AS `language`,
     c.title_field_value AS `name`
-  FROM `informea_drupal`.node a 
-    INNER JOIN `informea_sites` b ON a.nid = b.id
-    INNER JOIN `informea_drupal`.field_data_title_field c ON a.nid = c.entity_id;
+  FROM `informea_sites` a 
+    INNER JOIN `informea_drupal`.node b ON a.id = b.uuid
+    INNER JOIN `informea_drupal`.field_data_title_field c ON b.nid = c.entity_id;
