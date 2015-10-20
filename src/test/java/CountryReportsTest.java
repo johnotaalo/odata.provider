@@ -33,32 +33,34 @@ public class CountryReportsTest {
 	public void testGetCountryReports() throws Exception {
 		EntityManager em = factory.createEntityManager();
 		CriteriaBuilder qb = em.getCriteriaBuilder();
-		List<Contact> rows = em.createQuery(qb.createQuery(Contact.class))
-				.getResultList();
-		assertEquals(1, rows.size());
+		List<Contact> rows = em.createQuery(qb.createQuery(Contact.class)).getResultList();
+		org.junit.Assert.assertTrue(1 <= rows.size());
 		em.close();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testGetSingleCountryReport() throws Exception {
 		EntityManager em = factory.createEntityManager();
-		CountryReport row = em.find(CountryReport.class, "3");
+		CountryReport row = em.find(CountryReport.class, "ca6654f2-fe8d-4daf-949f-96baf297e2e7");
 
-		assertEquals("KEN", row.getCountry());
-		assertEquals("test", row.getTreaty());
-		assertEquals("http://www.cbd.int/doc/world/ke/ke-nr-04-en.pdf",
-				row.getUrl());
+		assertEquals("KE", row.getCountry());
+		assertEquals("cartagena", row.getTreaty());
+		assertEquals("http://www.cbd.int/doc/world/ke/ke-nr-cpb-01-en.pdf", row.getUrl());
 
 		List<CountryReportTitle> titles = row.getTitles();
 		CountryReportTitle title = titles.get(0);
-		assertEquals("Fourth National Report", title.getTitle());
+		assertEquals("First National Report (2007)", title.getTitle());
 		assertEquals("en", title.getLanguage());
 
-		Calendar c = new GregorianCalendar(2009, 02, 30);
+		Calendar c = new GregorianCalendar(2007, 8, 10, 22, 0, 0);
 		assertEquals(c.getTime(), row.getSubmission());
 
-		c = new GregorianCalendar(2013, 10, 2);
-		assertEquals(c.getTime(), row.getUpdated());
+		c = new GregorianCalendar();
+		assertEquals(c.getTime().getYear(), row.getUpdated().getYear());
+		assertEquals(c.getTime().getMonth(), row.getUpdated().getMonth());
+		assertEquals(c.getTime().getDay(), row.getUpdated().getDay());
+		assertEquals(c.getTime().getHours(), row.getUpdated().getHours());
 
 		em.close();
 	}

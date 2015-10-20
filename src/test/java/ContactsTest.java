@@ -1,4 +1,6 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -34,39 +36,44 @@ public class ContactsTest {
 		CriteriaBuilder qb = em.getCriteriaBuilder();
 		List<Contact> rows = em.createQuery(qb.createQuery(Contact.class))
 				.getResultList();
-		assertEquals(1, rows.size());
+		org.junit.Assert.assertTrue(1 <= rows.size());
 		em.close();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testGetSingleContact() throws Exception {
 		EntityManager em = factory.createEntityManager();
-		Contact row = em.find(Contact.class, "1830");
+		Contact row = em.find(Contact.class, "d2f69287-f5fd-4b8b-a349-aff673ce3f7a");
 
-		assertEquals("AFG", row.getCountry());
-		assertEquals("H.R.H. Prince", row.getPrefix());
-		assertEquals("Mostapha", row.getFirstName());
-		assertEquals("Zaher", row.getLastName());
-		assertEquals(
-				"Director General/Advisor to the President of Afghanistan on Environment",
-				row.getPosition());
-		assertEquals("National Environmental Protection Agency",
-				row.getInstitution());
-		assertEquals("department name", row.getDepartment());
-		assertEquals("Central Post Office Box Number 209", row.getAddress());
-		assertEquals("mihaita_zaharia@hotmail.com", row.getEmail());
-		assertEquals("telephone no", row.getPhoneNumber());
-		assertEquals("fax no", row.getFax());
-		assertEquals("licensed", row.getType());
-		assertEquals(1, row.getPrimary());
+		assertEquals("GB", row.getCountry());
+		assertEquals("Mr.", row.getPrefix());
+		assertEquals("Panayiotis", row.getFirstName());
+		assertEquals("Pashas", row.getLastName());
+		assertEquals("DIO Planning Manager/Chief Engineer, Competent Authority for BFC", row.getPosition());
+		assertEquals("Defence Infrastructure Organisation (DIO)", row.getInstitution());
+		assertEquals("DIO HQ (Cyprus)", row.getDepartment());
+		assertEquals("Competent Authority", row.getType());
+		assertEquals("“B” Block\r\nBFPO 53 Episkopi", row.getAddress());
+
+		assertTrue(row.getEmail().contains("Panayiotis"));
+		assertNull(row.getPhoneNumber());
+
+		assertTrue(row.getFax().contains("357"));
+		assertEquals(0, row.getPrimary());
+
+
 		List<ContactTreaty> treaties = row.getTreaties();
 		assertEquals(1, treaties.size());
 
 		ContactTreaty treaty = treaties.get(0);
-		assertEquals("test", treaty.getTreaty());
+		assertEquals("basel", treaty.getTreaty());
 
-		Calendar c = new GregorianCalendar(2014, 10, 10, 15, 18, 35);
-		assertEquals(c.getTime(), row.getUpdated());
+		Calendar c = new GregorianCalendar();
+		assertEquals(c.getTime().getYear(), row.getUpdated().getYear());
+		assertEquals(c.getTime().getMonth(), row.getUpdated().getMonth());
+		assertEquals(c.getTime().getDay(), row.getUpdated().getDay());
+		assertEquals(c.getTime().getHours(), row.getUpdated().getHours());
 
 		em.close();
 	}

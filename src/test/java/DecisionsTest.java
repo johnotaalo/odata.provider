@@ -36,68 +36,63 @@ public class DecisionsTest {
 	}
 
 	@Test
-	public void testGetContacts() throws Exception {
+	public void testGetDecisions() throws Exception {
 		EntityManager em = factory.createEntityManager();
 		CriteriaBuilder qb = em.getCriteriaBuilder();
-		List<Decision> rows = em.createQuery(qb.createQuery(Decision.class))
-				.getResultList();
-		assertEquals(1, rows.size());
+		List<Decision> rows = em.createQuery(qb.createQuery(Decision.class)).getResultList();
+		org.junit.Assert.assertTrue(1 <= rows.size());
 		em.close();
 	}
 
 	@Test
-	public void testGetSingleContact() throws Exception {
+	public void testGetSingleDecision() throws Exception {
 		EntityManager em = factory.createEntityManager();
-		Decision row = em.find(Decision.class, "3070");
+		Decision row = em.find(Decision.class, "c8374b11-e53b-4743-a320-6c46dd93cd0e");
 
-		assertEquals("http://www.cbd.int/decisions/?id=11019", row.getLink());
-
-		DecisionTitle title = row.getTitles().get(0);
-		assertEquals("Global Biodiversity Outlook", title.getTitle());
-		assertEquals("en", title.getLanguage());
-
-		DecisionLongTitle longTitle = row.getLongTitles().get(0);
-		assertEquals("Global Biodiversity Outlook", longTitle.getLongTitle());
-		assertEquals("en", longTitle.getLanguage());
-
-		DecisionSummary summary = row.getSummaries().get(0);
-		assertEquals("<p><i>The Conference of the Parties </i></p>",
-				summary.getSummary());
-		assertEquals("en", summary.getLanguage());
-
+		assertEquals("http://www.informea.org/node/68658", row.getLink());
 		assertEquals("decision", row.getType());
 		assertEquals("active", row.getStatus());
-		assertEquals("VIII/7", row.getNumber());
-		assertEquals("test", row.getTreaty());
+		assertEquals("SC-4/28", row.getNumber());
+		assertEquals("stockholm", row.getTreaty());
 
-		Calendar c = new GregorianCalendar(2006, 02, 20);
+		Calendar c = new GregorianCalendar(2009, 9, 1, 7, 15, 3);
 		assertEquals(c.getTime(), row.getPublished());
 
-		c = new GregorianCalendar(2014, 01, 01);
+		DecisionTitle title = row.getTitles().get(0);
+		assertEquals("Additional guidance to the financial mechanism", title.getTitle());
+		assertEquals("en", title.getLanguage());
+
+		/*
+		DecisionLongTitle longTitle = row.getLongTitles().get(0);
+		assertEquals("Orientación adicional al mecanismo financiero", longTitle.getLongTitle());
+		assertEquals("en", longTitle.getLanguage());
+		*/
+
+		assertEquals("693774bb-9045-4583-97ea-1afc2424cc36", row.getMeetingId());
+
+		assertEquals("Fourth Meeting of the Conference of the Parties to the Stockholm Convention", row.getMeetingTitle());
+		assertEquals("http://chm.pops.int/linkclick.aspx?link=404&amp;amp;tabid=276&amp;amp;language=en-us", row.getMeetingUrl());
+
+		c = new GregorianCalendar(1970, 0, 15, 12, 26, 21);
 		assertEquals(c.getTime(), row.getUpdated());
 
-		assertEquals("1596", row.getMeetingId());
-
-		assertEquals(
-				"Eighth Ordinary Meeting of the Conference of the Parties to the Convention on Biological Diversity",
-				row.getMeetingTitle());
-		assertEquals("http://www.cbd.int/doc/meetings/cop/cop-08/",
-				row.getMeetingUrl());
+		/* @todo
+		DecisionSummary summary = row.getSummaries().get(0);
+		assertEquals("<p><i>The Conference of the Parties </i></p>", summary.getSummary());
+		assertEquals("en", summary.getLanguage());
 
 		DecisionContent content = row.getContents().get(0);
-		assertEquals("<h1 align=\"center\"> Global Biodiversity Outlook </h1>",
-				content.getContent());
+		assertEquals("<h1 align=\"center\"> Global Biodiversity Outlook </h1>", content.getContent());
 		assertEquals("en", content.getLanguage());
+		*/
 
 		DecisionFile file = row.getFiles().get(0);
-		assertEquals("1993", file.getId());
-		assertEquals(
-				"http://www.cbd.int/doc/decisions/COP-08/COP-08-dec-07-en.pdf",
-				file.getUrl());
-		assertEquals("pdf", file.getMimeType());
+		assertEquals("http://chm.pops.int/Portals/0/download.aspx?d=UNEP-POPS-COP.4-SC-4-28.Spanish.doc", file.getUrl());
+		assertEquals("application/msword", file.getMimeType());
 		assertEquals("en", file.getLanguage());
-		assertEquals("COP-08-dec-07-en.pdf", file.getFilename());
+		assertEquals("UNEP-POPS-COP.4-SC-4-28.Spanish.doc", file.getFilename());
 
+		/* @todo
 		List<DecisionKeyword> tags = row.getKeywords();
 		assertEquals(6, tags.size());
 
@@ -110,6 +105,7 @@ public class DecisionsTest {
 		DecisionKeyword tag = tags.get(0);
 		assertEquals("InforMEA", tag.getNamespace());
 		assertTrue(witness.contains(tag.getTerm()));
+		*/
 
 		em.close();
 	}

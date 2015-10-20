@@ -29,38 +29,38 @@ public class NationalPlansTest {
 	}
 
 	@Test
-	public void testGetContacts() throws Exception {
+	public void testGetNationalPlans() throws Exception {
 		EntityManager em = factory.createEntityManager();
 		CriteriaBuilder qb = em.getCriteriaBuilder();
-		List<NationalPlan> rows = em.createQuery(
-				qb.createQuery(NationalPlan.class)).getResultList();
-		assertEquals(1, rows.size());
+		List<NationalPlan> rows = em.createQuery(qb.createQuery(NationalPlan.class)).getResultList();
+		org.junit.Assert.assertTrue(1 <= rows.size());
 		em.close();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test
-	public void testGetSingleContact() throws Exception {
+	public void testGetSingleNationalPlan() throws Exception {
 		EntityManager em = factory.createEntityManager();
-		NationalPlan row = em.find(NationalPlan.class, "1");
+		NationalPlan row = em.find(NationalPlan.class, "5e991a41-123e-47a1-bd02-3524435baf9c");
 
-		assertEquals("CHE", row.getCountry());
-		assertEquals("test", row.getTreaty());
-		assertEquals("napa", row.getType());
-		assertEquals(
-				"http://ch.chm-cbd.net/view/list/folder?idHierarchy=13377233&fullId=13329573.13377233.&baseurl=home",
-				row.getUrl());
+		assertEquals("cbd", row.getTreaty());
+		assertEquals("VE", row.getCountry());
+		assertEquals("nbsap", row.getType());
+		assertEquals("http://www.cbd.int/doc/world/ve/ve-nbsap-01-es.pdf", row.getUrl());
 
 		List<NationalPlanTitle> titles = row.getTitles();
 		NationalPlanTitle title = titles.get(0);
-		assertEquals("National Biodiversity Strategy and Action Plan",
-				title.getTitle());
+		assertEquals("Venezuela (Bolivarian Republic of) - NBSAP v.1 (2001)", title.getTitle());
 		assertEquals("en", title.getLanguage());
 
-		Calendar c = new GregorianCalendar(1989, 01, 13);
+		Calendar c = new GregorianCalendar(2014, 05, 01, 22, 0, 0);
 		assertEquals(c.getTime(), row.getSubmission());
 
-		c = new GregorianCalendar(2014, 10, 12, 16, 47, 07);
-		assertEquals(c.getTime(), row.getUpdated());
+		c = new GregorianCalendar();
+		assertEquals(c.getTime().getYear(), row.getUpdated().getYear());
+		assertEquals(c.getTime().getMonth(), row.getUpdated().getMonth());
+		assertEquals(c.getTime().getDay(), row.getUpdated().getDay());
+		assertEquals(c.getTime().getHours(), row.getUpdated().getHours());
 
 		em.close();
 	}

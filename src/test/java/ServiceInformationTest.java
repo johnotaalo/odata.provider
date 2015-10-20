@@ -16,13 +16,13 @@ public class ServiceInformationTest {
 
 	@Test
 	public void testCountEntities() {
-		assertEquals(1, ServiceInformation.countEntities(Meeting.class));
-		assertEquals(1, ServiceInformation.countContacts());
-		assertEquals(1, ServiceInformation.countCountryReports());
-		assertEquals(1, ServiceInformation.countDecisions());
-		assertEquals(1, ServiceInformation.countMeetings());
-		assertEquals(1, ServiceInformation.countNationalPlans());
-		assertEquals(1, ServiceInformation.countSites());
+		assertTrue(1 <= ServiceInformation.countEntities(Meeting.class));
+		assertTrue(1 <= ServiceInformation.countContacts());
+		assertTrue(1 <= ServiceInformation.countCountryReports());
+		assertTrue(1 <= ServiceInformation.countDecisions());
+		assertTrue(1 <= ServiceInformation.countMeetings());
+		assertTrue(1 <= ServiceInformation.countNationalPlans());
+		assertTrue(1 <= ServiceInformation.countSites());
 	}
 
 	@Test
@@ -32,7 +32,7 @@ public class ServiceInformationTest {
 
 		assertTrue((boolean) data.get("needsUpdate"));
 		assertTrue((boolean) data.get("success"));
-		assertEquals("2.2.1 beta", (String) data.get("remoteVersion"));
+		assertEquals("9.9.1 beta", (String) data.get("remoteVersion"));
 		assertTrue(((String) data.get("changes")).length() > 0);
 
 		data = ServiceInformation.checkProductUpdates(baseDir + "test.updated.api.properties");
@@ -50,7 +50,7 @@ public class ServiceInformationTest {
 		data = ServiceInformation.checkProductUpdates(baseDir + "test.needsupdate.minor.api.properties");
 		assertTrue((boolean) data.get("needsUpdate"));
 		assertTrue((boolean) data.get("success"));
-		assertEquals("2.2.0", (String) data.get("remoteVersion"));
+		assertEquals("2.9.0", (String) data.get("remoteVersion"));
 		assertTrue(((String) data.get("changes")).length() > 0);
 
 		data = ServiceInformation.checkProductUpdates("http://malformed.url/");

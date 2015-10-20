@@ -33,52 +33,55 @@ public class MeetingsTest {
 	public void testGetMeetings() throws Exception {
 		EntityManager em = factory.createEntityManager();
 		CriteriaBuilder qb = em.getCriteriaBuilder();
-		List<Meeting> rows = em.createQuery(qb.createQuery(Meeting.class))
-				.getResultList();
-		assertEquals(1, rows.size());
+		List<Meeting> rows = em.createQuery(qb.createQuery(Meeting.class)).getResultList();
+		org.junit.Assert.assertTrue(1 <= rows.size());
 		em.close();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testGetSingleMeeting() throws Exception {
 		EntityManager em = factory.createEntityManager();
-		Meeting row = em.find(Meeting.class, "1596");
+		Meeting row = em.find(Meeting.class, "e6c7a14f-abfc-46e9-9041-7f25c90dd95b");
 
-		assertEquals("1596", row.getId());
-		assertEquals("test", row.getTreaty());
-		assertEquals("http://www.cbd.int/doc/meetings/cop/cop-05/",
-				row.getUrl());
-		assertEquals("official", row.getKind());
-		assertEquals("cop", row.getType());
-		assertEquals("invitation", row.getAccess());
-		assertEquals("confirmed", row.getStatus());
-		assertEquals("yearly", row.getRepetition());
-		assertEquals("http://placehold.it/128x128.png", row.getImageUrl());
-		assertEquals("image copyright text", row.getImageCopyright());
-		assertEquals("UNEP Headquarters", row.getLocation());
-		assertEquals("Nairobi", row.getCity());
-		assertEquals("KEN", row.getCountry());
-		assertEquals(new Double(-1.274359), row.getLatitude());
-		assertEquals(new Double(36.81311), row.getLongitude());
+		assertEquals("cbd", row.getTreaty());
+		assertEquals("http://www.cbd.int/doc/meetings/tk/wg8j-01/", row.getUrl());
 
-		Calendar c = new GregorianCalendar(2000, 04, 10, 14, 0, 0);
+		Calendar c = new GregorianCalendar(2000, 02, 26, 22, 0, 0);
 		assertEquals(c.getTime(), row.getStart());
 
-		c = new GregorianCalendar(2000, 04, 15, 15, 0, 0);
+		c = new GregorianCalendar(2000, 02, 26, 22, 0, 0);
 		assertEquals(c.getTime(), row.getEnd());
 
-		c = new GregorianCalendar(2015, 3, 6, 15, 1, 42);
-		assertEquals(c.getTime(), row.getUpdated());
+		// assertEquals("yearly", row.getRepetition());
+		assertEquals("official", row.getKind());
+		assertEquals("working", row.getType());
+		// assertEquals("invitation", row.getAccess());
+		assertEquals("nodate", row.getStatus());
 
+		// assertEquals("http://placehold.it/128x128.png", row.getImageUrl());
+		// assertEquals("image copyright text", row.getImageCopyright());
+
+		assertEquals("Seville, Spain", row.getLocation());
+		assertEquals("Seville", row.getCity());
+		assertEquals("ES", row.getCountry());
+		assertEquals(new Double(37.382640000), row.getLatitude());
+		assertEquals(new Double(-5.996295000), row.getLongitude());
+
+		c = new GregorianCalendar();
+		assertEquals(c.getTime().getYear(), row.getUpdated().getYear());
+		assertEquals(c.getTime().getMonth(), row.getUpdated().getMonth());
+		assertEquals(c.getTime().getDay(), row.getUpdated().getDay());
+		assertEquals(c.getTime().getHours(), row.getUpdated().getHours());
+
+		/* @todo
 		MeetingDescription description = row.getDescriptions().get(0);
-		assertEquals("Sample description of COP 5",
-				description.getDescription());
+		assertEquals("Sample description of COP 5", description.getDescription());
 		assertEquals("en", description.getLanguage());
+		*/
 
 		MeetingTitle title = row.getTitles().get(0);
-		assertEquals(
-				"Fifth Ordinary Meeting of the Conference of the Parties to the Convention on Biological Diversity",
-				title.getTitle());
+		assertEquals("First Meeting of the Ad Hoc Open-Ended Inter-Sessional Working Group on Article 8(j)", title.getTitle());
 		assertEquals("en", title.getLanguage());
 
 		em.close();
