@@ -63,7 +63,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
     iso2.field_country_iso2_value AS country,
     lat.field_latitude_value AS latitude,
     lon.field_longitude_value AS longitude,
-    IFNULL(upd.field_last_update_value, NOW()) AS updated
+    FROM_UNIXTIME(a.changed) as updated
   FROM
     `informea_drupal`.node a
     INNER JOIN `informea_drupal`.field_data_field_treaty b ON a.nid = b.entity_id
@@ -141,7 +141,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
     n2.uuid AS meetingId,
     n2.title AS meetingTitle,
     urlm.field_url_url AS meetingUrl,
-    IFNULL(upd.field_last_update_value, NOW()) AS updated
+    FROM_UNIXTIME(a.changed) AS updated
   FROM
     `informea_drupal`.node a
     INNER JOIN `informea_drupal`.field_data_field_treaty b ON a.nid = b.entity_id
@@ -246,7 +246,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
     iso2.field_country_iso2_value AS country,
     sd.field_report_submission_date_value AS submission,
     durl.field_document_url_url AS url,
-    IFNULL(upd.field_last_update_value, NOW()) AS updated
+    FROM_UNIXTIME(a.changed) as updated
   FROM
     `informea_drupal`.node a
     INNER JOIN `informea_drupal`.field_data_field_treaty b ON a.nid = b.entity_id
@@ -297,7 +297,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
     sd.field_report_submission_date_value AS submission,
     durl.field_document_url_url AS url,
     t1.name AS `type`,
-    IFNULL(upd.field_last_update_value, NOW()) AS updated
+    FROM_UNIXTIME(a.changed) as updated
   FROM
     `informea_drupal`.node a
     INNER JOIN `informea_drupal`.field_data_field_treaty b ON a.nid = b.entity_id
@@ -361,7 +361,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
     tel.field_contact_telephone_value AS phoneNumber,
     fax.field_contact_fax_value AS fax,
     pri.field_contact_primary_nfp_value AS `primary`,
-    IFNULL(upd.field_last_update_value, NOW()) AS updated
+    FROM_UNIXTIME(a.changed) as updated
   FROM `informea_drupal`.node a
     LEFT JOIN `informea_drupal`.field_data_field_country cou ON cou.entity_id = a.nid
     INNER JOIN `informea_drupal`.node nc ON (cou.field_country_target_id = nc.nid AND nc.type = 'country')
@@ -412,7 +412,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
     url.field_url_url AS url,
     lat.field_latitude_value AS latitude,
     lon.field_longitude_value AS longitude,
-    IFNULL(upd.field_last_update_value, NOW()) AS updated
+    FROM_UNIXTIME(a.changed) as updated
   FROM `informea_drupal`.node a
     INNER JOIN `informea_drupal`.field_data_field_treaty b ON a.nid = b.entity_id
     INNER JOIN `informea_drupal`.field_data_field_odata_identifier c ON b.field_treaty_target_id = c.entity_id
