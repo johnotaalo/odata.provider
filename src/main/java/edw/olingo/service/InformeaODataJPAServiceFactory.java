@@ -32,8 +32,7 @@ public class InformeaODataJPAServiceFactory extends
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T extends ODataCallback> T getCallback(
-			final Class<? extends ODataCallback> callbackInterface) {
+	public <T extends ODataCallback> T getCallback(Class<T> callbackInterface){
 		T callback;
 		if (callbackInterface.isAssignableFrom(InformeaDebugCallback.class)) {
 			callback = (T) new InformeaDebugCallback();
