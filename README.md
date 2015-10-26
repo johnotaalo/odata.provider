@@ -37,6 +37,13 @@ Binary installation
 <property name="eclipselink.connection-pool.default.url" value="jdbc:mysql://mysql.host:3306/database?zeroDateTimeBehavior=convertToNull" />
 ```
 
+SQLServer specific configuration:
+
+```
+<property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+<property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://192.168.0.1;database=your_db_name;" />
+```
+
 
 * Restart Tomcat to take effect
 
