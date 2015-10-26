@@ -73,7 +73,7 @@ public class DecisionsTest {
 		assertEquals("Fourth Meeting of the Conference of the Parties to the Stockholm Convention", row.getMeetingTitle());
 		assertEquals("http://chm.pops.int/linkclick.aspx?link=404&amp;amp;tabid=276&amp;amp;language=en-us", row.getMeetingUrl());
 
-		c = new GregorianCalendar(1970, 0, 15, 12, 26, 21);
+		c = new GregorianCalendar(2015, 8, 3, 17, 36, 27);
 		assertEquals(c.getTime(), row.getUpdated());
 
 		/* @todo
