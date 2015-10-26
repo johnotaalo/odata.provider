@@ -37,7 +37,6 @@ public class SitesTest {
 		em.close();
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void testGetSingleSite() throws Exception {
 		EntityManager em = factory.createEntityManager();
@@ -56,11 +55,8 @@ public class SitesTest {
 		assertEquals("Arab-Norman Palermo and the Cathedral Churches of Cefalú and Monreale", name.getName());
 		assertEquals("en", name.getLanguage());
 
-		Calendar c = new GregorianCalendar();
-		assertEquals(c.getTime().getYear(), row.getUpdated().getYear());
-		assertEquals(c.getTime().getMonth(), row.getUpdated().getMonth());
-		assertEquals(c.getTime().getDay(), row.getUpdated().getDay());
-		assertEquals(c.getTime().getHours(), row.getUpdated().getHours());
+		GregorianCalendar c = new GregorianCalendar(2015, 7, 31, 8, 43, 16);
+		assertEquals(c.getTime(), row.getUpdated());
 
 		em.close();
 	}

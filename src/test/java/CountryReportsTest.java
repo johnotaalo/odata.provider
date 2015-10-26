@@ -38,7 +38,6 @@ public class CountryReportsTest {
 		em.close();
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void testGetSingleCountryReport() throws Exception {
 		EntityManager em = factory.createEntityManager();
@@ -56,11 +55,8 @@ public class CountryReportsTest {
 		Calendar c = new GregorianCalendar(2007, 8, 10, 22, 0, 0);
 		assertEquals(c.getTime(), row.getSubmission());
 
-		c = new GregorianCalendar();
-		assertEquals(c.getTime().getYear(), row.getUpdated().getYear());
-		assertEquals(c.getTime().getMonth(), row.getUpdated().getMonth());
-		assertEquals(c.getTime().getDay(), row.getUpdated().getDay());
-		assertEquals(c.getTime().getHours(), row.getUpdated().getHours());
+		c = new GregorianCalendar(2015, 05, 16, 20, 52, 22);
+		assertEquals(c.getTime(), row.getUpdated());
 
 		em.close();
 	}

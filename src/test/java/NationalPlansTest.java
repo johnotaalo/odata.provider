@@ -37,7 +37,6 @@ public class NationalPlansTest {
 		em.close();
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void testGetSingleNationalPlan() throws Exception {
 		EntityManager em = factory.createEntityManager();
@@ -56,11 +55,8 @@ public class NationalPlansTest {
 		Calendar c = new GregorianCalendar(2014, 05, 01, 22, 0, 0);
 		assertEquals(c.getTime(), row.getSubmission());
 
-		c = new GregorianCalendar();
-		assertEquals(c.getTime().getYear(), row.getUpdated().getYear());
-		assertEquals(c.getTime().getMonth(), row.getUpdated().getMonth());
-		assertEquals(c.getTime().getDay(), row.getUpdated().getDay());
-		assertEquals(c.getTime().getHours(), row.getUpdated().getHours());
+		c = new GregorianCalendar(2015, 05, 16, 10, 41, 15);
+		assertEquals(c.getTime(), row.getUpdated());
 
 		em.close();
 	}

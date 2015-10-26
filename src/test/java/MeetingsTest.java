@@ -38,7 +38,6 @@ public class MeetingsTest {
 		em.close();
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void testGetSingleMeeting() throws Exception {
 		EntityManager em = factory.createEntityManager();
@@ -68,16 +67,13 @@ public class MeetingsTest {
 		assertEquals(new Double(37.382640000), row.getLatitude());
 		assertEquals(new Double(-5.996295000), row.getLongitude());
 
-		c = new GregorianCalendar();
-		assertEquals(c.getTime().getYear(), row.getUpdated().getYear());
-		assertEquals(c.getTime().getMonth(), row.getUpdated().getMonth());
-		assertEquals(c.getTime().getDay(), row.getUpdated().getDay());
-		assertEquals(c.getTime().getHours(), row.getUpdated().getHours());
+		c = new GregorianCalendar(2013, 2, 25, 15, 38, 20);
+		assertEquals(c.getTime(), row.getUpdated());
 
 		/* @todo
 		MeetingDescription description = row.getDescriptions().get(0);
 		assertEquals("Sample description of COP 5", description.getDescription());
-		assertEquals("en", description.getLanguage());
+		assertEquals("en", description.getLanguage));
 		*/
 
 		MeetingTitle title = row.getTitles().get(0);

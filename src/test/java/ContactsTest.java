@@ -40,7 +40,6 @@ public class ContactsTest {
 		em.close();
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void testGetSingleContact() throws Exception {
 		EntityManager em = factory.createEntityManager();
@@ -69,11 +68,8 @@ public class ContactsTest {
 		ContactTreaty treaty = treaties.get(0);
 		assertEquals("basel", treaty.getTreaty());
 
-		Calendar c = new GregorianCalendar();
-		assertEquals(c.getTime().getYear(), row.getUpdated().getYear());
-		assertEquals(c.getTime().getMonth(), row.getUpdated().getMonth());
-		assertEquals(c.getTime().getDay(), row.getUpdated().getDay());
-		assertEquals(c.getTime().getHours(), row.getUpdated().getHours());
+		Calendar c = new GregorianCalendar(2014, 11, 18, 15, 40, 43);
+		assertEquals(c.getTime(), row.getUpdated());
 
 		em.close();
 	}
