@@ -234,11 +234,14 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
 -- informea_decisions_summary
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_decisions_summary` AS
   SELECT
-    NULL AS id,
-    NULL AS decision_id,
-    NULL AS LANGUAGE,
-    NULL AS summary
-  LIMIT 0;
+    CAST(CONCAT(a.id, '-', c.language) AS CHAR) AS id,
+    CAST(a.id AS CHAR) AS decision_id,
+    c.language AS `language`,
+    c.body_summary AS summary
+  FROM `informea_decisions` a
+    INNER JOIN `informea_drupal`.node b  ON a.id = b.uuid
+    INNER JOIN `informea_drupal`.field_data_body c ON b.nid = c.entity_id
+  WHERE c.body_summary IS NOT NULL AND TRIM(c.body_summary) <> '';
   
 -- COUNTRY REPORTS (National Reports)
 
