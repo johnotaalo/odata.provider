@@ -140,7 +140,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
     field_decision_number_value AS number,
     c.field_odata_identifier_value AS treaty,
     tre.uuid AS treatyUUID,
-    dp.field_decision_published_value AS published,
+    dp.field_sorting_date_value AS published,
     n2.uuid AS meetingId,
     n2.title AS meetingTitle,
     urlm.field_url_url AS meetingUrl,
@@ -160,16 +160,16 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
 
     INNER JOIN `informea_drupal`.field_data_field_decision_number dn ON dn.entity_id = a.nid
 
-    LEFT JOIN `informea_drupal`.field_data_field_decision_published dp ON dp.entity_id = a.nid
+    LEFT JOIN `informea_drupal`.field_data_field_sorting_date dp ON dp.entity_id = a.nid
 
-    INNER JOIN `informea_drupal`.field_data_field_meeting m ON m.entity_id = a.nid  
+    INNER JOIN `informea_drupal`.field_data_field_meeting m ON m.entity_id = a.nid
     INNER JOIN `informea_drupal`.node n2 ON m.field_meeting_target_id = n2.nid
 
     LEFT JOIN `informea_drupal`.field_data_field_url urlm ON urlm.entity_id = m.field_meeting_target_id
 
     LEFT JOIN `informea_drupal`.field_data_field_last_update upd ON upd.entity_id = a.nid
     INNER JOIN `informea_drupal`.node tre ON b.field_treaty_target_id = tre.nid
-  WHERE 
+  WHERE
       a.type = 'decision';
 
 -- informea_decisions_title
