@@ -7,17 +7,17 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
     url.field_treaty_website_url_url AS treatyWebsiteURL,
     a.title AS titleEnglish,
     d.field_official_name_value AS officialNameEnglish,
-    FROM_UNIXTIME(a.changed) as updated
+    FROM_UNIXTIME(a.changed) AS updated
   FROM
     `informea_drupal`.node a
     INNER JOIN `informea_drupal`.field_data_field_odata_identifier c ON a.nid = c.entity_id
     LEFT JOIN `informea_drupal`.field_data_field_treaty_website_url url ON url.entity_id = a.nid
-    INNER JOIN `informea_drupal`.field_data_field_data_source src ON src.entity_id = a.nid
+    -- INNER JOIN `informea_drupal`.field_data_field_data_source src ON src.entity_id = a.nid
     LEFT JOIN `informea_drupal`.field_data_field_official_name d  ON d.entity_id = a.nid
   WHERE
-	src.field_data_source_tid = 815
+	-- src.field_data_source_tid = 815
 	-- Do not publish 'special' treaties
-	AND a.nid NOT IN (316, 302, 282, 301, 267)
+	a.nid NOT IN (316, 302, 282, 301, 267)
     AND a.`TYPE` = 'treaty'
     AND a.`status` = 1
     GROUP BY a.nid;
@@ -32,7 +32,6 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
   FROM `informea_treaties` a
     INNER JOIN `informea_drupal`.field_data_field_odata_identifier b ON a.id = b.field_odata_identifier_value
     INNER JOIN `informea_drupal`.field_data_body c ON c.entity_id = b.entity_id;
-
 
 -- informea_treaties_title
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_treaties_title` AS
@@ -303,7 +302,6 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
     INNER JOIN `informea_drupal`.file_managed fm ON fm.fid = field_files_fid;
 
 -- NATIONAL PLANS (Action Plans)
-
 -- informea_national_plans
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_national_plans` AS
   SELECT
@@ -338,7 +336,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
     AND treaty.status = 1
     -- Do not publish 'special' treaties
     AND b.field_treaty_target_id NOT IN (316, 302, 282, 301, 267)
-    GROUP BY a.nid
+    GROUP BY a.nid;
 
 -- informea_national_plans_title
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_national_plans_title` AS
