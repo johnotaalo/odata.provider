@@ -342,7 +342,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
     AND treaty.status = 1
     -- Do not publish 'special' treaties
     AND b.field_treaty_target_id NOT IN (316, 302, 282, 301, 267)
-    GROUP BY a.nid
+    GROUP BY a.nid;
 
 -- informea_national_plans_title
 CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `informea_national_plans_title` AS
@@ -429,7 +429,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
     treaty.uuid AS treatyUUID
   FROM `informea_contacts` a
   INNER JOIN `informea_drupal`.field_data_field_treaty c ON a.nid = c.entity_id
-  INNER JOIN `informea_drupal`.field_data_field_odata_identifier d ON c.field_treaty_target_id = d.entity_id;
+  INNER JOIN `informea_drupal`.field_data_field_odata_identifier d ON c.field_treaty_target_id = d.entity_id
   INNER JOIN `informea_drupal`.node treaty ON c.field_treaty_target_id = treaty.nid;
 
 -- SITES
