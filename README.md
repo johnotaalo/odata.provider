@@ -27,7 +27,7 @@ Binary installation
 > * src/test/sql/clean.sql has sample data.
 
 * Deploy the WAR package into Tomcat.
-* Edit WEB-INF/classes/META-INF/persistence.xml and set the proper DB parameters, see below:
+* Copy WEB-INF/classes/META-INF/persistence.template.xml to WEB-INF/classes/META-INF/persistence.xml and set the appropriate DB connection parameters, see below:
 
 ```
 <property name="javax.persistence.jdbc.url" value="jdbc:mysql://mysql.host:3306/database?zeroDateTimeBehavior=convertToNull" />
