@@ -12,6 +12,6 @@ public class InformeaDebugCallback implements ODataDebugCallback {
 			debug = Boolean.parseBoolean(v);
 		} catch (Exception e) {
 		}
-		return debug;
+		return true;
 	}
 }
