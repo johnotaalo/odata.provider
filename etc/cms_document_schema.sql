@@ -51,7 +51,8 @@ CREATE OR REPLACE VIEW informea_documents AS
     node.changed updated,
     treaty.treaty,
     REPLACE(thumbnails.uri, 'public://', 'http://www.cms.int/sites/default/files') thumbnailUrl,
-    0 displayOrder
+    0 displayOrder,
+    node.nid
   FROM node node
     LEFT JOIN field_data_field_publication_published_date pdate ON node.nid = pdate.entity_id
     INNER JOIN field_data_field_instrument instr ON node.nid = instr.entity_id
@@ -69,5 +70,19 @@ CREATE OR REPLACE VIEW informea_documents AS
 CREATE OR REPLACE VIEW informea_documents_types AS
   SELECT
     CONCAT(id, '-', 'publication') AS id,
+    id document_id,
     'publication' `value`
   FROM informea_documents;
+
+--
+-- Documents `authors` navigation property
+--
+CREATE OR REPLACE VIEW informea_documents_authors AS
+  SELECT
+    CONCAT(a.nid, '-', tb.tid) id,
+    a.id document_id,
+    NULL `type`,
+    tb.name
+  FROM informea_documents a
+  INNER JOIN field_data_field_publication_author b ON a.nid = b.entity_id
+  INNER JOIN taxonomy_term_data tb ON tb.tid = b.field_publication_author_tid;
