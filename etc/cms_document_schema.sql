@@ -48,7 +48,7 @@ CREATE OR REPLACE VIEW informea_documents AS
     1 schemaVersion,
     node.uuid id,
     CONVERT(field_publication_published_date_timestamp, DATE) AS published,
-    node.changed updated,
+    FROM_UNIXTIME(node.changed) updated,
     treaty.treaty,
     REPLACE(thumbnails.uri, 'public://', 'http://www.cms.int/sites/default/files') thumbnailUrl,
     0 displayOrder,
