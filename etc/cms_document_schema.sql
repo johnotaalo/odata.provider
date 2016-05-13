@@ -70,10 +70,24 @@ CREATE OR REPLACE VIEW informea_documents AS
 --
 CREATE OR REPLACE VIEW informea_documents_types AS
   SELECT
-    CONCAT(id, '-', 'publication') AS id,
-    id document_id,
-    'publication' `value`
-  FROM informea_documents;
+    CONCAT(a.id, '-', 'publication') AS id,
+    a.id document_id,
+    'Publication' `value`
+  FROM informea_documents a
+  UNION
+    SELECT
+    CONCAT(a.id, '-', tb.tid) AS id,
+    a.id document_id,
+    CASE
+      WHEN tb.tid = 1942 THEN 'Factsheet'
+      WHEN tb.tid = 229 THEN 'Guidance'
+    ELSE
+      tb.name
+    END `value`
+  FROM informea_documents a
+  INNER JOIN field_data_field_publication_type b ON a.nid = b.entity_id
+  INNER JOIN taxonomy_term_data tb ON b.field_publication_type_tid = tb.tid
+  WHERE tb.tid IN (1684, 1662, 1942, 229, 226, 224, 230, 223) ORDER BY document_id;
 
 --
 -- Documents `authors` navigation property
