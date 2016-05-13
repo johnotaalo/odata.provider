@@ -40,11 +40,13 @@ CREATE OR REPLACE VIEW informea_treaty_machine_name AS
   FROM node
   WHERE `type` = 'legal_instrument'
 
-
+--
+-- Document entity view
+--
 CREATE OR REPLACE VIEW informea_documents AS
   SELECT 
     1 schemaVersion,
-    node.uuid,
+    node.uuid id,
     CONVERT(field_publication_published_date_timestamp, DATE) AS published,
     node.changed updated,
     treaty.treaty,
@@ -52,8 +54,20 @@ CREATE OR REPLACE VIEW informea_documents AS
     0 displayOrder
   FROM node node
     LEFT JOIN field_data_field_publication_published_date pdate ON node.nid = pdate.entity_id
-    INNER JOIN field_data_field_instrument instr ON node.nid = instr.entity_id AND instr.bundle = 'publication'
+    INNER JOIN field_data_field_instrument instr ON node.nid = instr.entity_id
     INNER JOIN informea_treaty_machine_name treaty ON treaty.nid = instr.field_instrument_target_id
     LEFT JOIN field_data_field_publication_image img ON node.nid = img.entity_id
     LEFT JOIN file_managed thumbnails ON field_publication_image_fid = thumbnails.fid
-  WHERE treaty IS NOT NULL
+  WHERE
+    treaty IS NOT NULL
+    AND node.type = 'publication';
+
+
+--
+-- Documents `type` navigation property
+--
+CREATE OR REPLACE VIEW informea_documents_types AS
+  SELECT
+    CONCAT(id, '-', 'publication') AS id,
+    'publication' `value`
+  FROM informea_documents;
