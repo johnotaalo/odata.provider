@@ -105,3 +105,122 @@ CREATE OR REPLACE VIEW informea_documents_authors AS
   FROM informea_documents a
   INNER JOIN field_data_field_publication_author b ON a.nid = b.entity_id
   INNER JOIN taxonomy_term_data tb ON tb.tid = b.field_publication_author_tid;
+
+--
+-- Documents `keywords` navigation property
+--
+CREATE OR REPLACE VIEW informea_documents_keywords AS
+  SELECT
+    NULL id,
+    NULL termURI,
+    NULL scope,
+    NULL literalForm,
+    NULL sourceURL
+  FROM DUAL;
+
+--
+-- Documents `titles` navigation property
+--
+CREATE OR REPLACE VIEW informea_documents_titles AS
+  SELECT
+    CONCAT(a.nid, '-', CASE WHEN b.language = 'und' THEN 'en' ELSE b.language END) id,
+    a.id document_id,
+    CASE WHEN b.language = 'und' THEN 'en' ELSE b.language END `language`,
+    b.title_field_value `value`
+  FROM informea_documents a
+    INNER JOIN field_data_title_field b ON a.nid = b.entity_id
+  GROUP BY CONCAT(a.nid, '-', CASE WHEN b.language = 'und' THEN 'en' ELSE b.language END);
+
+--
+-- Documents `descriptions` navigation property
+--
+CREATE OR REPLACE VIEW informea_documents_descriptions AS
+  SELECT
+    CONCAT(a.id, '-', CASE WHEN b.language = 'und' THEN 'en' ELSE b.language END) AS id,
+    a.id document_id,
+    CASE WHEN b.language = 'und' THEN 'en' ELSE b.language END `language`,
+    b.body_value `value`
+  FROM informea_documents a
+    INNER JOIN field_data_body b ON a.nid = b.entity_id
+  GROUP BY CONCAT(a.id, '-', CASE WHEN b.language = 'und' THEN 'en' ELSE b.language END);
+
+--
+-- Documents `identifiers` navigation property
+-- @todo
+--
+CREATE OR REPLACE VIEW informea_documents_identifiers AS
+  SELECT
+    NULL id,
+    NULL name,
+    NULL value
+  FROM DUAL;
+
+--
+-- Documents `files` navigation property
+--
+CREATE OR REPLACE VIEW informea_documents_files AS
+  SELECT
+    files.fid id,
+    a.id document_id,
+    REPLACE(files.uri, 'public://', 'http://www.cms.int/sites/default/files/') url,
+    NULL content,
+    files.filemime AS mimeType,
+    CASE WHEN f.language = 'und' THEN 'en' ELSE f.language END `language`,
+    files.filename
+  FROM informea_documents a
+    INNER JOIN field_data_field_publication_attachment f ON a.nid = f.entity_id
+    INNER JOIN file_managed files ON f.field_publication_attachment_fid = files.fid
+  GROUP BY files.fid;
+
+--
+-- Documents `tags` navigation property
+-- @todo:
+--
+CREATE OR REPLACE VIEW informea_documents_tags AS
+  SELECT
+    NULL id,
+    NULL language,
+    NULL scope,
+    NULL value,
+    NULL comment
+  FROM DUAL;
+
+--
+-- Documents `referenceToEntities` navigation property
+-- @todo:
+--
+CREATE OR REPLACE VIEW informea_documents_references AS
+  SELECT
+    CONCAT('meeting-', a.nid, '-', bn.nid) id,
+    'meeting' `type`,
+    bn.uuid,
+    NULL refURI
+  FROM
+    informea_documents a
+    INNER JOIN field_data_field_publication_meeting b ON a.nid = b.entity_id
+    INNER JOIN node bn ON b.field_publication_meeting_target_id = bn.nid AND bn.type = 'meeting'
+    GROUP BY bn.nid
+
+  UNION
+    SELECT
+    CONCAT('NationalPlans-', a.nid, '-', bn.nid) id,
+    'NationalPlans' `type`,
+    bn.uuid,
+    NULL refURI
+  FROM
+    informea_documents a
+    INNER JOIN field_data_field_publication_plans b ON a.nid = b.entity_id
+    INNER JOIN node bn ON b.field_publication_plans_target_id = bn.nid AND bn.type = 'document'
+    GROUP BY bn.nid
+
+  UNION
+    SELECT
+    CONCAT('CountryReports-', a.nid, '-', bn.nid) id,
+    'CountryReports' `type`,
+    bn.uuid,
+    NULL refURI
+  FROM
+    informea_documents a
+    INNER JOIN field_data_field_publication_nat_report  b ON a.nid = b.entity_id
+    INNER JOIN node bn ON b.field_publication_nat_report_target_id = bn.nid AND bn.type = 'document'
+    GROUP BY bn.nid
