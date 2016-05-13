@@ -61,7 +61,8 @@ CREATE OR REPLACE VIEW informea_documents AS
     LEFT JOIN file_managed thumbnails ON field_publication_image_fid = thumbnails.fid
   WHERE
     treaty IS NOT NULL
-    AND node.type = 'publication';
+   AND node.type = 'publication'
+   GROUP BY node.nid;
 
 
 --
