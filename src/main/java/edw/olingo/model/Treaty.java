@@ -17,12 +17,12 @@ public class Treaty {
 	@Id
 	@Column(name = "id")
 	private String id;
-	@Column(nullable = false)
+
 	private String uuid;
 
 	private String url;
 	private String treatyWebsiteURL;
-	@Column(nullable = false)
+
 	private String titleEnglish;
 	private String officialNameEnglish;
 	

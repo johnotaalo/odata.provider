@@ -41,13 +41,13 @@ public class Decision {
 	@Column(name = "id")
 	private String id;
 	private String link;
-	@Column(nullable = false)
+
 	private String number;
-	@Column(nullable = false)
+
 	private String status;
-	@Column(nullable = false)
+
 	private String type;
-	@Column(nullable = false)
+
 	private String treaty;
 	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
 	private Date published;

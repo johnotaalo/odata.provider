@@ -42,9 +42,9 @@ public class CountryReport {
 	@Column(name = "id")
 	private String id;
 
-	@Column(nullable = false)
+
 	private String treaty;
-	@Column(nullable = false)
+
 	private String country;
 
 	@Temporal(TemporalType.TIMESTAMP)

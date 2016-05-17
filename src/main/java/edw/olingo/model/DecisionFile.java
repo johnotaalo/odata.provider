@@ -41,9 +41,9 @@ public class DecisionFile {
 
 	// private String diskPath;
 	private String url;
-	@Column(nullable = false)
+
 	private String mimeType;
-	@Column(nullable = false)
+
 	private String language;
 	private String filename;
 

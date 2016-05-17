@@ -21,11 +21,11 @@ public class Meeting {
 	@Column(name = "id")
 	private String id;
 
-	@Column(nullable = false)
+
 	private String treaty;
 	private String url;
 
-	@Column(nullable = false)
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date start;
 
@@ -42,7 +42,7 @@ public class Meeting {
 	private String imageCopyright;
 	private String location;
 	private String city;
-	@Column(nullable = false)
+
 	private String country;
 	private Double latitude;
 	private Double longitude;

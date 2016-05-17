@@ -41,11 +41,11 @@ public class Site {
 	@Column(name = "id")
 	private String id;
 
-	@Column(nullable = false)
+
 	private String type;
-	@Column(nullable = false)
+
 	private String country;
-	@Column(nullable = false)
+
 	private String treaty;
 	private String url;
 	private Double latitude;
