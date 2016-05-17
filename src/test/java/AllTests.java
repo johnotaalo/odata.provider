@@ -9,4 +9,10 @@ import org.junit.runners.Suite.SuiteClasses;
 		InformeaDebugCallbackTest.class })
 public class AllTests {
 
+	// Test persistence unit, as configured in persistence.xml
+	private static final String PERSISTENCE_UNIT_NAME = "persistence_unit_test";
+
+	public static String getPersistenceUnitName() {
+		return PERSISTENCE_UNIT_NAME;
+	}
 }

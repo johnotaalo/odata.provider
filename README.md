@@ -54,3 +54,14 @@ Build from source
 * mvn package
 * Use the war for binary installation
 
+Testing
+=================
+
+Testing should be done on a different database, configured as "persistence_unit_test" in the persistence.xml file. The same database should be configured in the _test database configuration_ section of the pom.xml file.
+
+The tests need specific data to run. To populate the test DB before the actual tests run
+
+```
+mvn sql:execute test
+```
+

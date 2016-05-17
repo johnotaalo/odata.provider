@@ -13,13 +13,7 @@ import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
-import edw.olingo.model.Contact;
-import edw.olingo.model.CountryReport;
-import edw.olingo.model.Decision;
-import edw.olingo.model.Meeting;
-import edw.olingo.model.NationalPlan;
-import edw.olingo.model.Site;
-import edw.olingo.model.Treaty;
+import edw.olingo.model.*;
 
 public class ServiceInformation {
 
@@ -29,7 +23,7 @@ public class ServiceInformation {
 	public static final int VERSION_REVISION = 4;
 	public static final boolean VERSION_BETA = false;
 
-	public static final String PERSISTENCE_UNIT_NAME = "persistence_unit";
+	public static String PERSISTENCE_UNIT_NAME = "persistence_unit";
 
 	private static final Logger log = Logger.getLogger(ServiceInformation.class
 			.getName());

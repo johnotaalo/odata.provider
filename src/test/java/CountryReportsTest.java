@@ -21,12 +21,11 @@ import edw.olingo.model.CountryReportTitle;
 @RunWith(BlockJUnit4ClassRunner.class)
 public class CountryReportsTest {
 
-	private static final String PERSISTENCE_UNIT_NAME = "persistence_unit";
 	private EntityManagerFactory factory;
 
 	@Before
 	public void setUp() throws Exception {
-		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		factory = Persistence.createEntityManagerFactory(AllTests.getPersistenceUnitName());
 	}
 
 	@Test
