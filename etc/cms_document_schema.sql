@@ -38,7 +38,7 @@ CREATE OR REPLACE VIEW informea_treaty_machine_name AS
     END treaty,
     title
   FROM node
-  WHERE `type` = 'legal_instrument'
+  WHERE `type` = 'legal_instrument';
 
 --
 -- Document entity view
@@ -112,6 +112,7 @@ CREATE OR REPLACE VIEW informea_documents_authors AS
 CREATE OR REPLACE VIEW informea_documents_keywords AS
   SELECT
     NULL id,
+    NULL document_id,
     NULL termURI,
     NULL scope,
     NULL literalForm,
@@ -151,6 +152,7 @@ CREATE OR REPLACE VIEW informea_documents_descriptions AS
 CREATE OR REPLACE VIEW informea_documents_identifiers AS
   SELECT
     NULL id,
+    NULL document_id,
     NULL name,
     NULL value
   FROM DUAL;
@@ -179,6 +181,7 @@ CREATE OR REPLACE VIEW informea_documents_files AS
 CREATE OR REPLACE VIEW informea_documents_tags AS
   SELECT
     NULL id,
+    NULL document_id,
     NULL language,
     NULL scope,
     NULL value,
@@ -189,38 +192,37 @@ CREATE OR REPLACE VIEW informea_documents_tags AS
 -- Documents `referenceToEntities` navigation property
 -- @todo:
 --
-CREATE OR REPLACE VIEW informea_documents_references AS
-  SELECT
-    CONCAT('meeting-', a.nid, '-', bn.nid) id,
-    'meeting' `type`,
-    bn.uuid,
-    NULL refURI
-  FROM
-    informea_documents a
-    INNER JOIN field_data_field_publication_meeting b ON a.nid = b.entity_id
-    INNER JOIN node bn ON b.field_publication_meeting_target_id = bn.nid AND bn.type = 'meeting'
-    GROUP BY bn.nid
-
-  UNION
-    SELECT
-    CONCAT('NationalPlans-', a.nid, '-', bn.nid) id,
-    'NationalPlans' `type`,
-    bn.uuid,
-    NULL refURI
-  FROM
-    informea_documents a
-    INNER JOIN field_data_field_publication_plans b ON a.nid = b.entity_id
-    INNER JOIN node bn ON b.field_publication_plans_target_id = bn.nid AND bn.type = 'document'
-    GROUP BY bn.nid
-
-  UNION
-    SELECT
-    CONCAT('CountryReports-', a.nid, '-', bn.nid) id,
-    'CountryReports' `type`,
-    bn.uuid,
-    NULL refURI
-  FROM
-    informea_documents a
-    INNER JOIN field_data_field_publication_nat_report  b ON a.nid = b.entity_id
-    INNER JOIN node bn ON b.field_publication_nat_report_target_id = bn.nid AND bn.type = 'document'
-    GROUP BY bn.nid
+CREATE or replace VIEW `informea_documents_references`
+AS
+  select   concat('meeting-', `a`.`nid`, '-', `bn`.`nid`) AS `id`, 'meeting' AS `type`, `a`.`id` AS `document_id`,
+           NULL AS `refURI`
+  from     (  (  `cms`.`informea_documents` `a`
+    join
+    `cms`.`field_data_field_publication_meeting` `b`
+      on ((`a`.`nid` = `b`.`entity_id`)))
+    join
+    `cms`.`node` `bn`
+      on (((`b`.`field_publication_meeting_target_id` = `bn`.`nid`) and (`bn`.`type` = 'meeting'))))
+  group by `bn`.`nid`
+  union
+  select   concat('NationalPlans-', `a`.`nid`, '-', `bn`.`nid`) AS `id`, 'NationalPlans' AS `type`, `a`.`id` AS `document_id`,
+           NULL AS `refURI`
+  from     (  (  `cms`.`informea_documents` `a`
+    join
+    `cms`.`field_data_field_publication_plans` `b`
+      on ((`a`.`nid` = `b`.`entity_id`)))
+    join
+    `cms`.`node` `bn`
+      on (((`b`.`field_publication_plans_target_id` = `bn`.`nid`) and (`bn`.`type` = 'document'))))
+  group by `bn`.`nid`
+  union
+  select   concat('CountryReports-', `a`.`nid`, '-', `bn`.`nid`) AS `id`, 'CountryReports' AS `type`, `a`.`id` AS `document_id`,
+           NULL AS `refURI`
+  from     (  (  `cms`.`informea_documents` `a`
+    join
+    `cms`.`field_data_field_publication_nat_report` `b`
+      on ((`a`.`nid` = `b`.`entity_id`)))
+    join
+    `cms`.`node` `bn`
+      on (((`b`.`field_publication_nat_report_target_id` = `bn`.`nid`) and (`bn`.`type` = 'document'))))
+  group by `bn`.`nid`;
