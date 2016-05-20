@@ -26,6 +26,8 @@
 			ServiceInformation.countSites());
 	pageContext.setAttribute("countTreaties",
 			ServiceInformation.countTreaties());
+	pageContext.setAttribute("countDocuments",
+			ServiceInformation.countDocuments());
 %>
 <html>
 <head>
@@ -177,6 +179,17 @@
 					<td class="hidden-xs">
 						Applies only to Ramsar &amp; WHC sites
 					</td>
+				</tr>
+
+				<tr>
+					<td>Documents</td>
+					<td><c:if test="${countDocuments > 0}">${countDocuments}</c:if> <c:if test="${countDocuments == 0}">n/a</c:if></td>
+					<td>&nbsp; <c:if test="${countDocuments > 0}">
+						<a target="_blank" title="Click to see the entities. Open in new tab"
+						   href="informea.svc/Documents?$top=10&$skip=0">View first 10</a>
+					</c:if>
+					</td>
+					<td class="hidden-xs">&nbsp;</td>
 				</tr>
 			</tbody>
 		</table>

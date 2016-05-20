@@ -353,6 +353,276 @@ INSERT INTO `informea_decisions_title` VALUES ('1','2c776b76-57d3-4a46-a1be-c254
 UNLOCK TABLES;
 
 --
+-- Table structure for table `informea_documents`
+--
+
+DROP TABLE IF EXISTS `informea_documents`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `informea_documents` (
+  `schemaVersion` varchar(64) NOT NULL,
+  `id` varchar(64) NOT NULL DEFAULT '',
+  `published` timestamp NULL DEFAULT NULL,
+  `updated` timestamp NULL DEFAULT NULL,
+  `treaty` varchar(64) DEFAULT NULL,
+  `thumbnailUrl` varchar(255) DEFAULT NULL,
+  `displayOrder` int(11) DEFAULT NULL,
+  `country` char(2) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `informea_documents`
+--
+
+LOCK TABLES `informea_documents` WRITE;
+/*!40000 ALTER TABLE `informea_documents` DISABLE KEYS */;
+INSERT INTO `informea_documents` VALUES ('1','00cf041a-ac5b-4335-a4cf-0d5d9354015f','2008-10-02 09:34:56','2014-06-16 10:05:13','pacific-inslands-cetaceans','http://www.cms.int/sites/default/filespublication/gorilla_0_3_0_0.jpg',1,'RO'),('1','30d45d8f-5e9f-4c0d-8c04-c05cf4b0d82d','2015-09-01 21:00:00','2016-04-12 16:56:50','eurobats','http://www.cms.int/sites/default/filespublication/family guide_0_3_0_0.jpg',2,'DE'),('1','a18de716-1fbe-47f2-bd63-524ca9a1b7cd','2010-10-01 21:00:00','2015-08-05 15:51:11','sharks',NULL,0,NULL);
+/*!40000 ALTER TABLE `informea_documents` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `informea_documents_authors`
+--
+
+DROP TABLE IF EXISTS `informea_documents_authors`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `informea_documents_authors` (
+  `id` varchar(64) NOT NULL DEFAULT '',
+  `document_id` varchar(64) DEFAULT NULL,
+  `type` varchar(64) DEFAULT NULL,
+  `name` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `informea_documents_authors`
+--
+
+LOCK TABLES `informea_documents_authors` WRITE;
+/*!40000 ALTER TABLE `informea_documents_authors` DISABLE KEYS */;
+INSERT INTO `informea_documents_authors` VALUES ('1','00cf041a-ac5b-4335-a4cf-0d5d9354015f','person','Simba Chan (BirdLife International)'),('2','00cf041a-ac5b-4335-a4cf-0d5d9354015f','company','Fang Woei-horng (Chinese Wild Bird  Federation)'),('3','00cf041a-ac5b-4335-a4cf-0d5d9354015f',NULL,'Lee Ki-sup (Korea Institute of Environmental Ecology)'),('4','30d45d8f-5e9f-4c0d-8c04-c05cf4b0d82d',NULL,'Yasuhiro Yamada  (Wild Bird Society of Japan)');
+/*!40000 ALTER TABLE `informea_documents_authors` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `informea_documents_descriptions`
+--
+
+DROP TABLE IF EXISTS `informea_documents_descriptions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `informea_documents_descriptions` (
+  `id` varchar(64) NOT NULL DEFAULT '',
+  `document_id` varchar(64) DEFAULT NULL,
+  `language` varchar(64) DEFAULT NULL,
+  `value` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `informea_documents_descriptions`
+--
+
+LOCK TABLES `informea_documents_descriptions` WRITE;
+/*!40000 ALTER TABLE `informea_documents_descriptions` DISABLE KEYS */;
+INSERT INTO `informea_documents_descriptions` VALUES ('1','00cf041a-ac5b-4335-a4cf-0d5d9354015f','en','description1'),('2','00cf041a-ac5b-4335-a4cf-0d5d9354015f','fr','description2');
+/*!40000 ALTER TABLE `informea_documents_descriptions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `informea_documents_files`
+--
+
+DROP TABLE IF EXISTS `informea_documents_files`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `informea_documents_files` (
+  `id` varchar(64) NOT NULL DEFAULT '',
+  `document_id` varchar(64) DEFAULT NULL,
+  `url` varchar(256) DEFAULT NULL,
+  `content` varchar(64) DEFAULT NULL,
+  `mimeType` varchar(64) DEFAULT NULL,
+  `language` varchar(64) DEFAULT NULL,
+  `filename` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `informea_documents_files`
+--
+
+LOCK TABLES `informea_documents_files` WRITE;
+/*!40000 ALTER TABLE `informea_documents_files` DISABLE KEYS */;
+INSERT INTO `informea_documents_files` VALUES ('1','00cf041a-ac5b-4335-a4cf-0d5d9354015f','http://www.cms.int/sites/default/files/publication/ts17_Gorilla_E_3_0_0.pdf','content1','application/pdf','en','ts17_Gorilla_E_3_0_0.pdf'),('2','00cf041a-ac5b-4335-a4cf-0d5d9354015f','http://www.cms.int/sites/default/files/publication/Imprint_0_3_0_0.pdf','content2','application/pdf','en','Imprint_0_3_0_0.pdf'),('3','00cf041a-ac5b-4335-a4cf-0d5d9354015f','http://www.cms.int/sites/default/files/publication/Introduction_0_3_0_0.pdf','content3','application/pdf','en','Introduction_0_3_0_0.pdf');
+/*!40000 ALTER TABLE `informea_documents_files` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `informea_documents_identifiers`
+--
+
+DROP TABLE IF EXISTS `informea_documents_identifiers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `informea_documents_identifiers` (
+  `id` varchar(64) NOT NULL DEFAULT '',
+  `document_id` varchar(64) DEFAULT NULL,
+  `name` varchar(64) DEFAULT NULL,
+  `value` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `informea_documents_identifiers`
+--
+
+LOCK TABLES `informea_documents_identifiers` WRITE;
+/*!40000 ALTER TABLE `informea_documents_identifiers` DISABLE KEYS */;
+INSERT INTO `informea_documents_identifiers` VALUES ('1','00cf041a-ac5b-4335-a4cf-0d5d9354015f','name1','value1'),('2','00cf041a-ac5b-4335-a4cf-0d5d9354015f','name2','value2'),('3','00cf041a-ac5b-4335-a4cf-0d5d9354015f','name3','value3');
+/*!40000 ALTER TABLE `informea_documents_identifiers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `informea_documents_keywords`
+--
+
+DROP TABLE IF EXISTS `informea_documents_keywords`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `informea_documents_keywords` (
+  `id` varchar(64) NOT NULL DEFAULT '',
+  `document_id` varchar(64) DEFAULT NULL,
+  `termURI` varchar(255) DEFAULT NULL,
+  `scope` varchar(64) DEFAULT NULL,
+  `literalForm` varchar(64) DEFAULT NULL,
+  `sourceURL` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `informea_documents_keywords`
+--
+
+LOCK TABLES `informea_documents_keywords` WRITE;
+/*!40000 ALTER TABLE `informea_documents_keywords` DISABLE KEYS */;
+INSERT INTO `informea_documents_keywords` VALUES ('1','00cf041a-ac5b-4335-a4cf-0d5d9354015f','http://www.ramsar.org/taxonoomy/term/wetland-values','ramsar','Wetland values','http://odata/Term(\'uri1\')'),('2','00cf041a-ac5b-4335-a4cf-0d5d9354015f','http://www.ramsar.org/taxonoomy/term/urbanization','ramsar','Urbanization','http://odata/Term(\'uri2\')');
+/*!40000 ALTER TABLE `informea_documents_keywords` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `informea_documents_references`
+--
+
+DROP TABLE IF EXISTS `informea_documents_references`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `informea_documents_references` (
+  `id` varchar(64) NOT NULL DEFAULT '',
+  `type` varchar(64) DEFAULT NULL,
+  `document_id` varchar(64) DEFAULT NULL,
+  `refId` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `informea_documents_references`
+--
+
+LOCK TABLES `informea_documents_references` WRITE;
+/*!40000 ALTER TABLE `informea_documents_references` DISABLE KEYS */;
+INSERT INTO `informea_documents_references` VALUES ('1','meeting','00cf041a-ac5b-4335-a4cf-0d5d9354015f','5bdb02b0-debe-4689-852d-9d9a96fd63eb'),('2','decision','00cf041a-ac5b-4335-a4cf-0d5d9354015f','2c776b76-57d3-4a46-a1be-c254976a0ee2');
+/*!40000 ALTER TABLE `informea_documents_references` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `informea_documents_tags`
+--
+
+DROP TABLE IF EXISTS `informea_documents_tags`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `informea_documents_tags` (
+  `id` varchar(64) NOT NULL DEFAULT '',
+  `document_id` varchar(64) DEFAULT NULL,
+  `language` varchar(255) DEFAULT NULL,
+  `scope` varchar(64) DEFAULT NULL,
+  `value` varchar(64) DEFAULT NULL,
+  `comment` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `informea_documents_tags`
+--
+
+LOCK TABLES `informea_documents_tags` WRITE;
+/*!40000 ALTER TABLE `informea_documents_tags` DISABLE KEYS */;
+INSERT INTO `informea_documents_tags` VALUES ('1','00cf041a-ac5b-4335-a4cf-0d5d9354015f','en','ramsar','Wetland values','comment1'),('2','00cf041a-ac5b-4335-a4cf-0d5d9354015f','fr','ramsar','Urbanization','comment2');
+/*!40000 ALTER TABLE `informea_documents_tags` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `informea_documents_titles`
+--
+
+DROP TABLE IF EXISTS `informea_documents_titles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `informea_documents_titles` (
+  `id` varchar(64) NOT NULL DEFAULT '',
+  `document_id` varchar(64) DEFAULT NULL,
+  `language` varchar(64) DEFAULT NULL,
+  `value` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `informea_documents_titles`
+--
+
+LOCK TABLES `informea_documents_titles` WRITE;
+/*!40000 ALTER TABLE `informea_documents_titles` DISABLE KEYS */;
+INSERT INTO `informea_documents_titles` VALUES ('1','00cf041a-ac5b-4335-a4cf-0d5d9354015f','en','Safe Flyways for the Siberian Crane'),('2','00cf041a-ac5b-4335-a4cf-0d5d9354015f','fr','Bats around the world');
+/*!40000 ALTER TABLE `informea_documents_titles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `informea_documents_types`
+--
+
+DROP TABLE IF EXISTS `informea_documents_types`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `informea_documents_types` (
+  `id` varchar(64) NOT NULL DEFAULT '',
+  `document_id` varchar(64) DEFAULT NULL,
+  `value` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `informea_documents_types`
+--
+
+LOCK TABLES `informea_documents_types` WRITE;
+/*!40000 ALTER TABLE `informea_documents_types` DISABLE KEYS */;
+INSERT INTO `informea_documents_types` VALUES ('1','00cf041a-ac5b-4335-a4cf-0d5d9354015f','Technical Series'),('2','00cf041a-ac5b-4335-a4cf-0d5d9354015f','Publication'),('3','00cf041a-ac5b-4335-a4cf-0d5d9354015f','Leaflets & Brochures');
+/*!40000 ALTER TABLE `informea_documents_types` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `informea_meetings`
 --
 
@@ -593,4 +863,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-20 18:11:51
+-- Dump completed on 2016-05-20 23:50:00
