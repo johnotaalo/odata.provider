@@ -374,7 +374,7 @@ CREATE OR REPLACE DEFINER =`informea`@`localhost` SQL SECURITY DEFINER VIEW `inf
     inst.field_person_institution_value AS institution,
     dept.field_person_department_value AS department,
     t1.name AS `type`,
-    addr.field_address_value AS ADDRESS,
+    addr.field_address_value AS address,
     mail.field_person_email_email AS email,
     tel.field_contact_telephone_value AS phoneNumber,
     fax.field_contact_fax_value AS fax,
