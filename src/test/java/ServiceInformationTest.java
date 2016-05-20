@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Map;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
@@ -11,8 +12,15 @@ import org.junit.runners.BlockJUnit4ClassRunner;
 import edw.olingo.model.Meeting;
 import edw.olingo.service.ServiceInformation;
 
+import javax.persistence.Persistence;
+
 @RunWith(BlockJUnit4ClassRunner.class)
 public class ServiceInformationTest {
+
+	@Before
+	public void setUp() throws Exception {
+		ServiceInformation.PERSISTENCE_UNIT_NAME = AllTests.getPersistenceUnitName();
+	}
 
 	@Test
 	public void testCountEntities() {

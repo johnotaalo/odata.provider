@@ -143,8 +143,51 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.6</version>
 				<configuration>
-					<packagingExcludes>test.*.api.properties,**/persistence.xml</packagingExcludes>
+					<packagingExcludes>test.*.api.properties</packagingExcludes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<!-- execute SQLs with mvn sql:execute (to create and populate a test database)-->
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sql-maven-plugin</artifactId>
+				<version>1.5</version>
+				<dependencies>
+					<!-- include the JDBC driver dependency here -->
+					<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>5.1.6</version>
+					</dependency>
+				</dependencies>
+
+				<!-- test database configuration -->
+				<configuration>
+					<driver>com.mysql.jdbc.Driver</driver>
+					<url>jdbc:mysql://localhost/informea_odata_test?zeroDateTimeBehavior=convertToNull&amp;sessionVariables=optimizer_search_depth=0</url>
+					<username>jenkins</username>
+					<password>jenkins</password>
+					<!-- other parameters -->
+				</configuration>
+
+                <executions>
+					<execution>
+						<id>default-cli</id>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+						<!-- specific configuration for this execution -->
+						<configuration>
+							<!-- Include here the SQL scripts to create the DB, inject some test data -->
+							<autocommit>true</autocommit>
+							<fileset>
+								<basedir>${basedir}</basedir>
+								<includes>
+									<include>etc/test-prepare.sql</include>
+								</includes>
+							</fileset>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

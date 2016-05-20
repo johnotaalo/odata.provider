@@ -27,12 +27,11 @@ import edw.olingo.model.DecisionTitle;
 @RunWith(BlockJUnit4ClassRunner.class)
 public class DecisionsTest {
 
-	private static final String PERSISTENCE_UNIT_NAME = "persistence_unit";
 	private EntityManagerFactory factory;
 
 	@Before
 	public void setUp() throws Exception {
-		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		factory = Persistence.createEntityManagerFactory(AllTests.getPersistenceUnitName());
 	}
 
 	@Test
@@ -47,65 +46,78 @@ public class DecisionsTest {
 	@Test
 	public void testGetSingleDecision() throws Exception {
 		EntityManager em = factory.createEntityManager();
-		Decision row = em.find(Decision.class, "c8374b11-e53b-4743-a320-6c46dd93cd0e");
+		Decision row = em.find(Decision.class, "2c776b76-57d3-4a46-a1be-c254976a0ee2");
 
-		assertEquals("http://www.informea.org/node/68658", row.getLink());
-		assertEquals("decision", row.getType());
+		assertEquals("http://www.ramsar.org/node/31099", row.getLink());
+		assertEquals("resolution", row.getType());
 		assertEquals("active", row.getStatus());
-		assertEquals("SC-4/28", row.getNumber());
-		assertEquals("stockholm", row.getTreaty());
+		assertEquals("1234", row.getNumber());
+		assertEquals("ramsar", row.getTreaty());
 
-		Calendar c = new GregorianCalendar(2009, 9, 1, 7, 15, 3);
+		Calendar c = new GregorianCalendar(2015, 6, 3, 13, 45, 0);
 		assertEquals(c.getTime(), row.getPublished());
 
+		assertEquals("af2078a9-357d-4b12-8f44-fdd1e63ea63f", row.getMeetingId());
+
 		DecisionTitle title = row.getTitles().get(0);
-		assertEquals("Additional guidance to the financial mechanism", title.getTitle());
+		assertEquals("Doc.C.4.15", title.getTitle());
 		assertEquals("en", title.getLanguage());
+		title = row.getTitles().get(1);
+		assertEquals("Doc.C.4.14", title.getTitle());
+		assertEquals("fr", title.getLanguage());
 
-		/*
 		DecisionLongTitle longTitle = row.getLongTitles().get(0);
-		assertEquals("Orientación adicional al mecanismo financiero", longTitle.getLongTitle());
+		assertEquals("Annex to Doc.C.4.15", longTitle.getLongTitle());
 		assertEquals("en", longTitle.getLanguage());
-		*/
+		longTitle = row.getLongTitles().get(1);
+		assertEquals("Annex to Doc.C.4.14", longTitle.getLongTitle());
+		assertEquals("fr", longTitle.getLanguage());
 
-		assertEquals("693774bb-9045-4583-97ea-1afc2424cc36", row.getMeetingId());
+		assertEquals("af2078a9-357d-4b12-8f44-fdd1e63ea63f", row.getMeetingId());
 
-		assertEquals("Fourth Meeting of the Conference of the Parties to the Stockholm Convention", row.getMeetingTitle());
+		assertEquals("meeting1", row.getMeetingTitle());
 		assertEquals("http://chm.pops.int/linkclick.aspx?link=404&amp;amp;tabid=276&amp;amp;language=en-us", row.getMeetingUrl());
 
-		c = new GregorianCalendar(2015, 8, 3, 17, 36, 27);
+		c = new GregorianCalendar(2015, 11, 14, 19, 21, 55);
 		assertEquals(c.getTime(), row.getUpdated());
 
-		/* @todo
 		DecisionSummary summary = row.getSummaries().get(0);
-		assertEquals("<p><i>The Conference of the Parties </i></p>", summary.getSummary());
+		assertEquals("<p>Resolution on the Framework</p>", summary.getSummary());
 		assertEquals("en", summary.getLanguage());
+		summary = row.getSummaries().get(1);
+		assertEquals("<p>adoptées par la Convention sur la diversité biologique (CDB)", summary.getSummary());
+		assertEquals("fr", summary.getLanguage());
 
 		DecisionContent content = row.getContents().get(0);
-		assertEquals("<h1 align=\"center\"> Global Biodiversity Outlook </h1>", content.getContent());
+		assertEquals("<p>Resolution on the Framework for the implementation of the Convention and priorities for attention 1991-1993</p>", content.getContent());
 		assertEquals("en", content.getLanguage());
-		*/
+		content = row.getContents().get(1);
+		assertEquals("<p>adoptées par la Convention sur la diversité biologique (CDB), et leur pertinence pour la Convention de Ramsar</p>", content.getContent());
+		assertEquals("fr", content.getLanguage());
 
 		DecisionFile file = row.getFiles().get(0);
 		assertEquals("http://chm.pops.int/Portals/0/download.aspx?d=UNEP-POPS-COP.4-SC-4-28.Spanish.doc", file.getUrl());
 		assertEquals("application/msword", file.getMimeType());
 		assertEquals("en", file.getLanguage());
 		assertEquals("UNEP-POPS-COP.4-SC-4-28.Spanish.doc", file.getFilename());
+		file = row.getFiles().get(1);
+		assertEquals("http://chm.pops.int/Portals/0/download.aspx?d=UNEP-POPS-COP.4-SC-4-28.French.doc", file.getUrl());
+		assertEquals("application/msword", file.getMimeType());
+		assertEquals("fr", file.getLanguage());
+		assertEquals("UNEP-POPS-COP.4-SC-4-28.French.doc", file.getFilename());
 
-		/* @todo
 		List<DecisionKeyword> tags = row.getKeywords();
-		assertEquals(6, tags.size());
-
+		assertEquals(2, tags.size());
 		List<String> witness = Arrays.asList(
-				"Programme of Work (MEA Secretariat)",
-				"Sustainable Use and Wise Management",
-				"Integrated Ecosystems Management", "Mitigation",
-				"Forest Biodiversity", "Trade and Environment");
-
+				"Wetland values",
+				"Urbanization"
+		);
 		DecisionKeyword tag = tags.get(0);
-		assertEquals("InforMEA", tag.getNamespace());
+		assertEquals("http://www.ramsar.org/taxonoomy/term/", tag.getNamespace());
 		assertTrue(witness.contains(tag.getTerm()));
-		*/
+		tag = tags.get(1);
+		assertEquals("http://www.ramsar.org/taxonoomy/term/", tag.getNamespace());
+		assertTrue(witness.contains(tag.getTerm()));
 
 		em.close();
 	}
