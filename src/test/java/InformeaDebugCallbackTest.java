@@ -13,12 +13,9 @@ public class InformeaDebugCallbackTest {
 	@Test
 	public void testIsDebugEnabled() throws Exception {
 		InformeaDebugCallback ob = new InformeaDebugCallback();
-		assertFalse(ob.isDebugEnabled());
-
-		System.setProperty("odata.debug", "MALFORMED");
-		assertFalse(ob.isDebugEnabled());
-
-		System.setProperty("odata.debug", "true");
 		assertTrue(ob.isDebugEnabled());
+
+		System.setProperty("odata.debug.disabled", "true");
+		assertFalse(ob.isDebugEnabled());
 }
 }

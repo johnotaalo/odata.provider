@@ -4,6 +4,64 @@
 	<PersistenceUnit name="persistence_unit">
 		<EDMSchemaNamespace>informea</EDMSchemaNamespace>
 		<JPAEntityTypes>
+			<JPAEntityType name="Document">
+				<EDMEntityType>Document</EDMEntityType>
+				<EDMEntitySet>Documents</EDMEntitySet>
+
+				<JPAAttributes>
+					<JPAAttribute name="id">id</JPAAttribute>
+					<JPAAttribute name="thumbnailUrl">thumbnailUrl</JPAAttribute>
+					<JPAAttribute name="published">published</JPAAttribute>
+					<JPAAttribute name="updated">updated</JPAAttribute>
+					<JPAAttribute name="treaty">treaty</JPAAttribute>
+				</JPAAttributes>
+				<JPARelationships>
+					<JPARelationship name="authors">authors</JPARelationship>
+					<JPARelationship name="descriptions">descriptions</JPARelationship>
+					<JPARelationship name="files">files</JPARelationship>
+					<JPARelationship name="identifiers">identifier</JPARelationship>
+					<JPARelationship name="keywords">keywords</JPARelationship>
+					<JPARelationship name="references">referenceToEntities</JPARelationship>
+					<JPARelationship name="tags">tag</JPARelationship>
+					<JPARelationship name="titles">titles</JPARelationship>
+					<JPARelationship name="types">types</JPARelationship>
+				</JPARelationships>
+			</JPAEntityType>
+			
+			<JPAEntityType name="DocumentDescriptions">
+				<EDMEntityType>DocumentDescription</EDMEntityType>
+				<EDMEntitySet>DocumentDescriptions</EDMEntitySet>
+				<JPAAttributes>
+					<JPAAttribute name="id">id</JPAAttribute>
+					<JPAAttribute name="language">language</JPAAttribute>
+					<JPAAttribute name="value">value</JPAAttribute>
+				</JPAAttributes>
+				<JPARelationships></JPARelationships>
+			</JPAEntityType>
+
+			<JPAEntityType name="TreatyMachineName">
+				<EDMEntityType>TreatyMachineName</EDMEntityType>
+				<EDMEntitySet>TreatyMachineName</EDMEntitySet>
+				<JPAAttributes>
+					<JPAAttribute name="uuid">uuid</JPAAttribute>
+					<JPAAttribute name="nid">nid</JPAAttribute>
+					<JPAAttribute name="treaty">treaty</JPAAttribute>
+					<JPAAttribute name="title">title</JPAAttribute>
+				</JPAAttributes>
+				<JPARelationships></JPARelationships>
+			</JPAEntityType>
+
+			<JPAEntityType name="DocumentTitle">
+				<EDMEntityType>DocumentTitle</EDMEntityType>
+				<EDMEntitySet>DocumentTitles</EDMEntitySet>
+				<JPAAttributes>
+					<JPAAttribute name="id">id</JPAAttribute>
+					<JPAAttribute name="language">language</JPAAttribute>
+					<JPAAttribute name="value">value</JPAAttribute>
+				</JPAAttributes>
+				<JPARelationships></JPARelationships>
+			</JPAEntityType>
+
 			<JPAEntityType name="Treaty">
 				<EDMEntityType>Treaty</EDMEntityType>
 				<EDMEntitySet>Treaties</EDMEntitySet>

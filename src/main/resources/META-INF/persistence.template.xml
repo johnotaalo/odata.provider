@@ -33,6 +33,18 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
 					  transaction-type="RESOURCE_LOCAL">
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 
+		<class>edw.olingo.model.Document</class>
+		<class>edw.olingo.model.DocumentAuthor</class>
+		<class>edw.olingo.model.DocumentDescription</class>
+		<class>edw.olingo.model.DocumentFile</class>
+		<class>edw.olingo.model.DocumentIdentifier</class>
+		<class>edw.olingo.model.DocumentKeyword</class>
+		<class>edw.olingo.model.DocumentReference</class>
+		<class>edw.olingo.model.DocumentTag</class>
+		<class>edw.olingo.model.DocumentTitle</class>
+		<class>edw.olingo.model.DocumentType</class>
+		<class>edw.olingo.model.TreatyMachineName</class>
+
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url" value='jdbc:mysql://localhost/informea_odata_test?zeroDateTimeBehavior=convertToNull&amp;sessionVariables=optimizer_search_depth=0"' />

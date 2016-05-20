@@ -6,10 +6,13 @@ public class InformeaDebugCallback implements ODataDebugCallback {
 
 	@Override
 	public boolean isDebugEnabled() {
-		boolean debug = false;
+		boolean debug = true;
 		try {
-			String v = System.getProperty("odata.debug");
-			debug = Boolean.parseBoolean(v);
+			String v = System.getProperty("odata.debug.disabled");
+			Boolean disabled = Boolean.parseBoolean(v);
+			if (disabled == true) {
+				debug = false;
+			}
 		} catch (Exception e) {
 		}
 		return debug;
