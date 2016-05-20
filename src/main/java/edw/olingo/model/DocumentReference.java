@@ -20,7 +20,7 @@ public class DocumentReference {
     private Document document;
 
     private String type;
-    private String refURI;
+    private String refId;
 
     public String getId() {
         return id;
@@ -34,7 +34,7 @@ public class DocumentReference {
         return type;
     }
 
-    public String getRefURI() {
-        return refURI;
+    public String getRefId() {
+        return refId;
     }
 }

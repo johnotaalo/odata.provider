@@ -16,7 +16,7 @@ public class Document {
     @Column(name="id")
     private String id;
 
-    private String displayOrder;
+    private Integer displayOrder;
     private String schemaVersion;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date published;
@@ -25,7 +25,6 @@ public class Document {
 //    private String treaty;
     private String thumbnailUrl;
     private String country;
-    private String nid;
 
     @OneToMany(mappedBy = "document", cascade = CascadeType.ALL)
     private List<DocumentAuthor> authors = new ArrayList<>();
@@ -64,7 +63,7 @@ public class Document {
         return id;
     }
 
-    public String getDisplayOrder() {
+    public Integer getDisplayOrder() {
         return displayOrder;
     }
 
@@ -94,10 +93,6 @@ public class Document {
 
     public String getCountry() {
         return country;
-    }
-
-    public String getNid() {
-        return nid;
     }
 
     public List<DocumentDescription> getDescriptions() {
