@@ -40,44 +40,52 @@ public class MeetingsTest {
 	@Test
 	public void testGetSingleMeeting() throws Exception {
 		EntityManager em = factory.createEntityManager();
-		Meeting row = em.find(Meeting.class, "e6c7a14f-abfc-46e9-9041-7f25c90dd95b");
+		Meeting row = em.find(Meeting.class, "af2078a9-357d-4b12-8f44-fdd1e63ea63f");
 
-		assertEquals("cbd", row.getTreaty());
-		assertEquals("http://www.cbd.int/doc/meetings/tk/wg8j-01/", row.getUrl());
+		assertEquals("ramsar", row.getTreaty());
+		assertEquals("http://www.ramsar.org/node/23897", row.getUrl());
 
-		Calendar c = new GregorianCalendar(2000, 02, 26, 22, 0, 0);
+		Calendar c = new GregorianCalendar(2015, 4, 31, 22, 0, 0);
 		assertEquals(c.getTime(), row.getStart());
 
-		c = new GregorianCalendar(2000, 02, 26, 22, 0, 0);
+		c = new GregorianCalendar(2015, 5, 8, 22, 0, 0);
 		assertEquals(c.getTime(), row.getEnd());
 
-		// assertEquals("yearly", row.getRepetition());
-		assertEquals("official", row.getKind());
-		assertEquals("working", row.getType());
-		// assertEquals("invitation", row.getAccess());
-		assertEquals("nodate", row.getStatus());
+		assertEquals("repetition", row.getRepetition());
+		assertEquals("kind", row.getKind());
+		assertEquals("cop", row.getType());
+		assertEquals("access", row.getAccess());
+		assertEquals("status", row.getStatus());
+		assertEquals("url1", row.getImageUrl());
+		assertEquals("copy1", row.getImageCopyright());
+		assertEquals("Punta del Este, Uruguay", row.getLocation());
+		assertEquals("city", row.getCity());
+		assertEquals("UY", row.getCountry());
+		assertEquals(new Double(23.230000000), row.getLatitude());
+		assertEquals(new Double(33.440000000), row.getLongitude());
 
-		// assertEquals("http://placehold.it/128x128.png", row.getImageUrl());
-		// assertEquals("image copyright text", row.getImageCopyright());
-
-		assertEquals("Seville, Spain", row.getLocation());
-		assertEquals("Seville", row.getCity());
-		assertEquals("ES", row.getCountry());
-		assertEquals(new Double(37.382640000), row.getLatitude());
-		assertEquals(new Double(-5.996295000), row.getLongitude());
-
-		c = new GregorianCalendar(2013, 2, 25, 15, 38, 20);
+		c = new GregorianCalendar(2016, 0, 14, 18, 26, 59);
 		assertEquals(c.getTime(), row.getUpdated());
 
-		/* @todo
 		MeetingDescription description = row.getDescriptions().get(0);
-		assertEquals("Sample description of COP 5", description.getDescription());
-		assertEquals("en", description.getLanguage));
-		*/
+		assertEquals("<p>The 12th Meeting of the Conference of the Contracting Parties to the Ramsar Convention on Wetlands (COP12)</p>", description.getDescription());
+		assertEquals("en", description.getLanguage());
+		description = row.getDescriptions().get(1);
+		assertEquals("<p>La 12ª Reunión de la Conferencia de las Partes Contratantes de la Convención de Ramsar sobre los Humedales (COP12)</p>", description.getDescription());
+		assertEquals("es", description.getLanguage());
+		description = row.getDescriptions().get(2);
+		assertEquals("<p>La 12e Session de la Conférence des Parties contractantes à la Convention de Ramsar sur les zones humides (COP12)</p>", description.getDescription());
+		assertEquals("fr", description.getLanguage());
 
 		MeetingTitle title = row.getTitles().get(0);
-		assertEquals("First Meeting of the Ad Hoc Open-Ended Inter-Sessional Working Group on Article 8(j)", title.getTitle());
+		assertEquals("12th Meeting of the Conference of the Parties", title.getTitle());
 		assertEquals("en", title.getLanguage());
+		title = row.getTitles().get(1);
+		assertEquals("12ª Reunión de la Conferencia de las Partes", title.getTitle());
+		assertEquals("es", title.getLanguage());
+		title = row.getTitles().get(2);
+		assertEquals("12e Session de la Conférence des Parties", title.getTitle());
+		assertEquals("fr", title.getLanguage());
 
 		em.close();
 	}

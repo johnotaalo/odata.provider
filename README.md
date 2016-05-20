@@ -57,11 +57,9 @@ Build from source
 Testing
 =================
 
-Testing should be done on a different database, configured as "persistence_unit_test" in the persistence.xml file. The same database should be configured in the _test database configuration_ section of the pom.xml file.
+To run tests:
 
-The tests need specific data to run. To populate the test DB before the actual tests run
-
-```
-mvn sql:execute test
-```
-
+1. Create a database called `informea_odata_test`
+2. Edit _persistence.xml_ and configure the connection details for _persistence_unit_test_ at the bottom of the page
+3. Edit the pom.xml and configure database connection in the _test database configuration_ section 
+4. Execute the tests with ```mvn sql:execute test```

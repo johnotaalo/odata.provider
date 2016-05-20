@@ -1,5 +1,5 @@
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
@@ -42,32 +42,34 @@ public class ContactsTest {
 	@Test
 	public void testGetSingleContact() throws Exception {
 		EntityManager em = factory.createEntityManager();
-		Contact row = em.find(Contact.class, "d2f69287-f5fd-4b8b-a349-aff673ce3f7a");
-
-		assertEquals("GB", row.getCountry());
+		Contact row = em.find(Contact.class, "471d81c2-4a22-4574-9fd1-0341797ec6de");
+		assertNotNull(row);
+		assertEquals("AL", row.getCountry());
 		assertEquals("Mr.", row.getPrefix());
-		assertEquals("Panayiotis", row.getFirstName());
-		assertEquals("Pashas", row.getLastName());
-		assertEquals("DIO Planning Manager/Chief Engineer, Competent Authority for BFC", row.getPosition());
-		assertEquals("Defence Infrastructure Organisation (DIO)", row.getInstitution());
-		assertEquals("DIO HQ (Cyprus)", row.getDepartment());
-		assertEquals("Competent Authority", row.getType());
-		assertEquals("“B” Block\r\nBFPO 53 Episkopi", row.getAddress());
+		assertEquals("John", row.getFirstName());
+		assertEquals("Doe", row.getLastName());
+		assertEquals("Director", row.getPosition());
+		assertEquals("Biodiversity Directorate", row.getInstitution());
+		assertEquals("department 1", row.getDepartment());
+		assertEquals("Primary", row.getType());
+		assertEquals("address 1", row.getAddress());
 
-		assertTrue(row.getEmail().contains("Panayiotis"));
-		assertNull(row.getPhoneNumber());
+		assertTrue(row.getEmail().contains("email1@moe.gov.al"));
+		assertEquals("+4 224 3578", row.getPhoneNumber());
 
-		assertTrue(row.getFax().contains("357"));
-		assertEquals(0, row.getPrimary());
+		assertTrue(row.getFax().contains("+355"));
+		assertEquals(1, row.getPrimary());
 
 
 		List<ContactTreaty> treaties = row.getTreaties();
-		assertEquals(1, treaties.size());
+		assertEquals(2, treaties.size());
 
 		ContactTreaty treaty = treaties.get(0);
-		assertEquals("basel", treaty.getTreaty());
+		assertEquals("cites", treaty.getTreaty());
+		treaty = treaties.get(1);
+		assertEquals("cms", treaty.getTreaty());
 
-		Calendar c = new GregorianCalendar(2014, 11, 18, 15, 40, 43);
+		Calendar c = new GregorianCalendar(2016, 2, 29, 20, 21, 54);
 		assertEquals(c.getTime(), row.getUpdated());
 
 		em.close();

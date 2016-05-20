@@ -16,6 +16,7 @@ import org.junit.runners.BlockJUnit4ClassRunner;
 
 import edw.olingo.model.Contact;
 import edw.olingo.model.CountryReport;
+import edw.olingo.model.CountryReportFile;
 import edw.olingo.model.CountryReportTitle;
 
 @RunWith(BlockJUnit4ClassRunner.class)
@@ -40,23 +41,39 @@ public class CountryReportsTest {
 	@Test
 	public void testGetSingleCountryReport() throws Exception {
 		EntityManager em = factory.createEntityManager();
-		CountryReport row = em.find(CountryReport.class, "ca6654f2-fe8d-4daf-949f-96baf297e2e7");
+		CountryReport row = em.find(CountryReport.class, "96e420cc-fb81-426b-a0e1-4571c255a5d0");
 
-		assertEquals("KE", row.getCountry());
-		assertEquals("cartagena", row.getTreaty());
-		assertEquals("http://www.cbd.int/doc/world/ke/ke-nr-cpb-01-en.pdf", row.getUrl());
+		assertEquals("AL", row.getCountry());
+		assertEquals("ramsar", row.getTreaty());
+		assertEquals("http://www.ramsar.org/node/14398", row.getUrl());
 
 		List<CountryReportTitle> titles = row.getTitles();
 		CountryReportTitle title = titles.get(0);
-		assertEquals("First National Report (2007)", title.getTitle());
+		assertEquals("COP11 National Reports: Albania - Section 4", title.getTitle());
 		assertEquals("en", title.getLanguage());
 
-		Calendar c = new GregorianCalendar(2007, 8, 10, 22, 0, 0);
+		title = titles.get(1);
+		assertEquals("Rapports nationaux COP11 : Algérie", title.getTitle());
+		assertEquals("fr", title.getLanguage());
+
+		Calendar c = new GregorianCalendar(2012, 0, 1, 0, 0, 0);
 		assertEquals(c.getTime(), row.getSubmission());
 
-		c = new GregorianCalendar(2015, 05, 16, 20, 52, 22);
+		c = new GregorianCalendar(2015, 04, 27, 11, 07, 01);
 		assertEquals(c.getTime(), row.getUpdated());
 
+		List<CountryReportFile> files = row.getFiles();
+		CountryReportFile file = files.get(0);
+		assertEquals("http://www.ramsar.org/sites/default/files/documents/pdf/cop10/cop10_nr_antigua.pdf", file.getUrl());
+		assertEquals("application/pdf", file.getMimeType());
+		assertEquals("en", file.getLanguage());
+		assertEquals("cop10_nr_antigua.pdf", file.getFilename());
+		file = files.get(1);
+		assertEquals("http://www.ramsar.org/sites/default/files/documents/pdf/cop10/cop10_nr_algeria.pdf", file.getUrl());
+		assertEquals("application/pdf", file.getMimeType());
+		assertEquals("fr", file.getLanguage());
+		assertEquals("cop10_nr_algeria.pdf", file.getFilename());
+		
 		em.close();
 	}
 }

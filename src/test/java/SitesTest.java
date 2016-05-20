@@ -39,22 +39,28 @@ public class SitesTest {
 	@Test
 	public void testGetSingleSite() throws Exception {
 		EntityManager em = factory.createEntityManager();
-		Site row = em.find(Site.class, "c81755d2-8f69-4f09-b448-5d62de9bf005");
+		Site row = em.find(Site.class, "4cbc51ee-1b32-49eb-bbf0-6c7b15d33f0f");
 
-		assertEquals("IT", row.getCountry());
+		assertEquals("AT", row.getCountry());
 		assertEquals("whc", row.getTreaty());
 		assertEquals("whc", row.getType());
-		assertEquals("http://whc.unesco.org/en/list/1487", row.getUrl());
-		assertEquals(new Double(38.110800000), row.getLatitude());
-		assertEquals(new Double(13.353100000), row.getLongitude());
+		assertEquals("http://whc.unesco.org/en/list/1363", row.getUrl());
+		assertEquals(new Double(47.278333333), row.getLatitude());
+		assertEquals(new Double(8.207500000), row.getLongitude());
 
 		List<SiteName> names = row.getNames();
-		assertEquals(2, names.size());
+		assertEquals(3, names.size());
 		SiteName name = names.get(0);
-		assertEquals("Arab-Norman Palermo and the Cathedral Churches of Cefalú and Monreale", name.getName());
+		assertEquals("Prehistoric Pile dwellings around the Alps", name.getName());
 		assertEquals("en", name.getLanguage());
+		name = names.get(1);
+		assertEquals("Kluane / Wrangell-St Elias / Glacier Bay / Tatshenshini-Alsek", name.getName());
+		assertEquals("es", name.getLanguage());
+		name = names.get(2);
+		assertEquals("Jesuit Missions of the Guaranis Missoes (Brazil)", name.getName());
+		assertEquals("fr", name.getLanguage());
 
-		GregorianCalendar c = new GregorianCalendar(2015, 7, 31, 8, 43, 16);
+		GregorianCalendar c = new GregorianCalendar(2012, 4, 14, 14, 4, 45);
 		assertEquals(c.getTime(), row.getUpdated());
 
 		em.close();
