@@ -20,12 +20,11 @@ import edw.olingo.model.NationalPlanTitle;
 @RunWith(BlockJUnit4ClassRunner.class)
 public class NationalPlansTest {
 
-	private static final String PERSISTENCE_UNIT_NAME = "persistence_unit";
 	private EntityManagerFactory factory;
 
 	@Before
 	public void setUp() throws Exception {
-		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		factory = Persistence.createEntityManagerFactory(AllTests.getPersistenceUnitName());
 	}
 
 	@Test
@@ -40,22 +39,28 @@ public class NationalPlansTest {
 	@Test
 	public void testGetSingleNationalPlan() throws Exception {
 		EntityManager em = factory.createEntityManager();
-		NationalPlan row = em.find(NationalPlan.class, "5e991a41-123e-47a1-bd02-3524435baf9c");
+		NationalPlan row = em.find(NationalPlan.class, "4298e0ab-c687-4cbe-b849-f3a16d63284e");
 
-		assertEquals("cbd", row.getTreaty());
-		assertEquals("VE", row.getCountry());
-		assertEquals("nbsap", row.getType());
+		assertEquals("stockholm", row.getTreaty());
+		assertEquals("AL", row.getCountry());
 		assertEquals("http://www.cbd.int/doc/world/ve/ve-nbsap-01-es.pdf", row.getUrl());
+		assertEquals("nip", row.getType());
 
 		List<NationalPlanTitle> titles = row.getTitles();
 		NationalPlanTitle title = titles.get(0);
-		assertEquals("Venezuela (Bolivarian Republic of) - NBSAP v.1 (2001)", title.getTitle());
+		assertEquals("Plan National de Mise en oeuvre – Convention de Stockholm", title.getTitle());
+		assertEquals("fr", title.getLanguage());
+		title = titles.get(1);
+		assertEquals("Plan nacional de Aplicación del Convenio de Estocolmo", title.getTitle());
+		assertEquals("es", title.getLanguage());
+		title = titles.get(2);
+		assertEquals("NATIONAL IMPLEMENTATION PLAN (NIP) FOR POLLUTANTS (POPs)", title.getTitle());
 		assertEquals("en", title.getLanguage());
 
-		Calendar c = new GregorianCalendar(2014, 05, 01, 22, 0, 0);
+		Calendar c = new GregorianCalendar(2007, 1, 12, 1, 0, 0);
 		assertEquals(c.getTime(), row.getSubmission());
 
-		c = new GregorianCalendar(2015, 05, 16, 10, 41, 15);
+		c = new GregorianCalendar(2015, 3, 22, 12, 21, 43);
 		assertEquals(c.getTime(), row.getUpdated());
 
 		em.close();
