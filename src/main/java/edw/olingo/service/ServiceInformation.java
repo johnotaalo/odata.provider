@@ -19,8 +19,8 @@ public class ServiceInformation {
 
 	public static final String UPDATE_URL = "http://www.informea.org/api.properties";
 	public static final int VERSION_MAJOR = 2;
-	public static final int VERSION_MINOR = 2;
-	public static final int VERSION_REVISION = 4;
+	public static final int VERSION_MINOR = 3;
+	public static final int VERSION_REVISION = 0;
 	public static final boolean VERSION_BETA = false;
 
 	public static String PERSISTENCE_UNIT_NAME = "persistence_unit";

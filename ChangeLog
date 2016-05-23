@@ -2,13 +2,39 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.3.0] - 2016-03-14
+- [FEATURE] Implemented the document schema
+
+## [2.2.4] - 2016-03-14
+- [BUG] Added JDBC connection tweaking to fix issue with MySQL infinite loop in query optimizer on complex views
+- [FEATURE] persistence.xml was moved to persistence.template.xml to avoid overriding when updating the toolkit
+
+
+## [2.2.2] - 2015-09-26
+- [FEATURE] Added support for Treaty entity
+- [FEATURE] Added SQLServer JDBC drivers to read the views/data from MS SQL server
+- [UPDATE] Updated Apache Olingo to 2.0.5
+- [BUG] Fixed test failing due to dataset changes, also the test dataset has been reviewed
+- [BUG] Fixed to default sample SQL views
+
+
+## [2.1.2] - 2015-08-27
+- [BUG] Fixed issue with listing to retrieve only the first 10 records for WHC/Ramsar sites
+- [BUG] Fixed version numbering in the ServiceInformation class
+
+## [2.1.1] - 2015-08-26
+### Changed
+- [FEATURE] The entity listing links is filtering only the first 10 records to avoid overloading the service
+- [FEATURE] Fixed few visual issues for mobile
+- [BUG] Cleanup some texts
+
+
 ## [2.1.0] - 2015-08-24
 ### Changed
-- Added support for national reports & national action plans files
+- [FEATURE] Added support for national reports & national action plans files
   (NationalPlanFile, CountryReportFile)
 
 ## [2.0.0] - 2015-02-19
 ### Changed
-- Complete rewrite that uses Olingo OData library with JPA 
-  and EclipseLink to pull the data
+- Complete rewrite that uses Olingo OData library with JPA and EclipseLink to pull the data
 
