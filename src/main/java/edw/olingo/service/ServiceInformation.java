@@ -87,6 +87,10 @@ public class ServiceInformation {
 		return ServiceInformation.countEntities(Treaty.class);
 	}
 
+	public static long countDocuments() {
+		return ServiceInformation.countEntities(Document.class);
+	}
+
 	public static Map<String, Object> checkProductUpdates() {
 		return checkProductUpdates(UPDATE_URL);
 	}
