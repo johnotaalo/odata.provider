@@ -49,7 +49,7 @@ public class DocumentTest {
         c = new GregorianCalendar(2014, 5, 16, 13, 5, 13);
 		assertEquals(c.getTime(), row.getUpdated());
 
-		assertEquals("pacific-inslands-cetaceans", row.getTreaty());
+		assertEquals("cms", row.getTreaty());
 		assertEquals("http://www.cms.int/sites/default/filespublication/gorilla_0_3_0_0.jpg", row.getThumbnailUrl());
 		assertEquals(new Integer(1), row.getDisplayOrder());
 		assertEquals("RO", row.getCountry());
