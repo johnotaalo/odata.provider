@@ -378,7 +378,7 @@ CREATE TABLE `informea_documents` (
 
 LOCK TABLES `informea_documents` WRITE;
 /*!40000 ALTER TABLE `informea_documents` DISABLE KEYS */;
-INSERT INTO `informea_documents` VALUES ('1','00cf041a-ac5b-4335-a4cf-0d5d9354015f','2008-10-02 09:34:56','2014-06-16 10:05:13','cms','http://www.cms.int/sites/default/filespublication/gorilla_0_3_0_0.jpg',1,'RO'),('1','30d45d8f-5e9f-4c0d-8c04-c05cf4b0d82d','2015-09-01 21:00:00','2016-04-12 16:56:50','eurobats','http://www.cms.int/sites/default/filespublication/family guide_0_3_0_0.jpg',2,'DE'),('1','a18de716-1fbe-47f2-bd63-524ca9a1b7cd','2010-10-01 21:00:00','2015-08-05 15:51:11','sharks',NULL,0,NULL);
+INSERT INTO `informea_documents` VALUES ('1','00cf041a-ac5b-4335-a4cf-0d5d9354015f','2008-10-02 09:34:56','2014-06-16 10:05:13','cms','http://www.cms.int/sites/default/files/publication/gorilla_0_3_0_0.jpg',1,'RO'),('1','30d45d8f-5e9f-4c0d-8c04-c05cf4b0d82d','2015-09-01 21:00:00','2016-04-12 16:56:50','eurobats','http://www.cms.int/sites/default/files/publication/family guide_0_3_0_0.jpg',2,'DE'),('1','a18de716-1fbe-47f2-bd63-524ca9a1b7cd','2010-10-01 21:00:00','2015-08-05 15:51:11','sharks',NULL,0,NULL);
 /*!40000 ALTER TABLE `informea_documents` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -513,7 +513,7 @@ CREATE TABLE `informea_documents_keywords` (
 
 LOCK TABLES `informea_documents_keywords` WRITE;
 /*!40000 ALTER TABLE `informea_documents_keywords` DISABLE KEYS */;
-INSERT INTO `informea_documents_keywords` VALUES ('1','00cf041a-ac5b-4335-a4cf-0d5d9354015f','http://www.ramsar.org/taxonoomy/term/wetland-values','ramsar','Wetland values','http://odata/Term(\'uri1\')'),('2','00cf041a-ac5b-4335-a4cf-0d5d9354015f','http://www.ramsar.org/taxonoomy/term/urbanization','ramsar','Urbanization','http://odata/Term(\'uri2\')');
+INSERT INTO `informea_documents_keywords` VALUES ('1','00cf041a-ac5b-4335-a4cf-0d5d9354015f','http://www.ramsar.org/taxonoomy/term/wetland-values','ramsar','acceptance','http://odata/Term(\'uri1\')'),('2','00cf041a-ac5b-4335-a4cf-0d5d9354015f','http://www.ramsar.org/taxonoomy/term/urbanization','ramsar','access right','http://odata/Term(\'uri2\')');
 /*!40000 ALTER TABLE `informea_documents_keywords` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -863,4 +863,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-25 17:18:43
+-- Dump completed on 2016-05-25 18:58:52

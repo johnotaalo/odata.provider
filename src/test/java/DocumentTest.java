@@ -100,7 +100,7 @@ public class DocumentTest {
         DocumentKeyword kw = keywords.get(0);
         assertEquals("http://www.ramsar.org/taxonoomy/term/wetland-values", kw.getTermURI());
         assertEquals("ramsar", kw.getScope());
-        assertEquals("Wetland values", kw.getLiteralForm());
+        assertEquals("access right", kw.getLiteralForm());
         assertEquals("http://odata/Term('uri1')", kw.getSourceURL());
 
         List<DocumentReference> references = row.getReferences();
