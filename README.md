@@ -23,7 +23,7 @@ Binary installation
 
 * Configure the database views
 
-> * visit http://www.informea.org/api on how to do that 
+> * see doc/ directory for deployment guidelines
 > * src/test/sql/clean.sql has sample data.
 
 * Deploy the WAR package into Tomcat.
